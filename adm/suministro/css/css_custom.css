@@ -1,0 +1,22 @@
+.resalta{
+    font-weight: bold;
+}
+.boldred{
+    color: red;
+    font-weight:bold;
+}
+.boldblue{
+    color: blue;
+    font-weight:bold;
+}
+.no-visible{
+    display: none;
+}
+#lay_out_solicitudesx tbody tr:hover{
+    background-color: #CADBFF;
+    -webkit-transition: background 1s; /* For Safari 3.1 to 6.0 */
+    transition: background 0.5s;
+}
+table.DataTable {
+  border-collapse: collapse;
+}
