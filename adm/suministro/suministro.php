@@ -264,8 +264,8 @@ class suministro extends conect
             $resultado = $sql->execute();
             return $resultado;
         }else{
-            $sql = $this->_db->prepare("INSERT INTO adm_almacen_valesalida (folio_vale,encargado_almacen,fecha_firma_encargado, visto_bueno, fecha_firma_vobo, observacion)
-                                    VALUES ('$folio_vale','$encargado_almacen',NOW(),'$visto_bueno',NOW(),'$observacion')");
+            $sql = $this->_db->prepare("INSERT INTO adm_almacen_valesalida (folio_vale,encargado_almacen,fecha_firma_encargado, visto_bueno, fecha_firma_vobo, observacion,status_vale)
+                                    VALUES ('$folio_vale','$encargado_almacen',NOW(),'$visto_bueno',NOW(),'$observacion',1)");
             $resultado = $sql->execute();
             return $resultado;
         }
@@ -276,12 +276,14 @@ class suministro extends conect
         
         $sql3 = $this->_db->prepare("UPDATE adm_pedido  SET cantidad_surtir = '$cantidad_surtir' WHERE id_pedido = '$id_pedido'");
         $sql4 = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (cantidad_surtida, folio_vale, id_pedido, fecha) VALUES ('$cantidad_surtir', $folio_vale, $id_pedido, NOW())");
+        $sql5 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail SET aprobado = 1 WHERE folio_vale = $folio_vale");
         
         if($update_almacen == "si"){
             $resultado1 = $sql1->execute();
             $resultado2 = $sql2->execute();
             $resultado4 = $sql4->execute();
-            $request = $resultado1*$resultado2*$resultado4;
+            $resultado5 = $sql5->execute();
+            $request = $resultado1*$resultado2*$resultado4*$resultado5;
         }elseif($update_almacen == "no"){
             $resultado3 = $sql3->execute();
             $resultado4 = $sql4->execute();

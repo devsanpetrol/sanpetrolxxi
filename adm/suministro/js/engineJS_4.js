@@ -342,14 +342,13 @@ function imprimir(){
     var folio_vale = $("#folio_pase_salida").text();
     windows.open("print_vale_salida.php?folio_vale="+folio_vale); 
 }
-function envia(){ //lo activas con un OnClick
+function envia(){
     var folio_vale = $("#folio_pase_salida").text();
-	var cod = $("#idarti").val(); //el input que contiene el dato se llama idarti
-        $.post('print_vale_salida.php', { folio_vale: folio_vale }, function (result) {
-            WinId = window.open('', 'newwin', 'width=800,height=500');//resolucion de la ventana
-            WinId.document.open();
-            WinId.document.write(result);
-            WinId.document.close();
-        });
+    $.post('print_vale_salida.php', { folio_vale: folio_vale }, function (result) {
+        WinId = window.open('', 'newwin', 'width=800,height=500');//resolucion de la ventana
+        WinId.document.open();
+        WinId.document.write(result);
+        WinId.document.close();
+    });
 }
 

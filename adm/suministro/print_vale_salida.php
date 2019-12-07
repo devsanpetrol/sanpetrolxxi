@@ -32,6 +32,13 @@
       <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet">
       <meta name="company" content="Microsoft Corporation" />
       <link href="css/print_pase_salida.css" rel="stylesheet" type="text/css">
+      <script>
+        window.onload=function() {
+            window.resizeTo(screen.availWidth, screen.availHeight);
+            window.moveTo(0,0); 
+            window.print();
+        };
+      </script>
   </head>
   <body>
     <table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0">
