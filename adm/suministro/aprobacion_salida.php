@@ -121,16 +121,7 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link"><i class="icon-drawer-out"></i> Mis solicitudes enviadas</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="icon-box"></i> A entregar</a>
-                        </li>
-                    </ul>
-                    <div class="form-group-feedback form-group-feedback-right" id="busqueda_costom">
-                        <input type="search" class="form-control" placeholder="Buscar...">
-                        <div class="form-control-feedback">
-                            <button type="button" class="btn icon-search4 font-size-base text-muted"></button>
-                        </div>
-                    </div>  
+                    </ul> 
                 </div>
                 
             </div>            
@@ -141,11 +132,12 @@
                     <!-- Table -->
                     <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
                         <table class="table table-inbox" id="lay_out_solicitudesx" cellspacing="0" width="100%">
-                            <thead style="display: none">
+                            <thead>
                                 <tr>
-                                  <th>Folio</th> <!-- 0 -->
-                                  <th>Materiales solicitados</th> <!-- 3 -->
-                                  <th>Fecha</th> <!-- 4 -->
+                                    <th class="table-inbox-attachment text-center">Revisado</th> <!-- 4 -->
+                                    <th class="table-inbox-name">Folio</th> <!-- 0 -->
+                                    <th class="table-inbox-message">Materiales solicitados</th> <!-- 3 -->
+                                    <th class="table-inbox-time">Fecha</th> <!-- 4 -->
                                 </tr>
                             </thead>
                             <tbody data-link="row" class="rowlink">
@@ -156,12 +148,12 @@
                 </div>
                 <!-- /single line -->
                 <!-- Invoice archive -->
-                <div class="col-lg-12 display-pedidos">
+                <div class="col-lg-12 display-pedidos" id="panel_autoizacion_salida" style="display: none;">
                     <div class="card border-left-3 border-left-danger rounded-left-0">
                         <div class="card-header bg-white header-elements-sm-inline">
                             <h6 class="card-title"></h6>
                             <div class="header-elements">Folio:
-                                <span class="badge badge-danger ml-3" id="folio_pase_salida"></span>
+                                <span class="badge badge-danger ml-3" onclick="envia()" style="cursor: pointer;" id="folio_pase_salida"></span>
                             </div>
                         </div>
                         <div class="card-body">
@@ -187,7 +179,6 @@
                                     <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" readonly id="firma_almacenista" data-idempleado="">
                                     <div class="d-block form-text text-center">
                                         <span class="badge">Encargado Almacen</span>
-                                        <i class="icon-checkmark-circle text-success" id="firma_almacenista_check"></i>
                                     </div>
                                     <div class="form-control-feedback">
                                         <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" disabled>
@@ -201,7 +192,6 @@
                                     <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" readonly data-idempleado="" data-tokenid="salida_almacen_vobo_1" id="firma_vobo">
                                     <div class="d-block form-text text-center">
                                         <span class="badge">Vo. Bo.</span>
-                                        <i class="icon-checkmark-circle text-success" id="firma_vobo_check" style="display: none;"></i>
                                     </div>
                                     <div class="form-control-feedback">
                                         <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" id="id_firma_vobo" onclick="firma_almacen('firma_vobo')">

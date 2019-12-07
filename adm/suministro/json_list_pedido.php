@@ -3,7 +3,7 @@
     
     $folio = $_POST['folio'];
     $suministro = new suministro();
-    $pedidos = $suministro->get_partida_detail($folio);
+    $pedidos = $suministro->get_partida_detail2($folio);
     $fecha_actual = substr($suministro->get_now()[0]['fecha_actual'], 0, 11);
     $data = array();
     

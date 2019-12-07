@@ -19,13 +19,17 @@ $(document).ready( function () {
         createdRow: function ( row, data, index ) {
             $("#total_pedidos_mostrado").text(index+1);
             $(row).attr('id',data['folio']);
-            $(row).addClass('unread');
+            if(data['status_vale'] ==  '0'){
+                $(row).addClass('unread');
+            }
             $(row).data('scroll');
-            $('td', row).eq(0).addClass('table-inbox-name');
+            $('td', row).eq(0).addClass('table-inbox-attachment');
             $('td', row).eq(1).addClass('table-inbox-message');
-            $('td', row).eq(2).addClass('table-inbox-time');
+            $('td', row).eq(2).addClass('table-inbox-name');
+            $('td', row).eq(3).addClass('table-inbox-time');
         },
         columns: [
+            {data : 'revisado'},
             {data : 'star'},
             {data : 'pedidos'},
             {data : 'fecha'}
@@ -62,27 +66,26 @@ $(document).ready( function () {
         $("#"+id).removeClass("ocultatodo");
         if ($("#"+id).hasClass('sel-item')){
             $("#"+id).removeClass("sel-item");
-            $("#lay_out_solicitudesx").slideDown();
             $('html, body').animate({
                 scrollTop: $("#content_table_pedidos_list").data("scroll")
             }, 200);
             var t = $('#lay_out_solicitudesx').DataTable();
             t.draw( false );
+            $("#panel_autoizacion_salida").slideUp();
+            $("#lay_out_solicitudesx").slideDown();
         }else{
-            $("#lay_out_solicitudesx").slideUp();
-            
+            $("#lay_out_solicitudesx").slideUp();//panel_autoizacion_salida
             $("#content_table_pedidos_list").data("scroll",$("html").scrollTop());
             $("#"+id).addClass("sel-item");
             setTimeout(function() {
+                $("#panel_autoizacion_salida").slideDown();
                 detalle_vale_salida(id);
                 setPedidos(id);
             }, 500);
         }
         $("#tools_menu_select").toggle("fast");
         $("#tools_menu_regresa").data("idrow",id);
-        $(".ocultatodo").toggle("fast");
-        $(".ocultatodo").removeClass("ocultatodo");
-        
+                
         return false;
     } );
     
@@ -172,11 +175,7 @@ function setPedidos(folio){
                 ] ).draw( false );
             });
             var options = {
-                text: "Completado!",
-                addclass: 'bg-success border-success',
-                type: 'info',
-                icon: 'icon-checkmark4',
-                delay: 1000,
+                delay: 500,
                 hide: true,
                 buttons: {
                     closer: true,
@@ -186,7 +185,15 @@ function setPedidos(folio){
             notice.update(options);
         },
         error: function (obj) {
-            alert(obj.msg);
+        var options = {
+                text: obj.msg,
+                addclass: 'bg-danger border-danger',
+                type: 'info',
+                icon: 'icon-close2',
+                delay: 1000,
+                hide: true
+            };
+            notice.update(options);
         }
     });
 }
@@ -241,11 +248,11 @@ function log_autentic(){
     }
  }
  function guarda_cambios(){
-    var aut = $("#firma_vobo").data("idempleado");
-    var td = $('#dt_for_vobo').DataTable();
-    
+    var visto_bueno = $("#firma_vobo").data("idempleado");
+    var td  = $('#dt_for_vobo').DataTable();
+    guarda_firma_vobo();
     var notice = new PNotify();
-    if (aut != ""){
+    if (visto_bueno != ""){
         $(".custom-control-input").each(function(){
            var id_pedido = $(this).data("idpedido");
            var cod_articulo = $(this).data("codarticulo");
@@ -259,7 +266,7 @@ function log_autentic(){
                beforeSend: function (xhr) {
                     td.clear().draw();
                     var options = {
-                        text: "Recopilando información...",
+                        text: "Enviando...",
                         addclass: 'bg-primary border-primary',
                         type: 'info',
                         icon: 'icon-spinner4 spinner',
@@ -268,9 +275,10 @@ function log_autentic(){
                     notice.update(options);
                 },
                success:(function(res){
-                   if(res.result == "exito"){
+                   if(res[0].result == "exito"){
+                       
                         var options = {
-                            text: "Enviado con exito!",
+                            text: "Completado",
                             addclass: 'bg-success border-success',
                             type: 'info',
                             icon: 'icon-checkmark4',
@@ -283,15 +291,15 @@ function log_autentic(){
                         };
                         notice.update(options);
                    }else{
-                       var options = {
-                        text: "Ocurrio un error al procesar la información",
-                        addclass: 'bg-danger border-danger',
-                        type: 'info',
-                        icon: 'icon-close2',
-                        delay: 1000,
-                        hide: true
-                    };
-                    notice.update(options);
+                        var options = {
+                            text: "Ocurrio un error al procesar la información",
+                            addclass: 'bg-danger border-danger',
+                            type: 'info',
+                            icon: 'icon-close2',
+                            delay: 1000,
+                            hide: true
+                        };
+                        notice.update(options);
                    }
                }),
                complete: (function () {
@@ -311,4 +319,37 @@ function log_autentic(){
         notice.update(options);
     }
  }
+ function guarda_firma_vobo(){
+    var visto_bueno = $("#firma_vobo").data("idempleado");
+    var folio_vale  = $("#folio_pase_salida").text(); 
+    $.ajax({
+        data:{folio_vale:folio_vale,visto_bueno:visto_bueno},
+        url: 'json_update_pase_salida_firma_vobo.php',
+        type: 'POST',
+        success: function (obj) {
+            if(obj[0].result == "exito"){
+                console.log("Firma guardada");
+            }else{
+                console.log("Error al guardar firma: " + obj[0].result);
+            }
+        },
+        error: function (obj) {
+            console.log(obj.msg);
+        }
+    });
+}
+function imprimir(){
+    var folio_vale = $("#folio_pase_salida").text();
+    windows.open("print_vale_salida.php?folio_vale="+folio_vale); 
+}
+function envia(){ //lo activas con un OnClick
+    var folio_vale = $("#folio_pase_salida").text();
+	var cod = $("#idarti").val(); //el input que contiene el dato se llama idarti
+        $.post('print_vale_salida.php', { folio_vale: folio_vale }, function (result) {
+            WinId = window.open('', 'newwin', 'width=800,height=500');//resolucion de la ventana
+            WinId.document.open();
+            WinId.document.write(result);
+            WinId.document.close();
+        });
+}
 

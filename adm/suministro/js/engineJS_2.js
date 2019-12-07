@@ -330,18 +330,57 @@ function agrega_pase(id_pedido){
     var encargado_almacen = $("#firma_almacenista").data("idempleado");
     var visto_bueno       = $("#firma_vobo").data("idempleado");
     var observacion       = $('#vale_observacion').val();
-    
+    var notice = new PNotify();
     $.ajax({
         data:{folio_vale:folio_vale, encargado_almacen:encargado_almacen, visto_bueno:visto_bueno, observacion:observacion},
         url: 'json_insertValeSalida.php',
         type: 'POST',
+        beforeSend: function (xhr) {
+            var options = {
+                text: "Enviando...",
+                addclass: 'bg-primary border-primary',
+                type: 'info',
+                icon: 'icon-spinner4 spinner',
+                hide: false
+            };
+            notice.update(options);
+        },
         success:(function(res){
             if(res.result == "exito"){
                 guarda_elemento_vale_salida(folio_vale,visto_bueno);
+                var options = {
+                        text: "Completado",
+                        addclass: 'bg-success border-success',
+                        type: 'info',
+                        icon: 'icon-checkmark4',
+                        delay: 1000,
+                        hide: true,
+                        buttons: {
+                            closer: true,
+                            sticker: false
+                        }
+                    };
+                    notice.update(options);
             }else if(res.result == "falla_guardado"){
-                console.log("Guarda Salida: Ocurrión un error al guardar los datos");
+                var options = {
+                        text: "Ocurrión un error al guardar los datos",
+                        addclass: 'bg-danger border-danger',
+                        type: 'info',
+                        icon: 'icon-close2',
+                        delay: 1000,
+                        hide: true
+                    };
+                    notice.update(options);
             }else if(res.result == "falla_recepcion_dato"){
-                console.log("Guarda Salida: La informacion enviada no es valida");
+                var options = {
+                        text: "La informacion enviada no es valida",
+                        addclass: 'bg-danger border-danger',
+                        type: 'info',
+                        icon: 'icon-close2',
+                        delay: 1000,
+                        hide: true
+                    };
+                    notice.update(options);
             }
         }),
         complete:(function(){

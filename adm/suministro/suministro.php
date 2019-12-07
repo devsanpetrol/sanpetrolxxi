@@ -115,7 +115,7 @@ class suministro extends conect
     }
     //==========================================================================
     public function get_solicitud_aprobacion(){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_salida_almacen_all ORDER BY adm_view_salida_almacen_all.folio_vale ASC");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_salida_almacen_all ORDER BY adm_view_salida_almacen_all.folio_vale DESC");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -166,6 +166,13 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_partida_detail2($folio){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_pedido_detail
+                                    WHERE adm_view_pedido_detail.folio = $folio order by adm_view_pedido_detail.id_pedido desc");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function get_partida_detail($folio_vale){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_para_firma_vobo
                                     WHERE adm_view_para_firma_vobo.folio_vale = $folio_vale ORDER BY adm_view_para_firma_vobo.folio_vale ASC");
@@ -176,6 +183,13 @@ class suministro extends conect
     public function detalle_folio_salida($folio_vale){//adm_view_para_firma_vobo
         $sql = $this->_db->prepare("SELECT * FROM adm_view_para_firma_vobo
                                     WHERE adm_view_para_firma_vobo.folio_vale = $folio_vale");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function detalle_folio_salida_imprimir($folio_vale){//adm_view_para_firma_vobo
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_para_firma_vobo
+                                    WHERE adm_view_para_firma_vobo.folio_vale = $folio_vale AND adm_view_para_firma_vobo.aprobado = 1");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -295,6 +309,11 @@ class suministro extends conect
         $resultado2 = $sql2->execute();
         $request = $resultado1*$resultado2;
         return $request;
+    }
+    function set_update_firma_vobo($folio_vale, $visto_bueno){
+        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET visto_bueno = $visto_bueno, fecha_firma_vobo = NOW(), status_vale = 1 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");
+        $resultado1 = $sql1->execute();
+        return $resultado1;
     }
     public function aut_encargado_almacen($usuario, $password, $tokenid){
         $sql = $this->_db->prepare("SELECT id_empleado FROM adm_login WHERE adm_login.usuario = '$usuario' AND adm_login.pass = '$password' AND adm_login.estado = 1 LIMIT 1");

@@ -17,7 +17,9 @@
         $data[] = array("star" => $star,
                         "pedidos" => pedido($folio),
                         "fecha" => $m." ".$d,
-                        "folio" => $folio
+                        "revisado" => revisado($valor['status_vale']),
+                        "folio" => $folio,
+                        "status_vale" => $valor['status_vale']
                         );
     }
     
@@ -31,7 +33,8 @@
                 $destino = $valor['destino'];
                 $articulo = $valor['articulo'];
                 $justificacion = $valor['justificacion'];
-                array_push($lista," <span class='table-inbox-subject'>($cantidad $unidad) $articulo &nbsp;-&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span>");
+                $aprobado = aprobado($valor['aprobado']);
+                array_push($lista," <span class='table-inbox-subject'>$aprobado ($cantidad $unidad) $articulo &nbsp;-&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span>");
             }
         $todos = implode("</br>", $lista);
         return $todos;
@@ -40,6 +43,26 @@
         $suministro = new suministro();
         $pedidos = $suministro->get_pedidos_count($folio);
         return $pedidos[0]['c'];
+    }
+    function revisado($status_vale){
+        if($status_vale == 1){
+            return "<div class='d-block form-text text-center'>
+                        <i class='icon-clipboard2'></i>
+                    </div>";
+        }else if($status_vale == 0){
+            return "<div class='d-block form-text text-center'>
+                        <i class='icon-clipboard'></i>
+                    </div>";
+        }
+    }
+    function aprobado($aprobado){//icon-clipboard
+        if($aprobado == 1){
+            return "<i class='icon-checkmark2 text-success-800'></i>";
+        }else if($aprobado == 2){
+            return "<i class='icon-cross text-danger-800'></i>";
+        }else{
+            return "";
+        }
     }
     header('Content-Type: application/json');
     echo json_encode($data);
