@@ -292,11 +292,14 @@ class suministro extends conect
         
         return $request;
     }
-    function set_update_salida_aprobado($id_pedido,$cod_articulo, $cantidad_surtir,$id_valesalida_pedido){
+    function set_update_salida_aprobado($id_pedido,$cod_articulo, $cantidad_surtir,$cantidad_cancelado,$id_valesalida_pedido){
         $sql1 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.cantidad_apartado = (adm_pedido.cantidad_apartado - $cantidad_surtir), adm_pedido.cantidad_entregado = (adm_pedido.cantidad_entregado + $cantidad_surtir), cantidad_surtir = 0 WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
         $sql2 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock - $cantidad_surtir) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
-        $sql3 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET aprobado = 1 WHERE id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
-        
+        if($cantidad_cancelado > 0){
+            $sql3 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_surtida = $cantidad_surtir, cantidad_cancelado = $cantidad_cancelado, aprobado = 3 WHERE id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
+        }else{
+            $sql3 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET aprobado = 1 WHERE id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
+        }
         $resultado1 = $sql1->execute();
         $resultado2 = $sql2->execute();
         $resultado3 = $sql3->execute();
@@ -305,7 +308,7 @@ class suministro extends conect
     }
     function set_update_salida_no_aprovado($id_pedido, $id_valesalida_pedido){
         $sql1 = $this->_db->prepare("UPDATE adm_pedido SET cantidad_surtir = 0 WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
-        $sql2 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET aprobado = 2 WHERE id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_cancelado = cantidad_surtida, cantidad_surtida = 0, aprobado = 2 WHERE id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
         
         $resultado1 = $sql1->execute();
         $resultado2 = $sql2->execute();

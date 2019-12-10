@@ -82,25 +82,6 @@
 
             <!-- Content area -->
             <div class="content">
-            <!-- Bottom right menu -->
-            <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="click" id="tools_menu_select" style="display: none;">
-                <li>
-                    <button type="button" class="fab-menu-btn btn btn-success btn-float rounded-round btn-icon">
-                        <i class="fab-icon-open icon-plus3"></i>
-                        <i class="fab-icon-close icon-cross2"></i>
-                    </button>
-                    <ul class="fab-menu-inner">
-                        <li>
-                            <div data-fab-label="Regresar">
-                                <a class="btn btn-light rounded-round btn-icon btn-float" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
-                                    <i class="icon-undo2"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- /bottom right menu -->
             <!-- Filter toolbar -->
             <div class="navbar navbar-expand-lg navbar-light navbar-component rounded">
                 <div class="text-center d-lg-none w-100">
@@ -132,12 +113,14 @@
                     <!-- Table -->
                     <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
                         <table class="table table-inbox" id="lay_out_solicitudesx" cellspacing="0" width="100%">
+                            <col width="8%">
+                            <col width="8%">
+                            <col width="84%">
                             <thead>
                                 <tr>
-                                    <th class="table-inbox-attachment text-center">Revisado</th> <!-- 4 -->
-                                    <th class="table-inbox-name">Folio</th> <!-- 0 -->
-                                    <th class="table-inbox-message">Materiales solicitados</th> <!-- 3 -->
-                                    <th class="table-inbox-time">Fecha</th> <!-- 4 -->
+                                    <th class="table-inbox-time text-center">Revisado</th>
+                                    <th class="table-inbox-time text-center">Fecha</th>
+                                    <th class="table-inbox-message">Materiales solicitados</th>
                                 </tr>
                             </thead>
                             <tbody data-link="row" class="rowlink">
@@ -147,32 +130,54 @@
                     <!-- /table -->
                 </div>
                 <!-- /single line -->
-                <!-- Invoice archive -->
-                <div class="col-lg-12 display-pedidos" id="panel_autoizacion_salida" style="display: none;">
-                    <div class="card border-left-3 border-left-danger rounded-left-0">
-                        <div class="card-header bg-white header-elements-sm-inline">
+                <!-- Bottom tabs -->
+                <div class="card" id="panel_autoizacion_salida" style="display: none;">
+                    <div class="card-header bg-white pb-0 pt-sm-0 pr-sm-0 header-elements-sm-inline">
+                        <h6 class="card-title"></h6>
+                        <div class="header-elements">
                             <h6 class="card-title"></h6>
-                            <div class="header-elements">Folio:
-                                <span class="badge badge-danger ml-3" onclick="envia()" style="cursor: pointer;" id="folio_pase_salida"></span>
+                            <div class="header-elements">
+                                <ul class="nav nav-tabs nav-tabs-bottom card-header-tabs mx-0">
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                            <i class="icon-menu7 mr-2"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a tabindex="-1" class="dropdown-item" data-toggle="tab" onclick="envia()" data-folio="" id="folio_pase_salida">
+                                                <i class="icon-printer"></i>
+                                                Imprimir
+                                            </a>
+                                            <a tabindex="-1" class="dropdown-item" data-toggle="tab" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
+                                                <i class="icon-x text-danger"></i>
+                                                Salir
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <table class="table table-responsive-sm table-xs dt-responsive" id="dt_for_vobo" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>Cantidad</th>
-                                        <th>Unidad</th>
-                                        <th>Articulo</th>
-                                        <th>Destino</th>
-                                        <th>Justificación</th>
-                                        <th>Autorizar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-sm table-xs dt-responsive" id="dt_for_vobo" width="100%">
+                            <col width="6%">
+                            <col width="4%">
+                            <col width="30%">
+                            <col width="30%">
+                            <col width="30%">
+                            <thead>
+                                <tr>
+                                    <th>Cantidad</th>
+                                    <th>Autorizar</th>
+                                    <th>Articulo</th>
+                                    <th>Destino</th>
+                                    <th>Justificación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer align-items-center">
                         <div class="row w-100">
                             <div class="col-sm-3 form-group">
                                 <div class="form-group-feedback form-group-feedback-right">
@@ -202,20 +207,19 @@
                             </div>
                             <div class="col-sm-4 form-group">
                                 <div class="form-group-feedback form-group-feedback-right">
-                                    </div>
+                                </div>
                                 <textarea rows="1" cols="3" class="form-control form-control-sm font-weight-semibold text-blue-800" id="vale_observacion" maxlength="200" readonly></textarea>
-                                    <div class="d-block form-text text-justify">
-                                        <span class="badge">Observación</span>
+                                <div class="d-block form-text text-justify">
+                                    <span class="badge">Observación</span>
                                 </div>
                             </div>
                             <div class="col-sm-2 form-group text-right">
                                 <button type="button" class="btn btn-success btn-sm" data-aprobado="" id="btn_envia_guarda_valesalida" onclick="guarda_cambios()">Enviar</button>
                             </div>
-                            </div>
-                    </div>
+                        </div>
                     </div>
                 </div>
-                <!-- /invoice archive -->
+                <!-- /bottom tabs -->
             </div>
             <!-- /right content -->
             </div>

@@ -7,11 +7,12 @@
         $id_pedido       = $_POST['id_pedido'];
         $cod_articulo    = $_POST['cod_articulo'];
         $cantidad_surtir = $_POST['cantidad_surtir'];
+        $cantidad_cancelado = $_POST['cantidad_cancelado'];
         $status          = $_POST['status'];
         $id_valesalida_pedido = $_POST['id_valesalida_pedido'];
         
         if ($status == "si"){
-            $set_update_salida_aprobado = $suministro->set_update_salida_aprobado($id_pedido, $cod_articulo, $cantidad_surtir, $id_valesalida_pedido);
+            $set_update_salida_aprobado = $suministro->set_update_salida_aprobado($id_pedido, $cod_articulo, $cantidad_surtir, $cantidad_cancelado, $id_valesalida_pedido);
             if($set_update_salida_aprobado){
                 $data[] = array("result" => 'exito');
             }else{

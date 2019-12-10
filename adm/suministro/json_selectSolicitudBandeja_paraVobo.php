@@ -15,10 +15,11 @@
         $foto = "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/placeholder.jpg' class='rounded-circle' width='32' height='32' alt=''><span class='badge badge-danger badge-pill badge-float border-2 border-white'>$contar</span></a>";
         
         $data[] = array("star" => $star,
-                        "pedidos" => pedido($folio),
+                        "pedidos" => "<span class='badge bg-slate-300'>#$folio</span></br>".pedido($folio),
                         "fecha" => $m." ".$d,
                         "revisado" => revisado($valor['status_vale']),
                         "folio" => $folio,
+                        "justificacion" => $folio,
                         "status_vale" => $valor['status_vale']
                         );
     }
@@ -34,7 +35,7 @@
                 $articulo = $valor['articulo'];
                 $justificacion = $valor['justificacion'];
                 $aprobado = aprobado($valor['aprobado']);
-                array_push($lista," <span class='table-inbox-subject'>$aprobado ($cantidad $unidad) $articulo &nbsp;-&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span>");
+                array_push($lista," <span class='table-inbox-subject'>$aprobado ($cantidad $unidad) $articulo &nbsp;&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span>");
             }
         $todos = implode("</br>", $lista);
         return $todos;
@@ -61,7 +62,7 @@
         }else if($aprobado == 2){
             return "<i class='icon-cross text-danger-800'></i>";
         }else{
-            return "";
+            return "<span class='badge badge-mark bg-info-400 border-info-400'></span>";
         }
     }
     header('Content-Type: application/json');
