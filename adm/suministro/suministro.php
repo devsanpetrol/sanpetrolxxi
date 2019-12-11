@@ -114,8 +114,8 @@ class suministro extends conect
         return $resultado;
     }
     //==========================================================================
-    public function get_solicitud_aprobacion(){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_salida_almacen_all ORDER BY adm_view_salida_almacen_all.folio_vale DESC");
+    public function get_solicitud_aprobacion($filtro = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_salida_almacen_all $filtro ORDER BY adm_view_salida_almacen_all.folio_vale DESC");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

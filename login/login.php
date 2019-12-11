@@ -49,7 +49,7 @@
                                <span class="font-weight-semibold">Error!</span> Usuario o contraseña no valido
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn bg-danger-800 btn-block" onclick="get_login_acces()">Entrar <i class="icon-circle-right2 ml-2"></i></button>
+                                <button type="button" class="btn bg-teal btn-block" onclick="get_login_acces()">Entrar <i class="icon-circle-right2 ml-2"></i></button>
                             </div>
                         </div>
                     </div>

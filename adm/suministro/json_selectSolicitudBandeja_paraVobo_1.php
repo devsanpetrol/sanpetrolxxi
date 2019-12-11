@@ -2,7 +2,7 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $filtro = filtro("todo");
+    $filtro = filtro("no_revisado");
     $categorias = $suministro->get_solicitud_aprobacion($filtro);
     $data = array();
     

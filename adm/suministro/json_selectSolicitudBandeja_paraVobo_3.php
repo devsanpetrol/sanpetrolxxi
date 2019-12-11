@@ -2,7 +2,7 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $filtro = filtro("todo");
+    $filtro = filtro("no_autorizado");
     $categorias = $suministro->get_solicitud_aprobacion($filtro);
     $data = array();
     
@@ -15,19 +15,22 @@
         $star = "<a href='#'>#$folio</a>";
         $foto = "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/placeholder.jpg' class='rounded-circle' width='32' height='32' alt=''><span class='badge badge-danger badge-pill badge-float border-2 border-white'>$contar</span></a>";
         
+        $pedido_filtro = pedido($folio);
+        if(!empty($pedido_filtro)){
         $data[] = array("star" => $star,
-                        "pedidos" => pedido($folio),
+                        "pedidos" => $pedido_filtro,
                         "fecha" => $m." ".$d,
                         "revisado" => revisado($valor['status_vale']),
                         "folio" => $folio,
                         "justificacion" => $folio,
                         "status_vale" => $valor['status_vale']
                         );
+        }
     }
     
     function pedido($folio){
         $suministro = new suministro();
-        $pedidos = $suministro->get_pedidos_salida($folio);
+        $pedidos = $suministro->get_pedidos_salida($folio," AND aprobado = 2 ");
         $lista = array();
         foreach($pedidos as $valor){
                 $cantidad = $valor['cantidad_surtida'];
@@ -72,6 +75,8 @@
         }else if($filtro == "no_revisado"){
             return "WHERE status_vale = 0";
         }else if($filtro == "si_revisado"){
+            return "WHERE status_vale = 1";
+        }elseif ($filtro == "no_autorizado") {
             return "WHERE status_vale = 1";
         }
     }

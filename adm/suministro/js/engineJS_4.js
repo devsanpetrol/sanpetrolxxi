@@ -1,7 +1,5 @@
 $(document).ready( function () {
     $("body").addClass("sidebar-xs");
-    var t = $('#dt_for_vobo').DataTable();
-    t.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
         searching: false,
@@ -28,11 +26,13 @@ $(document).ready( function () {
             $('td', row).eq(0).addClass('table-inbox-time text-center');
             $('td', row).eq(1).addClass('table-inbox-time text-center');
             $('td', row).eq(2).addClass('table-inbox-message');
+            $('td', row).eq(3).addClass('table-inbox-time text-center');
         },
         columns: [
             {data : 'revisado'},
             {data : 'fecha'},
-            {data : 'pedidos'}
+            {data : 'pedidos'},
+            {data : 'folio'}
         ],
         language: {
             zeroRecords: "Ningun elemento seleccionado"
@@ -233,7 +233,7 @@ function setPedidos(folio){
             notice.update(options);
         },
         complete: (function () {
-            t.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
+            //t.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
         })
     });
 }
@@ -392,5 +392,33 @@ function envia(){
         WinId.document.write(result);
         WinId.document.close();
     });
+}
+function ver_todo(){
+    var table = $('#lay_out_solicitudesx').DataTable();
+    $("#panel_autoizacion_salida").slideUp();
+    $("#lay_out_solicitudesx").slideDown();
+    table.ajax.url("json_selectSolicitudBandeja_paraVobo.php").load;
+    table.ajax.reload();
+}
+function ver_no_revisado(){
+    var table = $('#lay_out_solicitudesx').DataTable();
+    $("#panel_autoizacion_salida").slideUp();
+    $("#lay_out_solicitudesx").slideDown();
+    table.ajax.url("json_selectSolicitudBandeja_paraVobo_1.php").load;
+    table.ajax.reload();
+}
+function ver_si_revisado(){
+    var table = $('#lay_out_solicitudesx').DataTable();
+    $("#panel_autoizacion_salida").slideUp();
+    $("#lay_out_solicitudesx").slideDown();
+    table.ajax.url("json_selectSolicitudBandeja_paraVobo_2.php").load;
+    table.ajax.reload();
+}
+function ver_no_autorizado(){
+    var table = $('#lay_out_solicitudesx').DataTable();
+    $("#panel_autoizacion_salida").slideUp();
+    $("#lay_out_solicitudesx").slideDown();
+    table.ajax.url("json_selectSolicitudBandeja_paraVobo_3.php").load;
+    table.ajax.reload();
 }
 
