@@ -34,8 +34,6 @@ $(document).ready( function () {
         bDestroy: true,
         paging: false,
         processing: true,
-        serverSide: true,
-        serverMethod: 'post',
         dom: '<"datatable-scroll-wrap"t><"datatable-footer"i>',
         ajax: {
             url: "json_selectAlmacenSalida.php",
@@ -44,7 +42,8 @@ $(document).ready( function () {
             }
         },
         columns: [
-            {data : 'fecha_solicitud'},
+            
+            {data : 'auto'},
             {data : 'articulo'},
             {data : 'folio'},
             {data : 'id_pedido'},
@@ -52,24 +51,24 @@ $(document).ready( function () {
             {data : 'destino'},
             {data : 'cantidad_solicitud'},
             {data : 'cantidad_apartado'},
-            {data : 'cantidad_entregado'},
-            {data : 'cantidad_compra'},
+            //{data : 'cantidad_entregado'},
             {data : 'grado_requerimiento'},
-            {data : 'accion'}
+            {data : 'accion'},
+            {data : 'fecha_solicitud'}
         ],
         columnDefs: [
-            {targets: 0,width: '20%'},
-            {targets: 1,width: '22%'},
-            {targets: 2,visible: false,searchable: true},
+            {targets: 0,width: '5%'},
+            {targets: 1,width: '31%'},
+            {targets: 2,visible: false},
             {targets: 3,visible: false,searchable: false},
             {targets: 4,visible: false,searchable: false},
             {targets: 5,width: '22%'},
             {targets: 6,width: '7%',className:'text-center'},
             {targets: 7,width: '7%',className:'text-center'},
-            {targets: 8,width: '7%',className:'text-center'},
-            {targets: 9,width: '7%',className:'text-center'},
-            {targets: 10,visible: false,searchable: false},
-            {targets: 11,width: '8%',className:'text-center'}
+            //{targets: 8,width: '7%',className:'text-center'},
+            {targets: 8,visible: false,searchable: false},
+            {targets: 9,width: '8%',className:'text-center'},
+            {targets: 10,width: '20%'}
         ],
         language: {
             info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
@@ -92,7 +91,7 @@ $(document).ready( function () {
     $('.FechaFolio').on( 'change paste keyup', function () {
     var table = $('#datatable_almacen_salida').DataTable();
     table
-        .columns( 0 )
+        .columns( 10 )
         .search( this.value )
         .draw();
     } );
@@ -323,7 +322,7 @@ function agrega_pase(id_pedido){
         resetear_tabla_surtir();
         $(".card-pedidos-xsurtir").slideDown();
         var t = $('#datatable_almacen_salida').DataTable();
-        t.draw();
+        t.ajax.reload();
     }
  }
  function guarda_vale_salida(folio_vale){
@@ -387,7 +386,7 @@ function agrega_pase(id_pedido){
             resetear_tabla_surtir();
             $(".card-pedidos-xsurtir").slideDown();
             var t = $('#datatable_almacen_salida').DataTable();
-            t.draw();
+            t.ajax.reload();
         })
     });
  }

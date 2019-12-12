@@ -15,7 +15,7 @@
                         "cod_articulo" => $valor["cod_articulo"],
                         "articulo" => articulo($valor["articulo"]),
                         "destino" => destino($valor["destino"]),
-                        "autorizacion" => autorizacion($valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad_surtida"],$id_valesalida_pedido,$valor["aprobado"]),
+                        "autorizacion" => autorizacion($valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad_surtida"],$id_valesalida_pedido,$valor["aprobado"],$valor["cantidad_cancelado"]),
                         "justificacion" => justificacion($valor["justificacion"]));
     }
     function cantidad_surtir($id_valesalida_pedido, $cantidad_surtida,$aprobado,$unidad){
@@ -45,7 +45,7 @@
     function justificacion($justificacion){
         return "<h6 class='mb-0 font-size-sm text-slate-700'>$justificacion</h6>";
     }
-    function autorizacion($id_pedido,$cod_articulo,$cantidad_surtida,$id_valesalida_pedido,$aprobado){
+    function autorizacion($id_pedido,$cod_articulo,$cantidad_surtida,$id_valesalida_pedido,$aprobado,$cantidad_cancelado){
         if( $aprobado == 1 ){
             return "<div class='d-block form-text text-center'>
                         <i class='icon-checkmark-circle text-success'></i>
@@ -53,6 +53,11 @@
         }else if( $aprobado == 2 ){
             return "<div class='d-block form-text text-center'>
                         <i class='icon-cross text-danger-800'></i>
+                    </div>";
+        }else if( $aprobado == 3 ){
+            return "<div class='d-block form-text text-center'>
+                        <i class='icon-checkmark-circle text-success'></i>
+                        <i class='icon-info22 text-primary' title='Se canceló ( $cantidad_cancelado ) unidad(es)'></i>
                     </div>";
         }else if( $aprobado == 0 ){
             return "<div class='custom-control custom-control-right custom-checkbox custom-control-inline'>

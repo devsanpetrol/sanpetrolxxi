@@ -58,7 +58,7 @@
         }
     }
     function aprobado($aprobado){//icon-clipboard
-        if($aprobado == 1){
+        if($aprobado == 1 || $aprobado == 3){
             return "<i class='icon-checkmark2 text-success-800'></i>";
         }else if($aprobado == 2){
             return "<i class='icon-cross text-danger-800'></i>";

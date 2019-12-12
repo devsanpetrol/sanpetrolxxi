@@ -19,7 +19,8 @@
                         "cantidad_apartado" => cantidad_entregada($valor['cantidad_apartado'],$valor['unidad']),
                         "cantidad_compra" => cantidad_compra($valor['cantidad_compra'],$valor['unidad']),
                         "destino" => destino($valor['id_pedido'],$valor['destino_detail'],$valor['tipo_destino']),
-                        "accion" => accion($valor['id_pedido'])
+                        "accion" => accion($valor['id_pedido']),
+                        "auto" => autorizacion2($valor['id_pedido'])
                         );
         
     }
@@ -55,7 +56,7 @@
     }
     function fecha($folio,$fecha_sol,$fecha_req, $id_pedido){
         return "<h6 class='mb-0 font-weight-bold text-danger-800' data-filter ='#$folio' id='folio_$id_pedido' onclick='filter_folio(event)' style='cursor: pointer'>Folio #$folio</h6>
-                <span class='d-block font-size-sm text-blue-800'>Fecha Requerimiento: $fecha_req</span>
+                <span class='d-block font-size-sm text-blue-800'>Fecha Req.: $fecha_req</span>
                 <span class='d-block font-size-sm text-muted'>Fecha Solicitud: $fecha_sol</span>";
     }
     function accion($id_pedido){
@@ -64,6 +65,12 @@
                 <i class='icon-clipboard5' style='display: none;' id='btn_acc_i2$id_pedido'></i>
                     Salida
                 </button>";
+    }
+    function autorizacion2($id_valesalida_pedido){
+        return "<div class='custom-control custom-control-right custom-checkbox custom-control-inline'>
+                    <input type='checkbox' class='custom-control-input' id='$id_valesalida_pedido'>
+                    <label class='custom-control-label position-static' for='$id_valesalida_pedido'></label>
+                </div>";
     }
     header('Content-Type: application/json');
     echo json_encode($data);

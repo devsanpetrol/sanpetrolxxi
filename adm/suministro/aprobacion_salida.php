@@ -121,7 +121,7 @@
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Folders</li>
                                         <li class="nav-item" onclick="ver_todo()">
-                                            <a class="nav-link active" ><i class="icon-drawer-in"></i> Todos</a>
+                                            <a class="nav-link" ><i class="icon-drawer-in"></i> Todos</a>
                                         </li>
                                         <li class="nav-item" onclick="ver_no_revisado()">
                                             <a class="nav-link"><i class="icon-drawer3"></i> Por revisar</a>
@@ -131,9 +131,6 @@
                                         </li>
                                         <li class="nav-item" onclick="ver_no_autorizado()">
                                             <a href="#" class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-stars"></i> Mis Solicitudes</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -153,7 +150,7 @@
                             <div class="header-elements d-none">
                                 <form action="#">
                                     <div class="form-group form-group-feedback form-group-feedback-right">
-                                        <input type="search" class="form-control wmin-200" placeholder="Buscar...">
+                                        <input type="search" class="form-control wmin-200" placeholder="Buscar..." id="buscar_en_tabla_vobo">
                                         <div class="form-control-feedback">
                                             <i class="icon-search4 font-size-base text-muted"></i>
                                         </div>
@@ -313,14 +310,13 @@
                     </div>
                 </div>
             </div>
-                    <!-- /large modal -->
-                    <!-- /content area -->
-                    <!-- Footer -->
-                    <?php include "../bar_nav/footer_navbar.php"; ?>
-                    <!-- /footer -->
-		</div>
-		<!-- /main content -->
-
+            <!-- /large modal -->
+            <!-- /content area -->
+            <!-- Footer -->
+            <?php include "../bar_nav/footer_navbar.php"; ?>
+            <!-- /footer -->
+        </div>
+        <!-- /main content -->
 	</div>
 	<!-- /page content -->
 

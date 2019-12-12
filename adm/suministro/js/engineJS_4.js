@@ -1,15 +1,10 @@
 $(document).ready( function () {
-    $("body").addClass("sidebar-xs");
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
-        searching: false,
         ordering: false,
         bDestroy: true,
         bInfo: false,
-        processing: true,
-        selected: true,
-        serverSide: true,
-        serverMethod: 'post',
+        dom: '<"datatable-scroll-wrap"t>',
         ajax: {
             url: "json_selectSolicitudBandeja_paraVobo.php",
             dataSrc:function ( json ) {
@@ -69,7 +64,8 @@ $(document).ready( function () {
                 scrollTop: $("#content_table_pedidos_list").data("scroll")
             }, 200);
             var t = $('#lay_out_solicitudesx').DataTable();
-            t.draw( false );
+            //t.draw( false );
+            t.ajax.reload();
             $("#panel_autoizacion_salida").slideUp();
             $("#lay_out_solicitudesx").slideDown();
         }else{
@@ -105,6 +101,12 @@ $(document).ready( function () {
         if (e.keyCode === 13) {
             log_autentic();
         }
+    });
+    $('#buscar_en_tabla_vobo').on( 'change paste keyup', function () {
+        var table = $('#lay_out_solicitudesx').DataTable();
+        table
+            .search( this.value )
+            .draw();
     });
 } );
 function set_list_resp(id_empleado,nombre,apellidos){
@@ -298,11 +300,12 @@ function log_autentic(){
            var id_pedido = $(this).data("idpedido");
            var cod_articulo = $(this).data("codarticulo");
            var cantidad_surtir = $(this).data("cantidadsurtir");
-           var cantidad_cancelado = cantidad_surtir - $("#numbre_"+id_valesalida_pedido).val();
+           var cantidad_surtida = $("#number_"+id_valesalida_pedido).val();
+           var cantidad_cancelado = cantidad_surtir - $("#number_"+id_valesalida_pedido).val();
            var status = (this.checked) ? "si" : "no";
            
            $.ajax({
-               data:{id_pedido:id_pedido,cod_articulo:cod_articulo,cantidad_surtir:cantidad_surtir,cantidad_cancelado:cantidad_cancelado,id_valesalida_pedido:id_valesalida_pedido,status:status},
+               data:{id_pedido:id_pedido,cod_articulo:cod_articulo,cantidad_surtir:cantidad_surtida,cantidad_cancelado:cantidad_cancelado,id_valesalida_pedido:id_valesalida_pedido,status:status},
                url: 'json_update_pase_salida_valida.php',
                type: 'POST',
                beforeSend: function (xhr) {
@@ -421,4 +424,3 @@ function ver_no_autorizado(){
     table.ajax.url("json_selectSolicitudBandeja_paraVobo_3.php").load;
     table.ajax.reload();
 }
-
