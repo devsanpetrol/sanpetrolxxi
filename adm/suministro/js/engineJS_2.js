@@ -7,22 +7,16 @@ $(document).ready( function () {
         paging: false,
         dom: '<"datatable-footer"><"datatable-scroll-wrap"t>',
         createdRow: function ( row, data, index ) {
-            $(row).attr("id","id_row_"+data[3]);
+            $(row).attr("id","id_row_"+data[6]);
         },
         columnDefs: [
-            {targets: 0, visible: false,searchable: true},
-            {targets: 1, width: '25%'},
-            {targets: 2, visible: false,searchable: true},
-            {targets: 3, visible: false,searchable: false},
-            {targets: 4, visible: false,searchable: false},
-            {targets: 5, width: '25%'},
-            {targets: 6, width: '10%',className:'text-center'},
-            {targets: 7, width: '10%',className:'text-center'},
-            {targets: 8, width: '10%',className:'text-center'},
-            {targets: 9, width: '10%',className:'text-center'},
-            {targets: 10,visible: false,searchable: false},
-            {targets: 11,visible: false,searchable: false},
-            {targets: 12,width: '10%',className:'text-center'}
+            {targets: 0, width: '10%',className:'text-center'},
+            {targets: 1, width: '40%'},
+            {targets: 2, width: '35%'},
+            {targets: 3, width: '5%',className:'text-center'},
+            {targets: 4, width: '5%',className:'text-center'},
+            {targets: 5, width: '5%',className:'text-center'},
+            {targets: 6, visible: false}
         ],
         language: {
             info: "Mostrando _TOTAL_ registros"
@@ -42,33 +36,25 @@ $(document).ready( function () {
             }
         },
         columns: [
-            
-            {data : 'auto'},
+            {data : 'accion'},
             {data : 'articulo'},
-            {data : 'folio'},
-            {data : 'id_pedido'},
-            {data : 'status_pedido'},
             {data : 'destino'},
             {data : 'cantidad_solicitud'},
             {data : 'cantidad_apartado'},
-            //{data : 'cantidad_entregado'},
-            {data : 'grado_requerimiento'},
-            {data : 'accion'},
-            {data : 'fecha_solicitud'}
+            {data : 'fecha_solicitud'},
+            {data : 'folio'}
         ],
+        rowGroup: {
+            dataSrc: 'grupo'
+        },
         columnDefs: [
-            {targets: 0,width: '5%'},
-            {targets: 1,width: '31%'},
-            {targets: 2,visible: false},
-            {targets: 3,visible: false,searchable: false},
-            {targets: 4,visible: false,searchable: false},
-            {targets: 5,width: '22%'},
-            {targets: 6,width: '7%',className:'text-center'},
-            {targets: 7,width: '7%',className:'text-center'},
-            //{targets: 8,width: '7%',className:'text-center'},
-            {targets: 8,visible: false,searchable: false},
-            {targets: 9,width: '8%',className:'text-center'},
-            {targets: 10,width: '20%'}
+            {targets: 0,width: '3%'},
+            {targets: 1,width: '37%'},
+            {targets: 2,width: '30%'},
+            {targets: 3,width: '5%',className:'text-center'},
+            {targets: 4,width: '5%',className:'text-center'},
+            {targets: 5,width: '20%'},
+            {targets: 6,visible: false}
         ],
         language: {
             info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
@@ -91,14 +77,14 @@ $(document).ready( function () {
     $('.FechaFolio').on( 'change paste keyup', function () {
     var table = $('#datatable_almacen_salida').DataTable();
     table
-        .columns( 10 )
+        .columns( 5 )
         .search( this.value )
         .draw();
     } );
     $('.Destino').on( 'change paste keyup', function () {
     var table = $('#datatable_almacen_salida').DataTable();
     table
-        .columns( 5 )
+        .columns( 2 )
         .search( this.value )
         .draw();
     } );
@@ -157,27 +143,19 @@ function agrega_pase(id_pedido){
         success:(function(res){
             $.each(res,function(key, registro){
                 tabla.row.add( [
-                    registro.fecha_solicitud,
-                    registro.articulo,
-                    registro.folio,
-                    registro.id_pedido,
-                    registro.status_pedido,
-                    registro.destino,
-                    registro.cantidad_solicitud,
-                    registro.cantidad_apartado,
                     registro.cantidad_surtir,
+                    registro.articulo,
+                    registro.destino,
+                    registro.cantidad_apartado,
                     registro.cantidad_entregado,
-                    registro.cantidad_compra,
-                    registro.grado_requerimiento,
-                    registro.accion
+                    registro.accion,
+                    registro.id_pedido
                 ] ).draw( false );
             });
             var filas = tabla.rows().count();
             $("#count_row_datatable").text("Numero de registros: "+filas);
-            
+
             $("#btn_acc_"+id_pedido).attr("disabled",true);
-            $("#btn_acc_i1"+id_pedido).hide();
-            $("#btn_acc_i2"+id_pedido).show();
             
             if($("#card_almacen_pase").data("vista") == "no"){
                 setTimeout(function() {
@@ -220,10 +198,9 @@ function agrega_pase(id_pedido){
     });
 }
  function remover_salida(id_pedido){
+    $("#btn_acc_"+id_pedido).prop("checked", false);
     $("#btn_acc_"+id_pedido).attr("disabled",false);
-    $("#btn_acc_i2"+id_pedido).hide();
-    $("#btn_acc_i1"+id_pedido).show(); 
-
+    
     $('#id_row_'+id_pedido).slideUp("slow");
 
     var tabla = $('#datatable_almacen_pase').DataTable();

@@ -66,7 +66,7 @@
     }
     function accion($id_pedido){
         return "<div class='list-icons'>
-                    <a href='#' class='list-icons-item text-danger-600 remover-item-pase' data-popup='tooltip' title='Remove' data-container='body' onclick='remover_salida($id_pedido)'>
+                    <a class='list-icons-item text-danger-600 remover-item-pase' data-popup='tooltip' title='Remove' data-container='body' onclick='remover_salida($id_pedido)'>
                         <i class='icon-minus-circle2'></i>
                     </a>
                 </div>";

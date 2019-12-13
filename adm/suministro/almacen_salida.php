@@ -1,10 +1,11 @@
+<?php require_once "../../ini_ses.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+    <title><?php include "../../bar_nav/title.php"; ?></title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -62,7 +63,6 @@
 		<!-- /main sidebar -->
 		<!-- Secondary sidebar -->
 		<div class="sidebar sidebar-light sidebar-secondary sidebar-expand-md">
-
 			<!-- Sidebar mobile toggler -->
 			<div class="sidebar-mobile-toggler text-center">
                             <a href="#" class="sidebar-mobile-secondary-toggle">
@@ -91,19 +91,10 @@
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Folders</li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-drawer-in"></i> Por surtir</a>
+                                            <a href="#" class="nav-link"><i class="icon-drawer-in"></i> Generar surtido</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-drawer3"></i> Por surtir</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-drawer-out"></i> Por revisar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-stars"></i> Mis Solicitudes</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
+                                            <a href="almacen_salida_aprobada.php" class="nav-link"><i class="icon-drawer3"></i> Enviados a revisión</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -134,21 +125,22 @@
                     </div>
                     <div class="card-body">
                         <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_almacen_pase" width="100%">
+                            <col width="10%">
+                            <col width="40%">
+                            <col width="35%">
+                            <col width="5%">
+                            <col width="5%">
+                            <col width="5%">
+                            <col>
                             <thead>
                                 <tr>
-                                    <th>FechaFolio</th>
-                                    <th>articulo</th>
-                                    <th>folio</th>
-                                    <th>id_pedido</th>
-                                    <th>Status</th>
-                                    <th>Destino</th>
-                                    <th>Cantidad</th>
-                                    <th>Apartado</th>
                                     <th>Surtir</th>
+                                    <th>articulo</th>
+                                    <th>Destino</th>
+                                    <th>Apartado</th>
                                     <th>Entregado</th>
-                                    <th>Compra</th>
-                                    <th>Grado</th>
                                     <th>Accion</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -203,27 +195,21 @@
                 <!-- Invoice archive -->
                 <div class="card card-pedidos-xsurtir">
                     <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_almacen_salida" width="100%">
+                        <col width="3%">
+                        <col width="37%">
+                        <col width="20%">
                         <col width="5%">
-                        <col width="31%">
-                        <col width="22%">
-                        <col width="7%">
-                        <col width="7%">
-                        <col width="8%">
+                        <col width="5%">
                         <col width="20%">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th>articulo</th>
-                                <th>folio</th>
-                                <th>id_pedido</th>
-                                <th>Status</th>
                                 <th>Destino</th>
                                 <th>Cantidad</th>
                                 <th>Apartado</th>
-                                <!--<th>Surtido</th>-->
-                                <th>Grado</th>
-                                <th>Accion</th>
                                 <th>FechaFolio</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>

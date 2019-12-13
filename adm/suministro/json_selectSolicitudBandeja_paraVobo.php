@@ -21,7 +21,8 @@
                         "revisado" => revisado($valor['status_vale']),
                         "folio" => $folio,
                         "justificacion" => $folio,
-                        "status_vale" => $valor['status_vale']
+                        "status_vale" => $valor['status_vale'],
+                        "grupo" => grupo($valor['status_vale'])
                         );
     }
     
@@ -68,11 +69,18 @@
     }
     function filtro($filtro){
         if($filtro == "todo"){
-            return "";
+            return "WHERE status_vale IN ( 0 , 1)";
         }else if($filtro == "no_revisado"){
             return "WHERE status_vale = 0";
         }else if($filtro == "si_revisado"){
             return "WHERE status_vale = 1";
+        }
+    }
+    function grupo($status){
+        if($status == 0){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>SIN REVISIÓN</h6>";
+        }else{
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>REVISADOS </h6>";
         }
     }
     header('Content-Type: application/json');

@@ -52,7 +52,7 @@
                     </div>";
         }else if( $aprobado == 2 ){
             return "<div class='d-block form-text text-center'>
-                        <i class='icon-cross text-danger-800'></i>
+                        <i class='icon-cross text-danger-800' title='Se canceló ( $cantidad_cancelado ) unidad(es)'></i>
                     </div>";
         }else if( $aprobado == 3 ){
             return "<div class='d-block form-text text-center'>

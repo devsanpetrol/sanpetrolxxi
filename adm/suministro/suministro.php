@@ -71,6 +71,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function noread_inbox(){
+        $sql = $this->_db->prepare("SELECT count(*) as total FROM adm_almacen_valesalida WHERE status_vale = 0 LIMIT 100");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function get_categoria_articulo(){
         $sql = $this->_db->prepare("SELECT adm_categoria_consumibles.id_categoria,adm_categoria_consumibles.categoria,adm_categoria_consumibles.id_empleado_resp, adm_persona.nombre,adm_persona.apellidos
                                     FROM adm_categoria_consumibles
@@ -115,7 +121,13 @@ class suministro extends conect
     }
     //==========================================================================
     public function get_solicitud_aprobacion($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_salida_almacen_all $filtro ORDER BY adm_view_salida_almacen_all.folio_vale DESC");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_salida_almacen_all $filtro ORDER BY adm_view_salida_almacen_all.status_vale ASC,adm_view_salida_almacen_all.folio_vale DESC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_solicitud_aprobacion_entrega($filtro = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_salida_almacen_all $filtro ORDER BY adm_view_salida_almacen_all.status_vale ASC,adm_view_salida_almacen_all.folio_vale DESC");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -189,7 +201,7 @@ class suministro extends conect
     }
     public function detalle_folio_salida_imprimir($folio_vale){//adm_view_para_firma_vobo
         $sql = $this->_db->prepare("SELECT * FROM adm_view_para_firma_vobo
-                                    WHERE adm_view_para_firma_vobo.folio_vale = $folio_vale AND adm_view_para_firma_vobo.aprobado = 1");
+                                    WHERE adm_view_para_firma_vobo.folio_vale = $folio_vale AND adm_view_para_firma_vobo.aprobado IN ( 1 , 3)");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -252,7 +264,7 @@ class suministro extends conect
         return $resultado[0]["id_empleado_resp"];
     }
     public function get_almacen_salida($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_salida $filtro");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_salida $filtro order by folio asc");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

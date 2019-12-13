@@ -92,21 +92,6 @@
 			<!-- /sidebar mobile toggler -->
 			<!-- Sidebar content -->
 			<div class="sidebar-content">
-                            <!-- Actions -->
-                            <div class="card">
-                                <div class="card-header bg-transparent header-elements-inline">
-                                    <span class="text-uppercase font-size-sm font-weight-semibold">Nueva</span>
-                                    <div class="header-elements">
-                                        <div class="list-icons">
-                                            <a class="list-icons-item" data-action="collapse"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <a href="#" class="btn bg-teal btn-block">Solicitud</a>
-                                </div>
-                            </div>
-                            <!-- /actions -->
                             <!-- Sub navigation -->
                             <div class="card">
                                 <div class="card-header bg-transparent header-elements-inline">
@@ -121,13 +106,7 @@
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Folders</li>
                                         <li class="nav-item" onclick="ver_todo()">
-                                            <a class="nav-link" ><i class="icon-drawer-in"></i> Todos</a>
-                                        </li>
-                                        <li class="nav-item" onclick="ver_no_revisado()">
-                                            <a class="nav-link"><i class="icon-drawer3"></i> Por revisar</a>
-                                        </li>
-                                        <li class="nav-item" onclick="ver_si_revisado()">
-                                            <a class="nav-link"><i class="icon-drawer-out"></i> Revisados</a>
+                                            <a class="nav-link" ><i class="icon-drawer-in"></i> Todos <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
                                         </li>
                                         <li class="nav-item" onclick="ver_no_autorizado()">
                                             <a href="#" class="nav-link"><i class="icon-spam"></i> No Autorizados</a>

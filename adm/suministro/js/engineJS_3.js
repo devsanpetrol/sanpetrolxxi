@@ -7,7 +7,7 @@ $(document).ready( function () {
         bInfo: false,
         dom: '<"datatable-scroll-wrap"t>',
         ajax: {
-            url: "json_selectSolicitudBandeja_paraVobo.php",
+            url: "json_selectSolicitudBandeja_paraEntrega.php",
             dataSrc:function ( json ) {
                 return json;
             }
@@ -18,7 +18,7 @@ $(document).ready( function () {
         createdRow: function ( row, data, index ) {
             $("#total_pedidos_mostrado").text(index+1);
             $(row).attr('id',data['folio']);
-            if(data['status_vale'] ==  '0'){
+            if(data['status_vale'] ==  '1'){
                 $(row).addClass('unread');
             }
             $(row).data('scroll');
@@ -406,7 +406,7 @@ function ver_todo(){
     var table = $('#lay_out_solicitudesx').DataTable();
     $("#panel_autoizacion_salida").slideUp();
     $("#lay_out_solicitudesx").slideDown();
-    table.ajax.url("json_selectSolicitudBandeja_paraVobo.php").load;
+    table.ajax.url("json_selectSolicitudBandeja_paraEntrega.php").load;
     table.ajax.reload();
     no_read_inbox();
 }

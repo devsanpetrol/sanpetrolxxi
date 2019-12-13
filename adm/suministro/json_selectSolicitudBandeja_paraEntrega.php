@@ -2,8 +2,8 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $filtro = filtro("no_revisado");
-    $categorias = $suministro->get_solicitud_aprobacion($filtro);
+    $filtro = filtro("todo");
+    $categorias = $suministro->get_solicitud_aprobacion_entrega($filtro);
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -21,7 +21,8 @@
                         "revisado" => revisado($valor['status_vale']),
                         "folio" => $folio,
                         "justificacion" => $folio,
-                        "status_vale" => $valor['status_vale']
+                        "status_vale" => $valor['status_vale'],
+                        "grupo" => grupo($valor['status_vale'])
                         );
     }
     
@@ -47,18 +48,18 @@
         return $pedidos[0]['c'];
     }
     function revisado($status_vale){
-        if($status_vale == 1){
+        if($status_vale == 2){
             return "<div class='d-block form-text text-center text-slate'>
                         <i class='icon-clipboard2'></i>
                     </div>";
-        }else if($status_vale == 0){
+        }else if($status_vale == 1){
             return "<div class='d-block form-text text-center text-indigo-800'>
                         <i class='icon-clipboard'></i>
                     </div>";
         }
     }
     function aprobado($aprobado){//icon-clipboard
-        if($aprobado == 1){
+        if($aprobado == 1 || $aprobado == 3){
             return "<i class='icon-checkmark2 text-success-800'></i>";
         }else if($aprobado == 2){
             return "<i class='icon-cross text-danger-800'></i>";
@@ -68,11 +69,18 @@
     }
     function filtro($filtro){
         if($filtro == "todo"){
-            return "";
+            return "WHERE status_vale IN ( 1 , 2)";
         }else if($filtro == "no_revisado"){
-            return "WHERE status_vale = 0";
-        }else if($filtro == "si_revisado"){
             return "WHERE status_vale = 1";
+        }else if($filtro == "si_revisado"){
+            return "WHERE status_vale = 2";
+        }
+    }
+    function grupo($status){
+        if($status == 1){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>SALIDAS APROBADAS</h6>";
+        }else{
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>ENTREGADAS</h6>";
         }
     }
     header('Content-Type: application/json');
