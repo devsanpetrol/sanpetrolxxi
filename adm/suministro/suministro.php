@@ -332,6 +332,11 @@ class suministro extends conect
         $resultado1 = $sql1->execute();
         return $resultado1;
     }
+    function set_update_satate_valesalida($folio_vale){
+        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET status_vale = 2 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");
+        $resultado1 = $sql1->execute();
+        return $resultado1;
+    }
     public function aut_encargado_almacen($usuario, $password, $tokenid){
         $sql = $this->_db->prepare("SELECT id_empleado FROM adm_login WHERE adm_login.usuario = '$usuario' AND adm_login.pass = '$password' AND adm_login.estado = 1 LIMIT 1");
         $sql->execute();

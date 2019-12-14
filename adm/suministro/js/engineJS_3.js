@@ -133,6 +133,7 @@ function detalle_vale_salida(folio_vale){
         type: 'POST',
         success: function (obj) {
             $("#folio_pase_salida").data("folio",obj.folio_vale);
+            $("#folio_pase_salida_fin").data("folio",obj.folio_vale);
             $("#firma_almacenista").val(obj.nombre_encargado+" "+obj.apellido_encargado);
             $("#firma_vobo").val(obj.nombre_vobo+" "+obj.apellido_vobo).data("idempleado",obj.visto_bueno);
             $("#vale_observacion").val(obj.observacion);
@@ -389,10 +390,6 @@ function log_autentic(){
         }
     });
 }
-function imprimir(){
-    var folio_vale = $("#folio_pase_salida").data("folio");
-    windows.open("print_vale_salida.php?folio_vale="+folio_vale); 
-}
 function envia(){
     var folio_vale = $("#folio_pase_salida").data("folio");
     $.post('print_vale_salida.php', { folio_vale: folio_vale }, function (result) {
@@ -429,6 +426,20 @@ function  no_read_inbox(){
             badge.show();            
         }else{
             badge.hide();
+        }
+    });
+}
+function finalizar(){
+    var notice = new PNotify();
+    var success = {text: "Operacion finalizada",addclass: 'bg-success border-success',type: 'info',icon: 'icon-checkmark4',delay: 1000,hide: true};
+    var fail = {text: "Fallo la operación",addclass: 'bg-danger border-danger',type: 'info',icon: 'icon-close2',delay: 1000,hide: true};
+                        
+    var folio_vale  = $("#folio_pase_salida_fin").data("folio");
+    $.post('json_update_state_valesalida.php', { folio_vale: folio_vale }, function (result) {
+        if(result[0].result == "exito"){
+            notice.update(success);
+        }else{
+            notice.update(fail);
         }
     });
 }

@@ -176,13 +176,17 @@
                                     <i class="icon-menu7 mr-2"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
+                                    <a tabindex="-1" class="dropdown-item" data-toggle="tab" onclick="finalizar()" data-folio="" id="folio_pase_salida_fin">
+                                        <i class="icon-checkmark3"></i>
+                                        Finalizar
+                                    </a>
                                     <a tabindex="-1" class="dropdown-item" data-toggle="tab" onclick="envia()" data-folio="" id="folio_pase_salida">
-                                        <i class="icon-printer"></i>
+                                        <i class="icon-printer2"></i>
                                         Imprimir
                                     </a>
                                     <a tabindex="-1" class="dropdown-item" data-toggle="tab" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
-                                        <i class="icon-x text-danger"></i>
-                                        Salir
+                                        <i class="icon-arrow-left13 text-blue-800"></i>
+                                        Regresar
                                     </a>
                                 </div>
                             </li>
@@ -236,15 +240,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4 form-group">
+                            <div class="col-sm-3 form-group">
                                 <div class="form-group-feedback form-group-feedback-right">
-                                </div>
-                                <textarea rows="1" cols="3" class="form-control form-control-sm font-weight-semibold text-blue-800" id="vale_observacion" maxlength="200" readonly></textarea>
-                                <div class="d-block form-text text-justify">
-                                    <span class="badge">Observación</span>
+                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" id="firma_recibe">
+                                    <div class="d-block form-text text-center">
+                                        <span class="badge">Recibido</span>
+                                    </div>
+                                    <div class="form-control-feedback">
+                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm"> 
+                                            <i class="icon-pencil3 text-blue-800"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-2 form-group text-right">
+                            <div class="col-sm-3 form-group text-right">
                                 <button type="button" class="btn btn-success btn-sm" data-aprobado="" id="btn_envia_guarda_valesalida" onclick="guarda_cambios()">Enviar</button>
                             </div>
                         </div>
