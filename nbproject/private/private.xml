@@ -4,9 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectSolicitudBandeja_paraEntrega.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_4.js</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_3.js</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_update_state_valesalida.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/almacen_salida_aprobada.php</file>
         </group>
     </open-files>

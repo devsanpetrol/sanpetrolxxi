@@ -18,6 +18,7 @@ $(document).ready( function () {
         createdRow: function ( row, data, index ) {
             $("#total_pedidos_mostrado").text(index+1);
             $(row).attr('id',data['folio']);
+            //$(row).data("status_vale",)
             if(data['status_vale'] ==  '1'){
                 $(row).addClass('unread');
             }
@@ -129,7 +130,7 @@ function regresar_lista(){
 function detalle_vale_salida(folio_vale){
     $.ajax({
         data:{folio_vale:folio_vale},
-        url: 'json_get_folio_detail.php',
+        url: 'json_get_folio_detail_recibe.php',
         type: 'POST',
         success: function (obj) {
             $("#folio_pase_salida").data("folio",obj.folio_vale);
@@ -158,7 +159,7 @@ function setPedidos(folio){
     var notice = new PNotify();
     $.ajax({
         data:{folio:folio},
-        url: 'json_list_pedido_salida.php',
+        url: 'json_list_pedido_salida_recibe.php',
         type: 'POST',
         beforeSend: function (xhr) {
             t.clear().draw();
