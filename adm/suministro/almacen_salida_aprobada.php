@@ -167,7 +167,7 @@
                 </div>
                 <!-- /single line -->
                 <!-- Bottom tabs -->
-                <div class="card" id="panel_autoizacion_salida" style="display: none;">
+                <div class="card" id="panel_autoizacion_salida" style="display: none;" data-foliovalesalida="" data-statusvale="">
                     <div class="card-header bg-white pb-0 pt-sm-0 pr-sm-0 header-elements-sm-inline">
                         <h6 class="card-title"></h6>
                         <ul class="nav nav-tabs nav-tabs-bottom card-header-tabs mx-0">
@@ -176,17 +176,17 @@
                                     <i class="icon-menu7 mr-2"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a tabindex="-1" class="dropdown-item" data-toggle="tab" onclick="finalizar()" data-folio="" id="folio_pase_salida_fin">
-                                        <i class="icon-checkmark3"></i>
-                                        Finalizar
-                                    </a>
-                                    <a tabindex="-1" class="dropdown-item" data-toggle="tab" onclick="envia()" data-folio="" id="folio_pase_salida">
-                                        <i class="icon-printer2"></i>
-                                        Imprimir
-                                    </a>
                                     <a tabindex="-1" class="dropdown-item" data-toggle="tab" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
                                         <i class="icon-arrow-left13 text-blue-800"></i>
                                         Regresar
+                                    </a>
+                                    <a tabindex="-1" class="dropdown-item" data-toggle="tab" onclick="envia()">
+                                        <i class="icon-printer2"></i>
+                                        Imprimir
+                                    </a>
+                                    <a tabindex="-1" class="dropdown-item" data-toggle="tab" onclick="guarda_cambios()" >
+                                        <i class="icon-checkmark3"></i>
+                                        Finalizar
                                     </a>
                                 </div>
                             </li>
@@ -202,10 +202,10 @@
                             <thead>
                                 <tr>
                                     <th>Cantidad</th>
-                                    <th>Autorizar</th>
+                                    <th>Aprobado</th>
                                     <th>Articulo</th>
                                     <th>Destino</th>
-                                    <th>Justificación</th>
+                                    <th>Recibe</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -216,7 +216,7 @@
                         <div class="row w-100">
                             <div class="col-sm-3 form-group">
                                 <div class="form-group-feedback form-group-feedback-right">
-                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" readonly id="firma_almacenista" data-idempleado="">
+                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center firma" disabled id="firma_almacenista">
                                     <div class="d-block form-text text-center">
                                         <span class="badge">Encargado Almacen</span>
                                     </div>
@@ -229,12 +229,12 @@
                             </div>
                             <div class="col-sm-3 form-group">
                                 <div class="form-group-feedback form-group-feedback-right">
-                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" readonly data-idempleado="" data-tokenid="salida_almacen_vobo_1" id="firma_vobo">
+                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center firma" disabled id="firma_vobo">
                                     <div class="d-block form-text text-center">
                                         <span class="badge">Vo. Bo.</span>
                                     </div>
                                     <div class="form-control-feedback">
-                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" id="id_firma_vobo" onclick="firma_almacen('firma_vobo')">
+                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" disabled>
                                             <i class="icon-pencil3 text-blue-800"></i>
                                         </button>
                                     </div>
@@ -254,7 +254,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-3 form-group text-right">
-                                <button type="button" class="btn btn-success btn-sm" data-aprobado="" id="btn_envia_guarda_valesalida" onclick="guarda_cambios()">Enviar</button>
+                                <button type="button" class="btn btn-primary btn-sm" id="btn_envia_guarda_valesalida">Guardar</button>
                             </div>
                         </div>
                     </div>

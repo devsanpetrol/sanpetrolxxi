@@ -332,6 +332,16 @@ class suministro extends conect
         $resultado1 = $sql1->execute();
         return $resultado1;
     }
+    function set_update_recibe_solicitud($id_valesalida_pedido, $recibe){
+        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail SET recibe = '$recibe', fecha_recibe = NOW() WHERE adm_almacen_valesalida_detail.id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
+        $resultado1 = $sql1->execute();
+        return $resultado1;
+    }
+    function set_update_recibe_solicitud_todo($folio_vale, $recibe_vale){
+        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET recibe_vale = '$recibe_vale', fecha_recibe = NOW(),status_vale = 2 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");
+        $resultado1 = $sql1->execute();
+        return $resultado1;
+    }
     function set_update_satate_valesalida($folio_vale){
         $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET status_vale = 2 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");
         $resultado1 = $sql1->execute();

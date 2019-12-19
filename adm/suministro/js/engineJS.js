@@ -713,6 +713,21 @@ function change_status(id_pedido,stat){
           break;
     }
 }
+function change_edita_cantidad(id_pedido){
+    $.post( "json_selectStatPedidoMan.php",{ id_pedido:id_pedido }).done(function( data ) {
+        var status = parseInt(data[0]["aprobacion"]);
+        var badge  = $("#edita_cantidad"+id_pedido);
+        switch (status){
+            case 0:
+              badge.show();
+              break;
+            default:
+              badge.hide();
+              break;
+        }
+    });
+    
+}
 function disable_class_btn(id_pedido,disabled){
     $("#status_icon_a_"+id_pedido).prop( "disabled", disabled );
     $("#status_icon_d_"+id_pedido).prop( "disabled", disabled );
@@ -959,6 +974,7 @@ function obj_pedido(objeto){
     
     $("#tabla_visor_solicitudes").after(this.elemento);
     change_status(objeto.id_pedido,objeto.status_pedido);
+    change_edita_cantidad(objeto.id_pedido);
     change_status_manager(objeto.id_pedido,objeto.aprobacion);
     if(objeto.comentario.length){
         $.post( "json_selectPedidoComentario.php",{ id_pedido: objeto.id_pedido }).done(function( data ) {
@@ -1032,10 +1048,11 @@ function edita_cantidad(id_pedido){
 function addNuewElemet(cantidad,id_pedido){
     var unidad = $("#cantidad_unidad_edit"+id_pedido).data("unidad");
     $("#cantidad_unidad_edit"+id_pedido).empty();
-    $("#cantidad_unidad_edit"+id_pedido).append(cantidad+" "+unidad+" \
-                                                <input type='number' class='font-weight-semibold text-blue-800' step='1' value='"+cantidad+"' min='0' id='cantidad_"+id_pedido+"' required='true' style='width: 75px; display: none;'>\
-                                                <button type='button' class='btn btn-icon btn-sm' id='edita_cantidad"+id_pedido+"' onclick='edita_cantidad("+id_pedido+")'><i class='icon-pencil7'></i></button>\
-                                                <button type='button' class='btn btn-icon btn-sm' id='guarda_cantidad"+id_pedido+"' onclick='save_cantidad("+id_pedido+")' style='display: none;'><i class='icon-floppy-disk'></i></button>");
+    $("#cantidad_unidad_edit"+id_pedido)
+        .append(cantidad+" "+unidad+" \
+            <input type='number' class='font-weight-semibold text-blue-800' step='1' value='"+cantidad+"' min='0' id='cantidad_"+id_pedido+"' required='true' style='width: 75px; display: none;'>\
+            <button type='button' class='btn btn-icon btn-sm' id='edita_cantidad"+id_pedido+"' onclick='edita_cantidad("+id_pedido+")'><i class='icon-pencil7'></i></button>\
+            <button type='button' class='btn btn-icon btn-sm' id='guarda_cantidad"+id_pedido+"' onclick='save_cantidad("+id_pedido+")' style='display: none;'><i class='icon-floppy-disk'></i></button>");
 }
 function statusc(){
     alert($("#area_aquipo").val());

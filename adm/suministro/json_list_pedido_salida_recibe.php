@@ -16,7 +16,7 @@
                         "articulo" => articulo($valor["articulo"]),
                         "destino" => destino($valor["destino"]),
                         "autorizacion" => autorizacion($valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad_surtida"],$id_valesalida_pedido,$valor["aprobado"],$valor["cantidad_cancelado"]),
-                        "recibe" => $valor["recibe"]);
+                        "recibe" => recibe($id_valesalida_pedido,$valor["recibe"]));
     }
     function cantidad_surtir($id_valesalida_pedido, $cantidad_surtida,$aprobado,$unidad){
         if($aprobado == 0){
@@ -47,15 +47,15 @@
     }
     function autorizacion($id_pedido,$cod_articulo,$cantidad_surtida,$id_valesalida_pedido,$aprobado,$cantidad_cancelado){
         if( $aprobado == 1 ){
-            return "<div class='d-block form-text text-center'>
+            return "<div class='d-block form-text'>
                         <i class='icon-checkmark-circle text-success'></i>
                     </div>";
         }else if( $aprobado == 2 ){
-            return "<div class='d-block form-text text-center'>
+            return "<div class='d-block form-text'>
                         <i class='icon-cross text-danger-800' title='Se canceló ( $cantidad_cancelado ) unidad(es)'></i>
                     </div>";
         }else if( $aprobado == 3 ){
-            return "<div class='d-block form-text text-center'>
+            return "<div class='d-block form-text'>
                         <i class='icon-checkmark-circle text-success'></i>
                         <i class='icon-info22 text-primary' title='Se canceló ( $cantidad_cancelado ) unidad(es)'></i>
                     </div>";
@@ -68,7 +68,7 @@
     }
     function recibe($id_valesalida_pedido,$recibe){
         return "<div class='form-group-feedback form-group-feedback-right'>
-                    <input type='text' class='form-control form-control-sm font-weight-semibold text-pink text-center firma-individual' id='$id_valesalida_pedido' value='$recibe'>
+                    <input type='text' class='form-control form-control-sm font-weight-semibold text-pink firma firma-individual' id='$id_valesalida_pedido' value='$recibe' onkeyup='mayus(this);'>
                     <div class='form-control-feedback'>
                         <button type='button' class='btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm'>
                             <i class='icon-pencil3 text-blue-800'></i>
