@@ -734,9 +734,9 @@ function disable_class_btn(id_pedido,disabled){
     $("#status_icon_r_"+id_pedido).prop( "disabled", disabled );
 }
 function reset_class_btn(id_pedido){
-    $("#status_icon_a_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm");
-    $("#status_icon_d_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm");
-    $("#status_icon_r_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm");
+    $("#status_icon_a_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm  btn-status-pedido");
+    $("#status_icon_d_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm  btn-status-pedido");
+    $("#status_icon_r_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm  btn-status-pedido");
 }
 function change_status_manager(id_pedido,aprobado){
     var status = parseInt(aprobado);    
@@ -749,15 +749,20 @@ function change_status_manager(id_pedido,aprobado){
         case 1://status APROBADO
             var aprobe = $("#status_icon_a_"+id_pedido);
             aprobe.removeClass("text-slate-300").addClass("text-pink");
-             sel_st.removeClass('disabled');
+            sel_st.removeClass('disabled');
+            $(".btn-status-pedido").prop( "disabled", true );
+            console.log("unbind: .btn-status-pedido status:"+status);
           break;
         case 2:// status CANCELADO
             var cancel = $("#status_icon_d_"+id_pedido);
             cancel.removeClass("text-slate-300").addClass("text-pink");
+            $(".btn-status-pedido").prop( "disabled", true );
+            console.log("unbind: .btn-status-pedido status:"+status);
           break;
         case 3:// status REVISION
             var revisi = $("#status_icon_r_"+id_pedido);
             revisi.removeClass("text-slate-300").addClass("text-pink");
+            console.log("NO unbind: .btn-status-pedido");
           break;
     }
 }
@@ -931,8 +936,8 @@ function obj_pedido(objeto){
                                     <div class='text-sm-right mb-0 mt-3 mt-sm-0 ml-auto'>\
                                         <h6 class='font-weight-semibold' id='cantidad_unidad_edit"+objeto.id_pedido+"' data-unidad='"+objeto.unidad+"'>"+objeto.cantidad+" "+objeto.unidad+" \
                                             <input type='number' class='font-weight-semibold text-blue-800' step='1' value='"+objeto.cantidad+"' min='0' id='cantidad_"+objeto.id_pedido+"' required='true' style='width: 75px; display: none;'>\
-                                            <button type='button' class='btn btn-icon btn-sm' id='edita_cantidad"+objeto.id_pedido+"' onclick='edita_cantidad("+objeto.id_pedido+")'><i class='icon-pencil7'></i></button>\
                                             <button type='button' class='btn btn-icon btn-sm' id='guarda_cantidad"+objeto.id_pedido+"' onclick='save_cantidad("+objeto.id_pedido+")' style='display: none;'><i class='icon-floppy-disk'></i></button>\
+                                            <button type='button' class='btn btn-icon btn-sm' id='edita_cantidad"+objeto.id_pedido+"' onclick='edita_cantidad("+objeto.id_pedido+")'><i class='icon-pencil7'></i></button>\
                                         </h6>\
                                         <ul class='list list-unstyled mb-0'>\
                                             <li>Area/Equipo: <span class='font-weight-semibold'>"+objeto.destino+"</span></li>\
@@ -963,10 +968,10 @@ function obj_pedido(objeto){
                                     <li class='list-inline-item' style='display: none;'>\
                                         <a href='' class='text-default' data-status='0' data-comentario='' onclick='guarda_status("+objeto.id_pedido+")' id='guarda_status_"+objeto.id_pedido+"'><i class='icon-floppy-disk'></i></a>\
                                     </li>\
-                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm' id='status_icon_a_"+objeto.id_pedido+"' onclick='save_aprobado("+objeto.id_pedido+")'><i class='icon-thumbs-up2'></i></button>\
-                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm' id='status_icon_d_"+objeto.id_pedido+"' onclick='save_cancela("+objeto.id_pedido+")'><i class='icon-thumbs-down2'></i></button>\
-                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm' id='status_icon_r_"+objeto.id_pedido+"' onclick='save_revisa("+objeto.id_pedido+")'><i class='icon-eye8'></i></button>\
-                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm' id='status_icon_s_"+objeto.id_pedido+"'><i class='icon-clipboard2'></i></button>\
+                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm btn-status-pedido' id='status_icon_a_"+objeto.id_pedido+"' onclick='save_aprobado("+objeto.id_pedido+")'><i class='icon-thumbs-up2'></i></button>\
+                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm btn-status-pedido' id='status_icon_d_"+objeto.id_pedido+"' onclick='save_cancela("+objeto.id_pedido+")'><i class='icon-thumbs-down2'></i></button>\
+                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm btn-status-pedido' id='status_icon_r_"+objeto.id_pedido+"' onclick='save_revisa("+objeto.id_pedido+")'><i class='icon-eye8'></i></button>\
+                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-300 btn-sm btn-status-pedido' id='status_icon_s_"+objeto.id_pedido+"'><i class='icon-clipboard2'></i></button>\
                                 </ul>\
                             </div>\
                         </div>\
@@ -1051,8 +1056,8 @@ function addNuewElemet(cantidad,id_pedido){
     $("#cantidad_unidad_edit"+id_pedido)
         .append(cantidad+" "+unidad+" \
             <input type='number' class='font-weight-semibold text-blue-800' step='1' value='"+cantidad+"' min='0' id='cantidad_"+id_pedido+"' required='true' style='width: 75px; display: none;'>\
-            <button type='button' class='btn btn-icon btn-sm' id='edita_cantidad"+id_pedido+"' onclick='edita_cantidad("+id_pedido+")'><i class='icon-pencil7'></i></button>\
-            <button type='button' class='btn btn-icon btn-sm' id='guarda_cantidad"+id_pedido+"' onclick='save_cantidad("+id_pedido+")' style='display: none;'><i class='icon-floppy-disk'></i></button>");
+            <button type='button' class='btn btn-icon btn-sm' id='guarda_cantidad"+id_pedido+"' onclick='save_cantidad("+id_pedido+")' style='display: none;'><i class='icon-floppy-disk'></i></button>\
+            <button type='button' class='btn btn-icon btn-sm' id='edita_cantidad"+id_pedido+"' onclick='edita_cantidad("+id_pedido+")'><i class='icon-pencil7'></i></button>");
 }
 function statusc(){
     alert($("#area_aquipo").val());
