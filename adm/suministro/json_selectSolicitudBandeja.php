@@ -36,10 +36,10 @@
                 $articulo = $valor['articulo'];
                 $justificacion = $valor['justificacion'];
                 $status_pedido = $valor['status_pedido'];
-                array_push($lista,t_icon_x($status_pedido)." <span class='table-inbox-subject'>($cantidad $unidad) $articulo &nbsp;-&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span>");
+                array_push($lista,"<li>".t_icon_x($status_pedido)." <span class='table-inbox-subject'>($cantidad $unidad) $articulo &nbsp;-&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span></li>");
             }
-        $todos = implode("</br>", $lista);
-        return $todos;
+        $todos = implode("", $lista);
+        return "<ul class='list-unstyled mb-0'>".$todos."</ul>";
     }
     function pedido_count($folio){
         $suministro = new suministro();
@@ -56,13 +56,13 @@
     }
     function t_icon_x($st){
        $status = array(
-            "<span class='badge badge-mark bg-info-400 border-info-400'></span>",//NO revisado
-            "<span class='text-success font-size-sm' title='Aprobado'><i class='icon-checkmark3 font-size-sm mr-1'></i></span>",
-            "<span class='text-danger font-size-sm' title='Cancelado'><i class='icon-cross2 font-size-sm mr-1'></i></span>",
-            "<span class='text-warning font-size-sm' title='En revisión'><i class='icon-eye8 font-size-sm mr-1'></i></span>",
-            "<span class='text-slate-800 font-size-sm' title='Enviado a compra'><i class='icon-cart font-size-sm mr-1'></i></span>",
-            "<span class='text-pink font-size-sm' title='Listo entrega'><i class='icon-bell3 font-size-sm mr-1'></i></span>",
-            "<span class='text-slate-800 font-size-sm' title='Entregado'><i class='icon-clipboard2 font-size-sm mr-1'></i></span>",
+            "<i class='mi-done font-size-xl font-weight-bold text-slate-300 mr-2' title='Nuevo'></i>",//NO revisado
+            "<i class='mi-done-all font-size-xl font-weight-bold text-success mr-2' title='Aprobado'></i>",
+            "<i class='icon-cross2 font-size-base text-danger mr-2' title='Cancelado'></i>",
+            "<i class='icon-eye8 font-size-base text-warning mr-2' title='En revisión'></i>",
+            "<i class='icon-cart font-size-base text-slate-800 mr-2' title='Enviado a compra'></i>",
+            "<i class='icon-bell3 font-size-base text-pink mr-2' title='Listo entrega'></i>",
+            "<i class='icon-clipboard2 font-size-base text-slate-800 mr-2' title='Entregado'></i>",
             "<span class='badge badge-mark bg-primary border-primary'></span>",//Comentario
             "<span class='badge badge-mark bg-danger-400 border-danger-400'></span>",
             "<span class='badge badge-mark bg-violet-400 border-violet-400'></span>",

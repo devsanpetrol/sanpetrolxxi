@@ -159,7 +159,7 @@
                             <div class="header-elements d-none">
                                 <form action="#">
                                     <div class="form-group form-group-feedback form-group-feedback-right">
-                                        <input type="search" class="form-control wmin-200" placeholder="Buscar...">
+                                        <input type="search" class="form-control wmin-200" placeholder="Buscar..." id="buscar_en_tabla_layoutx">
                                         <div class="form-control-feedback">
                                             <i class="icon-search4 font-size-base text-muted"></i>
                                         </div>

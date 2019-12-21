@@ -38,14 +38,13 @@ $(document).ready( function () {
     });
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
-        searching: false,
         ordering: false,
         bDestroy: true,
-        bInfo: false,
         processing: true,
         selected: true,
         serverSide: true,
         serverMethod: 'post',
+        dom: '<"datatable-footer"><"datatable-scroll-wrap"t>',
         ajax: {
             url: "json_selectSolicitudBandeja.php",
             dataSrc:function ( json ) {
@@ -56,10 +55,12 @@ $(document).ready( function () {
             }
         },
         createdRow: function ( row, data, index ) {
-            $("#total_pedidos_mostrado").text(index+1);
             $(row).attr('id',data['folio']);
+            var total = parseInt($("#total_pedidos_mostrado").text());
+            $("#total_pedidos_mostrado").text(0);
             if(data['leido'] == "0"){
                 $(row).addClass('unread');
+                $("#total_pedidos_mostrado").text(total+1);
             }
             $(row).data('scroll');
             $('td', row).eq(0).addClass('table-inbox-checkbox');
@@ -253,6 +254,12 @@ $(document).ready( function () {
             $('#stock_compra').empty();
             $('#stock_compra').text((x-c)*-1).prepend("<i class='icon-cart-add2'></i> ");
         }
+    });
+    $('#buscar_en_tabla_layoutx').on( 'change paste keyup', function () {
+        var table = $('#lay_out_solicitudesx').DataTable();
+        table
+            .search( this.value )
+            .draw();
     });
     
 } );

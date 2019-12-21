@@ -110,9 +110,13 @@ $(document).ready( function () {
     });
     $('#buscar_en_tabla_vobo').on( 'change paste keyup', function () {
         var table = $('#lay_out_solicitudesx').DataTable();
-        table
-            .search( this.value )
-            .draw();
+        var val_search = this.value;
+        table.columns().every(function () {
+            var table = this;
+            if (table.search() !== val_search) {
+                table.search(val_search).draw();
+            }
+        });
     });
 } );
 function set_list_resp(id_empleado,nombre,apellidos){
