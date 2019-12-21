@@ -252,13 +252,18 @@
                             <!-- Table -->
                             <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
                                 <table class="table table-inbox" id="lay_out_solicitudesx" cellspacing="0" width="100%">
-                                    <thead style="display: none">
+                                    <col width="10%">
+                                    <col width="10%">
+                                    <col width="20%">
+                                    <col width="50%">
+                                    <col width="10%">
+                                    <thead>
                                         <tr>
-                                          <th>Folio</th> <!-- 0 -->
-                                          <th>Imagenes</th> <!-- 1 -->
-                                          <th>Solicitante</th> <!-- 2 -->
-                                          <th>Materiales solicitados</th> <!-- 3 -->
-                                          <th>Fecha</th> <!-- 4 -->
+                                            <th class="table-inbox-checkbox">Folio</th> <!-- 0 -->
+                                            <th class="table-inbox-image">Imagenes</th> <!-- 1 -->
+                                            <th class="table-inbox-name">Fecha</th> <!-- 4 -->
+                                            <th class="table-inbox-message">Materiales solicitados</th> <!-- 3 -->
+                                            <th class="table-inbox-time">Solicitante</th> <!-- 2 -->
                                         </tr>
                                     </thead>
                                     <tbody data-link="row" class="rowlink">

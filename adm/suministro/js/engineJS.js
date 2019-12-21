@@ -58,7 +58,9 @@ $(document).ready( function () {
         createdRow: function ( row, data, index ) {
             $("#total_pedidos_mostrado").text(index+1);
             $(row).attr('id',data['folio']);
-            $(row).addClass('unread');
+            if(data['leido'] == "0"){
+                $(row).addClass('unread');
+            }
             $(row).data('scroll');
             $('td', row).eq(0).addClass('table-inbox-checkbox');
             $('td', row).eq(1).addClass('table-inbox-image');
@@ -74,9 +76,9 @@ $(document).ready( function () {
             {data : 'fecha'}
         ],
         columnDefs: [
-            {targets: 0,width: '5%'},
-            {targets: 1,width: '5%' },
-            {targets: 2,width: '30%'},
+            {targets: 0,width: '10%'},
+            {targets: 1,width: '10%' },
+            {targets: 2,width: '20%'},
             {targets: 3,width: '50%'},
             {targets: 4,width: '10%'}
         ],

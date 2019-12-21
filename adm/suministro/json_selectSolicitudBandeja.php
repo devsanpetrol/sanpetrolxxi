@@ -12,15 +12,16 @@
         $folio = $valor['folio'];
         $contar = pedido_count($folio);
         $star = "<a href='#'>#$folio</a>";
-        $foto = "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/placeholder.jpg' class='rounded-circle' width='32' height='32' alt=''><span class='badge badge-danger badge-pill badge-float border-2 border-white'>$contar</span></a>";
+        
         $nombre_e = $valor['nombre']." ".$valor['apellidos'];
         
         $data[] = array("star" => $star,
-                        "foto" => $foto,
+                        "foto" => foto($contar,$valor['leido']),
                         "solicita" => $nombre_e,
                         "pedidos" => pedido($folio),
                         "fecha" => $m." ".$d,
-                        "folio" => $folio
+                        "folio" => $folio,
+                        "leido" => $valor['leido']
                         );
     }
     
@@ -44,6 +45,14 @@
         $suministro = new suministro();
         $pedidos = $suministro->get_pedidos_count($folio);
         return $pedidos[0]['c'];
+    }
+    function foto($contar, $leido){
+        if($leido == 0){
+            return "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/userlogin.jpg' class='rounded-circle' width='32' height='32' alt=''><span class='badge badge-danger badge-pill badge-float'>$contar</span></a>";
+        }else{
+            return "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/userlogin.jpg' class='rounded-circle' width='32' height='32' alt=''></a>";
+        }
+        
     }
     function t_icon_x($st){
        $status = array(

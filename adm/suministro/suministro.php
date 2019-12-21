@@ -104,7 +104,7 @@ class suministro extends conect
     }
     //==========================================================================
     public function get_solicitudes(){
-        $sql = $this->_db->prepare("SELECT adm_solicitud_material.folio, adm_solicitud_material.fecha_solicitud, adm_solicitud_material.clave_solicita,adm_persona.nombre,adm_persona.apellidos
+        $sql = $this->_db->prepare("SELECT adm_solicitud_material.folio, adm_solicitud_material.fecha_solicitud, adm_solicitud_material.clave_solicita,adm_persona.nombre,adm_persona.apellidos,adm_solicitud_material.leido
                                     FROM adm_solicitud_material
                                     INNER JOIN adm_empleado ON adm_solicitud_material.clave_solicita = adm_empleado.id_empleado
                                     INNER JOIN adm_persona ON adm_empleado.id_persona = adm_persona.id_persona
@@ -179,10 +179,13 @@ class suministro extends conect
         return $resultado;
     }
     public function get_partida_detail2($folio){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_pedido_detail
+        $sql1 = $this->_db->prepare("SELECT * FROM adm_view_pedido_detail
                                     WHERE adm_view_pedido_detail.folio = $folio order by adm_view_pedido_detail.id_pedido desc");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql2 = $this->_db->prepare("UPDATE adm_solicitud_material SET adm_solicitud_material.leido = 1 WHERE adm_solicitud_material.folio = $folio LIMIT 1");
+        
+        $sql1->execute();
+        $sql2->execute();
+        $resultado = $sql1->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
     public function get_partida_detail($folio_vale){
