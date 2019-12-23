@@ -157,8 +157,8 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    public function get_pedidos_count($folio){
-        $sql = $this->_db->prepare("SELECT count(*) as c FROM adm_pedido WHERE folio = $folio");
+    public function get_pedidos_count($folio,$filtro = ""){
+        $sql = $this->_db->prepare("SELECT count(*) as c FROM adm_pedido WHERE folio = $folio $filtro");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

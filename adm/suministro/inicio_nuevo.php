@@ -54,7 +54,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <script src="js/engineJS.js"></script>
+    <script src="js/engineJS_5.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/picker_date.js"></script>
@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <a href="inicio_nuevo.php" class="btn bg-teal btn-block">Solicitud</a>
+                                    <a href="#" class="btn bg-teal btn-block">Solicitud</a>
                                 </div>
                             </div>
                             <!-- /actions -->
@@ -191,7 +191,7 @@
                     <!-- /bottom right menu -->
                     <div class="row" id="row_new_solicitudxx">
                         <div class="col-md-12">
-                            <div class="card" id="card_addPedido" style="display: none;">
+                            <div class="card" id="card_addPedido">
                                 <div class="card-header bg-white header-elements-inline">
                                     <h6 class="card-title">Nueva solicitud</h6>
                                     <div class="header-elements">
@@ -201,6 +201,10 @@
                                                     <h6 class="font-weight-semibold mb-0 text-blue-800" ></h6>
                                                 </div>
                                             </div>
+                                            <button type="button" class="btn text-primary-800 btn btn-link legitRipple" style="display: none;" id="fecha_actual"></button>
+                                            <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_info_formato" data-toggle="modal" data-target="#mod_num_formato"><i class="icon-info22"></i></button>
+                                            <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_send_pedido" onclick="get_folio()"><i class="icon-paperplane"></i></button>
+                                            <button type="button" class="btn btn-outline rounded-round btn-icon ml-2 bg-primary text-primary-800 btn-sm" onclick="show_addpedido()" id="btn_add_pedido"><i class="icon-add"></i></button>
                                             <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple" style="display: none;" id="folioxx" data-folioz="0"></button>
                                             <button type="button" class="btn btn-sm btn-outline bg-danger text-danger-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_del_row_sel"><i class="icon-trash"></i></button>
                                             <button type="button" class="btn btn-sm btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" data-toggle="modal" data-target="#modal_large"><i class="icon-plus3"></i></button>
@@ -245,39 +249,6 @@
                     </div>
                     <!-- /dashboard content -->
 
-                    <!-- Right content -->
-                    <div class="flex-fill overflow-auto">
-                        <!-- Single line -->
-                        <div class="card" id="tabla_visor_solicitudes">
-                            <!-- Table -->
-                            <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
-                                <table class="table table-inbox" id="lay_out_solicitudesx" cellspacing="0" width="100%">
-                                    <col width="10%">
-                                    <col width="10%">
-                                    <col width="20%">
-                                    <col width="50%">
-                                    <col width="10%">
-                                    <thead style="display: none">
-                                        <tr>
-                                            <th class="table-inbox-checkbox">Folio</th> <!-- 0 -->
-                                            <th class="table-inbox-image">Imagenes</th> <!-- 1 -->
-                                            <th class="table-inbox-name">Fecha</th> <!-- 4 -->
-                                            <th class="table-inbox-message">Materiales solicitados</th> <!-- 3 -->
-                                            <th class="table-inbox-time">Solicitante</th> <!-- 2 -->
-                                        </tr>
-                                    </thead>
-                                    <tbody data-link="row" class="rowlink">
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /table -->
-                        </div>
-                        <!-- INICIA CUERPO DE TODOS LA LISTA DE PEDIDOS -->
-
-                       <!-- INICIA CUERPO DE TODOS LA LISTA DE PEDIDOS -->
-                        <!-- /single line -->
-                    </div>
-                    <!-- /right content -->
                     </div>
                     <!-- /content area -->
                     <!-- Area modal -->

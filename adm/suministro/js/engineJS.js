@@ -1,7 +1,7 @@
 $(document).ready( function () {
     get_norm_form_solicitud();
     get_categoria();
-    
+    var user_session_id = $('#user_session_id').data("employeid");
     var table = $('#tabla_pedidos').DataTable();
     $('.form-check-input-styled-primary').uniform({
             wrapperClass: 'border-primary-800 text-primary-800'
@@ -43,10 +43,11 @@ $(document).ready( function () {
         processing: true,
         selected: true,
         serverSide: true,
-        serverMethod: 'post',
-        dom: '<"datatable-footer"><"datatable-scroll-wrap"t>',
+        dom: '<"datatable-scroll-wrap"t>',
         ajax: {
             url: "json_selectSolicitudBandeja.php",
+            data:{user_session_id:user_session_id},
+            type: 'POST',
             dataSrc:function ( json ) {
                 $.post( "json_selectSolicitudTR.php").done(function( data ) {
                     objetoJSON_antes = data;
@@ -56,12 +57,22 @@ $(document).ready( function () {
         },
         createdRow: function ( row, data, index ) {
             $(row).attr('id',data['folio']);
+            var badge = $("#total_pedidos_mostrado");
+            badge.hide();
             var total = parseInt($("#total_pedidos_mostrado").text());
-            $("#total_pedidos_mostrado").text(0);
+            
             if(data['leido'] == "0"){
                 $(row).addClass('unread');
-                $("#total_pedidos_mostrado").text(total+1);
+                var count = total+1;
+                if(count >= 100){
+                    badge.text("99+").removeClass("bg-success").addClass("bg-danger");
+                    badge.show();
+                }else if(count > 0 && count < 100){
+                    badge.text(count).removeClass("bg-danger").addClass("bg-success");
+                    badge.show();            
+                }
             }
+            
             $(row).data('scroll');
             $('td', row).eq(0).addClass('table-inbox-checkbox');
             $('td', row).eq(1).addClass('table-inbox-image');
@@ -104,7 +115,7 @@ $(document).ready( function () {
                 }
             }
         });
-    }, 3000);
+    }, 10000);
     //--------TIEMPO REAL ---------
     $('#lay_out_solicitudesx tbody').on('click', 'tr', function () {
         var id = this.id;
@@ -263,6 +274,20 @@ $(document).ready( function () {
     });
     
 } );
+function  no_read_inbox(){
+    $.post('json_count_no_read_inbox.php',function(res){
+        var count = parseInt(res.noread), badge = $(".nuevas-entradas-inbox");
+        if(count >= 100){
+            badge.text("99+").removeClass("bg-success").addClass("bg-danger");
+            badge.show();
+        }else if(count > 0 && count < 100){
+            badge.text(count).removeClass("bg-danger").addClass("bg-success");
+            badge.show();            
+        }else{
+            badge.hide();
+        }
+    });
+}
 function count_apartado(val){
     $('#cantidad').val(0);
     $('#stock_disponible').empty();
