@@ -7,7 +7,7 @@
     $d = array();
     
     foreach ($categorias as $z) {
-        $x .= pedido($z["folio"]);
+        $x .= pedido($z["folio"]).$z["leido"];
     }
     $d[] = array("p" => $x);
     function pedido($f){

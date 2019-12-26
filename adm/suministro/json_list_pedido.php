@@ -38,7 +38,7 @@
                         "categoria" => $valor["categoria"],
                         "folio" => $valor["folio"],
                         "id_autoriza" => $valor["id_autoriza"],
-                        "autoriza" => $valor["autoriza"],
+                        "autoriza" => ucwords(mb_strtolower($valor["autoriza_name"],"UTF-8")),
                         "fecha_solicitud" => $valor['fecha_solicitud'],
                         "especialista"  => "");
     }

@@ -103,12 +103,12 @@ class suministro extends conect
         return $resultado;
     }
     //==========================================================================
-    public function get_solicitudes(){
+    public function get_solicitudes($filtro=""){
         $sql = $this->_db->prepare("SELECT adm_solicitud_material.folio, adm_solicitud_material.fecha_solicitud, adm_solicitud_material.clave_solicita,adm_persona.nombre,adm_persona.apellidos,adm_solicitud_material.leido
                                     FROM adm_solicitud_material
                                     INNER JOIN adm_empleado ON adm_solicitud_material.clave_solicita = adm_empleado.id_empleado
                                     INNER JOIN adm_persona ON adm_empleado.id_persona = adm_persona.id_persona
-                                    WHERE status_solicitud = 0 ORDER BY adm_solicitud_material.folio DESC");
+                                    WHERE status_solicitud = 0 $filtro ORDER BY adm_solicitud_material.folio DESC");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -164,7 +164,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_solicitudesTR(){
-        $sql = $this->_db->prepare("SELECT adm_solicitud_material.folio
+        $sql = $this->_db->prepare("SELECT adm_solicitud_material.folio,adm_solicitud_material.leido
                                     FROM adm_solicitud_material
                                     WHERE status_solicitud = 0 order by adm_solicitud_material.folio desc");
         $sql->execute();

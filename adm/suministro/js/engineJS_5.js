@@ -1,6 +1,7 @@
 $(document).ready( function () {
     get_norm_form_solicitud();
     get_categoria();
+    fecha_actual();
     var user_session_id = $('#user_session_id').data("employeid");
     var table = $('#tabla_pedidos').DataTable();
     $('.form-check-input-styled-primary').uniform({

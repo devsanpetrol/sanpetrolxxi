@@ -45,7 +45,7 @@ $(document).ready( function () {
         serverSide: true,
         dom: '<"datatable-scroll-wrap"t>',
         ajax: {
-            url: "json_selectSolicitudBandeja.php",
+            url: "json_selectSolicitudBandeja_send.php",
             data:{user_session_id:user_session_id},
             type: 'POST',
             dataSrc:function ( json ) {

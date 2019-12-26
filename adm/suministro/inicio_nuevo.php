@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <a href="#" class="btn bg-teal btn-block">Solicitud</a>
+                                    <a onclick="fecha_actual()" class="btn bg-teal btn-block">Solicitud</a>
                                 </div>
                             </div>
                             <!-- /actions -->
@@ -122,7 +122,7 @@
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Folders</li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link active">
+                                            <a href="inicio.php" class="nav-link active">
                                                 <i class="icon-drawer-in"></i>
                                                 Entradas
                                                 <span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado" style="display: none;">0</span>
@@ -201,11 +201,11 @@
                                                     <h6 class="font-weight-semibold mb-0 text-blue-800" ></h6>
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn text-primary-800 btn btn-link legitRipple" style="display: none;" id="fecha_actual"></button>
-                                            <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_info_formato" data-toggle="modal" data-target="#mod_num_formato"><i class="icon-info22"></i></button>
-                                            <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_send_pedido" onclick="get_folio()"><i class="icon-paperplane"></i></button>
+                                            <button type="button" class="btn text-primary-800 btn btn-link legitRipple" id="fecha_actual"></button>
+                                            <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" id="btn_info_formato" data-toggle="modal" data-target="#mod_num_formato"><i class="icon-info22"></i></button>
+                                            <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" id="btn_send_pedido" onclick="get_folio()"><i class="icon-paperplane"></i></button>
                                             <button type="button" class="btn btn-outline rounded-round btn-icon ml-2 bg-primary text-primary-800 btn-sm" onclick="show_addpedido()" id="btn_add_pedido"><i class="icon-add"></i></button>
-                                            <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple" style="display: none;" id="folioxx" data-folioz="0"></button>
+                                            <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple" id="folioxx" data-folioz="0"></button>
                                             <button type="button" class="btn btn-sm btn-outline bg-danger text-danger-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_del_row_sel"><i class="icon-trash"></i></button>
                                             <button type="button" class="btn btn-sm btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" data-toggle="modal" data-target="#modal_large"><i class="icon-plus3"></i></button>
                                         </div>

@@ -125,7 +125,7 @@
                                             <a href="#" class="nav-link active">
                                                 <i class="icon-drawer-in"></i>
                                                 Entradas
-                                                <span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado" style="display: none;">0</span>
+                                                <span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado">0</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
