@@ -54,7 +54,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <script src="js/engineJS.js"></script>
+    <script src="js/engineJS_6.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/picker_date.js"></script>
@@ -122,12 +122,12 @@
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Folders</li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link active">
-                                                <i class="icon-drawer-in"></i> Entradas<span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado">0</span>
+                                            <a href="inicio.php" class="nav-link">
+                                                <i class="icon-drawer-in"></i> Entradas
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-drawer3"></i> Revisados</a>
+                                            <a href="inicio_send.php" class="nav-link active"><i class="icon-drawer3"></i> Enviados<span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado">0</span></a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link"><i class="icon-drawer-out"></i> Por revisar</a>
@@ -198,7 +198,7 @@
                                     <col width="20%">
                                     <col width="50%">
                                     <col width="10%">
-                                    <thead style="display: none">
+                                    <thead>
                                         <tr>
                                             <th class="table-inbox-checkbox">Folio</th> <!-- 0 -->
                                             <th class="table-inbox-image">Imagenes</th> <!-- 1 -->

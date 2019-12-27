@@ -122,14 +122,14 @@
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Folders</li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link active">
+                                            <a href="inicio.php" class="nav-link active">
                                                 <i class="icon-drawer-in"></i>
                                                 Entradas
                                                 <span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado">0</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-drawer3"></i> Revisados</a>
+                                            <a href="inicio_send.php" class="nav-link"><i class="icon-drawer3"></i> Enviados</a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link"><i class="icon-drawer-out"></i> Por revisar</a>
