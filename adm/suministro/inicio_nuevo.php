@@ -131,16 +131,6 @@
                                         <li class="nav-item">
                                             <a href="inicio_send.php" class="nav-link"><i class="icon-drawer3"></i> Enviados</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-drawer-out"></i> Por revisar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-stars"></i> Mis Solicitudes</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-spam"></i>No Autorizados
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
