@@ -16,7 +16,7 @@
                         "stock_max" => stock_min_max($valor['stock_max']),
                         "marca" => $valor['marca'],
                         "nombre_proveedor" => $valor['nombre_proveedor'],
-                        "nombre_categoria" => $valor['nombre_categoria'],
+                        "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
                         "accion" => accion($valor['cod_articulo'])
                         );
         
@@ -26,6 +26,25 @@
                 <div class='font-size-sm text-muted line-height-1'>$unidad</div>";
     }
     function articulo_marca($articulo,$marca){
+        $articulo_ = mb_strtoupper($articulo);
+        $marca_ = mb_strtoupper($marca);
+        if(!empty($marca_)){
+            return "<div class='d-flex align-items-center'>
+                        <div>
+                            <a class='text-default font-weight-semibold letter-icon-title'>$articulo_</a>
+                            <div class='text-muted font-size-sm'><span class='badge badge-mark border-blue mr-1'></span> $marca_</div>
+                        </div>
+                    </div>";
+        }else{
+            return "<div class='d-flex align-items-center'>
+                        <div>
+                            <a class='text-default font-weight-semibold letter-icon-title'>$articulo_</a>
+                            <div class='text-muted font-size-sm'><span class='badge badge-mark border-slate-300 mr-1'></span> $marca_</div>
+                        </div>
+                    </div>";
+        }
+    }
+    function codarticulo_inventario($cod_articulo,$no_inventario){
         $articulo_ = mb_strtoupper($articulo);
         $marca_ = mb_strtoupper($marca);
         if(!empty($marca_)){
@@ -61,6 +80,9 @@
                         </div>
                 </div>
         </div>";
+    }
+    function nombre_categoria($nombre_categoria){
+        return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>$nombre_categoria</h6>";
     }
     header('Content-Type: application/json');
     echo json_encode($data);

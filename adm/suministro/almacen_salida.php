@@ -96,6 +96,9 @@
                                         <li class="nav-item">
                                             <a href="almacen_salida_aprobada.php" class="nav-link"><i class="icon-drawer3"></i> Enviados a revisión</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="almacen.php" class="nav-link"><i class="icon-drawer3"></i> Almacen</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

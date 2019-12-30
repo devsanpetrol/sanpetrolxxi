@@ -132,23 +132,24 @@
                                 </h6>
                             </div>
                             <div class="card-body">
-                                <table class="table datatable-basic text-nowrap" id="almacen_tabla" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Codigo</th>
-                                            <th>No. Inventario</th>
-                                            <th>Articulo</th>
-                                            <th>Stock</th>
-                                            <th>Min</th>
-                                            <th>Max</th>
-                                            <th>Categoria</th>
-                                            <th>Proveedor</th>
-                                            <th>Acción</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table datatable-basic text-nowrap" id="almacen_tabla" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>No. Inventario</th>
+                                                <th>Articulo</th>
+                                                <th>Stock</th>
+                                                <th>Min</th>
+                                                <th>Max</th>
+                                                <th>Proveedor</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -159,19 +160,24 @@
                             <div class="modal-content">
                                 <div class="modal-body">
                                     <div class="form-group row">
-                                        <div class="col-sm-12 form-group form-group-feedback-right text-center">
+                                        <div class="col-sm-4 form-group form-group-feedback-right text-center">
+                                            <label class="font-weight-bold">Codigo</label>
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-center" id="old_cod_articulo" readonly>
+                                        </div>
+                                        <div class="col-sm-8 form-group form-group-feedback-right text-center">
                                             <label class="font-weight-bold">Articulo</label>
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="descripcion" readonly>
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-center" id="descripcion" readonly>
                                         </div>
                                         <div class="col-sm-12 form-group form-group-feedback-right text-center">
                                             <table class="table datatable-basic text-nowrap table-xs" id="dt_for_inventario" width="100%">
                                                 <thead>
                                                     <tr>
+                                                        <th></th>
                                                         <th>Codigo</th>
-                                                        <th>Articulo</th>
                                                         <th>Unidad</th>
                                                         <th>No. Serie</th>
                                                         <th>No. Inventario</th>
+                                                        <th>Acción</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
