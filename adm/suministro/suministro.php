@@ -28,6 +28,12 @@ class suministro extends conect
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
+    }//SELECT cod_articulo FROM adm_articulo WHERE cod_articulo LIKE 'CON%' ORDER BY cod_articulo DESC LIMIT 1
+    public function get_last_codarticulo($searchTerm){
+        $sql = $this->_db->prepare("SELECT cod_articulo FROM adm_articulo WHERE cod_articulo LIKE '$searchTerm%' ORDER BY cod_articulo DESC LIMIT 1");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
     }
     public function get_almacen_busqueda_5(){
         $sql = $this->_db->prepare("SELECT adm_articulo.cod_articulo,adm_articulo.descripcion,adm_articulo.marca,adm_almacen.stock
@@ -268,6 +274,12 @@ class suministro extends conect
     }
     public function get_almacen_salida($filtro = ""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_salida $filtro order by folio asc");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_almacen($filtro = "",$limit = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_detail $filtro order by id_categoria asc $limit");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
