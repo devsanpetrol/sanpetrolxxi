@@ -362,16 +362,29 @@ class suministro extends conect
         $resultado1 = $sql1->execute();
         return $resultado1;
     }
-    function set_insert_new_articulo($cod_articulo,$cod_articulo_new,$no_inventario,$no_serie){
-        $sql1 = $this->_db->prepare("INSERT INTO adm_articulo (cod_articulo, cod_barra, descripcion, especificacion, tipo_unidad, marca, ubicacion,id_proveedor, id_categoria)
-                                     SELECT '$cod_articulo_new' AS cod_articulo , cod_barra, descripcion, especificacion, tipo_unidad, marca, ubicacion, id_proveedor, id_categoria FROM adm_articulo WHERE cod_articulo = '$cod_articulo'");
-        $sql2 = $this->_db->prepare("INSERT INTO adm_almacen (no_inventario, no_serie, stock, stock_min, stock_max, importancia, ubicacion, salida, activo, cod_articulo)
-                                     VALUES ('$no_inventario', '$no_serie', '1', 0, 0, 3, NULL, NULL, 1, '$cod_articulo_new')");
-        $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock - 1) WHERE  WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
+    function set_insert_new_articulo($cod_articulo,$cod_articulo_new,$no_inventario,$no_serie,$costo){
+        $sql1 = $this->_db->prepare("INSERT INTO adm_articulo (cod_articulo, cod_barra, descripcion, especificacion, tipo_unidad, marca,id_proveedor, id_categoria)
+                                     SELECT '$cod_articulo_new' AS cod_articulo , cod_barra, descripcion, especificacion, tipo_unidad, marca, id_proveedor, id_categoria FROM adm_articulo WHERE cod_articulo = '$cod_articulo'");
+        $sql2 = $this->_db->prepare("INSERT INTO adm_almacen (no_inventario, no_serie, stock, stock_min, stock_max, importancia, ubicacion, salida,costo, activo, cod_articulo)
+                                     VALUES ('$no_inventario', '$no_serie', '0', 0, 0, 3, NULL, NULL,'$costo', 1, '$cod_articulo_new')");
+        $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock - 1) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
         $resultado1 = $sql1->execute();
         $resultado2 = $sql2->execute();
         $resultado3 = $sql3->execute();
         return "Insert adm_articulo:".$resultado1.", Insert adm_almacen:".$resultado2.", Update adm_almacen stock:".$resultado3;
+    }
+    function set_update_new_articulo($cod_articulo_new,$no_inventario,$no_serie,$costo){
+        $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.no_inventario = '$no_inventario', adm_almacen.no_serie = '$no_serie',adm_almacen.costo = '$costo' WHERE adm_almacen.cod_articulo = '$cod_articulo_new' LIMIT 1");
+        $resultado3 = $sql3->execute();
+        return "Update adm_almacen stock:".$resultado3;
+    }
+    function set_delete_new_articulo($cod_articulo_new){
+        $sql2 = $this->_db->prepare("DELETE FROM adm_almacen WHERE adm_almacen.cod_articulo = '$cod_articulo_new' LIMIT 1");
+        $sql3 = $this->_db->prepare("DELETE FROM adm_articulo WHERE adm_articulo.cod_articulo = '$cod_articulo_new' LIMIT 1");
+        
+        $resultado2 = $sql2->execute();
+        $resultado3 = $sql3->execute();
+        return $resultado3*$resultado2;
     }
     public function aut_encargado_almacen($usuario, $password, $tokenid){
         $sql = $this->_db->prepare("SELECT id_empleado FROM adm_login WHERE adm_login.usuario = '$usuario' AND adm_login.pass = '$password' AND adm_login.estado = 1 LIMIT 1");

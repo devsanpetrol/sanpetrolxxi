@@ -50,7 +50,6 @@
     <script src="js/engineJS_7.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
-    <script src="../../global_assets/js/demo_pages/picker_date.js"></script>
     <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
     <script src="../../global_assets/js/plugins/notifications/pnotify.min.js"></script>
     <script src="../../global_assets/js/demo_pages/extra_fab.js"></script>
@@ -58,6 +57,7 @@
     <script src="../../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/styling/switch.min.js"></script>
+    <script src="../../global_assets/js/plugins/forms/inputs/touchspin.min.js"></script>
     
     <!-- /theme JS files -->
 </head>
@@ -143,6 +143,7 @@
                                                 <th>Min</th>
                                                 <th>Max</th>
                                                 <th>Proveedor</th>
+                                                <th>Costo</th>
                                                 <th>Acción</th>
                                             </tr>
                                         </thead>
@@ -177,6 +178,7 @@
                                                         <th>Unidad</th>
                                                         <th>No. Serie</th>
                                                         <th>No. Inventario</th>
+                                                        <th>Costo</th>
                                                         <th>Acción</th>
                                                     </tr>
                                                 </thead>

@@ -24,6 +24,7 @@
                         "unidad" => $unidad,
                         "no_serie" => no_serie($numer_cod_articulo),
                         "no_inventario" => no_inventario($numer_cod_articulo),
+                        "costo" => costo($numer_cod_articulo),
                         "accion" => accion($numer_cod_articulo));
     }
     
@@ -33,6 +34,10 @@
     }
     function no_inventario($numer_cod_articulo){
         return "<input type='text' class='form-control form-control-sm font-weight-semibold text-blue-800' id='inv_$numer_cod_articulo'>";
+    }
+    function costo($numer_cod_articulo){
+        return "<input type='text' value='0' class='form-control touchspin-prefix' id='cos_$numer_cod_articulo'>";
+        
     }
     function get_category($cod_articulo){//extrae la cateria del codigo
         return preg_replace('/\d/', '', $cod_articulo );
@@ -44,7 +49,7 @@
         return (int)substr($cod_articulo, -4);
     }
     function accion($numer_cod_articulo){
-        return "<button type='button' class='btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm' data-numercodarticulo='$numer_cod_articulo' id='$numer_cod_articulo' onclick='guarda_inventario(event)'><i class='icon-checkmark4'></i></button>";
+        return "<button type='button' class='btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm' data-numercodarticulo='$numer_cod_articulo' data-inventariado='no' id='$numer_cod_articulo' onclick='guarda_inventario(event)'>Ok</button>";
     }
     function status($numer_cod_articulo){
         return "<i class='icon-price-tag3 text-slate-300' id='ico_$numer_cod_articulo'></i>";

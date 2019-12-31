@@ -11,7 +11,15 @@
     $data = array();
     
     foreach ($articulos as $valor) {
-        $data[] = array("id"=>$valor['cod_articulo'], "text"=>$valor['descripcion']."(".$valor['stock'].")");
+        if(empty($valor['no_inventario'])){
+            $data[] = array("id"=>$valor['cod_articulo'], "text"=>$valor['descripcion']." (".$valor['stock'].")");
+        }else{
+            if($valor['stock'] > 0){
+                $data[] = array("id"=>$valor['cod_articulo'], "text"=>$valor['descripcion']." (".$valor['no_inventario'].")");
+            }else{
+                $data[] = array("id"=>$valor['cod_articulo'], "text"=>$valor['descripcion']." (".$valor['no_inventario'].")(No Disponible)");
+            }
+        }
     }
     
     header('Content-Type: application/json');
