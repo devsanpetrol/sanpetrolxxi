@@ -97,6 +97,8 @@ $(document).ready( function () {
                 $("#ico_"+cod_articulo_new).addClass('icon-price-tag3 text-slate-300').removeClass('icon-price-tag2 text-pink');
                 $("#"+e.target.id).data('inventariado','no');
                 clear_form_inv(cod_articulo_new);
+            }else if(res[0].type == 'check' && res[0].result == 'exist'){
+                alert("El numero de inventario asignado ya existe.");
             }
             console.log('type:'+res[0].type+', result:'+res[0].result);
         });

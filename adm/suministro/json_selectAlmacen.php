@@ -17,7 +17,7 @@
                         "costo" => costo($valor['costo']),
                         "nombre_proveedor" => $valor['nombre_proveedor'],
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
-                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario'])
+                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario'],$valor['tipo_unidad'])
                         );
         
     }
@@ -63,9 +63,9 @@
     function stock_min_max($cantidad){
         return "<h6 class='mb-0'>$cantidad</h6>";
     }
-    function accion($cod_articulo,$no_inventario){
+    function accion($cod_articulo,$no_inventario,$tipo_unidad){
         $inv = "";
-        if(empty($no_inventario)){
+        if(empty($no_inventario) && $tipo_unidad != "kgr" && $tipo_unidad != "mtr" && $tipo_unidad != "ltr" ){
             $inv = "<a class='dropdown-item' data-codarticulo='$cod_articulo' onclick='inventarear(event)' id='inv_$cod_articulo'><i class='icon-price-tag2'></i> Inventariar</a>";
         }
     return "<div class='list-icons'>

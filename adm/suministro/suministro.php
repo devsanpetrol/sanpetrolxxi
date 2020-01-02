@@ -15,6 +15,18 @@ class suministro extends conect
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
+        
+        /*SQL Alter:
+        SELECT adm_articulo.id_articulo,
+			 adm_articulo.descripcion,
+			 adm_categoria_consumibles.categoria,
+			 adm_articulo.marca,
+			 adm_almacen.cod_articulo,
+			 adm_almacen.stock_min,
+			 adm_almacen.stock_max,adm_almacen.stock
+        FROM adm_articulo
+	INNER JOIN adm_almacen ON adm_articulo.id_articulo = adm_almacen.id_articulo
+	INNER JOIN adm_categoria_consumibles ON adm_articulo.id_categoria = adm_categoria_consumibles.id_categoria */ 
     }
     public function get_form_sol_mat($numformat){
         $sql = $this->_db->prepare("SELECT * FROM adm_formato WHERE num_formato = '$numformat' ORDER BY num_revision DESC LIMIT 1");//nombre = :Nombre'
@@ -36,7 +48,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_busqueda_5(){
-        $sql = $this->_db->prepare("SELECT adm_articulo.cod_articulo,adm_articulo.descripcion,adm_articulo.marca,adm_almacen.stock
+        $sql = $this->_db->prepare("SELECT adm_almacen.cod_articulo,adm_articulo.descripcion,adm_articulo.marca,adm_almacen.stock
                                     FROM adm_articulo
                                     INNER JOIN adm_almacen ON adm_articulo.cod_articulo = adm_almacen.cod_articulo
                                     INNER JOIN adm_categoria_consumibles ON adm_articulo.id_categoria = adm_categoria_consumibles.id_categoria
@@ -361,6 +373,12 @@ class suministro extends conect
         $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET status_vale = 2 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");
         $resultado1 = $sql1->execute();
         return $resultado1;
+    }
+    function set_select_cout_inventario($no_inventario){
+        $sql = $this->_db->prepare("SELECT COUNT(*) AS count FROM adm_almacen WHERE no_inventario = '$no_inventario' LIMIT 1");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado[0]["count"];
     }
     //===========MODIFICACIÓN DE INVENTARIO=================================================================================================================================
     function set_insert_new_articulo($cod_articulo,$cod_articulo_new,$no_inventario,$no_serie,$costo){
