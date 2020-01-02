@@ -1,5 +1,6 @@
 $(document).ready( function () {
     $(".nuevas-entradas-inbox").hide();
+    $(".almacen-aprobacion").addClass("active");
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
         ordering: false,

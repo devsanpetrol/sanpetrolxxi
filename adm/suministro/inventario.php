@@ -47,7 +47,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <script src="js/engineJS_7.js"></script>
+    <script src="js/engineJS_8.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
@@ -108,12 +108,12 @@
                                         <thead>
                                             <tr>
                                                 <th>Codigo</th>
+                                                <th>No. Inventario</th>
                                                 <th>Articulo</th>
-                                                <th>Stock</th>
-                                                <th>Min</th>
-                                                <th>Max</th>
+                                                <th>Disponible</th>
                                                 <th>Proveedor</th>
-                                                <th></th>
+                                                <th>Costo</th>
+                                                <th>Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -124,47 +124,6 @@
                         </div>
                     </div>
                     <!-- /content area -->
-                    <!-- Area modal -->
-                    <div id="modal_inventario" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="form-group row">
-                                        <div class="col-sm-4 form-group form-group-feedback-right text-center">
-                                            <label class="font-weight-bold">Codigo</label>
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-center" id="old_cod_articulo" readonly>
-                                        </div>
-                                        <div class="col-sm-8 form-group form-group-feedback-right text-center">
-                                            <label class="font-weight-bold">Articulo</label>
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-center" id="descripcion" readonly>
-                                        </div>
-                                        <div class="col-sm-12 form-group form-group-feedback-right text-center">
-                                            <table class="table datatable-basic text-nowrap table-xs" id="dt_for_inventario" width="100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>Codigo</th>
-                                                        <th>Unidad</th>
-                                                        <th>No. Serie</th>
-                                                        <th>No. Inventario</th>
-                                                        <th>Costo</th>
-                                                        <th>Acción</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline bg-danger-300 rounded-round btn-icon ml-2 btn-sm" onclick="salir()"><i class="icon-exit2"></i> Salir</button>
-                                    <button type="button" class="btn btn-outline bg-slate rounded-round btn-icon ml-2 btn-sm"><i class="icon-download4"></i> Añadir</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /large modal -->
                     <!-- Footer -->
                     <?php include "../bar_nav/footer_navbar.php"; ?>
                     <!-- /footer -->

@@ -2,7 +2,7 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_almacen("WHERE no_inventario = ''");
+    $categorias = $suministro->get_almacen("WHERE no_inventario <> ''");
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -10,7 +10,7 @@
                         "no_inventario" => serie_inventario($valor['no_serie'],$valor['no_inventario']),
                         "descripcion" => articulo_marca($valor['descripcion'],$valor['marca']),
                         "tipo_unidad" => $valor['tipo_unidad'],
-                        "stock" => cantidad_unidad($valor['stock'],$valor['tipo_unidad']),
+                        "stock" => status_disponible($valor['stock']),
                         "stock_min" => stock_min_max($valor['stock_min']),
                         "stock_max" => stock_min_max($valor['stock_max']),
                         "marca" => $valor['marca'],
@@ -76,8 +76,6 @@
                         <div class='dropdown-menu dropdown-menu-right bg-slate-600'>
                             <a class='dropdown-item'><i class='icon-clippy'></i> Propiedades</a>
                             $inv
-                            <div class='dropdown-divider'></div>
-                            <a class='dropdown-item'><i class='icon-gear'></i> One more separated line</a>
                         </div>
                 </div>
         </div>";
@@ -92,6 +90,13 @@
     }
     function nombre_categoria($nombre_categoria){
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>$nombre_categoria</h6>";
+    }
+    function status_disponible($stock){
+        if($stock == 1){
+            return "<span class='badge bg-success align-self-start ml-3'>Disponible</span>";
+        }else{
+            return "<span class='badge bg-slate-300 align-self-start ml-3'>Disponible</span>";
+        }
     }
     header('Content-Type: application/json');
     echo json_encode($data);

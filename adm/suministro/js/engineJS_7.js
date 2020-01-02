@@ -1,6 +1,6 @@
 $(document).ready( function () {
     $("body").addClass("sidebar-xs");
-    
+    $(".almacen").addClass("active");
     $('#almacen_tabla').DataTable({
         bDestroy: true,
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
@@ -12,18 +12,19 @@ $(document).ready( function () {
         },
         columns: [
             {data : 'cod_articulo'},
-            {data : 'no_inventario'},
             {data : 'descripcion'},
             {data : 'stock'},
             {data : 'stock_min'},
             {data : 'stock_max'},
             {data : 'nombre_proveedor'},
-            {data : 'costo'},
             {data : 'accion'}
         ],
         rowGroup: {
             dataSrc: 'nombre_categoria'
         },
+        columnDefs: [
+            {targets: 6, className:'text-center text-primary-800'}
+        ],
         language: {
             search: '<span>Filtro:</span> _INPUT_',
             searchPlaceholder: 'Busqueda...',
@@ -82,22 +83,29 @@ $(document).ready( function () {
     var cod_articulo_new = $("#"+e.target.id).data("numercodarticulo");
     var cod_articulo = $("#old_cod_articulo").val();
     var no_serie = $("#ser_"+cod_articulo_new).val();
-    var no_inventario = $("#inv_"+cod_articulo_new).val();
-    var costo = $("#cos_"+cod_articulo_new).val();
-    var inventariado = $("#"+e.target.id).data("inventariado");
-    if(no_inventario == "" && inventariado == "no"){
-        console.log("Formulario vacio. No se guardo cambios");
+    var no_inventario = ($('#inv_'+cod_articulo_new).val()).trim();
+    var costo = $('#cos_'+cod_articulo_new).val();
+    var inventariado = $('#'+e.target.id).data('inventariado');
+    if(no_inventario == "" && inventariado == 'no'){
+        console.log('Formulario vacio. No se guardo cambios');
     }else{
         $.post('json_set_inventario.php',{ cod_articulo: cod_articulo, cod_articulo_new: cod_articulo_new, no_serie:no_serie, no_inventario:no_inventario,costo:costo,inventariado:inventariado},function(res){
-            if(no_inventario == ""){
-                $("#ico_"+cod_articulo_new).addClass("icon-price-tag3 text-slate-300").removeClass("icon-price-tag2 text-pink");
-                $("#"+e.target.id).data("inventariado","no");
-            }else{
-                $("#ico_"+cod_articulo_new).removeClass("icon-price-tag3 text-slate-300").addClass("icon-price-tag2 text-pink");
-                $("#"+e.target.id).data("inventariado","si");
+            if((res[0].type == 'update' || res[0].type == 'insert') && res[0].result == '1'){
+                $("#ico_"+cod_articulo_new).removeClass('icon-price-tag3 text-slate-300').addClass('icon-price-tag2 text-pink');
+                $('#'+e.target.id).data('inventariado','si');
+            }else if(res[0].type == 'delete' && res[0].result == '1'){
+                $("#ico_"+cod_articulo_new).addClass('icon-price-tag3 text-slate-300').removeClass('icon-price-tag2 text-pink');
+                $("#"+e.target.id).data('inventariado','no');
+                clear_form_inv(cod_articulo_new);
             }
+            console.log('type:'+res[0].type+', result:'+res[0].result);
         });
     }
+ }
+ function clear_form_inv(cod_articulo_new){
+    $("#ser_"+cod_articulo_new).val("");
+    $("#inv_"+cod_articulo_new).val("");
+    $("#cos_"+cod_articulo_new).val("0.00");
  }
  function  fecha_actual(){
     $.post('json_now.php',function(res){$('#num_folio_vale_salida').text(getFolio(res.fecha_actual));});
