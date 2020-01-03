@@ -174,7 +174,7 @@ $(document).ready( function () {
         }
     });
     $( '#select_article' ).change(function () {
-       var searchTerm = $('#select_article').val();
+        var searchTerm = $('#select_article').val();
         $.ajax({
             url: 'json_pedido.php',
             data:{searchTerm:searchTerm},
@@ -187,6 +187,7 @@ $(document).ready( function () {
                 $('#unidad').val(res.tipo_unidad).trigger('change');
                 count_apartado(res.stock);
             })
+
         });
         if(isNaN($('#select_article').val())){
             $('#descripcion').prop('readonly', true);

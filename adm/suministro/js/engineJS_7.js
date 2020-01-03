@@ -16,14 +16,13 @@ $(document).ready( function () {
             {data : 'stock'},
             {data : 'stock_min'},
             {data : 'stock_max'},
-            {data : 'nombre_proveedor'},
             {data : 'accion'}
         ],
         rowGroup: {
             dataSrc: 'nombre_categoria'
         },
         columnDefs: [
-            {targets: 6, className:'text-center text-primary-800'}
+            {targets: 5, className:'text-center text-primary-800'}
         ],
         language: {
             search: '<span>Filtro:</span> _INPUT_',

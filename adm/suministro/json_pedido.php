@@ -11,6 +11,7 @@ if(!empty($_POST['searchTerm'])){
         'especificacion' => $dato[0]['especificacion'],
         'id_categoria'   => $dato[0]['id_categoria'],
         'stock'          => $dato[0]['stock'],
+        'no_inventario'  => $dato[0]['no_inventario'],
         'tipo_unidad'    => $dato[0]['tipo_unidad']
     );
 }else{

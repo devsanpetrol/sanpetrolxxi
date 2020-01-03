@@ -15,7 +15,6 @@
                         "stock_max" => stock_min_max($valor['stock_max']),
                         "marca" => $valor['marca'],
                         "costo" => costo($valor['costo']),
-                        "nombre_proveedor" => $valor['nombre_proveedor'],
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
                         "accion" => accion($valor['cod_articulo'],$valor['no_inventario'])
                         );

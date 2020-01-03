@@ -40,17 +40,17 @@ $(document).ready( function () {
     
     $('#select_article').select2({
         dropdownParent: $('#modal_large'),
-        ajax: { 
+        ajax: {
             url: 'json_selectArticle.php',
             type: 'post',
             dataType: 'json',
-            delay: 500,
+            delay: 1000,
             cache: true,
             data: function (params) {
              return { searchTerm: params.term };
             },
             processResults: function (response) {
-              return { results: response };
+                return { results: response };
             }
         }
     });
@@ -77,12 +77,26 @@ $(document).ready( function () {
             data:{searchTerm:searchTerm},
             type: 'POST',
             success:(function(res){
-                $('#cod_articulo').val(res.cod_articulo);
-                $('#descripcion').val(res.descripcion);
-                $('#especificacion').val(res.especificacion);
-                $('#select_categoria').val(res.id_categoria).trigger('change');
-                $('#unidad').val(res.tipo_unidad).trigger('change');
-                count_apartado(res.stock);
+                if(res.no_inventario != "" && res.stock == "1"){
+                    $('#cod_articulo').val(res.cod_articulo);
+                    $('#descripcion').val(res.descripcion);
+                    $('#especificacion').val(res.especificacion);
+                    $('#select_categoria').val(res.id_categoria).trigger('change');
+                    $('#unidad').val(res.tipo_unidad).trigger('change');
+                    count_apartado(res.stock);
+                    console.log("cae en if");
+                }else if(res.no_inventario != "" && res.stock == "0"){
+                    alert("Este articulo no esta disponible para su solicitud.");
+                    console.log("cae en else if");
+                }else{
+                    $('#cod_articulo').val(res.cod_articulo);
+                    $('#descripcion').val(res.descripcion);
+                    $('#especificacion').val(res.especificacion);
+                    $('#select_categoria').val(res.id_categoria).trigger('change');
+                    $('#unidad').val(res.tipo_unidad).trigger('change');
+                    count_apartado(res.stock);
+                    console.log("cae en else");
+                }
             })
         });
         if(isNaN($('#select_article').val())){

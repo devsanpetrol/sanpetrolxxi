@@ -112,7 +112,6 @@
                                                 <th>Stock</th>
                                                 <th>Min</th>
                                                 <th>Max</th>
-                                                <th>Proveedor</th>
                                                 <th></th>
                                             </tr>
                                         </thead>

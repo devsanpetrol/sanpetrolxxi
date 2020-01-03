@@ -15,7 +15,6 @@ $(document).ready( function () {
             {data : 'no_inventario'},
             {data : 'descripcion'},
             {data : 'stock'},
-            {data : 'nombre_proveedor'},
             {data : 'costo'},
             {data : 'accion'}
         ],

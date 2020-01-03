@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_set_inventario.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_inventariar.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/almacen.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_8.js</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/almacen_salida.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/inventario.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/almacen_salida_aprobada.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectInventario.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_7.js</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectAlmacen.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/inicio.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectArticle.php</file>
         </group>
     </open-files>
 </project-private>

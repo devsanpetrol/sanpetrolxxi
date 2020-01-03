@@ -111,7 +111,6 @@
                                                 <th>No. Inventario</th>
                                                 <th>Articulo</th>
                                                 <th>Disponible</th>
-                                                <th>Proveedor</th>
                                                 <th>Costo</th>
                                                 <th>Acción</th>
                                             </tr>

@@ -8,6 +8,16 @@ class suministro extends conect
         parent::__construct(); 
     }
     public function get_almacen_categoria(){
+        $sql = $this->_db->prepare('SELECT adm_articulo.cod_articulo,adm_articulo.descripcion,adm_categoria_consumibles.categoria,adm_articulo.marca,adm_almacen.stock_min,adm_almacen.stock_max,adm_almacen.stock
+                                    FROM adm_articulo
+                                    INNER JOIN adm_almacen ON adm_articulo.cod_articulo = adm_almacen.cod_articulo
+                                    INNER JOIN adm_categoria_consumibles ON adm_articulo.id_categoria = adm_categoria_consumibles.id_categoria');//nombre = :Nombre'
+        $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    //DATA BASE 2===============================================================
+    /*public function get_almacen_categoria(){
         $sql = $this->_db->prepare('SELECT adm_articulo.id_articulo,adm_articulo.descripcion,adm_categoria_consumibles.categoria,adm_articulo.marca,adm_almacen.cod_articulo,adm_almacen.stock_min,adm_almacen.stock_max,adm_almacen.stock
         FROM adm_articulo
 	INNER JOIN adm_almacen ON adm_articulo.id_articulo = adm_almacen.id_articulo
@@ -15,7 +25,7 @@ class suministro extends conect
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
-    }
+    }*/
     public function get_form_sol_mat($numformat){
         $sql = $this->_db->prepare("SELECT * FROM adm_formato WHERE num_formato = '$numformat' ORDER BY num_revision DESC LIMIT 1");//nombre = :Nombre'
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
@@ -28,14 +38,24 @@ class suministro extends conect
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
-    }
+    }//SELECT cod_articulo FROM adm_articulo WHERE cod_articulo LIKE 'CON%' ORDER BY cod_articulo DESC LIMIT 1
     public function get_last_codarticulo($searchTerm){
-        $sql = $this->_db->prepare("SELECT cod_articulo FROM adm_almacen WHERE cod_articulo LIKE '$searchTerm%' ORDER BY cod_articulo DESC LIMIT 1");
+        $sql = $this->_db->prepare("SELECT cod_articulo FROM adm_articulo WHERE cod_articulo LIKE '$searchTerm%' ORDER BY cod_articulo DESC LIMIT 1");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
     public function get_almacen_busqueda_5(){
+        $sql = $this->_db->prepare("SELECT adm_almacen.cod_articulo,adm_articulo.descripcion,adm_articulo.marca,adm_almacen.stock
+                                    FROM adm_articulo
+                                    INNER JOIN adm_almacen ON adm_articulo.cod_articulo = adm_almacen.cod_articulo
+                                    INNER JOIN adm_categoria_consumibles ON adm_articulo.id_categoria = adm_categoria_consumibles.id_categoria
+                                    LIMIT 0");//nombre = :Nombre'
+        $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    /*public function get_almacen_busqueda_5(){
         $sql = $this->_db->prepare("SELECT adm_almacen.cod_articulo,adm_articulo.descripcion,adm_articulo.marca,adm_almacen.stock
                                     FROM adm_articulo
                                     INNER JOIN adm_almacen ON adm_articulo.id_articulo = adm_almacen.id_articulo
@@ -44,7 +64,7 @@ class suministro extends conect
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
-    }
+    }*/
     public function get_almacen_busqueda_1($searchTerm){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_stock_disponible
                                     WHERE adm_view_stock_disponible.cod_articulo = :codigo or adm_view_stock_disponible.cod_barra = :codigo");
@@ -370,12 +390,15 @@ class suministro extends conect
     }
     //===========MODIFICACIÓN DE INVENTARIO=================================================================================================================================
     function set_insert_new_articulo($cod_articulo,$cod_articulo_new,$no_inventario,$no_serie,$costo){
-        $sql2 = $this->_db->prepare("INSERT INTO adm_almacen (id_articulo,no_inventario, no_serie, stock, stock_min, stock_max, importancia, ubicacion, salida,costo, activo, cod_articulo)
-                                     SELECT id_articulo, '$no_inventario' AS no_inventario, '$no_serie' AS no_serie, '0' AS stock, '0' AS stock_min, '0' AS stock_max, importancia, ubicacion, salida,'$costo' AS costo, '1' AS activo, '$cod_articulo_new' AS cod_articulo FROM adm_almacen WHERE cod_articulo = '$cod_articulo'");
+        $sql1 = $this->_db->prepare("INSERT INTO adm_articulo (cod_articulo, cod_barra, descripcion, especificacion, tipo_unidad, marca,id_categoria)
+                                     SELECT '$cod_articulo_new' AS cod_articulo , cod_barra, descripcion, especificacion, tipo_unidad, marca, id_categoria FROM adm_articulo WHERE cod_articulo = '$cod_articulo'");
+        $sql2 = $this->_db->prepare("INSERT INTO adm_almacen (no_inventario, no_serie, stock, stock_min, stock_max, importancia, ubicacion, salida,costo, activo, cod_articulo)
+                                     VALUES ('$no_inventario', '$no_serie', '0', 0, 0, 3, NULL, NULL,'$costo', 1, '$cod_articulo_new')");
         $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock - 1) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
+        $resultado1 = $sql1->execute();
         $resultado2 = $sql2->execute();
         $resultado3 = $sql3->execute();
-        return $resultado2*$resultado3;
+        return $resultado1*$resultado2*$resultado3;
     }
     function set_update_new_articulo($cod_articulo_new,$no_inventario,$no_serie,$costo){
         $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.no_inventario = '$no_inventario', adm_almacen.no_serie = '$no_serie',adm_almacen.costo = '$costo' WHERE adm_almacen.cod_articulo = '$cod_articulo_new' LIMIT 1");
@@ -383,7 +406,22 @@ class suministro extends conect
         return $resultado3;
     }
     function set_delete_new_articulo($cod_articulo, $cod_articulo_new){
-        $sql2 = $this->_db->prepare("DELETE FROM adm_almacen WHERE adm_almacen.cod_articulo = '$cod_articulo_new' LIMIT 1");
+        $sql1 = $this->_db->prepare("DELETE FROM adm_almacen WHERE adm_almacen.cod_articulo = '$cod_articulo_new' LIMIT 1");
+        $sql2 = $this->_db->prepare("DELETE FROM adm_articulo WHERE adm_articulo.cod_articulo = '$cod_articulo_new' LIMIT 1");
+        $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock + 1) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
+        
+        $resultado1 = $sql1->execute();
+        $resultado2 = $sql2->execute();
+        $resultado3 = 0;
+        
+        if(($resultado1*$resultado2) == 1){
+            $resultado3 = $sql3->execute();
+        }
+        
+        return $resultado3;
+    }
+    /*function set_delete_new_articulo($cod_articulo, $cod_articulo_new){
+        $sql2 = $this->_db->prepare("DELETE FROM adm_articulo WHERE adm_articulo.cod_articulo = '$cod_articulo_new' LIMIT 1");
         $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock + 1) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
         
         $resultado2 = $sql2->execute();
@@ -394,7 +432,7 @@ class suministro extends conect
         }
         
         return $resultado3;
-    }
+    }*/
     //======================================================================================================================================================================
     public function aut_encargado_almacen($usuario, $password, $tokenid){
         $sql = $this->_db->prepare("SELECT id_empleado FROM adm_login WHERE adm_login.usuario = '$usuario' AND adm_login.pass = '$password' AND adm_login.estado = 1 LIMIT 1");
