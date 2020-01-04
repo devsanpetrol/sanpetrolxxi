@@ -10,6 +10,7 @@
         $id_valesalida_pedido = $valor["id_valesalida_pedido"];
         $data[] = array("id_valesalida_pedido" => $id_valesalida_pedido,
                         "cantidad_surtir" => cantidad_surtir($id_valesalida_pedido, $valor["cantidad_surtida"],$valor["aprobado"],$valor["unidad"]),
+                        "cantidad_surtir_num" => $valor["cantidad_surtida"],
                         "unidad" => unidad($valor["unidad"]),
                         "id_pedido" => $valor["id_pedido"],
                         "cod_articulo" => $valor["cod_articulo"],

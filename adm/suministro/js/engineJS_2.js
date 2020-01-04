@@ -370,8 +370,8 @@ function agrega_pase(id_pedido){
  function guarda_elemento_vale_salida(folio_vale,visto_bueno){
     $(".input-surtido-genera").each(function(){
         var cantidad_surtir = parseFloat($(this).val());
-        var id_pedido       = $(this).data("idpedido");
-        var cod_articulo    = $(this).data("codarticulo");
+        var id_pedido       = $(this).data('idpedido');
+        var cod_articulo    = $(this).data('codarticulo');
         var ua  = ( visto_bueno != '' ) ? 'si' : 'no';
 
         if( cantidad_surtir > 0 ){
@@ -380,12 +380,12 @@ function agrega_pase(id_pedido){
                 url: 'json_update_almacen_pedido.php',
                 type: 'POST',
                 success:(function(result){
-                    if(result.result == "exito"){
-                        console.log("Guarda detalle: Generado con exito!: id_pedido"+id_pedido);
-                    }else if(result.result == "falla_guardado"){
-                        console.log("Guarda detalle: Ocurrión un error al guardar los datos: id_pedido"+id_pedido);
-                    }else if(result.result == "falla_recepcion_dato"){
-                        console.log("Guarda detalle: La informacion enviada no es valida: id_pedido"+id_pedido);
+                    if(result.result == 'exito'){
+                        console.log('Guarda detalle: Generado con exito!: id_pedido' + id_pedido);
+                    }else if(result.result == 'falla_guardado'){
+                        console.log('Guarda detalle: Ocurrión un error al guardar los datos: id_pedido' + id_pedido);
+                    }else if(result.result == 'falla_recepcion_dato'){
+                        console.log('Guarda detalle: La informacion enviada no es valida: id_pedido' + id_pedido);
                     }
                 })
             });

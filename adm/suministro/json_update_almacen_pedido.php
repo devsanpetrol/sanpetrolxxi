@@ -11,13 +11,13 @@
         $update_almacen  = $_POST['update_almacen'];
         
         $set_update_pedido = $suministro->set_update_salida($folio_vale, $id_pedido, $cod_articulo, $cantidad_surtir, $update_almacen);
-        if ($set_update_pedido == true){
-            $data[] = array("result" => 'exito');
+        if ($set_update_pedido == 1){
+            $data[] = array('result' => 'exito');
         }else{
-            $data[] = array("result" => $set_update_pedido);
+            $data[] = array('result' => $set_update_pedido, 'set_update_pedido' => false);
         }
     }else{
-            $data[] = array("result" => $set_update_pedido);
+            $data[] = array('result' => 'falla_recepcion_dato','id_pedido' => 'is_empty');
     }
     
     header('Content-Type: application/json');

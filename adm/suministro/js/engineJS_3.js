@@ -173,13 +173,18 @@ function setPedidos(folio){
         },
         success: function (obj) {
             $.each(obj, function (index, value) {
+                var temp =
                 t.row.add( [
                     value.cantidad_surtir,
                     value.autorizacion,
                     value.articulo,
                     value.destino,
                     value.recibe
-                ] ).draw( false );
+                ] ).node();
+                t.draw( false );
+                $(temp).attr("data-idvalesalidapedido", value.id_valesalida_pedido);
+                $(temp).attr("data-cantidad_surtir_num", value.cantidad_surtir_num);
+                
             });
             $.each(obj, function (index, value) {
                 var id_valesalida_pedido = value.id_valesalida_pedido;

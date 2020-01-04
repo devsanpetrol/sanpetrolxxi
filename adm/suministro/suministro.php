@@ -305,6 +305,9 @@ class suministro extends conect
         $sql4 = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (cantidad_surtida, folio_vale, id_pedido, fecha) VALUES ('$cantidad_surtir', $folio_vale, $id_pedido, NOW())");
         $sql5 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail SET aprobado = 1 WHERE folio_vale = $folio_vale");
         
+        $sqlx = $this->_db->prepare("DELETE FROM adm_almacen_valesalida WHERE adm_almacen_valesalida.folio_vale = $folio_vale  LIMIT 1");
+        $sqly = $this->_db->prepare("UPDATE adm_pedido  SET cantidad_surtir = 0 WHERE id_pedido = '$id_pedido'");
+        
         if($update_almacen == "si"){
             $resultado1 = $sql1->execute();
             $resultado2 = $sql2->execute();
@@ -314,9 +317,14 @@ class suministro extends conect
         }elseif($update_almacen == "no"){
             $resultado3 = $sql3->execute();
             $resultado4 = $sql4->execute();
-            $request    = $resultado3*$resultado4;
+            if(($resultado3*$resultado4) == true){
+                $request = 1;
+            }else{
+                $resultadox = $sqlx->execute();
+                $resultadoy = $sqly->execute();
+                $request = 'resultado3:'.$resultado3.'resultado4:'."INSERT INTO adm_almacen_valesalida_detail (cantidad_surtida, folio_vale, id_pedido, fecha) VALUES ('$cantidad_surtir', $folio_vale, $id_pedido, NOW())"."back: x=".$resultadox.",y=".$resultadoy;
+            }
         }
-        
         return $request;
     }
     function set_update_salida_aprobado($id_pedido,$cod_articulo, $cantidad_surtir,$cantidad_cancelado,$id_valesalida_pedido){
