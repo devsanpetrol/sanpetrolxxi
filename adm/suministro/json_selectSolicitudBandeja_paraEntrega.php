@@ -31,7 +31,7 @@
         $pedidos = $suministro->get_pedidos_salida($folio);
         $lista = array();
         foreach($pedidos as $valor){
-                $cantidad = $valor['cantidad_surtida'];
+                $cantidad = $valor['cantidad_aprobado'];
                 $unidad = $valor['unidad'];
                 $destino = $valor['destino'];
                 $articulo = $valor['articulo'];
@@ -41,6 +41,13 @@
             }
         $todos = implode("</br>", $lista);
         return $todos;
+    }
+    function cantidad_alter($cantidad_surtir,$cantidad_aprobado,$status_vale){
+        /*if(){
+            
+        }else{
+            
+        }*/
     }
     function pedido_count($folio){
         $suministro = new suministro();
