@@ -314,7 +314,7 @@ class suministro extends conect
         return $request;
     }
     function set_update_salida_aprobado($id_pedido,$cod_articulo, $cantidad_surtir,$cantidad_cancelado,$id_valesalida_pedido){//Aprobados = 1:Todos, 2:Parcial, 3:Ninguno;
-        if($cantidad_cancelado > 0){
+        if($cantidad_cancelado > 0 ){
             $sql3 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_aprobada = $cantidad_surtir, cantidad_cancelado = $cantidad_cancelado, aprobado = 3 WHERE id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
         }else{
             $sql3 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_aprobada = $cantidad_surtir, aprobado = 1 WHERE id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
@@ -331,12 +331,12 @@ class suministro extends conect
         return $resultado1;
     }
     function set_update_recibe_solicitud($id_valesalida_pedido, $recibe){
-        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail SET recibe = '$recibe', fecha_recibe = NOW() WHERE adm_almacen_valesalida_detail.id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
+        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail SET recibe = '$recibe', fecha = NOW() WHERE adm_almacen_valesalida_detail.id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
         $resultado1 = $sql1->execute();
         return $resultado1;
     }
     function set_update_recibe_solicitud_todo($folio_vale, $recibe_vale){
-        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET recibe_vale = '$recibe_vale', fecha_recibe = NOW(),status_vale = 2 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");
+        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET recibe_vale = '$recibe_vale', fecha_salida = NOW(),status_vale = 2 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");
         $resultado1 = $sql1->execute();
         return $resultado1;
     }

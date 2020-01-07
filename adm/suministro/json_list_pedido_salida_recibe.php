@@ -9,14 +9,14 @@
     foreach ($pedidos as $valor){
         $id_valesalida_pedido = $valor["id_valesalida_pedido"];
         $data[] = array("id_valesalida_pedido" => $id_valesalida_pedido,
-                        "cantidad_surtir" => cantidad_surtir($id_valesalida_pedido, $valor["cantidad_surtida"],$valor["aprobado"],$valor["unidad"]),
-                        "cantidad_surtir_num" => $valor["cantidad_surtida"],
+                        "cantidad_surtir" => cantidad_surtir($id_valesalida_pedido, $valor["cantidad_aprobada"],$valor["aprobado"],$valor["unidad"]),
+                        "cantidad_surtir_num" => $valor["cantidad_aprobada"],
                         "unidad" => unidad($valor["unidad"]),
                         "id_pedido" => $valor["id_pedido"],
                         "cod_articulo" => $valor["cod_articulo"],
                         "articulo" => articulo($valor["articulo"]),
                         "destino" => destino($valor["destino"]),
-                        "autorizacion" => autorizacion($valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad_surtida"],$id_valesalida_pedido,$valor["aprobado"],$valor["cantidad_cancelado"]),
+                        "autorizacion" => autorizacion($valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad_aprobada"],$id_valesalida_pedido,$valor["aprobado"],$valor["cantidad_cancelado"]),
                         "recibe" => recibe($id_valesalida_pedido,$valor["recibe"]));
     }
     function cantidad_surtir($id_valesalida_pedido, $cantidad_surtida,$aprobado,$unidad){

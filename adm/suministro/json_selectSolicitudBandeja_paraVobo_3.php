@@ -33,7 +33,7 @@
         $pedidos = $suministro->get_pedidos_salida($folio," AND aprobado = 2 ");
         $lista = array();
         foreach($pedidos as $valor){
-                $cantidad = $valor['cantidad_surtida'];
+                $cantidad = $valor['cantidad_cancelado'];
                 $unidad = $valor['unidad'];
                 $destino = $valor['destino'];
                 $articulo = $valor['articulo'];

@@ -9,19 +9,19 @@
     foreach ($pedidos as $valor){
         $id_valesalida_pedido = $valor["id_valesalida_pedido"];
         $data[] = array("id_valesalida_pedido" => $id_valesalida_pedido,
-                        "cantidad_surtir" => cantidad_surtir($id_valesalida_pedido, $valor["cantidad_surtida"],$valor["aprobado"],$valor["unidad"]),
+                        "cantidad_surtir" => cantidad_surtir($id_valesalida_pedido, $valor["cantidad_surtir"],$valor["cantidad_aprobada"],$valor["aprobado"],$valor["unidad"]),
                         "unidad" => unidad($valor["unidad"]),
                         "id_pedido" => $valor["id_pedido"],
                         "cod_articulo" => $valor["cod_articulo"],
                         "articulo" => articulo($valor["articulo"]),
                         "destino" => destino($valor["destino"]),
-                        "autorizacion" => autorizacion($valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad_surtida"],$id_valesalida_pedido,$valor["aprobado"],$valor["cantidad_cancelado"]),
+                        "autorizacion" => autorizacion($valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad_surtir"],$id_valesalida_pedido,$valor["aprobado"],$valor["cantidad_cancelado"]),
                         "justificacion" => justificacion($valor["justificacion"]));
     }
-    function cantidad_surtir($id_valesalida_pedido, $cantidad_surtida,$aprobado,$unidad){
+    function cantidad_surtir($id_valesalida_pedido, $cantidad_surtir,$cantidad_aprobada,$aprobado,$unidad){
         if($aprobado == 0){
             return "<div class='input-group'>
-                        <input id='number_$id_valesalida_pedido' data-idpedido='$id_valesalida_pedido' data-apartado='$cantidad_surtida' type='number' value='$cantidad_surtida' max='$cantidad_surtida' min='0' class='form-control form-control-lg text-danger font-weight-bold text-center input-surtido-genera' style=''>
+                        <input id='number_$id_valesalida_pedido' data-idpedido='$id_valesalida_pedido' data-apartado='$cantidad_surtir' type='number' value='$cantidad_surtir' max='$cantidad_surtir' min='0' class='form-control form-control-lg text-danger font-weight-bold text-center input-surtido-genera' style=''>
                     </div>
                     <div class='progress' style='height: 0.375rem;'>
                             <div class='progress-bar progress-bar-striped bg-success' id='progress_$id_valesalida_pedido' style='width: 100%'></div>
@@ -30,7 +30,7 @@
                         $unidad
                     </span>";
         }else{
-            return "<h5 class='mb-0 font-size-sm font-weight-bold text-danger-800'>$cantidad_surtida</h5>";
+            return "<h5 class='mb-0 font-size-sm font-weight-bold text-danger-800'>$cantidad_aprobada</h5>";
         }
     }
     function unidad($unidad){

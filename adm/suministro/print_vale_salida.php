@@ -126,7 +126,7 @@
           <?php
             foreach ($detalle_folio_lista as &$valor) {
                 echo "<tr class='row4'>
-                        <td class='style2 x' style='vertical-align:middle;'>".$valor["cantidad_surtida"]."</td>
+                        <td class='style2 x' style='vertical-align:middle;'>".$valor["cantidad_aprobada"]."</td>
                         <td class='style2 x' style='vertical-align:middle;'>".$valor["unidad"]."</td>
                         <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='6'>".$valor["articulo"]."</td>
                         <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='2'>".$valor["destino"]."</td>

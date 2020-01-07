@@ -6,7 +6,7 @@
     $categorias = $suministro->get_solicitud_aprobacion_entrega($filtro);
     $data = array();
     
-    foreach ($categorias as $valor) {
+    foreach ($categorias as $valor){
         $date = new DateTime($valor['fecha_firma_encargado']);
         $d = $date->format('d');
         $m = $date->format('M');
@@ -16,7 +16,7 @@
         $foto = "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/placeholder.jpg' class='rounded-circle' width='32' height='32' alt=''><span class='badge badge-danger badge-pill badge-float border-2 border-white'>$contar</span></a>";
         
         $data[] = array("star" => $star,
-                        "pedidos" => pedido($folio),
+                        "pedidos" => pedido($folio,$valor['status_vale']),
                         "fecha" => $m." ".$d,
                         "revisado" => revisado($valor['status_vale']),
                         "folio" => $folio,
@@ -26,28 +26,28 @@
                         );
     }
     
-    function pedido($folio){
+    function pedido($folio,$status_vale){
         $suministro = new suministro();
         $pedidos = $suministro->get_pedidos_salida($folio);
         $lista = array();
         foreach($pedidos as $valor){
-                $cantidad = $valor['cantidad_aprobado'];
+                $cantidad = cantidad_alter($valor['cantidad_surtir'],$valor['cantidad_aprobada'],$status_vale);
                 $unidad = $valor['unidad'];
                 $destino = $valor['destino'];
                 $articulo = $valor['articulo'];
                 $justificacion = $valor['justificacion'];
                 $aprobado = aprobado($valor['aprobado']);
-                array_push($lista," <span class='table-inbox-subject'>$aprobado ($cantidad $unidad) $articulo &nbsp;&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span>");// <span class='text-muted font-weight-normal'>$justificacion</span>
+                array_push($lista," <span class='table-inbox-subject'>$aprobado ($cantidad $unidad) $articulo &nbsp;&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span>");
             }
         $todos = implode("</br>", $lista);
         return $todos;
     }
     function cantidad_alter($cantidad_surtir,$cantidad_aprobado,$status_vale){
-        /*if(){
-            
-        }else{
-            
-        }*/
+        if($status_vale == 1){
+            return $cantidad_surtir;
+        }else if($status_vale == 2){
+            return $cantidad_aprobado;
+        }
     }
     function pedido_count($folio){
         $suministro = new suministro();
