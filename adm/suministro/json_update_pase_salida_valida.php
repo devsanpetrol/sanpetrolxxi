@@ -8,6 +8,7 @@
         $cod_articulo    = $_POST['cod_articulo'];
         $cantidad_surtir = $_POST['cantidad_surtir'];
         $cantidad_cancelado = $_POST['cantidad_cancelado'];
+        $total = $cantidad_surtir + $cantidad_cancelado;
         $status          = $_POST['status'];
         $id_valesalida_pedido = $_POST['id_valesalida_pedido'];
         
@@ -20,7 +21,7 @@
             }
         }
         if($status == "no"){
-            $set_update_salida_no_aprovado = $suministro ->set_update_salida_no_aprovado($id_pedido, $id_valesalida_pedido);
+            $set_update_salida_no_aprovado = $suministro ->set_update_salida_no_aprovado($id_pedido, $id_valesalida_pedido,$total);
             if($set_update_salida_no_aprovado){
                 $data[] = array("result" => 'exito');
             }else{

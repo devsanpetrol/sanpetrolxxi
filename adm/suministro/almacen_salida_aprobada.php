@@ -153,15 +153,19 @@
                                     <i class="icon-menu7 mr-2"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a tabindex="-1" class="dropdown-item" data-toggle="tab" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
-                                        <i class="icon-arrow-left13 text-blue-800"></i>
+                                    <a tabindex="-1" class="dropdown-item" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
+                                        <i class="icon-arrow-left13"></i>
                                         Regresar
                                     </a>
-                                    <a tabindex="-1" class="dropdown-item" data-toggle="tab" onclick="envia()">
-                                        <i class="icon-printer2"></i>
-                                        Imprimir
+                                    <a tabindex="-1" class="dropdown-item" data-idrow="" id="tools_re-send" onclick="reset_vale_salida()">
+                                        <i class="icon-reset"></i>
+                                        Volver a revisar
                                     </a>
-                                    <a tabindex="-1" class="dropdown-item" data-toggle="tab" onclick="guarda_cambios()" >
+                                    <a tabindex="-1" class="dropdown-item" onclick="envia()">
+                                        <i class="icon-printer2"></i>
+                                        Imprimir ficha
+                                    </a>
+                                    <a tabindex="-1" class="dropdown-item" onclick="guarda_cambios()" >
                                         <i class="icon-checkmark3"></i>
                                         Finalizar
                                     </a>
@@ -231,7 +235,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-3 form-group text-right">
-                                <button type="button" class="btn btn-primary btn-sm" id="btn_envia_guarda_valesalida">Guardar</button>
+                                <!--<button type="button" class="btn btn-primary btn-sm" id="btn_envia_guarda_valesalida">Guardar</button>-->
                             </div>
                         </div>
                     </div>

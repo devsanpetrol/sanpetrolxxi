@@ -143,9 +143,11 @@ function detalle_vale_salida(folio_vale){
             if(obj.status_vale == '1'){
                 $("#firma_recibe").attr("disabled",false);//firma-individual
                 $("#btn_envia_guarda_valesalida").attr("disabled",false);
+                $("#tools_re-send").show();
             }else if(obj.status_vale == '2'){
                 $("#firma_recibe").attr("disabled",true);
                 $("#btn_envia_guarda_valesalida").attr("disabled",true);
+                $("#tools_re-send").hide();
             }
         },
         error: function (obj) {
@@ -306,17 +308,20 @@ function log_autentic(){
         $(".card-pedidos-xsurtir").slideUp();
     }
  }
- function guarda_cambios(){
+function guarda_cambios(){
     var firma_recibe = $("#firma_recibe").val();
     var notice = new PNotify();
     if (firma_recibe != ""){
         guarda_firma_recibe_todo(firma_recibe);
         $(".firma-individual").each(function(){
            var id_valesalida_pedido = $(this).attr("id");
+           var cantidad_surtir = $(this).attr("data-cantidadsurtir");
+           var cod_articulo = $(this).attr("data-codarticulo");
+           var id_pedido = $(this).attr("data-idpedido");
            var recibe = $(this).val();
            
            $.ajax({
-               data:{id_valesalida_pedido:id_valesalida_pedido,recibe:recibe},
+               data:{id_valesalida_pedido:id_valesalida_pedido,recibe:recibe,cantidad_surtir:cantidad_surtir,cod_articulo:cod_articulo,id_pedido:id_pedido},
                url: 'json_update_recibe_solicitud.php',
                type: 'POST',
                success:(function(res){
@@ -331,8 +336,9 @@ function log_autentic(){
                         notice.update(options);
                         $("#"+id_valesalida_pedido).attr("disabled",true);
                    }else{
+                       console.log(res[0].result);
                         var options = {
-                            text: "Ocurrio un error al procesar la información",
+                            text: "Ocurrio un error al procesar la información: "+res[0].result,
                             addclass: 'bg-danger border-danger',
                             type: 'info',
                             icon: 'icon-close2',
@@ -359,7 +365,7 @@ function log_autentic(){
         notice.update(options);
     }
  }
- function guarda_firma_recibe_todo(firma_recibe){
+function guarda_firma_recibe_todo(firma_recibe){
     var folio_vale  = $("#panel_autoizacion_salida").data("foliovalesalida");
     $.ajax({
         data:{folio_vale:folio_vale,recibe_vale:firma_recibe},
@@ -403,7 +409,7 @@ function ver_no_autorizado(){
     table.ajax.reload();
     no_read_inbox();
 }
-function  no_read_inbox(){
+function no_read_inbox(){
     $.post('json_count_no_read_inbox.php',function(res){
         var count = parseInt(res.noread), badge = $(".nuevas-entradas-inbox");
         if(count >= 100){
@@ -428,6 +434,25 @@ function finalizar(){
             notice.update(success);
         }else{
             notice.update(fail);
+        }
+    });
+}
+function reset_vale_salida(){
+    var folio_vale  = $("#panel_autoizacion_salida").data("foliovalesalida");
+    $.ajax({
+        data:{folio_vale:folio_vale},
+        url: 'json_update_reset_solicitud.php',
+        type: 'POST',
+        success: function (obj) {
+            if(obj[0].result == "exito"){
+                alert("El pase de salida a sido enviada a revision nuevamente!");
+                $("tools_menu_regresa").click();
+            }else{
+                console.log("Error al re-enviar el formulario");
+            }
+        },
+        error: function (obj) {
+            console.log(obj.msg);
         }
     });
 }

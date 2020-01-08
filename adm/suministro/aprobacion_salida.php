@@ -176,13 +176,13 @@
                                     <i class="icon-menu7 mr-2"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a tabindex="-1" class="dropdown-item" data-toggle="tab" onclick="envia()" data-folio="" id="folio_pase_salida">
+                                    <a tabindex="-1" class="dropdown-item" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
+                                        <i class="icon-arrow-left13"></i>
+                                        Regresar
+                                    </a>
+                                    <a tabindex="-1" class="dropdown-item" onclick="envia()" data-folio="" id="folio_pase_salida">
                                         <i class="icon-printer"></i>
                                         Imprimir
-                                    </a>
-                                    <a tabindex="-1" class="dropdown-item" data-toggle="tab" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
-                                        <i class="icon-x text-danger"></i>
-                                        Salir
                                     </a>
                                 </div>
                             </li>

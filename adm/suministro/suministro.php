@@ -300,18 +300,18 @@ class suministro extends conect
     function set_update_salida($folio_vale, $id_pedido,$cod_articulo, $cantidad_surtir,$update_almacen){
         //ya tiene Vo.Bo.?
         if($update_almacen == "si"){
-            $sql = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (cantidad_surtida, folio_vale, id_pedido, fecha) VALUES ('$cantidad_surtir', $folio_vale, $id_pedido, NOW())");
-            $resultado = $sql->execute();
+            $sql = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (cantidad_surtida, cantidad_aprobada, aprobado, folio_vale, id_pedido, fecha) VALUES ('$cantidad_surtir', '$cantidad_surtir',1, $folio_vale, $id_pedido, NOW())");
         }elseif($update_almacen == "no"){
-            $sql = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (cantidad_surtida, cantidada_aprobada, folio_vale, id_pedido, fecha) VALUES ('$cantidad_surtir', '$cantidad_surtir', $folio_vale, $id_pedido, NOW())");
-            $resultado = $sql->execute();
+            $sql = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (cantidad_surtida, folio_vale, id_pedido, fecha) VALUES ('$cantidad_surtir', $folio_vale, $id_pedido, NOW())");
         }
-        if($resultado == false){
+        if($sql->execute()){
+            $sql2 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.cantidad_apartado = (adm_pedido.cantidad_apartado - $cantidad_surtir), adm_pedido.cantidad_entregado = (adm_pedido.cantidad_entregado + $cantidad_surtir) WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
+            $resultadox = $sql2->execute();
+        }else{
             $sqlx = $this->_db->prepare("DELETE FROM adm_almacen_valesalida WHERE adm_almacen_valesalida.folio_vale = $folio_vale  LIMIT 1");
-            $resultadox = $sqlx->execute();
-            $request = 'resultado:'.$resultado.'back: x='.$resultadox;
+            $resultadox = 'resultado: 0 back: x='.$sqlx->execute();
         }
-        return $request;
+        return $resultadox;
     }
     function set_update_salida_aprobado($id_pedido,$cod_articulo, $cantidad_surtir,$cantidad_cancelado,$id_valesalida_pedido){//Aprobados = 1:Todos, 2:Parcial, 3:Ninguno;
         if($cantidad_cancelado > 0 ){
@@ -319,26 +319,61 @@ class suministro extends conect
         }else{
             $sql3 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_aprobada = $cantidad_surtir, aprobado = 1 WHERE id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
         }
-        return $sql3->execute();
+        $rx = $sql3->execute();
+        if($rx){
+            $total = $cantidad_surtir + $cantidad_cancelado;
+            $sql = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.cantidad_apartado = (adm_pedido.cantidad_apartado - $total), adm_pedido.cantidad_entregado = (adm_pedido.cantidad_entregado + $cantidad_surtir) WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
+            return $sql->execute();
+        }else{
+            return $rx;
+        }
     }
-    function set_update_salida_no_aprovado($id_pedido, $id_valesalida_pedido){
+    function set_update_salida_no_aprovado($id_pedido, $id_valesalida_pedido,$total){
         $sql2 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_cancelado = cantidad_surtida, aprobado = 2 WHERE id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
-        return $sql2->execute();
+        $sql3 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.cantidad_apartado = (adm_pedido.cantidad_apartado - $total) WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
+        if($sql2->execute()){
+            return $sql3->execute();
+        }else{
+            return false;
+        }
     }
     function set_update_firma_vobo($folio_vale, $visto_bueno){
         $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET visto_bueno = $visto_bueno, fecha_firma_vobo = NOW(), status_vale = 1 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");
         $resultado1 = $sql1->execute();
         return $resultado1;
     }
-    function set_update_recibe_solicitud($id_valesalida_pedido, $recibe){
-        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail SET recibe = '$recibe', fecha = NOW() WHERE adm_almacen_valesalida_detail.id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
-        $resultado1 = $sql1->execute();
-        return $resultado1;
+    function set_update_recibe_solicitud($id_valesalida_pedido, $recibe,$cantidad_surtir,$cod_articulo,$id_pedido){
+        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail SET recibe = '$recibe',cantidad_entregado='$cantidad_surtir', fecha = NOW() WHERE adm_almacen_valesalida_detail.id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
+        $sql2 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.cantidad_apartado = 0, adm_pedido.cantidad_entregado = (adm_pedido.cantidad_entregado + $cantidad_surtir), cantidad_surtir = 0 WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
+        $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock - $cantidad_surtir) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
+        
+        if($sql1->execute()){
+            if($sql2->execute()){
+                if($sql3->execute()){
+                    return "exito";
+                }else{
+                return "fail_UPDATE_adm_almacen";
+                }
+            }else{
+            return "fail_UPDATE_adm_pedido";
+            }
+        }else{
+            return "fail_UPDATE_adm_almacen_valesalida_detail";
+        }
     }
     function set_update_recibe_solicitud_todo($folio_vale, $recibe_vale){
         $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET recibe_vale = '$recibe_vale', fecha_salida = NOW(),status_vale = 2 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");
         $resultado1 = $sql1->execute();
         return $resultado1;
+    }
+    function set_update_reset_solicitud($folio_vale){
+        $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET fecha_firma_vobo = '0000-00-00 00:00:00', visto_bueno = '', status_vale = 0 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail SET cantidad_aprobada = 0, cantidad_cancelado = 0, aprobado = 0 WHERE folio_vale = ".$folio_vale);
+        if($sql2->execute()){
+            return $sql1->execute();
+        }else{
+            return false;
+        }
     }
     function set_update_satate_valesalida($folio_vale){
         $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET status_vale = 2 WHERE adm_almacen_valesalida.folio_vale = $folio_vale LIMIT 1");

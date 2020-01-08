@@ -43,7 +43,9 @@
         return $todos;
     }
     function cantidad_alter($cantidad_surtir,$cantidad_aprobado,$status_vale){
-        if($status_vale == 1){
+        if($status_vale == 0){
+            return $cantidad_surtir;
+        }elseif($status_vale == 1){
             return $cantidad_surtir;
         }else if($status_vale == 2){
             return $cantidad_aprobado;
