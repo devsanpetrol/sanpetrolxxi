@@ -758,6 +758,7 @@ function disable_class_btn(id_pedido,disabled){
     $("#status_icon_a_"+id_pedido).prop( "disabled", disabled );
     $("#status_icon_d_"+id_pedido).prop( "disabled", disabled );
     $("#status_icon_r_"+id_pedido).prop( "disabled", disabled );
+    console.log("757: disable_class_btn(id_pedido,disabled)");
 }
 function reset_class_btn(id_pedido){
     $("#status_icon_a_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm  btn-status-pedido");
@@ -765,7 +766,7 @@ function reset_class_btn(id_pedido){
     $("#status_icon_r_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm  btn-status-pedido");
 }
 function change_status_manager(id_pedido,aprobado){
-    var status = parseInt(aprobado);    
+    var status = parseInt(aprobado);
     var sel_st = $(".menu_items_status_"+id_pedido);
     var autoriza  = $("#autoriza_"+id_pedido);
     sel_st.addClass('disabled');
@@ -779,14 +780,14 @@ function change_status_manager(id_pedido,aprobado){
             var aprobe = $("#status_icon_a_"+id_pedido);
             aprobe.removeClass("text-slate-400").addClass("text-pink");
             sel_st.removeClass('disabled');
-            $(".btn-status-pedido").prop( "disabled", true );
+            //aprobe.prop( "disabled", true );
             autoriza.show();
             console.log("unbind: .btn-status-pedido status:"+status);
           break;
         case 2:// status CANCELADO
             var cancel = $("#status_icon_d_"+id_pedido);
             cancel.removeClass("text-slate-400").addClass("text-pink");
-            $(".btn-status-pedido").prop( "disabled", true );
+            //cancel.prop( "disabled", true );
             autoriza.show();
             console.log("unbind: .btn-status-pedido status:"+status);
           break;
@@ -950,9 +951,10 @@ function save_revisa(id_pedido){
 function obj_pedido(objeto){
     var user_session_id = $("#user_session_id").data("employeid");
     var activo = "disabled";
-    if (parseInt(user_session_id) == parseInt(objeto.id_autoriza)){
+    if (user_session_id == objeto.id_autoriza && objeto.status_pedido == 0){
         activo = "";
     }
+    console.log("user_session_id: " + user_session_id +"; objeto.id_autoriza "+objeto.id_autoriza +"; activo: " + activo);
     var detalle = "style='display: none;'";
     if(objeto.detalle_articulo.length){
         detalle = "";

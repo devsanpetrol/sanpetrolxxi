@@ -446,7 +446,7 @@ function reset_vale_salida(){
         success: function (obj) {
             if(obj[0].result == "exito"){
                 alert("El pase de salida a sido enviada a revision nuevamente!");
-                $("tools_menu_regresa").click();
+                $("#tools_menu_regresa").click();
             }else{
                 console.log("Error al re-enviar el formulario");
             }
