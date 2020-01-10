@@ -758,44 +758,41 @@ function disable_class_btn(id_pedido,disabled){
     $("#status_icon_a_"+id_pedido).prop( "disabled", disabled );
     $("#status_icon_d_"+id_pedido).prop( "disabled", disabled );
     $("#status_icon_r_"+id_pedido).prop( "disabled", disabled );
-    console.log("757: disable_class_btn(id_pedido,disabled)");
 }
 function reset_class_btn(id_pedido){
     $("#status_icon_a_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm  btn-status-pedido");
     $("#status_icon_d_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm  btn-status-pedido");
     $("#status_icon_r_"+id_pedido).attr("class","btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm  btn-status-pedido");
 }
-function change_status_manager(id_pedido,aprobado){
+function change_status_manager(id_pedido,aprobado){ // AUTORIZADO, CANCELADO Y REVISION
     var status = parseInt(aprobado);
     var sel_st = $(".menu_items_status_"+id_pedido);
-    var autoriza  = $("#autoriza_"+id_pedido);
+    var autoriza = $("#autoriza_"+id_pedido);
+    var grupo = $(".btn-status-pedido-"+id_pedido);
     sel_st.addClass('disabled');
     reset_class_btn(id_pedido);
     
-    switch (status){
+    switch ( status ){
         case 0:
-            autoriza.hide();
+            autoriza.hide();//Nombre del quien autoriza
             break;
         case 1://status APROBADO
             var aprobe = $("#status_icon_a_"+id_pedido);
             aprobe.removeClass("text-slate-400").addClass("text-pink");
+            grupo.prop( "disabled", true );
             sel_st.removeClass('disabled');
-            //aprobe.prop( "disabled", true );
             autoriza.show();
-            console.log("unbind: .btn-status-pedido status:"+status);
           break;
         case 2:// status CANCELADO
             var cancel = $("#status_icon_d_"+id_pedido);
             cancel.removeClass("text-slate-400").addClass("text-pink");
-            //cancel.prop( "disabled", true );
+            grupo.prop( "disabled", true );
             autoriza.show();
-            console.log("unbind: .btn-status-pedido status:"+status);
           break;
         case 3:// status REVISION
             var revisi = $("#status_icon_r_"+id_pedido);
             revisi.removeClass("text-slate-400").addClass("text-pink");
             autoriza.show();
-            console.log("NO unbind: .btn-status-pedido");
           break;
     }
 }
@@ -951,9 +948,7 @@ function save_revisa(id_pedido){
 function obj_pedido(objeto){
     var user_session_id = $("#user_session_id").data("employeid");
     var activo = "disabled";
-    if (user_session_id == objeto.id_autoriza && objeto.status_pedido == 0){
-        activo = "";
-    }
+    
     console.log("user_session_id: " + user_session_id +"; objeto.id_autoriza "+objeto.id_autoriza +"; activo: " + activo);
     var detalle = "style='display: none;'";
     if(objeto.detalle_articulo.length){
@@ -1008,10 +1003,10 @@ function obj_pedido(objeto){
                                     <li class='list-inline-item' style='display: none;'>\
                                         <a href='' class='text-default' data-status='0' data-comentario='' onclick='guarda_status("+objeto.id_pedido+")' id='guarda_status_"+objeto.id_pedido+"'><i class='icon-floppy-disk'></i></a>\
                                     </li>\
-                                    <button type='button' "+activo+" class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm btn-status-pedido' id='status_icon_a_"+objeto.id_pedido+"' onclick='save_aprobado("+objeto.id_pedido+")'><i class='icon-thumbs-up2'></i></button>\
-                                    <button type='button' "+activo+" class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm btn-status-pedido' id='status_icon_d_"+objeto.id_pedido+"' onclick='save_cancela("+objeto.id_pedido+")'><i class='icon-thumbs-down2'></i></button>\
-                                    <button type='button' "+activo+" class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm btn-status-pedido' id='status_icon_r_"+objeto.id_pedido+"' onclick='save_revisa("+objeto.id_pedido+")'><i class='icon-eye8'></i></button>\
-                                    <button type='button' "+activo+" class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm btn-status-pedido' id='status_icon_s_"+objeto.id_pedido+"'><i class='icon-clipboard2'></i></button>\
+                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm btn-status-pedido btn-status-pedido-"+objeto.id_pedido+"' id='status_icon_a_"+objeto.id_pedido+"' onclick='save_aprobado("+objeto.id_pedido+")'><i class='icon-thumbs-up2'></i></button>\
+                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm btn-status-pedido btn-status-pedido-"+objeto.id_pedido+"' id='status_icon_d_"+objeto.id_pedido+"' onclick='save_cancela("+objeto.id_pedido+")'><i class='icon-thumbs-down2'></i></button>\
+                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm btn-status-pedido btn-status-pedido-"+objeto.id_pedido+"' id='status_icon_r_"+objeto.id_pedido+"' onclick='save_revisa("+objeto.id_pedido+")'><i class='icon-eye8'></i></button>\
+                                    <button type='button' class='btn btn-outline rounded-round btn-icon ml-2 bg-primary text-slate-400 btn-sm btn-status-pedido btn-status-pedido-"+objeto.id_pedido+"' id='status_icon_s_"+objeto.id_pedido+"'><i class='icon-clipboard2'></i></button>\
                                 </ul>\
                             </div>\
                         </div>\
@@ -1020,6 +1015,11 @@ function obj_pedido(objeto){
     $("#tabla_visor_solicitudes").after(this.elemento);
     change_status(objeto.id_pedido,objeto.status_pedido);
     change_edita_cantidad(objeto.id_pedido);
+    if (user_session_id == objeto.id_autoriza){
+       $(".btn-status-pedido").prop( "disabled", false );
+    }else{
+        $(".btn-status-pedido").prop( "disabled", true );
+    }
     change_status_manager(objeto.id_pedido,objeto.aprobacion);
     if(objeto.comentario.length){
         $.post( "json_selectPedidoComentario.php",{ id_pedido: objeto.id_pedido }).done(function( data ) {
@@ -1027,6 +1027,7 @@ function obj_pedido(objeto){
         });
     }
     $("#folio-"+objeto.folio).slideDown();
+    
 }
 function save_cantidad(id_pedido){
     var notice = new PNotify();

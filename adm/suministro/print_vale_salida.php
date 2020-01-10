@@ -18,6 +18,8 @@
         $nombre_vobo = $detalle_folio[0]['nombre_vobo'];
         $apellido_vobo = $detalle_folio[0]['apellido_vobo'];
         $cargo_vobo = $detalle_folio[0]['cargo_vobo'];
+        $nombre_recibe = $detalle_folio[0]['recibe_vale'];
+        
         
         $status_vale = $detalle_folio[0]['status_vale'];
         $observacion = $detalle_folio[0]['observacion'];
@@ -130,7 +132,7 @@
                         <td class='style2 x' style='vertical-align:middle;'>".$valor["unidad"]."</td>
                         <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='6'>".$valor["articulo"]."</td>
                         <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='2'>".$valor["destino"]."</td>
-                        <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='3'>".$valor["autoriza"]."</td>
+                        <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='3'>".$valor["autoriza"]."</br>Recibió: ".$valor["recibe"]."</td>
                       </tr>";
             }
           ?>  
@@ -143,9 +145,9 @@
             <td class="style30"></td>
             <td class="style29" colspan="3"><?php echo $nombre_encargado." ".$apellido_encargado; ?></td>
             <td class="style30"></td>
-            <td class="style29" colspan="3"><?php echo $nombre_vobo." ".$apellido_vobo; ?></td>
+            <td class="style29" colspan="3"><?php echo $nombre_vobo." ".$apellido_vobo;$nombre_recibe ?></td>
             <td class="style30"></td>
-            <td class="style29" colspan="3"></td>
+            <td class="style29" colspan="3"><?php echo $nombre_recibe ?></td>
             <td class="style30"></td>
           </tr>
           <tr class="row0">
