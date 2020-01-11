@@ -345,6 +345,7 @@ function log_autentic(){
                             }
                         };
                         notice.update(options);
+                        $("#tools_menu_regresa").click();
                    }else{
                         var options = {
                             text: "Ocurrio un error al procesar la información",

@@ -315,13 +315,14 @@ function guarda_cambios(){
         guarda_firma_recibe_todo(firma_recibe);
         $(".firma-individual").each(function(){
            var id_valesalida_pedido = $(this).attr("id");
+           var cantidad_cancelado = $(this).attr("data-cantidadcancelado");
            var cantidad_surtir = $(this).attr("data-cantidadsurtir");
            var cod_articulo = $(this).attr("data-codarticulo");
            var id_pedido = $(this).attr("data-idpedido");
            var recibe = $(this).val();
            
            $.ajax({
-               data:{id_valesalida_pedido:id_valesalida_pedido,recibe:recibe,cantidad_surtir:cantidad_surtir,cod_articulo:cod_articulo,id_pedido:id_pedido},
+               data:{id_valesalida_pedido:id_valesalida_pedido,recibe:recibe,cantidad_surtir:cantidad_surtir,cantidad_cancelado:cantidad_cancelado,cod_articulo:cod_articulo,id_pedido:id_pedido},
                url: 'json_update_recibe_solicitud.php',
                type: 'POST',
                success:(function(res){

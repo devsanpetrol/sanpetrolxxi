@@ -17,7 +17,7 @@
                         "articulo" => articulo($valor["articulo"]),
                         "destino" => destino($valor["destino"]),
                         "autorizacion" => autorizacion($valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad_aprobada"],$id_valesalida_pedido,$valor["aprobado"],$valor["cantidad_cancelado"]),
-                        "recibe" => recibe($id_valesalida_pedido,$valor["recibe"],$valor["cantidad_aprobada"],$valor["cod_articulo"],$valor["id_pedido"]));
+                        "recibe" => recibe($id_valesalida_pedido,$valor["recibe"],$valor["cantidad_aprobada"],$valor["cod_articulo"],$valor["id_pedido"],$valor["cantidad_cancelado"]));
     }
     function cantidad_surtir($id_valesalida_pedido, $cantidad_surtida,$aprobado,$unidad){
         if($aprobado == 0){
@@ -67,9 +67,9 @@
                     </div>";
         }
     }
-    function recibe($id_valesalida_pedido,$recibe,$cantidad_surtir,$cod_articulo,$id_pedido){
+    function recibe($id_valesalida_pedido,$recibe,$cantidad_surtir,$cod_articulo,$id_pedido,$cantidad_cancelado){
         return "<div class='form-group-feedback form-group-feedback-right'>
-                    <input type='text' class='form-control form-control-sm font-weight-semibold text-pink firma firma-individual' id='$id_valesalida_pedido' data-cantidadsurtir='$cantidad_surtir' data-codarticulo='$cod_articulo' data-idpedido='$id_pedido' value='$recibe' onkeyup='mayus(this);'>
+                    <input type='text' class='form-control form-control-sm font-weight-semibold text-pink firma firma-individual' id='$id_valesalida_pedido' data-cantidadsurtir='$cantidad_surtir' data-codarticulo='$cod_articulo' data-idpedido='$id_pedido' data-cantidadcancelado='$cantidad_cancelado' value='$recibe' onkeyup='mayus(this);'>
                     <div class='form-control-feedback'>
                         <button type='button' class='btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm'>
                             <i class='icon-pencil3 text-blue-800'></i>

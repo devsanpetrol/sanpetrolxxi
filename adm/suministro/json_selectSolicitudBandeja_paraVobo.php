@@ -46,7 +46,7 @@
         if($status_vale == 0){
             return $cantidad_surtir;
         }elseif($status_vale == 1){
-            return $cantidad_surtir;
+            return $cantidad_aprobado;
         }else if($status_vale == 2){
             return $cantidad_aprobado;
         }

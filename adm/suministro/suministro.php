@@ -333,9 +333,9 @@ class suministro extends conect
         $resultado1 = $sql1->execute();
         return $resultado1;
     }
-    function set_update_recibe_solicitud($id_valesalida_pedido, $recibe,$cantidad_surtir,$cod_articulo,$id_pedido){
+    function set_update_recibe_solicitud($id_valesalida_pedido, $recibe,$cantidad_surtir,$cantidad_cancelado,$cod_articulo,$id_pedido){
         $sql1 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail SET recibe = '$recibe',cantidad_entregado='$cantidad_surtir', fecha = NOW() WHERE adm_almacen_valesalida_detail.id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
-        $sql2 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.cantidad_apartado = 0, adm_pedido.cantidad_entregado = (adm_pedido.cantidad_entregado + $cantidad_surtir), cantidad_surtir = 0 WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
+        $sql2 = $this->_db->prepare("UPDATE adm_pedido SET cantidad_entregado = (cantidad_entregado + $cantidad_surtir), cantidad_cancelado = (cantidad_cancelado + $cantidad_cancelado), cantidad_surtir = 0 WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
         $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock - $cantidad_surtir) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
         
         if($sql1->execute()){
@@ -343,9 +343,9 @@ class suministro extends conect
                 if($sql3->execute()){
                     return "exito";
                 }else{
-                return "fail_UPDATE_adm_almacen";
+                    return "fail_UPDATE_adm_almacen";
                 }
-            }else{
+        }else{
             return "fail_UPDATE_adm_pedido";
             }
         }else{
