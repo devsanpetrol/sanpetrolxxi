@@ -278,6 +278,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_almacen_salida_compra($filtro = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_salida_compra WHERE cantidad_compra > 0 $filtro order by folio asc");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function get_almacen($filtro = "",$limit = ""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_detail $filtro order by id_categoria asc $limit");
         $sql->execute();

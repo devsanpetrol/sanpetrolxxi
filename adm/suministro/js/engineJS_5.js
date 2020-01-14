@@ -94,6 +94,8 @@ $(document).ready( function () {
                     $('#especificacion').val(res.especificacion);
                     $('#select_categoria').val(res.id_categoria).trigger('change');
                     $('#unidad').val(res.tipo_unidad).trigger('change');
+                    $("#stock_disponible").text(res.stock).data("almacen",res.stock);
+                    
                     count_apartado(res.stock);
                     console.log("cae en else");
                 }
@@ -227,17 +229,25 @@ function getValRadio(){
 function agregar_pedido(){
     if(valida_pedido()){
         if(valida_campos(0)){
+            var cod_articulo = $('#cod_articulo').val();
             var fecha_req = $('#single_cal3').val();
             var grado_requerimiento = $("input[name='grado_r']:checked").val() === 'inmediato' ? "Inmediato" : "Programado";
             var grado_requerimiento2 = $("input[name='grado_r']:checked").val() === 'inmediato' ? "<i class='icon-star-full2 mr-3' data-popup='tooltip' title='Inmediato'></i>" : "<i class='icon-calendar2 mr-3' data-popup='tooltip' title='Requerido para: "+fecha_req+"'></i>";
             var t = $('#tabla_pedidos').DataTable();
             var espe = $('#especificacion').val() !== '' ? '</br><i>*'+$('#especificacion').val()+'</i>' : '';
-            var cantidad_compra = parseFloat($('#stock_compra').text());
+            var cantidad_compra = 0;
+            var cantidad_aparta = 0;
+            if(cod_articulo.trim() == ""){
+                cantidad_compra = parseFloat($('#cantidad').val());
+                cantidad_aparta = 0;
+            }else{
+                cantidad_compra = parseFloat($('#stock_compra').text());
+                cantidad_aparta = cantidad_solici - cantidad_compra;
+            }
             var cantidad_solici = parseFloat($('#cantidad').val());
-            var cantidad_aparta = cantidad_solici - cantidad_compra;
             t.row.add( [
                 grado_requerimiento2,
-                $('#cod_articulo').val(),
+                cod_articulo,
                 '('+$('#cantidad').val()+' '+$('#unidad').val()+') '+$('#descripcion').val()+espe,
                 $('#descripcion').val(),
                 $('#unidad').val(),
