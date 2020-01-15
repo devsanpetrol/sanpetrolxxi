@@ -104,11 +104,18 @@
                                 </div>
                                 <div class="card-body p-0">
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
-                                        <li class="nav-item-header">Folders</li>
+                                        <li class="nav-item-header">Salida Almacen</li>
                                         <li class="nav-item" onclick="ver_todo()">
-                                            <a class="nav-link" ><i class="icon-drawer-in"></i> Todos <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
+                                            <a class="nav-link" ><i class="icon-drawer-in"></i> Bandeja entrada <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
                                         </li>
                                         <li class="nav-item" onclick="ver_no_autorizado()">
+                                            <a class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
+                                        </li>
+                                        <li class="nav-item-header">Enviar a Compra</li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" ><i class="icon-drawer-in"></i> Bandeja entrada <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="#" class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
                                         </li>
                                     </ul>

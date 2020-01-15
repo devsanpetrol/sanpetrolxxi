@@ -25,6 +25,13 @@
                 <li class="nav-item">
                     <a href="almacen_salida_aprobada.php" class="nav-link almacen-aprobacion"><i class="icon-drawer3"></i> Enviados a revisión</a>
                 </li>
+                <li class="nav-item-header">LISTA DE COMPRA</li>
+                <li class="nav-item">
+                    <a href="almacen_salida_compra.php" class="nav-link almacen-salida"><i class="icon-drawer-in"></i> Generar lista de compra</a>
+                </li>
+                <li class="nav-item">
+                    <a href="almacen_salida_aprobada.php" class="nav-link almacen-aprobacion"><i class="icon-drawer3"></i> Enviados a revisión</a>
+                </li>
             </ul>
         </div>
     </div>

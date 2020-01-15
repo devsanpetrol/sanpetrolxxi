@@ -103,8 +103,13 @@ class suministro extends conect
     public function set_pedido($autorizado, $articulo, $cantidad, $unidad, $detalle_articulo, $justificacion, $anexo_codicion, $destino, $status_pedido, $comentario, $grado_requerimiento, $fecha_requerimiento, $cod_articulo, $id_categoria, $folio,$cantidad_aparta,$cantidad_compra){
         $date = new DateTime($fecha_requerimiento);
         $fn = $date->format('Y-m-d');
-        $sql = $this->_db->prepare("INSERT INTO adm_pedido (autoriza, articulo, cantidad, unidad, detalle_articulo, justificacion, anexo_codicion, destino, status_pedido, comentario, grado_requerimiento, fecha_requerimiento, cod_articulo, id_categoria, folio, aprobacion, cantidad_apartado, cantidad_compra)
-                                    VALUES ('$autorizado', '$articulo', $cantidad, '$unidad', '$detalle_articulo', '$justificacion', '$anexo_codicion', '$destino', $status_pedido, '$comentario', '$grado_requerimiento', '$fn', '$cod_articulo', $id_categoria, $folio,$status_pedido,$cantidad_aparta,$cantidad_compra)");
+        if($cod_articulo == ""){
+            $sql = $this->_db->prepare("INSERT INTO adm_pedido (autoriza, articulo, cantidad, unidad, detalle_articulo, justificacion, anexo_codicion, destino, status_pedido, comentario, grado_requerimiento, fecha_requerimiento, cod_articulo, id_categoria, folio, aprobacion, cantidad_apartado, cantidad_compra)
+                                        VALUES ('$autorizado', '$articulo', $cantidad, '$unidad', '$detalle_articulo', '$justificacion', '$anexo_codicion', '$destino', $status_pedido, '$comentario', '$grado_requerimiento', '$fn', NULL, $id_categoria, $folio,$status_pedido,$cantidad_aparta,$cantidad_compra)");
+        }else{
+            $sql = $this->_db->prepare("INSERT INTO adm_pedido (autoriza, articulo, cantidad, unidad, detalle_articulo, justificacion, anexo_codicion, destino, status_pedido, comentario, grado_requerimiento, fecha_requerimiento, cod_articulo, id_categoria, folio, aprobacion, cantidad_apartado, cantidad_compra)
+                                        VALUES ('$autorizado', '$articulo', $cantidad, '$unidad', '$detalle_articulo', '$justificacion', '$anexo_codicion', '$destino', $status_pedido, '$comentario', '$grado_requerimiento', '$fn', '$cod_articulo', $id_categoria, $folio,$status_pedido,$cantidad_aparta,$cantidad_compra)");
+        }
         $resultado = $sql->execute();
         return $resultado;
     }
@@ -279,7 +284,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_salida_compra($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_salida_compra WHERE cantidad_compra > 0 $filtro order by folio asc");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_salida_compra $filtro order by folio asc");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -331,6 +336,36 @@ class suministro extends conect
     }
     function set_update_salida_no_aprovado($id_pedido, $id_valesalida_pedido,$total){
         $sql2 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_cancelado = cantidad_surtida, aprobado = 2 WHERE id_valesalida_pedido = $id_valesalida_pedido LIMIT 1");
+        return $sql2->execute();
+    }
+    //================================================================================
+    //================================================================================
+    function set_update_salida_compra($id_pedido, $cantidad_comprar,$update_almacen){
+        //ya tiene Vo.Bo.?
+        if($update_almacen == "si"){
+            $sql = $this->_db->prepare("INSERT INTO adm_compra_lista (cantidad_comprar, cantidad_aprobada, aprobado, id_pedido, fecha_inicial) VALUES ('$cantidad_comprar', '$cantidad_comprar',1, $id_pedido, NOW())");
+        }elseif($update_almacen == "no"){
+            $sql = $this->_db->prepare("INSERT INTO adm_compra_lista (cantidad_comprar, id_pedido, fecha) VALUES ('$cantidad_comprar', $id_pedido, NOW())");
+        }
+        if($sql->execute()){
+            $sql2 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.cantidad_comprar = 0 WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
+            $resultadox = $sql2->execute();
+        }else{
+            $resultadox = false;
+        }
+        return $resultadox;
+    }
+    function set_update_salida_aprobado_compra($cantidad_comprar,$cantidad_cancelado,$id_compra_lista){//Aprobados = 1:Todos, 2:Ninguno, 3:Parcial;
+        if($cantidad_cancelado > 0 ){
+            $sql = $this->_db->prepare("UPDATE adm_compra_lista  SET cantidad_aprobada = $cantidad_comprar, cantidad_cancelado = $cantidad_cancelado, aprobado = 3 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+            return $sql->execute();
+        }else{
+            $sql = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_aprobada = $cantidad_comprar, aprobado = 1 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+            return $sql->execute(); 
+        }
+    }
+    function set_update_salida_no_aprovado_compra($id_compra_lista){
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_cancelado = cantidad_comprar, aprobado = 2 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
         return $sql2->execute();
     }
     //================================================================================

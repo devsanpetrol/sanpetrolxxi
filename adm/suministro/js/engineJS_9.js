@@ -135,7 +135,7 @@ function filter_destino(e){
 function agrega_pase(id_pedido){
     var tabla = $('#datatable_almacen_pase').DataTable();
     $.ajax({
-        url: 'json_selectAlmacenPase.php',
+        url: 'json_selectAlmacenPase_compra.php',
         data:{id_pedido:id_pedido},
         type: 'POST',
         success:(function(res){
@@ -164,34 +164,7 @@ function agrega_pase(id_pedido){
                     $("#card_almacen_pase").slideDown();
                 }, 1000);
             }
-            
             $("#card_almacen_pase").data("vista","si");
-            
-            $("#number_"+id_pedido).bind('keyup mouseup', function () {
-                var max = parseInt($("#number_"+id_pedido).attr("max"));
-                var val = parseInt($("#number_"+id_pedido).val());
-                if(val <= max ){
-                    var por = (val*100)/max;
-                    if(por >= 100){
-                        $("#progress_"+id_pedido).removeClass("progress-bar-animated").addClass("bg-success");
-                    }else{
-                        $("#progress_"+id_pedido).addClass("progress-bar-animated").removeClass("bg-success");
-                    }
-                    $("#progress_"+id_pedido).css("width",por+"%");
-                }else{
-                    if (!isNaN(val) ){
-                        alert("El valor ingresado no es valido conforme a la solicitud");
-                    }
-                    $("#number_"+id_pedido).val("");
-                    $("#progress_"+id_pedido).css("width","0%");
-                } 
-            });
-            $("#number_"+id_pedido).focusout(function() {
-                var val = parseInt($("#number_"+id_pedido).val());
-                if (isNaN(val) ){
-                    $("#number_"+id_pedido).val("0");
-                }
-            });
         })
     });
 }
@@ -289,93 +262,16 @@ function agrega_pase(id_pedido){
     $("#btn_envia_valesalida").attr("disabled",true);
  }
  function insert_vale_salida(){
-    var folio_vale = parseInt($('#num_folio_vale_salida').text());
-    if (isChangeSalida()){
-        guarda_vale_salida(folio_vale);
-    }else{
-        alert("No se realizó ningun surtido");
-        resetear_tabla_surtir();
-        $(".card-pedidos-xsurtir").slideDown();
-        var t = $('#datatable_almacen_salida').DataTable();
-        t.ajax.reload();
-    }
- }
- function guarda_vale_salida(folio_vale){
-    var encargado_almacen = $("#firma_almacenista").data("idempleado");
-    var visto_bueno       = $("#firma_vobo").data("idempleado");
-    var observacion       = $('#vale_observacion').val();
-    var notice = new PNotify();
-    $.ajax({
-        data:{folio_vale:folio_vale, encargado_almacen:encargado_almacen, visto_bueno:visto_bueno, observacion:observacion},
-        url: 'json_insertValeSalida.php',
-        type: 'POST',
-        beforeSend: function (xhr) {
-            var options = {
-                text: "Enviando...",
-                addclass: 'bg-primary border-primary',
-                type: 'info',
-                icon: 'icon-spinner4 spinner',
-                hide: false
-            };
-            notice.update(options);
-        },
-        success:(function(res){
-            if(res.result == "exito"){
-                guarda_elemento_vale_salida(folio_vale,visto_bueno);
-                var options = {
-                        text: "Completado",
-                        addclass: 'bg-success border-success',
-                        type: 'info',
-                        icon: 'icon-checkmark4',
-                        delay: 1000,
-                        hide: true,
-                        buttons: {
-                            closer: true,
-                            sticker: false
-                        }
-                    };
-                    notice.update(options);
-            }else if(res.result == "falla_guardado"){
-                var options = {
-                        text: "Ocurrión un error al guardar los datos",
-                        addclass: 'bg-danger border-danger',
-                        type: 'info',
-                        icon: 'icon-close2',
-                        delay: 1000,
-                        hide: true
-                    };
-                    notice.update(options);
-            }else if(res.result == "falla_recepcion_dato"){
-                var options = {
-                        text: "La informacion enviada no es valida",
-                        addclass: 'bg-danger border-danger',
-                        type: 'info',
-                        icon: 'icon-close2',
-                        delay: 1000,
-                        hide: true
-                    };
-                    notice.update(options);
-            }
-        }),
-        complete:(function(){
-            resetear_tabla_surtir();
-            $(".card-pedidos-xsurtir").slideDown();
-            var t = $('#datatable_almacen_salida').DataTable();
-            t.ajax.reload();
-        })
-    });
- }
- function guarda_elemento_vale_salida(folio_vale,visto_bueno){
+    var visto_bueno = $('#firma_vobo').data('idempleado');
     $(".input-surtido-genera").each(function(){
-        var cantidad_surtir = parseFloat($(this).val());
-        var id_pedido       = $(this).data('idpedido');
-        var cod_articulo    = $(this).data('codarticulo');
+        var cantidad_comprar = parseFloat($(this).val());
+        var id_pedido = $(this).data('idpedido');
         var ua  = ( visto_bueno != '' ) ? 'si' : 'no';
 
-        if( cantidad_surtir > 0 ){
+        if( cantidad_comprar > 0 ){
             $.ajax({
-                data:{folio_vale:folio_vale, cantidad_surtir:cantidad_surtir, id_pedido:id_pedido, cod_articulo:cod_articulo, update_almacen:ua},
-                url: 'json_update_almacen_pedido.php',
+                data:{id_pedido:id_pedido, cantidad_comprar:cantidad_comprar, update_almacen:ua},
+                url: 'json_update_almacen_pedido_compra.php',
                 type: 'POST',
                 success:(function(result){
                     if(result.result == 'exito'){
@@ -389,7 +285,6 @@ function agrega_pase(id_pedido){
             });
         }
     });
-    
  }
  function isChangeSalida(){
     var flag = 0;
