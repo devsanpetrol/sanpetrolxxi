@@ -343,12 +343,12 @@ class suministro extends conect
     function set_update_salida_compra($id_pedido, $cantidad_comprar,$update_almacen){
         //ya tiene Vo.Bo.?
         if($update_almacen == "si"){
-            $sql = $this->_db->prepare("INSERT INTO adm_compra_lista (cantidad_comprar, cantidad_aprobada, aprobado, id_pedido, fecha_inicial) VALUES ('$cantidad_comprar', '$cantidad_comprar',1, $id_pedido, NOW())");
+            $sql = $this->_db->prepare("INSERT INTO adm_almacen_compra_lista (cantidad_comprar, cantidad_aprobada, aprobado, id_pedido, fecha_inicial, fecha_revision) VALUES ('$cantidad_comprar', '$cantidad_comprar',1, $id_pedido, NOW(), NOW())");
         }elseif($update_almacen == "no"){
-            $sql = $this->_db->prepare("INSERT INTO adm_compra_lista (cantidad_comprar, id_pedido, fecha) VALUES ('$cantidad_comprar', $id_pedido, NOW())");
+            $sql = $this->_db->prepare("INSERT INTO adm_almacen_compra_lista (cantidad_comprar, id_pedido, fecha_inicial) VALUES ('$cantidad_comprar', $id_pedido, NOW())");
         }
         if($sql->execute()){
-            $sql2 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.cantidad_comprar = 0 WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
+            $sql2 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.cantidad_compra = 0 WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
             $resultadox = $sql2->execute();
         }else{
             $resultadox = false;
@@ -357,15 +357,15 @@ class suministro extends conect
     }
     function set_update_salida_aprobado_compra($cantidad_comprar,$cantidad_cancelado,$id_compra_lista){//Aprobados = 1:Todos, 2:Ninguno, 3:Parcial;
         if($cantidad_cancelado > 0 ){
-            $sql = $this->_db->prepare("UPDATE adm_compra_lista  SET cantidad_aprobada = $cantidad_comprar, cantidad_cancelado = $cantidad_cancelado, aprobado = 3 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+            $sql = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_aprobada = $cantidad_comprar, cantidad_cancelado = $cantidad_cancelado, aprobado = 3, fecha_revision = NOW() WHERE id_compra_lista = $id_compra_lista LIMIT 1");
             return $sql->execute();
         }else{
-            $sql = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_aprobada = $cantidad_comprar, aprobado = 1 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+            $sql = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_aprobada = $cantidad_comprar, aprobado = 1, fecha_revision = NOW() WHERE id_compra_lista = $id_compra_lista LIMIT 1");
             return $sql->execute(); 
         }
     }
     function set_update_salida_no_aprovado_compra($id_compra_lista){
-        $sql2 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail  SET cantidad_cancelado = cantidad_comprar, aprobado = 2 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_cancelado = cantidad_comprar, aprobado = 2, fecha_revision = NOW() WHERE id_compra_lista = $id_compra_lista LIMIT 1");
         return $sql2->execute();
     }
     //================================================================================

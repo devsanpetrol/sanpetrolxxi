@@ -54,7 +54,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <script src="js/engineJS_4.js"></script>
+    <script src="js/engineJS_10.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/picker_date.js"></script>
@@ -105,11 +105,11 @@
                                 <div class="card-body p-0">
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Salida Almacen</li>
-                                        <li class="nav-item" onclick="ver_todo()">
-                                            <a class="nav-link" ><i class="icon-drawer-in"></i> Bandeja entrada <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
+                                        <li class="nav-item">
+                                            <a href="aprobacion_salida.php" class="nav-link" ><i class="icon-drawer-in"></i> Bandeja entrada <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
                                         </li>
-                                        <li class="nav-item" onclick="ver_no_autorizado()">
-                                            <a class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
+                                        <li class="nav-item">
+                                            <a href="aprobacion_salida.php" class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
                                         </li>
                                         <li class="nav-item-header">Enviar a Compra</li>
                                         <li class="nav-item">

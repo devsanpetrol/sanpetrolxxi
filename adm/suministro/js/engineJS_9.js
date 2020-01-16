@@ -274,13 +274,20 @@ function agrega_pase(id_pedido){
                 url: 'json_update_almacen_pedido_compra.php',
                 type: 'POST',
                 success:(function(result){
-                    if(result.result == 'exito'){
+                    if(result[0].result == 'exito'){
                         console.log('Guarda detalle: Generado con exito!: id_pedido' + id_pedido);
-                    }else if(result.result == 'falla_guardado'){
+                        resetear_tabla_surtir();
+                    }else if(result[0].result == 'falla_guardado'){
                         console.log('Guarda detalle: Ocurrión un error al guardar los datos: id_pedido' + id_pedido);
-                    }else if(result.result == 'falla_recepcion_dato'){
+                    }else if(result[0].result == 'falla_recepcion_dato'){
                         console.log('Guarda detalle: La informacion enviada no es valida: id_pedido' + id_pedido);
                     }
+                }),
+                complete:(function(){
+                    resetear_tabla_surtir();
+                    $(".card-pedidos-xsurtir").slideDown();
+                    var t = $('#datatable_almacen_salida').DataTable();
+                    t.ajax.reload();
                 })
             });
         }

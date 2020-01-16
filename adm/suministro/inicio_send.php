@@ -192,9 +192,9 @@
                                         <tr>
                                             <th class="table-inbox-checkbox">Folio</th> <!-- 0 -->
                                             <th class="table-inbox-image">Imagenes</th> <!-- 1 -->
-                                            <th class="table-inbox-name">Fecha</th> <!-- 4 -->
+                                            <th class="table-inbox-name">Solicitante</th> <!-- 4 -->
                                             <th class="table-inbox-message">Materiales solicitados</th> <!-- 3 -->
-                                            <th class="table-inbox-time">Solicitante</th> <!-- 2 -->
+                                            <th class="table-inbox-time">Fecha</th> <!-- 2 -->
                                         </tr>
                                     </thead>
                                     <tbody data-link="row" class="rowlink">
