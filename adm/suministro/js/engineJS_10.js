@@ -7,7 +7,7 @@ $(document).ready( function () {
         bInfo: false,
         dom: '<"datatable-scroll-wrap"t>',
         ajax: {
-            url: "json_selectSolicitudBandeja_paraVobo.php",
+            url: "json_selectSolicitudBandeja_paraVobo_compra.php",
             dataSrc:function ( json ) {
                 return json;
             }
@@ -25,13 +25,13 @@ $(document).ready( function () {
             $('td', row).eq(0).addClass('table-inbox-time text-center');
             $('td', row).eq(1).addClass('table-inbox-time text-center');
             $('td', row).eq(2).addClass('table-inbox-message');
-            $('td', row).eq(3).addClass('table-inbox-time text-center');
+            //$('td', row).eq(3).addClass('table-inbox-time text-center');
         },
         columns: [
             {data : 'revisado'},
             {data : 'fecha'},
-            {data : 'pedidos'},
-            {data : 'folio'}
+            {data : 'pedidos'}
+            //{data : 'folio'}
         ],
         language: {
             zeroRecords: "Ningun elemento seleccionado"
@@ -130,10 +130,10 @@ function regresar_lista(){
     var idrow = $("#tools_menu_regresa").data("idrow");
     $("#"+idrow+"").click();
 }
-function detalle_vale_salida(folio_vale){
+function detalle_vale_salida(id_compra_lista){
     $.ajax({
-        data:{folio_vale:folio_vale},
-        url: 'json_get_folio_detail.php',
+        data:{id_compra_lista:id_compra_lista},
+        url: 'json_get_id_compra_list.php',
         type: 'POST',
         success: function (obj) {
             $("#folio_pase_salida").data("folio",obj.folio_vale);

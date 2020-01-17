@@ -161,7 +161,15 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    //=====================   COMPRA   =========================================
+    public function get_solicitud_aprobacion_compra($filtro = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail $filtro ORDER BY adm_view_compra_lista_detail.aprobado ASC, adm_view_compra_lista_detail.id_compra_lista DESC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     //==========================================================================
+    
     public function get_pedidosTR($folio){
         $sql = $this->_db->prepare("SELECT cantidad,status_pedido,comentario FROM adm_pedido WHERE folio = $folio");
         $sql->execute();

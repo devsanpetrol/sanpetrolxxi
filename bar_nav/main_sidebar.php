@@ -53,7 +53,7 @@
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/inicio.php">Adquisición de Material</a></li>
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/almacen_salida.php">Almacen Salida</a></li>
-                        <li class="nav-item"><a class="nav-link" href="adm/suministro/aprobacion_salida.php">Aprobacion Salida</a></li>
+                        <li class="nav-item"><a class="nav-link" href="adm/suministro/aprobacion_salida.php">Supervisión</a></li>
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/detalle_factura.php">Factura</a></li>
                     </ul>
                 </li>

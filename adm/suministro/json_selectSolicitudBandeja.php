@@ -56,7 +56,6 @@
         }else{
             return "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/userlogin.jpg' class='rounded-circle' width='32' height='32' alt=''><span class='badge bg-slate-300 badge-pill badge-float'>$contar</span></a>";
         }
-        
     }
     function t_icon_x($st){
        $status = array(

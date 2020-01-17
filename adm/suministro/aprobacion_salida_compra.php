@@ -130,7 +130,7 @@
                     <div class="page-header page-header-light">
                         <div class="page-header-content header-elements-md-inline">
                             <div class="page-title d-flex">
-                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">Solicitudes</span></h4>
+                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">Supervisión de Lista a Compra</span></h4>
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
                             <div class="header-elements d-none">
@@ -156,14 +156,14 @@
                         <table class="table table-inbox" id="lay_out_solicitudesx" cellspacing="0" width="100%">
                             <col width="10%">
                             <col width="10%">
-                            <col width="65%">
-                            <col width="15%">
+                            <col width="80%">
+                            <!--<col width="15%">-->
                             <thead>
                                 <tr>
                                     <th class="table-inbox-time text-center">Revisado</th>
                                     <th class="table-inbox-time text-center">Fecha</th>
-                                    <th class="table-inbox-message">Materiales solicitados</th>
-                                    <th class="table-inbox-time text-center">Folio</th>
+                                    <th class="table-inbox-message">Material solicitado</th>
+                                    <!--<th class="table-inbox-time text-center">Folio</th>-->
                                 </tr>
                             </thead>
                             <tbody data-link="row" class="rowlink">
