@@ -4,9 +4,9 @@ $suministro = new suministro();
 
 if(!empty($_POST['id_compra_lista'])){
     $id_compra_lista = $_POST['id_compra_lista'];
-    $dato = $suministro->get_solicitud_aprobacion_detalle($id_compra_lista);
+    $dato = $suministro->get_solicitud_aprobacion_compra_datos_firma($id_compra_lista);
     $datos = array(
-        'folio_vale' => $dato[0]['folio_vale'],
+        'id_compra_lista' => $dato[0]['id_compra_lista'],
         
         'encargado_almacen' => $dato[0]['encargado_almacen'],
         'fecha_firma_encargado' => $dato[0]['fecha_firma_encargado'],

@@ -262,7 +262,8 @@ function agrega_pase(id_pedido){
     $("#btn_envia_valesalida").attr("disabled",true);
  }
  function insert_vale_salida(){
-    var visto_bueno = $('#firma_vobo').data('idempleado');
+    var encargado_almacen = $("#firma_almacenista").data("idempleado");
+    var visto_bueno       = $("#firma_vobo").data("idempleado");
     $(".input-surtido-genera").each(function(){
         var cantidad_comprar = parseFloat($(this).val());
         var id_pedido = $(this).data('idpedido');
@@ -270,7 +271,7 @@ function agrega_pase(id_pedido){
 
         if( cantidad_comprar > 0 ){
             $.ajax({
-                data:{id_pedido:id_pedido, cantidad_comprar:cantidad_comprar, update_almacen:ua},
+                data:{id_pedido:id_pedido, cantidad_comprar:cantidad_comprar, update_almacen:ua,visto_bueno:visto_bueno,encargado_almacen:encargado_almacen},
                 url: 'json_update_almacen_pedido_compra.php',
                 type: 'POST',
                 success:(function(result){

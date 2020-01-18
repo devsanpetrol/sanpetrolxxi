@@ -168,6 +168,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_solicitud_aprobacion_compra_datos_firma($id_compra_lista){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail WHERE id_compra_lista = $id_compra_lista");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     //==========================================================================
     
     public function get_pedidosTR($folio){
@@ -348,12 +354,12 @@ class suministro extends conect
     }
     //================================================================================
     //================================================================================
-    function set_update_salida_compra($id_pedido, $cantidad_comprar,$update_almacen){
+    function set_update_salida_compra($id_pedido, $cantidad_comprar,$update_almacen, $visto_bueno, $encargado_almacen){
         //ya tiene Vo.Bo.?
         if($update_almacen == "si"){
-            $sql = $this->_db->prepare("INSERT INTO adm_almacen_compra_lista (cantidad_comprar, cantidad_aprobada, aprobado, id_pedido, fecha_inicial, fecha_revision) VALUES ('$cantidad_comprar', '$cantidad_comprar',1, $id_pedido, NOW(), NOW())");
+            $sql = $this->_db->prepare("INSERT INTO adm_almacen_compra_lista (cantidad_comprar, cantidad_aprobada, aprobado, id_pedido, fecha_inicial, fecha_revision,visto_bueno,encargado_almacen) VALUES ('$cantidad_comprar', '$cantidad_comprar',1, $id_pedido, NOW(), NOW(), $visto_bueno, $encargado_almacen)");
         }elseif($update_almacen == "no"){
-            $sql = $this->_db->prepare("INSERT INTO adm_almacen_compra_lista (cantidad_comprar, id_pedido, fecha_inicial) VALUES ('$cantidad_comprar', $id_pedido, NOW())");
+            $sql = $this->_db->prepare("INSERT INTO adm_almacen_compra_lista (cantidad_comprar, id_pedido, fecha_inicial,encargado_almacen) VALUES ('$cantidad_comprar', $id_pedido, NOW(),$encargado_almacen)");
         }
         if($sql->execute()){
             $sql2 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.cantidad_compra = 0 WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
