@@ -136,16 +136,15 @@ function detalle_vale_salida(id_compra_lista){
         url: 'json_get_id_compra_list.php',
         type: 'POST',
         success: function (obj) {
-            $("#folio_pase_salida").data("folio",obj.folio_vale);
+            $("#folio_pase_salida").data("folio",obj.id_compra_lista);
             $("#firma_almacenista").val(obj.nombre_encargado+" "+obj.apellido_encargado);
-            $("#firma_vobo").val(obj.nombre_vobo+" "+obj.apellido_vobo).data("idempleado",obj.visto_bueno);
-            $("#vale_observacion").val(obj.observacion);
-            if(obj.status_vale == '1'){
+            $("#firma_vobo").val(obj.nombre_supervision+" "+obj.apellido_supervision).data("idempleado",obj.visto_bueno);
+            if(obj.aprobado == '1'){
                 $("#btn_envia_guarda_valesalida").attr("disabled",true);
-            }else if(obj.status_vale == '0'){
+            }else if(obj.aprobado == '0'){
                 $("#btn_envia_guarda_valesalida").attr("disabled",false);
             }
-            if(obj.visto_bueno != ''){
+            if(obj.visto_bueno != null){
                 $("#id_firma_vobo").attr("disabled",true);
             }else{
                 $("#id_firma_vobo").attr("disabled",false);
@@ -156,14 +155,14 @@ function detalle_vale_salida(id_compra_lista){
         }
     });
 }
-function setPedidos(folio){
+function setPedidos(id_compra_lista){
     var t = $('#dt_for_vobo').DataTable();
     var notice = new PNotify();
     $.ajax({
-        data:{folio:folio},
-        url: 'json_list_pedido_salida.php',
+        data:{id_compra_lista:id_compra_lista},
+        url: 'json_list_pedido_salida_compra.php',
         type: 'POST',
-        beforeSend: function (xhr) {
+        beforeSend: function (xhr){
             t.clear().draw();
             var options = {
                 text: "Recopilando información...",
@@ -177,7 +176,7 @@ function setPedidos(folio){
         success: function (obj) {
             $.each(obj, function (index, value) {
                 t.row.add( [
-                    value.cantidad_surtir,
+                    value.cantidad_compra,
                     value.autorizacion,
                     value.articulo,
                     value.destino,
@@ -185,7 +184,7 @@ function setPedidos(folio){
                 ] ).draw( false );
             });
             $.each(obj, function (index, value) {
-                var id_valesalida_pedido = value.id_valesalida_pedido;
+                var id_valesalida_pedido = value.id_compra_lista;
                 
                 $("#number_"+id_valesalida_pedido).bind('keyup mouseup', function () {
                 var max = parseInt($("#number_"+id_valesalida_pedido).attr("max"));
@@ -206,20 +205,20 @@ function setPedidos(folio){
                     $("#progress_"+id_valesalida_pedido).css("width","100%");
                 }
                 if(val > 0){
-                    $("#"+id_valesalida_pedido).prop( "checked",true).attr("disabled",false);
+                    $("#A"+id_valesalida_pedido).prop( "checked",true).attr("disabled",false);
                 }else{
-                    $("#"+id_valesalida_pedido).prop( "checked",false).attr("disabled",true);
+                    $("#A"+id_valesalida_pedido).prop( "checked",false).attr("disabled",true);
                 }
             });
             $("#number_"+id_valesalida_pedido).focusout(function() {
                 var val = parseInt($("#number_"+id_valesalida_pedido).val());
                 if (isNaN(val) ){
                     $("#number_"+id_valesalida_pedido).val("0");
-                    $("#"+id_valesalida_pedido).prop( "checked",false);
+                    $("#A"+id_valesalida_pedido).prop( "checked",false);
                 }else if(val == 0){
-                    $("#"+id_valesalida_pedido).prop( "checked",false);
+                    $("#A"+id_valesalida_pedido).prop( "checked",false);
                 }else if(val > 0){
-                    $("#"+id_valesalida_pedido).prop( "checked",true);
+                    $("#A"+id_valesalida_pedido).prop( "checked",true);
                 }
             });
             });
@@ -307,16 +306,15 @@ function log_autentic(){
     if (visto_bueno != ""){
         $(".custom-control-input").each(function(){
            var id_valesalida_pedido = $(this).attr("id");
-           var id_pedido = $(this).data("idpedido");
-           var cod_articulo = $(this).data("codarticulo");
-           var cantidad_surtir = $(this).data("cantidadsurtir");
-           var cantidad_surtida = $("#number_"+id_valesalida_pedido).val();
+           var id_compra_lista = $(this).data("idpedido");
+           var cantidad_surtir = $(this).data("apartado");
+           var cantidad_compra = $("#number_"+id_valesalida_pedido).val();
            var cantidad_cancelado = cantidad_surtir - $("#number_"+id_valesalida_pedido).val();
            var status = (this.checked) ? "si" : "no";
            
            $.ajax({
-               data:{id_pedido:id_pedido,cod_articulo:cod_articulo,cantidad_surtir:cantidad_surtida,cantidad_cancelado:cantidad_cancelado,id_valesalida_pedido:id_valesalida_pedido,status:status},
-               url: 'json_update_pase_salida_valida.php',
+               data:{id_compra_lista:id_compra_lista,cantidad_surtir:cantidad_compra,cantidad_cancelado:cantidad_cancelado,status:status},
+               url: 'json_update_pase_salida_valida_compra.php',
                type: 'POST',
                beforeSend: function (xhr) {
                     td.clear().draw();

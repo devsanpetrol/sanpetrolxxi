@@ -163,16 +163,29 @@ class suministro extends conect
     }
     //=====================   COMPRA   =========================================
     public function get_solicitud_aprobacion_compra($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail $filtro ORDER BY adm_view_compra_lista_detail.aprobado ASC, adm_view_compra_lista_detail.id_compra_lista DESC");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail_firma_all $filtro ORDER BY adm_view_compra_lista_detail_firma_all.aprobado ASC, adm_view_compra_lista_detail_firma_all.id_compra_lista DESC");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
     public function get_solicitud_aprobacion_compra_datos_firma($id_compra_lista){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail WHERE id_compra_lista = $id_compra_lista");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail_firma_all WHERE id_compra_lista = $id_compra_lista");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
+    }
+    function set_update_compra_aprobado($id_compra_lista, $cantidad_compra, $cantidad_cancelado){//Aprobados = 1:Todos, 2:Parcial, 3:Ninguno;
+        if($cantidad_cancelado > 0 ){
+            $sql = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_aprobada = $cantidad_compra, cantidad_cancelado = $cantidad_cancelado, aprobado = 3 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+            return $sql->execute();
+        }else{
+            $sql = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_aprobada = $cantidad_compra, aprobado = 1 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+            return $sql->execute(); 
+        }
+    }
+    function set_update_compra_no_aprovado($id_compra_lista){
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_cancelado = cantidad_comprar, aprobado = 2 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+        return $sql2->execute();
     }
     //==========================================================================
     
