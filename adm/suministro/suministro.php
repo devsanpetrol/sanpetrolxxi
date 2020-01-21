@@ -184,8 +184,14 @@ class suministro extends conect
         }
     }
     function set_update_compra_no_aprovado($id_compra_lista,$visto_bueno){
-        $sql2 = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_cancelado = cantidad_comprar, aprobado = 2, fecha_revision = NOW(), visto_bueno = $visto_bueno WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_cancelada = cantidad_comprar, aprobado = 2, fecha_revision = NOW(), visto_bueno = $visto_bueno WHERE id_compra_lista = $id_compra_lista LIMIT 1");
         return $sql2->execute();
+    }
+    public function get_solicitud_compra($filtro = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail_firma_all $filtro ORDER BY adm_view_compra_lista_detail_firma_all.aprobado ASC, adm_view_compra_lista_detail_firma_all.id_compra_lista DESC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
     }
     //==========================================================================
     

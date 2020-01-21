@@ -2,8 +2,7 @@
     require_once './suministro.php';
     
     $suministro = new suministro();
-    $filtro = "WHERE aprobado IN ( 0 , 1)";
-    $categorias = $suministro->get_solicitud_aprobacion_compra($filtro);
+    $categorias = $suministro->get_solicitud_compra("WHERE aprobado IN( 1, 2 )");
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -38,7 +37,6 @@
             return $cantidad_aprobado;
         }
     }
-    
     function revisado($status_vale){
         if($status_vale == 1){
             return "<div class='d-block form-text text-center text-slate'>
@@ -60,12 +58,10 @@
         }
     }
     function grupo($status){
-        if($status == 0){
-            return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>SIN REVISIÓN</h6>";
-        }elseif($status == 1){
-            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'><i class='icon-cart-add2 text-pink-700 mr-2'></i> ENVIADOS A COMPRA</h6>";
-        }elseif($status == 2){
-            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'><i class='icon-cart-add2 text-pink-700 mr-2'></i> ENVIADOS A COMPRA</h6>";
+        if($status == 1){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'> NUEVAS ENTRADAS</h6>";
+        }else if($status == 2){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'><i class='icon-cart-add2 text-pink-700 mr-2'></i> ATENDIDOS</h6>";
         }
     }
     header('Content-Type: application/json');

@@ -27,7 +27,7 @@
             }
         }
     }else{
-            $data[] = array("result" => $set_update_salida_no_aprovado);
+            $data[] = array("result" => false);
     }
     
     header('Content-Type: application/json');

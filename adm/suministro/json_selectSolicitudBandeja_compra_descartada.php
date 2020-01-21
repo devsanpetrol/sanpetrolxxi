@@ -2,7 +2,7 @@
     require_once './suministro.php';
     
     $suministro = new suministro();
-    $filtro = "WHERE aprobado IN ( 0 , 1)";
+    $filtro = "WHERE aprobado IN ( 2 )";
     $categorias = $suministro->get_solicitud_aprobacion_compra($filtro);
     $data = array();
     
@@ -15,7 +15,7 @@
         $foto = "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/placeholder.jpg' class='rounded-circle' width='32' height='32' alt=''></a>";
         
         $data[] = array("star" => $star,
-                        "pedidos" => pedido($valor['cantidad_comprar'],$valor['cantidad_aprobada'],$valor['aprobado'],$valor['articulo'],$valor['unidad'],$valor['destino'],$valor['justificacion']),
+                        "pedidos" => pedido($valor['cantidad_comprar'],$valor['cantidad_aprobada'],$valor['cantidad_cancelada'],$valor['aprobado'],$valor['articulo'],$valor['unidad'],$valor['destino'],$valor['justificacion']),
                         "fecha" => $m." ".$d,
                         "revisado" => revisado($valor['aprobado']),
                         "folio" => $folio,
@@ -24,28 +24,28 @@
                         "grupo" => grupo($valor['aprobado'])
                         );
     }
-    function pedido($cantidad_comprar,$cantidad_aprobada,$aprobado_status,$articulo,$unidad,$destino,$justificacion){
-        $cantidad = cantidad_alter($cantidad_comprar,$cantidad_aprobada,$aprobado_status);
+    function pedido($cantidad_comprar,$cantidad_aprobada,$cantidad_cancelado,$aprobado_status,$articulo,$unidad,$destino,$justificacion){
+        $cantidad = cantidad_alter($cantidad_comprar,$cantidad_aprobada,$cantidad_cancelado,$aprobado_status);
         $aprobado = aprobado($aprobado_status);
         return " <span class='table-inbox-subject'>$aprobado ($cantidad $unidad) $articulo &nbsp;&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span>";
     }
-    function cantidad_alter($cantidad_surtir,$cantidad_aprobado,$status_vale){
+    function cantidad_alter($cantidad_surtir,$cantidad_aprobado,$cantidad_cancelado,$status_vale){
         if($status_vale == 0){
             return $cantidad_surtir;
         }elseif($status_vale == 1){
             return $cantidad_aprobado;
         }else if($status_vale == 2){
-            return $cantidad_aprobado;
+            return $cantidad_cancelado;
         }
     }
-    
     function revisado($status_vale){
-        if($status_vale == 1){
+        if($status_vale >= 1){
             return "<div class='d-block form-text text-center text-slate'>
                         <i class='icon-clipboard2'></i>
                     </div>";
-        }else if($status_vale == 0){
-            return "<div class='d-block form-text text-center text-indigo-800'>
+           
+        }else{
+             return "<div class='d-block form-text text-center text-indigo-800'>
                         <i class='icon-clipboard'></i>
                     </div>";
         }
@@ -65,7 +65,7 @@
         }elseif($status == 1){
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'><i class='icon-cart-add2 text-pink-700 mr-2'></i> ENVIADOS A COMPRA</h6>";
         }elseif($status == 2){
-            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'><i class='icon-cart-add2 text-pink-700 mr-2'></i> ENVIADOS A COMPRA</h6>";
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-danger-600'><i class='icon-cross3 text-danger-700 mr-2'></i> COMPRAS CANCELADAS</h6>";
         }
     }
     header('Content-Type: application/json');

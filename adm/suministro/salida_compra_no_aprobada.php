@@ -54,7 +54,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <script src="js/engineJS_4.js"></script>
+    <script src="js/engineJS_11.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/picker_date.js"></script>
@@ -105,11 +105,11 @@
                                 <div class="card-body p-0">
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Salida Almacen</li>
-                                        <li class="nav-item" onclick="ver_todo()">
-                                            <a class="nav-link" ><i class="icon-drawer-in"></i> Bandeja entrada <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
+                                        <li class="nav-item">
+                                            <a href="aprobacion_salida.php" class="nav-link" ><i class="icon-drawer-in"></i> Bandeja entrada <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
                                         </li>
-                                        <li class="nav-item" onclick="ver_no_autorizado()">
-                                            <a class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
+                                        <li class="nav-item">
+                                            <a href="aprobacion_salida.php" class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
                                         </li>
                                         <li class="nav-item-header">Enviar a Compra</li>
                                         <li class="nav-item">
@@ -130,7 +130,7 @@
                     <div class="page-header page-header-light">
                         <div class="page-header-content header-elements-md-inline">
                             <div class="page-title d-flex">
-                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">Solicitudes</span></h4>
+                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">Supervisión de Lista a Compra</span></h4>
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
                             <div class="header-elements d-none">
@@ -156,14 +156,14 @@
                         <table class="table table-inbox" id="lay_out_solicitudesx" cellspacing="0" width="100%">
                             <col width="10%">
                             <col width="10%">
-                            <col width="65%">
-                            <col width="15%">
+                            <col width="80%">
+                            <!--<col width="15%">-->
                             <thead>
                                 <tr>
                                     <th class="table-inbox-time text-center">Revisado</th>
                                     <th class="table-inbox-time text-center">Fecha</th>
-                                    <th class="table-inbox-message">Materiales solicitados</th>
-                                    <th class="table-inbox-time text-center">Folio</th>
+                                    <th class="table-inbox-message">Material solicitado</th>
+                                    <!--<th class="table-inbox-time text-center">Folio</th>-->
                                 </tr>
                             </thead>
                             <tbody data-link="row" class="rowlink">
@@ -186,10 +186,6 @@
                                     <a tabindex="-1" class="dropdown-item" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
                                         <i class="icon-arrow-left13"></i>
                                         Regresar
-                                    </a>
-                                    <a tabindex="-1" class="dropdown-item" onclick="envia()" data-folio="" id="folio_pase_salida">
-                                        <i class="icon-printer"></i>
-                                        Imprimir
                                     </a>
                                 </div>
                             </li>

@@ -7,7 +7,7 @@ $(document).ready( function () {
         bInfo: false,
         dom: '<"datatable-scroll-wrap"t>',
         ajax: {
-            url: "json_selectSolicitudBandeja_paraVobo_compra.php",
+            url: "json_selectSolicitudBandeja_compra_descartada.php",
             dataSrc:function ( json ) {
                 return json;
             }
@@ -301,14 +301,15 @@ function log_autentic(){
  function guarda_cambios(){
     var visto_bueno = $("#firma_vobo").data("idempleado");
     var td  = $('#dt_for_vobo').DataTable();
-    //guarda_firma_vobo();
+    guarda_firma_vobo();
     var notice = new PNotify();
     if (visto_bueno != ""){
         $(".custom-control-input").each(function(){
+           var id_valesalida_pedido = $(this).attr("id");
            var id_compra_lista      = $(this).data("idcompralista");
-           var cantidad_surtir      = $(this).data("cantidadsurtir");
-           var cantidad_compra      = $("#number_"+id_compra_lista).val();
-           var cantidad_cancelado   = cantidad_surtir - cantidad_compra;
+           var cantidad_surtir = $(this).data("cantidadsurtir");
+           var cantidad_compra = $("#number_"+id_compra_lista).val();
+           var cantidad_cancelado = cantidad_surtir - $("#number_"+id_compra_lista).val();
            var status = (this.checked) ? "si" : "no";
            
            $.ajax({

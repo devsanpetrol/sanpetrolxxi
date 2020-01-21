@@ -4,9 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_list_pedido_salida_compra.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_10.js</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_get_id_compra_list.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/aprobacion_salida_compra.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_update_pase_salida_valida_compra.php</file>
         </group>
     </open-files>
 </project-private>

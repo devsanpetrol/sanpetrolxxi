@@ -116,7 +116,7 @@
                                             <a href="aprobacion_salida_compra.php" class="nav-link" ><i class="icon-drawer-in"></i> Bandeja entrada <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
+                                            <a href="salida_compra_no_aprobada.php" class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -186,10 +186,6 @@
                                     <a tabindex="-1" class="dropdown-item" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
                                         <i class="icon-arrow-left13"></i>
                                         Regresar
-                                    </a>
-                                    <a tabindex="-1" class="dropdown-item" onclick="envia()" data-folio="" id="folio_pase_salida">
-                                        <i class="icon-printer"></i>
-                                        Imprimir
                                     </a>
                                 </div>
                             </li>
