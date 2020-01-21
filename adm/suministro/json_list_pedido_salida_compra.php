@@ -61,7 +61,7 @@
                     </div>";
         }else if( $aprobado == 0 ){
             return "<div class='custom-control custom-control-right custom-checkbox custom-control-inline'>
-                        <input type='checkbox' class='custom-control-input' data-cantidadsurtir='$cantidad_comprar' data-idpedido='$id_pedido' data-codarticulo='$cod_articulo' id='A$id_compra_lista' checked>
+                        <input type='checkbox' class='custom-control-input' data-cantidadsurtir='$cantidad_comprar' data-idpedido='$id_pedido' data-codarticulo='$cod_articulo' data-idcompralista='$id_compra_lista' id='A$id_compra_lista' checked>
                         <label class='custom-control-label position-static' for='A$id_compra_lista'></label>
                     </div>";
         }

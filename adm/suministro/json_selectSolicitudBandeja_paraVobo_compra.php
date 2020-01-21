@@ -1,5 +1,5 @@
 <?php
-    require_once './suministro.php'; 
+    require_once './suministro.php';
     
     $suministro = new suministro();
     $filtro = filtro("todo");
@@ -72,7 +72,7 @@
         if($status == 0){
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>SIN REVISIÓN</h6>";
         }else{
-            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>REVISADOS </h6>";
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'><i class='icon-cart-add2 text-pink-700 mr-2'></i> ENVIADOS A COMPRA</h6>";
         }
     }
     header('Content-Type: application/json');

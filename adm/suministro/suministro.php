@@ -174,17 +174,17 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    function set_update_compra_aprobado($id_compra_lista, $cantidad_compra, $cantidad_cancelado){//Aprobados = 1:Todos, 2:Parcial, 3:Ninguno;
+    function set_update_compra_aprobado($id_compra_lista, $cantidad_compra, $cantidad_cancelado, $visto_bueno){//Aprobados = 1:Todos, 2:Parcial, 3:Ninguno;
         if($cantidad_cancelado > 0 ){
-            $sql = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_aprobada = $cantidad_compra, cantidad_cancelado = $cantidad_cancelado, aprobado = 3 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+            $sql = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_aprobada = $cantidad_compra, cantidad_cancelado = $cantidad_cancelado, aprobado = 3, fecha_revision = NOW(), visto_bueno = $visto_bueno WHERE id_compra_lista = $id_compra_lista LIMIT 1");
             return $sql->execute();
         }else{
-            $sql = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_aprobada = $cantidad_compra, aprobado = 1 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+            $sql = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_aprobada = $cantidad_compra, aprobado = 1, fecha_revision = NOW(), visto_bueno = $visto_bueno WHERE id_compra_lista = $id_compra_lista LIMIT 1");
             return $sql->execute(); 
         }
     }
-    function set_update_compra_no_aprovado($id_compra_lista){
-        $sql2 = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_cancelado = cantidad_comprar, aprobado = 2 WHERE id_compra_lista = $id_compra_lista LIMIT 1");
+    function set_update_compra_no_aprovado($id_compra_lista,$visto_bueno){
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_cancelado = cantidad_comprar, aprobado = 2, fecha_revision = NOW(), visto_bueno = $visto_bueno WHERE id_compra_lista = $id_compra_lista LIMIT 1");
         return $sql2->execute();
     }
     //==========================================================================

@@ -306,14 +306,14 @@ function log_autentic(){
     if (visto_bueno != ""){
         $(".custom-control-input").each(function(){
            var id_valesalida_pedido = $(this).attr("id");
-           var id_compra_lista = $(this).data("idpedido");
-           var cantidad_surtir = $(this).data("apartado");
-           var cantidad_compra = $("#number_"+id_valesalida_pedido).val();
-           var cantidad_cancelado = cantidad_surtir - $("#number_"+id_valesalida_pedido).val();
+           var id_compra_lista      = $(this).data("idcompralista");
+           var cantidad_surtir = $(this).data("cantidadsurtir");
+           var cantidad_compra = $("#number_"+id_compra_lista).val();
+           var cantidad_cancelado = cantidad_surtir - $("#number_"+id_compra_lista).val();
            var status = (this.checked) ? "si" : "no";
            
            $.ajax({
-               data:{id_compra_lista:id_compra_lista,cantidad_surtir:cantidad_compra,cantidad_cancelado:cantidad_cancelado,status:status},
+               data:{id_compra_lista:id_compra_lista,cantidad_compra:cantidad_compra,cantidad_cancelado:cantidad_cancelado,status:status, visto_bueno:visto_bueno},
                url: 'json_update_pase_salida_valida_compra.php',
                type: 'POST',
                beforeSend: function (xhr) {
