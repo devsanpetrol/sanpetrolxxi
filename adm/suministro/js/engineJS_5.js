@@ -237,6 +237,7 @@ function agregar_pedido(){
             var espe = $('#especificacion').val() !== '' ? '</br><i>*'+$('#especificacion').val()+'</i>' : '';
             var cantidad_compra = 0;
             var cantidad_aparta = 0;
+            var cantidad_solici = parseFloat($('#cantidad').val());
             if(cod_articulo.trim() == ""){
                 cantidad_compra = parseFloat($('#cantidad').val());
                 cantidad_aparta = 0;
@@ -244,7 +245,7 @@ function agregar_pedido(){
                 cantidad_compra = parseFloat($('#stock_compra').text());
                 cantidad_aparta = cantidad_solici - cantidad_compra;
             }
-            var cantidad_solici = parseFloat($('#cantidad').val());
+            
             t.row.add( [
                 grado_requerimiento2,
                 cod_articulo,

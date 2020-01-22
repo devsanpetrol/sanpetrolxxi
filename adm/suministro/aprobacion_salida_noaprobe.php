@@ -153,7 +153,7 @@
                 <div class="card" id="tabla_visor_solicitudes">
                     <!-- Table -->
                     <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
-                        <table class="table table-inbox" id="lay_out_solicitudesx" cellspacing="0" width="100%" data-filtre="todos">
+                        <table class="table table-inbox" id="lay_out_solicitudesx" cellspacing="0" width="100%" data-filtre="no_aprobado">
                             <col width="10%">
                             <col width="10%">
                             <col width="65%">

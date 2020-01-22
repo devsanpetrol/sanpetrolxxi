@@ -1,5 +1,13 @@
 $(document).ready( function () {
     $(".nuevas-entradas-inbox").hide();
+    var json1;
+    var filtre = $('#lay_out_solicitudesx').data("filtre");
+    if(filtre == "todos"){
+        json1 = "json_selectSolicitudBandeja_paraVobo.php";
+    }else if("no_aprobado"){
+        json1 = "json_selectSolicitudBandeja_paraVobo_3.php";
+    }
+    
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
         ordering: false,
@@ -7,7 +15,7 @@ $(document).ready( function () {
         bInfo: false,
         dom: '<"datatable-scroll-wrap"t>',
         ajax: {
-            url: "json_selectSolicitudBandeja_paraVobo.php",
+            url: json1,
             dataSrc:function ( json ) {
                 return json;
             }

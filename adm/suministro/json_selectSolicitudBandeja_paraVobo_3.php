@@ -77,7 +77,7 @@
         }else if($filtro == "si_revisado"){
             return "WHERE status_vale = 1";
         }elseif ($filtro == "no_autorizado") {
-            return "WHERE status_vale = 1";
+            return "WHERE aprobado = 3";
         }
     }
     header('Content-Type: application/json');
