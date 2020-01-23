@@ -1,5 +1,6 @@
 $(document).ready( function () {
     $(".nuevas-entradas-inbox").hide();
+    
     var json1;
     var filtre = $('#lay_out_solicitudesx').data("filtre");
     if(filtre == "todos"){

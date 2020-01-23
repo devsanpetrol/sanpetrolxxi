@@ -3,7 +3,7 @@
     
     $suministro = new suministro();
     $filtro = filtro("no_autorizado");
-    $categorias = $suministro->get_solicitud_aprobacion($filtro);
+    $categorias = $suministro->get_solicitud_aprobacion();
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -23,14 +23,15 @@
                         "revisado" => revisado($valor['status_vale']),
                         "folio" => $folio,
                         "justificacion" => $folio,
-                        "status_vale" => $valor['status_vale']
+                        "status_vale" => $valor['status_vale'],
+                        "grupo" => grupo($valor['status_vale'])
                         );
         }
     }
     
     function pedido($folio){
         $suministro = new suministro();
-        $pedidos = $suministro->get_pedidos_salida($folio," AND aprobado = 2 ");
+        $pedidos = $suministro->get_pedidos_salida($folio," AND aprobado = 3 ");
         $lista = array();
         foreach($pedidos as $valor){
                 $cantidad = $valor['cantidad_cancelado'];
@@ -63,7 +64,7 @@
     function aprobado($aprobado){//icon-clipboard
         if($aprobado == 1){
             return "<i class='icon-checkmark2 text-success-800'></i>";
-        }else if($aprobado == 2){
+        }else if($aprobado == 3){
             return "<i class='icon-cross text-danger-800'></i>";
         }else{
             return "<span class='badge badge-mark bg-info-400 border-info-400'></span>";
@@ -77,7 +78,14 @@
         }else if($filtro == "si_revisado"){
             return "WHERE status_vale = 1";
         }elseif ($filtro == "no_autorizado") {
-            return "WHERE aprobado = 3";
+            return "WHERE status_vale = 1";
+        }
+    }
+    function grupo($status){
+        if($status == 1){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-danger-800'>SOLICITUDES NO AUTORIZADAS</h6>";
+        }else{
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>OTROS </h6>";
         }
     }
     header('Content-Type: application/json');

@@ -1,5 +1,6 @@
 $(document).ready( function () {
     $(".nuevas-entradas-inbox").hide();
+    $(".salida_compra_no_aprobada").addClass("active");
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
         ordering: false,

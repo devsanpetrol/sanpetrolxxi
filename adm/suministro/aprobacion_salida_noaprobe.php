@@ -54,6 +54,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
+    <script src="js/ini_aprobacion_salida_noaprobe.js"></script>
     <script src="js/engineJS_4.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
@@ -91,37 +92,7 @@
 			</div>
 			<!-- /sidebar mobile toggler -->
 			<!-- Sidebar content -->
-			<div class="sidebar-content">
-                            <!-- Sub navigation -->
-                            <div class="card">
-                                <div class="card-header bg-transparent header-elements-inline">
-                                    <span class="text-uppercase font-size-sm font-weight-semibold">Menú</span>
-                                    <div class="header-elements">
-                                        <div class="list-icons">
-                                            <a class="list-icons-item" data-action="collapse"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body p-0">
-                                    <ul class="nav nav-sidebar" data-nav-type="accordion">
-                                        <li class="nav-item-header">Salida Almacen</li>
-                                        <li class="nav-item">
-                                            <a href="aprobacion_salida.php" class="nav-link" ><i class="icon-drawer-in"></i> Bandeja entrada <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="aprobacion_salida_noaprobe.php" class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
-                                        </li>
-                                        <li class="nav-item-header">Enviar a Compra</li>
-                                        <li class="nav-item">
-                                            <a href="aprobacion_salida_compra.php" class="nav-link" ><i class="icon-drawer-in"></i> Bandeja entrada <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="salida_compra_no_aprobada.php" class="nav-link"><i class="icon-spam"></i> No Autorizados</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-			</div>
+			<?php include "./sidebar_supervision.php"; ?>
 			<!-- /sidebar content -->
 		</div>
 		<!-- Main content -->
