@@ -1,6 +1,6 @@
 $(document).ready( function () {
     $("body").addClass("sidebar-xs");
-    $(".almacen-salida").addClass("active");
+    $(".almacen_salida_compra").addClass("active");
     $('#datatable_almacen_pase').DataTable({
         ordering: false,
         bDestroy: true,

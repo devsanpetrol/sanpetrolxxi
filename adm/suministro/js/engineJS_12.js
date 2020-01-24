@@ -1,6 +1,7 @@
 $(document).ready( function () {
     $(".nuevas-entradas-inbox").hide();
-    $(".almacen_salida_aprobada").addClass("active");
+    $(".aprobacion_salida_compra_alm").addClass("active");
+    
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
         ordering: false,
@@ -8,7 +9,7 @@ $(document).ready( function () {
         bInfo: false,
         dom: '<"datatable-scroll-wrap"t>',
         ajax: {
-            url: "json_selectSolicitudBandeja_paraEntrega.php",
+            url: "json_selectSolicitudBandeja_compra_view_alm.php",
             dataSrc:function ( json ) {
                 return json;
             }
@@ -19,22 +20,20 @@ $(document).ready( function () {
         createdRow: function ( row, data, index ) {
             $("#total_pedidos_mostrado").text(index+1);
             $(row).attr('id',data['folio']);
-            $(row).attr('data-statusvale',data['status_vale']);
-            
-            if(data['status_vale'] ==  '1'){
+            if(data['status_vale'] ==  '0'){
                 $(row).addClass('unread');
             }
             $(row).data('scroll');
             $('td', row).eq(0).addClass('table-inbox-time text-center');
             $('td', row).eq(1).addClass('table-inbox-time text-center');
             $('td', row).eq(2).addClass('table-inbox-message');
-            $('td', row).eq(3).addClass('table-inbox-time text-center');
+            //$('td', row).eq(3).addClass('table-inbox-time text-center');
         },
         columns: [
             {data : 'revisado'},
             {data : 'fecha'},
-            {data : 'pedidos'},
-            {data : 'folio'}
+            {data : 'pedidos'}
+            //{data : 'folio'}
         ],
         language: {
             zeroRecords: "Ningun elemento seleccionado"
@@ -51,7 +50,7 @@ $(document).ready( function () {
         },
         columnDefs: [
             {targets: 0, width: '6%',className:'text-center'},
-            {targets: 1, width: '4%'},
+            {targets: 1, width: '4%',className:'text-center'},
             {targets: 2, width: '30%'},
             {targets: 3, width: '30%'},
             {targets: 4, width: '30%'}
@@ -72,6 +71,7 @@ $(document).ready( function () {
                 scrollTop: $("#content_table_pedidos_list").data("scroll")
             }, 200);
             var t = $('#lay_out_solicitudesx').DataTable();
+            //t.draw( false );
             t.ajax.reload();
             no_read_inbox();
             $("#panel_autoizacion_salida").slideUp();
@@ -112,9 +112,13 @@ $(document).ready( function () {
     });
     $('#buscar_en_tabla_vobo').on( 'change paste keyup', function () {
         var table = $('#lay_out_solicitudesx').DataTable();
-        table
-            .search( this.value )
-            .draw();
+        var val_search = this.value;
+        table.columns().every(function () {
+            var table = this;
+            if (table.search() !== val_search) {
+                table.search(val_search).draw();
+            }
+        });
     });
 } );
 function set_list_resp(id_empleado,nombre,apellidos){
@@ -128,26 +132,24 @@ function regresar_lista(){
     var idrow = $("#tools_menu_regresa").data("idrow");
     $("#"+idrow+"").click();
 }
-function detalle_vale_salida(folio_vale){
+function detalle_vale_salida(id_compra_lista){
     $.ajax({
-        data:{folio_vale:folio_vale},
-        url: 'json_get_folio_detail_recibe.php',
+        data:{id_compra_lista:id_compra_lista},
+        url: 'json_get_id_compra_list.php',
         type: 'POST',
         success: function (obj) {
-            $("#panel_autoizacion_salida").data("foliovalesalida",obj.folio_vale);
-            $("#panel_autoizacion_salida").data("statusvale",obj.status_vale);
+            $("#folio_pase_salida").data("folio",obj.id_compra_lista);
             $("#firma_almacenista").val(obj.nombre_encargado+" "+obj.apellido_encargado);
-            $("#firma_vobo").val(obj.nombre_vobo+" "+obj.apellido_vobo);
-            $("#firma_recibe").val(obj.recibe_vale);
-            
-            if(obj.status_vale == '1'){
-                $("#firma_recibe").attr("disabled",false);//firma-individual
-                $("#btn_envia_guarda_valesalida").attr("disabled",false);
-                $("#tools_re-send").show();
-            }else if(obj.status_vale == '2'){
-                $("#firma_recibe").attr("disabled",true);
+            $("#firma_vobo").val(obj.nombre_supervision+" "+obj.apellido_supervision).data("idempleado",obj.visto_bueno);
+            if(obj.aprobado == '1'){
                 $("#btn_envia_guarda_valesalida").attr("disabled",true);
-                $("#tools_re-send").hide();
+            }else if(obj.aprobado == '0'){
+                $("#btn_envia_guarda_valesalida").attr("disabled",false);
+            }
+            if(obj.visto_bueno != null){
+                $("#id_firma_vobo").attr("disabled",true);
+            }else{
+                $("#id_firma_vobo").attr("disabled",false);
             }
         },
         error: function (obj) {
@@ -155,14 +157,14 @@ function detalle_vale_salida(folio_vale){
         }
     });
 }
-function setPedidos(folio){
+function setPedidos(id_compra_lista){
     var t = $('#dt_for_vobo').DataTable();
     var notice = new PNotify();
     $.ajax({
-        data:{folio:folio},
-        url: 'json_list_pedido_salida_recibe.php',
+        data:{id_compra_lista:id_compra_lista},
+        url: 'json_list_pedido_salida_compra_alm.php',
         type: 'POST',
-        beforeSend: function (xhr) {
+        beforeSend: function (xhr){
             t.clear().draw();
             var options = {
                 text: "Recopilando información...",
@@ -175,21 +177,16 @@ function setPedidos(folio){
         },
         success: function (obj) {
             $.each(obj, function (index, value) {
-                var temp =
                 t.row.add( [
-                    value.cantidad_surtir,
+                    value.cantidad_compra,
                     value.autorizacion,
                     value.articulo,
                     value.destino,
-                    value.recibe
-                ] ).node();
-                t.draw( false );
-                $(temp).attr("data-idvalesalidapedido", value.id_valesalida_pedido);
-                $(temp).attr("data-cantidad_surtir_num", value.cantidad_surtir_num);
-                
+                    value.justificacion
+                ] ).draw( false );
             });
             $.each(obj, function (index, value) {
-                var id_valesalida_pedido = value.id_valesalida_pedido;
+                var id_valesalida_pedido = value.id_compra_lista;
                 
                 $("#number_"+id_valesalida_pedido).bind('keyup mouseup', function () {
                 var max = parseInt($("#number_"+id_valesalida_pedido).attr("max"));
@@ -210,20 +207,20 @@ function setPedidos(folio){
                     $("#progress_"+id_valesalida_pedido).css("width","100%");
                 }
                 if(val > 0){
-                    $("#"+id_valesalida_pedido).prop( "checked",true).attr("disabled",false);
+                    $("#A"+id_valesalida_pedido).prop( "checked",true).attr("disabled",false);
                 }else{
-                    $("#"+id_valesalida_pedido).prop( "checked",false).attr("disabled",true);
+                    $("#A"+id_valesalida_pedido).prop( "checked",false).attr("disabled",true);
                 }
             });
             $("#number_"+id_valesalida_pedido).focusout(function() {
                 var val = parseInt($("#number_"+id_valesalida_pedido).val());
                 if (isNaN(val) ){
                     $("#number_"+id_valesalida_pedido).val("0");
-                    $("#"+id_valesalida_pedido).prop( "checked",false);
+                    $("#A"+id_valesalida_pedido).prop( "checked",false);
                 }else if(val == 0){
-                    $("#"+id_valesalida_pedido).prop( "checked",false);
+                    $("#A"+id_valesalida_pedido).prop( "checked",false);
                 }else if(val > 0){
-                    $("#"+id_valesalida_pedido).prop( "checked",true);
+                    $("#A"+id_valesalida_pedido).prop( "checked",true);
                 }
             });
             });
@@ -249,12 +246,7 @@ function setPedidos(folio){
             notice.update(options);
         },
         complete: (function () {
-            var status_vale = $("#panel_autoizacion_salida").data("statusvale");
-            if (status_vale == 1){
-                $(".firma-individual").attr("disabled",false);
-            }else if (status_vale == 2){
-                $(".firma-individual").attr("disabled",true);
-            }
+            //t.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
         })
     });
 }
@@ -308,38 +300,54 @@ function log_autentic(){
         $(".card-pedidos-xsurtir").slideUp();
     }
  }
-function guarda_cambios(){
-    var firma_recibe = $("#firma_recibe").val();
+ function guarda_cambios(){
+    var visto_bueno = $("#firma_vobo").data("idempleado");
+    var td  = $('#dt_for_vobo').DataTable();
+    //guarda_firma_vobo();
     var notice = new PNotify();
-    if (firma_recibe != ""){
-        guarda_firma_recibe_todo(firma_recibe);
-        $(".firma-individual").each(function(){
-           var id_valesalida_pedido = $(this).attr("id");
-           var cantidad_cancelado = $(this).attr("data-cantidadcancelado");
-           var cantidad_surtir = $(this).attr("data-cantidadsurtir");
-           var cod_articulo = $(this).attr("data-codarticulo");
-           var id_pedido = $(this).attr("data-idpedido");
-           var recibe = $(this).val();
+    if (visto_bueno != ""){
+        $(".custom-control-input").each(function(){
+           var id_compra_lista      = $(this).data("idcompralista");
+           var cantidad_surtir      = $(this).data("cantidadsurtir");
+           var cantidad_compra      = $("#number_"+id_compra_lista).val();
+           var cantidad_cancelado   = cantidad_surtir - cantidad_compra;
+           var status = (this.checked) ? "si" : "no";
            
            $.ajax({
-               data:{id_valesalida_pedido:id_valesalida_pedido,recibe:recibe,cantidad_surtir:cantidad_surtir,cantidad_cancelado:cantidad_cancelado,cod_articulo:cod_articulo,id_pedido:id_pedido},
-               url: 'json_update_recibe_solicitud.php',
+               data:{id_compra_lista:id_compra_lista,cantidad_compra:cantidad_compra,cantidad_cancelado:cantidad_cancelado,status:status, visto_bueno:visto_bueno},
+               url: 'json_update_pase_salida_valida_compra.php',
                type: 'POST',
+               beforeSend: function (xhr){
+                    td.clear().draw();
+                    var options = {
+                        text: "Enviando...",
+                        addclass: 'bg-primary border-primary',
+                        type: 'info',
+                        icon: 'icon-spinner4 spinner',
+                        hide: false
+                    };
+                    notice.update(options);
+                },
                success:(function(res){
                    if(res[0].result == "exito"){
+                       
                         var options = {
-                            text: "Guardando...",
-                            addclass: 'bg-primary border-primary',
+                            text: "Completado",
+                            addclass: 'bg-success border-success',
                             type: 'info',
+                            icon: 'icon-checkmark4',
                             delay: 1000,
-                            hide: true
+                            hide: true,
+                            buttons: {
+                                closer: true,
+                                sticker: false
+                            }
                         };
                         notice.update(options);
-                        $("#"+id_valesalida_pedido).attr("disabled",true);
+                        $("#tools_menu_regresa").click();
                    }else{
-                       console.log(res[0].result);
                         var options = {
-                            text: "Ocurrio un error al procesar la información: "+res[0].result,
+                            text: "Ocurrio un error al procesar la información",
                             addclass: 'bg-danger border-danger',
                             type: 'info',
                             icon: 'icon-close2',
@@ -356,8 +364,8 @@ function guarda_cambios(){
         });
     }else{
         var options = {
-            text: "Debe asignar el nombre de quien recibe el material",
-            addclass: 'bg-warning border-warning',
+            text: "Accion no autorizada",
+            addclass: 'bg-danger border-danger',
             type: 'info',
             icon: 'icon-close2',
             delay: 1000,
@@ -366,18 +374,18 @@ function guarda_cambios(){
         notice.update(options);
     }
  }
-function guarda_firma_recibe_todo(firma_recibe){
-    var folio_vale  = $("#panel_autoizacion_salida").data("foliovalesalida");
+ function guarda_firma_vobo(){
+    var visto_bueno = $("#firma_vobo").data("idempleado");
+    var folio_vale  = $("#folio_pase_salida").data("folio"); 
     $.ajax({
-        data:{folio_vale:folio_vale,recibe_vale:firma_recibe},
-        url: 'json_update_recibe_solicitud_todo.php',
+        data:{folio_vale:folio_vale,visto_bueno:visto_bueno},
+        url: 'json_update_pase_salida_firma_vobo.php',
         type: 'POST',
         success: function (obj) {
             if(obj[0].result == "exito"){
-                console.log("Firma recibe guardada");
-                $("#firma_recibe").attr("disabled",true);
+                console.log("Firma guardada");
             }else{
-                console.log("Error al guardar firma recibe: " + obj[0].result);
+                console.log("Error al guardar firma: " + obj[0].result);
             }
         },
         error: function (obj) {
@@ -385,8 +393,12 @@ function guarda_firma_recibe_todo(firma_recibe){
         }
     });
 }
+function imprimir(){
+    var folio_vale = $("#folio_pase_salida").data("folio");
+    windows.open("print_vale_salida.php?folio_vale="+folio_vale); 
+}
 function envia(){
-    var folio_vale = $("#panel_autoizacion_salida").data("foliovalesalida");
+    var folio_vale = $("#folio_pase_salida").data("folio");
     $.post('print_vale_salida.php', { folio_vale: folio_vale }, function (result) {
         WinId = window.open('', 'newwin', 'width=800,height=500');//resolucion de la ventana
         WinId.document.open();
@@ -398,7 +410,7 @@ function ver_todo(){
     var table = $('#lay_out_solicitudesx').DataTable();
     $("#panel_autoizacion_salida").slideUp();
     $("#lay_out_solicitudesx").slideDown();
-    table.ajax.url("json_selectSolicitudBandeja_paraEntrega.php").load;
+    table.ajax.url("json_selectSolicitudBandeja_paraVobo.php").load;
     table.ajax.reload();
     no_read_inbox();
 }
@@ -410,7 +422,7 @@ function ver_no_autorizado(){
     table.ajax.reload();
     no_read_inbox();
 }
-function no_read_inbox(){
+function  no_read_inbox(){
     $.post('json_count_no_read_inbox.php',function(res){
         var count = parseInt(res.noread), badge = $(".nuevas-entradas-inbox");
         if(count >= 100){
@@ -423,40 +435,4 @@ function no_read_inbox(){
             badge.hide();
         }
     });
-}
-function finalizar(){
-    var notice = new PNotify();
-    var success = {text: "Operacion finalizada",addclass: 'bg-success border-success',type: 'info',icon: 'icon-checkmark4',delay: 1000,hide: true};
-    var fail = {text: "Fallo la operación",addclass: 'bg-danger border-danger',type: 'info',icon: 'icon-close2',delay: 1000,hide: true};
-                        
-    var folio_vale  = $("#panel_autoizacion_salida").data("foliovalesalida");
-    $.post('json_update_state_valesalida.php', { folio_vale: folio_vale }, function (result) {
-        if(result[0].result == "exito"){
-            notice.update(success);
-        }else{
-            notice.update(fail);
-        }
-    });
-}
-function reset_vale_salida(){
-    var folio_vale  = $("#panel_autoizacion_salida").data("foliovalesalida");
-    $.ajax({
-        data:{folio_vale:folio_vale},
-        url: 'json_update_reset_solicitud.php',
-        type: 'POST',
-        success: function (obj) {
-            if(obj[0].result == "exito"){
-                alert("El pase de salida a sido enviada a revision nuevamente!");
-                $("#tools_menu_regresa").click();
-            }else{
-                console.log("Error al re-enviar el formulario");
-            }
-        },
-        error: function (obj) {
-            console.log(obj.msg);
-        }
-    });
-}
-function mayus(e) {
-    e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
 }

@@ -24,7 +24,7 @@
             </li>
         </ul>
         <span class="navbar-text ml-md-3"><span class="badge badge-mark border-orange-300 mr-2"></span>
-            
+            <?php echo ucwords(mb_strtolower ($_SESSION['full_name'],'UTF-8')); ?>
         </span>
     </div>
 </div>

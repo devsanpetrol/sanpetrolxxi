@@ -194,7 +194,7 @@
                                             <button type="button" class="btn text-primary-800 btn btn-link legitRipple" id="fecha_actual"></button>
                                             <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" id="btn_info_formato" data-toggle="modal" data-target="#mod_num_formato"><i class="icon-info22"></i></button>
                                             <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" id="btn_send_pedido" onclick="get_folio()"><i class="icon-paperplane"></i></button>
-                                            <button type="button" class="btn btn-outline rounded-round btn-icon ml-2 bg-primary text-primary-800 btn-sm" onclick="show_addpedido()" id="btn_add_pedido"><i class="icon-add"></i></button>
+                                            
                                             <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple" id="folioxx" data-folioz="0"></button>
                                             <button type="button" class="btn btn-sm btn-outline bg-danger text-danger-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_del_row_sel"><i class="icon-trash"></i></button>
                                             <button type="button" class="btn btn-sm btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" data-toggle="modal" data-target="#modal_large"><i class="icon-plus3"></i></button>
