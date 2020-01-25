@@ -52,6 +52,7 @@
     <script src="../../global_assets/js/demo_pages/extra_fab.js"></script>
     <!-- /theme JS files -->
      <script src="js/engineJS_9.js"></script>
+     <script src="js/ini_menu_almacen.js"></script>
 </head>
 
 <body class="sidebar-xs">

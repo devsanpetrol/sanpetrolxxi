@@ -52,16 +52,16 @@
     }
     function aprobado($aprobado){
         if($aprobado == 1 || $aprobado == 3){
-            return "<i class='icon-checkmark2 text-success-800'></i>";
+            return "<i class='icon-checkmark2 text-success-800 mr-2'></i>";
         }else if($aprobado == 2){
-            return "<i class='icon-cross text-danger-800'></i>";
+            return "<i class='icon-cross text-danger-800 mr-2'></i>";
         }else{
-            return "<span class='badge badge-mark bg-info-400 border-info-400'></span>";
+            return "<span class='badge badge-mark bg-info-400 border-info-400 mr-2'></span>";
         }
     }
     function grupo($status){
         if($status == 0){
-            return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>PENDIENTE REVISIÓN</h6>";
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'><i class='icon-hour-glass2 text-blue-800 mr-2'></i> PENDIENTE REVISIÓN</h6>";
         }elseif($status == 1){
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'><i class='icon-cart-add2 text-pink-700 mr-2'></i> ENVIADOS A COMPRA</h6>";
         }elseif($status == 2){

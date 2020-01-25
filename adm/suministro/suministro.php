@@ -22,6 +22,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_notify_almacen(){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_notify_almacen");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function get_almacen_busqueda($searchTerm){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_stock_disponible
                                     WHERE adm_view_stock_disponible.descripcion LIKE '%$searchTerm%'");//nombre = :Nombre'

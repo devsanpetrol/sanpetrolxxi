@@ -55,6 +55,7 @@
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
     <script src="js/engineJS_3.js"></script>
+    <script src="js/ini_menu_almacen.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/picker_date.js"></script>

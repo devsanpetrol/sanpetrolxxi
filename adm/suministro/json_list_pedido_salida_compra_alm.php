@@ -46,11 +46,11 @@
         return "<h6 class='mb-0 font-size-sm text-slate-700'>$justificacion</h6>";
     }
     function autorizacion($id_pedido,$cod_articulo,$cantidad_comprar,$id_compra_lista,$aprobado,$cantidad_cancelado){
-        /*if( $aprobado == 1 ){
+        if( $aprobado == 1 ){
             return "<div class='d-block form-text text-center'>
                         <i class='icon-checkmark-circle text-success'></i>
                     </div>";
-        }else if( $aprobado == 2 ){
+        }/*else if( $aprobado == 2 ){
             return "<div class='d-block form-text text-center'>
                         <i class='icon-cross text-danger-800' title='Se canceló ( $cantidad_cancelado ) unidad(es)'></i>
                     </div>";
@@ -65,9 +65,10 @@
                         <label class='custom-control-label position-static' for='A$id_compra_lista'></label>
                     </div>";
         }*/
-        return "<div class='d-block form-text text-center'>
-                        <i class='icon-hour-glass2 text-blue'></i>
+        else if( $aprobado == 0 ){return "<div class='d-block form-text text-center'>
+                        <i class='icon-hour-glass2 text-blue-800'></i>
                     </div>";
+        }
     }
     header('Content-Type: application/json');
     echo json_encode($data);

@@ -67,11 +67,11 @@
     }
     function aprobado($aprobado){//icon-clipboard
         if($aprobado == 1 || $aprobado == 3){
-            return "<i class='icon-checkmark2 text-success-800'></i>";
+            return "<i class='icon-checkmark2 text-success-800 mr-2'></i>";
         }else if($aprobado == 2){
-            return "<i class='icon-cross text-danger-800'></i>";
+            return "<i class='icon-cross text-danger-800 mr-2'></i>";
         }else{
-            return "<span class='badge badge-mark bg-info-400 border-info-400'></span>";
+            return "<span class='badge badge-mark bg-info-400 border-info-400 mr-2'></span>";
         }
     }
     function filtro($filtro){

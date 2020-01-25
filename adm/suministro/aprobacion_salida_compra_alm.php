@@ -55,6 +55,7 @@
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
     <script src="js/engineJS_12.js"></script>
+    <script src="js/ini_menu_almacen.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/picker_date.js"></script>
@@ -203,7 +204,7 @@
                                         <span class="badge">Vo. Bo.</span>
                                     </div>
                                     <div class="form-control-feedback">
-                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" id="id_firma_vobo" onclick="firma_almacen('firma_vobo')">
+                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm d-none" id="id_firma_vobo" onclick="firma_almacen('firma_vobo')">
                                             <i class="icon-pencil3 text-blue-800"></i>
                                         </button>
                                     </div>
@@ -218,7 +219,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-2 form-group text-right">
-                                <button type="button" class="btn btn-success btn-sm" data-aprobado="" id="btn_envia_guarda_valesalida" onclick="guarda_cambios()">Enviar</button>
+                                <button type="button" class="btn btn-success btn-sm d-none" data-aprobado="" id="btn_envia_guarda_valesalida" onclick="guarda_cambios()">Enviar</button>
                             </div>
                         </div>
                     </div>
