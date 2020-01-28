@@ -1,4 +1,7 @@
 $(document).ready( function () {
+    ini_notify_almacen();
+} );
+function ini_notify_almacen(){
     $.ajax({
         url: 'json_ini_menu_almacen.php',
         beforeSend: function() {
@@ -14,7 +17,7 @@ $(document).ready( function () {
             alert(obj.msg);
         }
     });
-} );
+}
 function countNoRead_menu_ini_almacen(name_class_menu,cantidad){
     if(cantidad >= 100){
         $("."+name_class_menu).append("<span class='badge bg-danger align-self-center ml-auto notify-almacen'>+99</span>");

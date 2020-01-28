@@ -285,6 +285,7 @@ function agrega_pase(id_pedido){
                     }
                 }),
                 complete:(function(){
+                    ini_notify_almacen();
                     resetear_tabla_surtir();
                     $(".card-pedidos-xsurtir").slideDown();
                     var t = $('#datatable_almacen_salida').DataTable();

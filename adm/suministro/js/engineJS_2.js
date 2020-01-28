@@ -363,6 +363,7 @@ function agrega_pase(id_pedido){
             resetear_tabla_surtir();
             $(".card-pedidos-xsurtir").slideDown();
             var t = $('#datatable_almacen_salida').DataTable();
+            ini_notify_almacen();
             t.ajax.reload();
         })
     });

@@ -350,6 +350,7 @@ function guarda_cambios(){
                    }
                }),
                complete: (function () {
+                    ini_notify_almacen();
                     $("#btn_envia_guarda_valesalida").attr("disabled",true);
                })
            });
