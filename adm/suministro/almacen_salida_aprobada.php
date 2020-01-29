@@ -184,7 +184,7 @@
                             <thead>
                                 <tr>
                                     <th>Cantidad</th>
-                                    <th>Aprobado</th>
+                                    <th>Status</th>
                                     <th>Articulo</th>
                                     <th>Destino</th>
                                     <th>Recibe</th>

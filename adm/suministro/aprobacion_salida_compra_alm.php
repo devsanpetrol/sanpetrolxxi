@@ -172,7 +172,7 @@
                             <thead>
                                 <tr>
                                     <th>Cantidad</th>
-                                    <th>Autorizar</th>
+                                    <th>Status</th>
                                     <th>Articulo</th>
                                     <th>Destino</th>
                                     <th>Justificación</th>

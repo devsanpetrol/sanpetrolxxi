@@ -183,7 +183,7 @@
                                 <th></th>
                                 <th>articulo</th>
                                 <th>Destino</th>
-                                <th>Apartado</th>
+                                <th>Cantidad</th>
                                 <th>FechaFolio</th>
                                 <th></th>
                             </tr>

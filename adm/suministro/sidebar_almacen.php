@@ -23,7 +23,10 @@
                     <a href="almacen_salida.php" class="nav-link almacen_salida"><i class="icon-clipboard3"></i> Generar surtido de material </a>
                 </li>
                 <li class="nav-item">
-                    <a href="almacen_salida_aprobada.php" class="nav-link almacen_salida_aprobada"><i class="icon-clipboard2"></i> Enviados a revisión </a>
+                    <a href="almacen_salida_aprobada.php" class="nav-link almacen_salida_aprobada"><i class="icon-clipboard2"></i> Aprobación salida de material</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="icon-flag8"></i> Pendientes por surtir</a>
                 </li>
                 <li class="nav-item-header">LISTA DE COMPRA</li>
                 <li class="nav-item">

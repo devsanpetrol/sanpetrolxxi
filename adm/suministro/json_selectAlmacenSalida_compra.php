@@ -27,7 +27,7 @@
     }
     function articulo_detail($id_pedido,$articulo, $categoria, $nombre_aprueba, $cargo_aprueba,$cod_articulo,$nombre_solicita){
         return $articulo_detail = "<div class='mb-0'>
-                        <h6 class='mb-0 font-size-md font-weight-bold text-blue-800 text-uppercase' data-filter ='$cod_articulo' id='art_$id_pedido' onclick='filter_articulo(event)' style='cursor: pointer'>$articulo </h6>
+                        <h6 class='mb-0 font-size-md font-weight-bold text-blue-800 text-uppercase' data-filter ='$articulo' id='art_$id_pedido' onclick='filter_articulo(event)' style='cursor: pointer'>$articulo </h6>
                         <div class='d-block font-size-sm text-blue-800' data-filter ='$categoria' id='cat_$id_pedido' onclick='filter_articulo(event)' style='cursor: pointer'><span class='badge bg-orange'>$cod_articulo</span> $categoria</div>
                         <span class='d-block font-size-sm text-muted' data-filter ='$nombre_aprueba' id='nomapu_$id_pedido' onclick='filter_articulo(event)' style='cursor: pointer'>Aprobó: $nombre_aprueba</span>
                       </div>";
