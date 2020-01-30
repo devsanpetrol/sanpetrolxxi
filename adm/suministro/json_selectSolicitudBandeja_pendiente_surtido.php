@@ -2,20 +2,19 @@
     require_once './suministro.php';
     
     $suministro = new suministro();
-    $filtro = "WHERE aprobado IN ( 0 , 1)";
-    $categorias = $suministro->get_solicitud_aprobacion_compra($filtro);
+    $categorias = $suministro->get_solicitud_pendiente_surtido();
     $data = array();
     
     foreach ($categorias as $valor) {
-        $date = new DateTime($valor['fecha_inicial']);
+        $date = new DateTime($valor['fecha_requerimiento']);
         $d = $date->format('d');
         $m = $date->format('M');
-        $folio = $valor['id_compra_lista'];
+        $folio = $valor['id_pedido'];
         $star = "<a href='#'>#$folio</a>";
         $foto = "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/placeholder.jpg' class='rounded-circle' width='32' height='32' alt=''></a>";
         
         $data[] = array("star" => $star,
-                        "pedidos" => pedido($valor['cantidad_comprar'],$valor['cantidad_aprobada'],$valor['aprobado'],$valor['articulo'],$valor['unidad'],$valor['destino'],$valor['justificacion']),
+                        "pedidos" => pedido($valor['cantidad_comprar'],$valor['aprobado'],$valor['articulo'],$valor['unidad'],$valor['destino'],$valor['justificacion']),
                         "fecha" => $m." ".$d,
                         "revisado" => revisado($valor['aprobado']),
                         "folio" => $folio,
@@ -24,10 +23,9 @@
                         "grupo" => grupo($valor['aprobado'])
                         );
     }
-    function pedido($cantidad_comprar,$cantidad_aprobada,$aprobado_status,$articulo,$unidad,$destino,$justificacion){
-        $cantidad = cantidad_alter($cantidad_comprar,$cantidad_aprobada,$aprobado_status);
+    function pedido($cantidad_comprar,$aprobado_status,$articulo,$unidad,$destino,$justificacion){
         $aprobado = aprobado($aprobado_status);
-        return " <span class='table-inbox-subject'>$aprobado ($cantidad $unidad) $articulo &nbsp;&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span>";
+        return " <span class='table-inbox-subject'>$aprobado ($cantidad_comprar $unidad) $articulo &nbsp;&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span>";
     }
     function cantidad_alter($cantidad_surtir,$cantidad_aprobado,$status_vale){
         if($status_vale == 0){

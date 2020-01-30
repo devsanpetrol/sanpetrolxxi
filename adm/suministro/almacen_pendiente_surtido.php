@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?php include "../../bar_nav/title.php"; ?></title>
-
+    
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     <link href="../../global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
@@ -25,34 +25,48 @@
     <script src="../../global_assets/js/plugins/ui/ripple.min.js"></script>
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+    <script src="../../global_assets/js/plugins/forms/selects/select2.min.js"></script>
     <script src="../../assets/js/app.js"></script>
     <!-- /theme JS files -->
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/visualization/d3/d3.min.js"></script>
     <script src="../../global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
     <script src="../../global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+    <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/tables/datatables/datatables/datatables.js"></script>
     <script src="../../global_assets/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
     <!-- Theme JS files -->
+    <script src="../../global_assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/anytime.min.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/picker.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/picker.time.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/legacy.js"></script>
     <script src="../../global_assets/js/plugins/notifications/jgrowl.min.js"></script>
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/ui/fab.min.js"></script>
     <script src="../../global_assets/js/plugins/ui/sticky.min.js"></script>
     <script src="../../global_assets/js/plugins/ui/prism.min.js"></script>
     <script src="../../global_assets/js/demo_pages/components_popups.js"></script>
-    <script src="../../global_assets/js/plugins/forms/inputs/touchspin.min.js"></script>
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <!-- Theme JS files -->   
+    <script src="js/engineJS_13.js"></script>
+    <script src="js/ini_menu_almacen.js"></script>
+
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
+    <script src="../../global_assets/js/demo_pages/picker_date.js"></script>
+    <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
     <script src="../../global_assets/js/plugins/notifications/pnotify.min.js"></script>
     <script src="../../global_assets/js/demo_pages/extra_fab.js"></script>
+    <!-- Theme JS files -->
+    <script src="../../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script src="../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script src="../../global_assets/js/plugins/forms/styling/switch.min.js"></script>
     <!-- /theme JS files -->
-     <script src="js/engineJS_9.js"></script>
-     <script src="js/ini_menu_almacen.js"></script>
 </head>
 
 <body class="sidebar-xs">
@@ -64,6 +78,7 @@
 		<!-- /main sidebar -->
 		<!-- Secondary sidebar -->
 		<div class="sidebar sidebar-light sidebar-secondary sidebar-expand-md">
+
 			<!-- Sidebar mobile toggler -->
 			<div class="sidebar-mobile-toggler text-center">
                             <a href="#" class="sidebar-mobile-secondary-toggle">
@@ -77,7 +92,7 @@
 			</div>
 			<!-- /sidebar mobile toggler -->
 			<!-- Sidebar content -->
-                        <?php include "./sidebar_almacen.php"; ?>
+			<?php include "./sidebar_almacen.php"; ?>
 			<!-- /sidebar content -->
 		</div>
 		<!-- Main content -->
@@ -86,69 +101,97 @@
                     <div class="page-header page-header-light">
                         <div class="page-header-content header-elements-md-inline">
                             <div class="page-title d-flex">
-                                <h4><i class="icon-cart5 mr-2"></i> <span class="font-weight-semibold">Generar Lista de Compra</span></h4>
+                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">Almacen - Pendientes por surtir</span></h4>
+                                <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
-
+                            <div class="header-elements d-none">
+                                <form action="#">
+                                    <div class="form-group form-group-feedback form-group-feedback-right">
+                                        <input type="search" class="form-control wmin-200" placeholder="Buscar..." id="buscar_en_tabla_vobo">
+                                        <div class="form-control-feedback">
+                                            <i class="icon-search4 font-size-base text-muted"></i>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <!-- Content area -->
-            <div class="content">
-                <!-- Invoice archive -->
-                <div class="card" data-vista="no" id="card_almacen_pase" style="display: none;">
-                    <div class="card-header bg-white header-elements-sm-inline">
+                    <div class="content">
+                        <!-- Right content -->
+                        
+                <!-- Single line -->
+                <div class="card" id="tabla_visor_solicitudes">
+                    <!-- Table -->
+                    <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
+                        <table class="table table-inbox" id="lay_out_solicitudesx" cellspacing="0" width="100%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="80%">
+                            <!--<col width="15%">-->
+                            <thead>
+                                <tr>
+                                    <th class="table-inbox-time text-center">Revisado</th>
+                                    <th class="table-inbox-time text-center">Fecha</th>
+                                    <th class="table-inbox-message">Material solicitado</th>
+                                    <!--<th class="table-inbox-time text-center">Folio</th>-->
+                                </tr>
+                            </thead>
+                            <tbody data-link="row" class="rowlink">
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /table -->
+                </div>
+                <!-- /single line -->
+                <!-- Bottom tabs -->
+                <div class="card" id="panel_autoizacion_salida" style="display: none;">
+                    <div class="card-header bg-white pb-0 pt-sm-0 pr-sm-0 header-elements-sm-inline">
                         <h6 class="card-title"></h6>
-                        <div class="header-elements">Folio: 
-                            <span class="badge badge-danger ml-3" id="num_folio_vale_salida"></span>
-                        </div>
                         <ul class="nav nav-tabs nav-tabs-bottom card-header-tabs mx-0">
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                                     <i class="icon-menu7 mr-2"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a tabindex="-1" class="dropdown-item" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="enviar_a_pendiente()">
-                                        <i class="icon-flag8"></i>
-                                        Pendientes por Surtir
+                                    <a tabindex="-1" class="dropdown-item" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
+                                        <i class="icon-arrow-left13"></i>
+                                        Regresar
                                     </a>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <div class="card-body">
-                        <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_almacen_pase" width="100%">
-                            <col width="10%">
-                            <col width="40%">
-                            <col width="35%">
-                            <col width="5%">
-                            <col width="5%">
-                            <col width="5%">
-                            <col>
+                        <table class="table table-responsive-sm table-xs dt-responsive" id="dt_for_vobo" width="100%">
+                            <col width="6%">
+                            <col width="4%">
+                            <col width="30%">
+                            <col width="30%">
+                            <col width="30%">
                             <thead>
                                 <tr>
-                                    <th>Surtir</th>
-                                    <th>articulo</th>
+                                    <th>Cantidad</th>
+                                    <th>Status</th>
+                                    <th>Articulo</th>
                                     <th>Destino</th>
-                                    <th>Apartado</th>
-                                    <th>Entregado</th>
-                                    <th>Accion</th>
-                                    <th></th>
+                                    <th>Justificación</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
                     </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
+                    <div class="card-footer align-items-center">
                         <div class="row w-100">
                             <div class="col-sm-3 form-group">
                                 <div class="form-group-feedback form-group-feedback-right">
-                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" readonly data-idempleado="" data-tokenid="salida_almacen_01" id="firma_almacenista">
+                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" readonly id="firma_almacenista" data-idempleado="">
                                     <div class="d-block form-text text-center">
                                         <span class="badge">Encargado Almacen</span>
-                                        <i class="icon-checkmark-circle text-success" id="firma_almacenista_check" style="display: none;"></i>
                                     </div>
                                     <div class="form-control-feedback">
-                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" onclick="firma_almacen('firma_almacenista')">
+                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" disabled>
                                             <i class="icon-pencil3 text-blue-800"></i>
                                         </button>
                                     </div>
@@ -159,55 +202,34 @@
                                     <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" readonly data-idempleado="" data-tokenid="salida_almacen_vobo_1" id="firma_vobo">
                                     <div class="d-block form-text text-center">
                                         <span class="badge">Vo. Bo.</span>
-                                        <i class="icon-checkmark-circle text-success" id="firma_vobo_check" style="display: none;"></i>
                                     </div>
                                     <div class="form-control-feedback">
-                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" onclick="firma_almacen('firma_vobo')">
+                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm d-none" id="id_firma_vobo" onclick="firma_almacen('firma_vobo')">
                                             <i class="icon-pencil3 text-blue-800"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4 form-group">
-                                <div class="form-group-feedback form-group-feedback-right"></div>
-                                <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="vale_observacion" onkeyup="mayus(this);" maxlength="200">
+                                <div class="form-group-feedback form-group-feedback-right">
+                                </div>
+                                <textarea rows="1" cols="3" class="form-control form-control-sm font-weight-semibold text-blue-800" id="vale_observacion" maxlength="200" readonly></textarea>
                                 <div class="d-block form-text text-justify">
                                     <span class="badge">Observación</span>
                                 </div>
                             </div>
                             <div class="col-sm-2 form-group text-right">
-                                <button type="button" class="btn btn-success btn-sm" data-aprobado="" id="btn_envia_valesalida" onclick="insert_vale_salida()" disabled><i class="icon-clipboard5 mr-2"></i> Enviar</button>
+                                <button type="button" class="btn btn-success btn-sm d-none" data-aprobado="" id="btn_envia_guarda_valesalida" onclick="guarda_cambios()">Enviar</button>
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- /invoice archive -->
-                <!-- Invoice archive -->
-                <div class="card card-pedidos-xsurtir">
-                    <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_almacen_salida" width="100%">
-                        <col width="3%">
-                        <col width="42%">
-                        <col width="20%">
-                        <col width="5%">
-                        <col width="20%">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>articulo</th>
-                                <th>Destino</th>
-                                <th>Cantidad</th>
-                                <th>FechaFolio</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /invoice archive -->
-            </div>
-            <!-- /large modal -->
-            <div id="mod_log_acces" class="modal fade" tabindex="-1" data-firmax="">
+                <!-- /bottom tabs -->
+            
+                        <!-- /right content -->
+                    </div>
+                    <!-- /large modal -->
+                    <div id="mod_log_acces" class="modal fade" tabindex="-1" data-firmax="">
                 <div class="modal-dialog modal-xs">
                     <div class="modal-content">
                         <div class="modal-body">
@@ -242,12 +264,12 @@
                 </div>
             </div>
             <!-- /large modal -->
-                    <!-- Footer -->
-                    <?php include "../bar_nav/footer_navbar.php"; ?>
-                    <!-- /footer -->
-		</div>
-		<!-- /main content -->
-
+            <!-- /content area -->
+            <!-- Footer -->
+            <?php include "../bar_nav/footer_navbar.php"; ?>
+            <!-- /footer -->
+        </div>
+        <!-- /main content -->
 	</div>
 	<!-- /page content -->
 

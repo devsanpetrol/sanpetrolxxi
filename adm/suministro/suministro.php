@@ -168,6 +168,12 @@ class suministro extends conect
         return $resultado;
     }
     //=====================   COMPRA   =========================================
+    public function get_solicitud_pendiente_surtido(){
+        $sql = $this->_db->prepare("SELECT * FROM adm_pedido WHERE status_pedido = 4 ");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function get_solicitud_aprobacion_compra($filtro = ""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail_firma_all $filtro ORDER BY adm_view_compra_lista_detail_firma_all.aprobado ASC, adm_view_compra_lista_detail_firma_all.id_compra_lista DESC");
         $sql->execute();
@@ -378,6 +384,11 @@ class suministro extends conect
         return $sql2->execute();
     }
     //================================================================================
+    function set_update_enviado_pendiente_surtir($id_pedido){
+        $sql2 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.status_pedido = 4 WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
+        $resultadox = $sql2->execute();
+        return $resultadox;
+    }
     //================================================================================
     function set_update_salida_compra($id_pedido, $cantidad_comprar,$update_almacen, $visto_bueno, $encargado_almacen){
         //ya tiene Vo.Bo.?

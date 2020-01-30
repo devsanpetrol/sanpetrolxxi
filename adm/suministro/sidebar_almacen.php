@@ -17,7 +17,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="inventario.php" class="nav-link inventario"><i class="icon-books"></i> Inventario </a>
-                </li>   
+                </li>
                 <li class="nav-item-header">SURTIDO DE MATERIAL</li>
                 <li class="nav-item">
                     <a href="almacen_salida.php" class="nav-link almacen_salida"><i class="icon-clipboard3"></i> Generar surtido de material </a>
@@ -25,15 +25,15 @@
                 <li class="nav-item">
                     <a href="almacen_salida_aprobada.php" class="nav-link almacen_salida_aprobada"><i class="icon-clipboard2"></i> Aprobación salida de material</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="icon-flag8"></i> Pendientes por surtir</a>
-                </li>
                 <li class="nav-item-header">LISTA DE COMPRA</li>
                 <li class="nav-item">
                     <a href="almacen_salida_compra.php" class="nav-link almacen_salida_compra"><i class="icon-cart-add"></i> Generar lista de compra </a>
                 </li>
                 <li class="nav-item">
-                    <a href="aprobacion_salida_compra_alm.php" class="nav-link aprobacion_salida_compra_alm"><i class="icon-clipboard2"></i> Status aprobación </a>
+                    <a href="aprobacion_salida_compra_alm.php" class="nav-link aprobacion_salida_compra_alm"><i class="icon-clipboard2"></i> Depto. Compra - Status </a>
+                </li>
+                <li class="nav-item">
+                    <a href="almacen_pendiente_surtido.php" class="nav-link almacen_pendiente_surtido"><i class="icon-flag8"></i> Pendientes por surtir</a>
                 </li>
             </ul>
         </div>

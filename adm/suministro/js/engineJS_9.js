@@ -306,3 +306,31 @@ function agrega_pase(id_pedido){
  function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
 }
+function enviar_a_pendiente(){
+    $(".input-surtido-genera").each(function(){
+        var id_pedido = $(this).data('idpedido');
+        
+        $.ajax({
+            data:{id_pedido:id_pedido},
+            url: 'json_pendiente_surtir.php',
+            type: 'POST',
+            success:(function(result){
+                if(result[0].result == 'exito'){
+                    console.log('Pedido marcado con status_4');
+                    resetear_tabla_surtir();
+                }else if(result[0].result == 'falla_guardado'){
+                    console.log('Ocurrión un error al guardar los datos: id_pedido' + id_pedido);
+                }else if(result[0].result == 'falla_recepcion_dato'){
+                    console.log('Guarda detalle: No se proporcionó ningun ID: id_pedido' + id_pedido);
+                }
+            }),
+            complete:(function(){
+                ini_notify_almacen();
+                resetear_tabla_surtir();
+                $(".card-pedidos-xsurtir").slideDown();
+                var t = $('#datatable_almacen_salida').DataTable();
+                t.ajax.reload();
+            })
+        });
+    });
+ }
