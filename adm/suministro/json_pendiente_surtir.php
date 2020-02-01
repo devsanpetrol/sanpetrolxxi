@@ -1,5 +1,5 @@
 <?php
-    require_once './suministro.php'; 
+    require_once './suministro.php';
     $suministro = new suministro();
     $data = array();
     

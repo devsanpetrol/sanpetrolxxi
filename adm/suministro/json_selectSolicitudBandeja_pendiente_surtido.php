@@ -14,13 +14,13 @@
         $foto = "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/placeholder.jpg' class='rounded-circle' width='32' height='32' alt=''></a>";
         
         $data[] = array("star" => $star,
-                        "pedidos" => pedido($valor['cantidad_comprar'],$valor['aprobado'],$valor['articulo'],$valor['unidad'],$valor['destino'],$valor['justificacion']),
+                        "pedidos" => pedido($valor['cantidad_compra'],$valor['aprobacion'],$valor['articulo'],$valor['unidad'],$valor['destino'],$valor['justificacion']),
                         "fecha" => $m." ".$d,
-                        "revisado" => revisado($valor['aprobado']),
+                        "revisado" => revisado($valor['aprobacion']),
                         "folio" => $folio,
                         "justificacion" => $folio,
-                        "status_vale" => $valor['aprobado'],
-                        "grupo" => grupo($valor['aprobado'])
+                        "status_vale" => $valor['aprobacion'],
+                        "grupo" => grupo($valor['aprobacion'])
                         );
     }
     function pedido($cantidad_comprar,$aprobado_status,$articulo,$unidad,$destino,$justificacion){
@@ -61,7 +61,7 @@
         if($status == 0){
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'><i class='icon-hour-glass2 text-blue-800 mr-2'></i> PENDIENTE REVISIÓN</h6>";
         }elseif($status == 1){
-            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'><i class='icon-cart-add2 text-pink-700 mr-2'></i> APROBADOS POR DEPTO. DE COMPRA</h6>";
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'><i class='icon-flag7 text-pink-700 mr-2'></i> PENDIENTE POR SURTIR</h6>";
         }elseif($status == 2){
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'><i class='icon-cart-add2 text-pink-700 mr-2'></i> ENVIADOS A COMPRA</h6>";
         }

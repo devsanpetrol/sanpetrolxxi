@@ -168,8 +168,8 @@ class suministro extends conect
         return $resultado;
     }
     //=====================   COMPRA   =========================================
-    public function get_solicitud_pendiente_surtido(){
-        $sql = $this->_db->prepare("SELECT * FROM adm_pedido WHERE status_pedido = 4 ");
+    public function get_solicitud_pendiente_surtido($filtro = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_pedido_detail WHERE status_pedido = 4 " . $filtro);
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

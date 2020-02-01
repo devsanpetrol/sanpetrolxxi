@@ -191,7 +191,7 @@
                                         <span class="badge">Encargado Almacen</span>
                                     </div>
                                     <div class="form-control-feedback">
-                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" disabled>
+                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm d-none" disabled>
                                             <i class="icon-pencil3 text-blue-800"></i>
                                         </button>
                                     </div>

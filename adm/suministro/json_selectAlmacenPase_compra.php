@@ -43,7 +43,7 @@
         return "<h6 class='mb-0 font-weight-bold'>$cantidad </h6><h6 class='mb-0 font-weight-bold text-slate-300 font-size-sm'>$unidad</h6>";
     }
     function cantidad_surtir($id_pedido, $cod_articulo, $max){
-        return "<input disabled id='number_$id_pedido' data-idpedido='$id_pedido' data-apartado='$max' data-codarticulo='$cod_articulo' type='number' value='$max' max='$max' min='0' class='form-control form-control-lg text-danger font-weight-bold text-center input-surtido-genera' style='padding-bottom: 5px;'>
+        return "<input id='number_$id_pedido' data-idpedido='$id_pedido' data-apartado='$max' data-codarticulo='$cod_articulo' type='number' value='$max' max='$max' min='0' class='form-control form-control-lg text-danger font-weight-bold text-center input-surtido-genera' style='padding-bottom: 5px;'>
                 <div class='progress mb-3' style='height: 0.375rem;'>
                     <div class='progress-bar progress-bar-striped progress-bar-animated' id='progress_$id_pedido' style='width: 0%'>
                     </div>

@@ -1,7 +1,7 @@
 $(document).ready( function () {
     $(".nuevas-entradas-inbox").hide();
     $(".aprobacion_salida_compra_alm").addClass("active");
-    
+    $(".aprobacion_salida_compra_alm i").addClass("text-orange-800");
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
         ordering: false,

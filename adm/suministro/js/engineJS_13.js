@@ -1,6 +1,7 @@
 $(document).ready( function () {
     $(".nuevas-entradas-inbox").hide();
-    $(".aprobacion_salida_compra_alm").addClass("active");
+    $(".almacen_pendiente_surtido").addClass("active");
+    $(".almacen_pendiente_surtido i").addClass("text-orange-800");
     
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
@@ -82,7 +83,6 @@ $(document).ready( function () {
             $("#"+id).addClass("sel-item");
             setTimeout(function() {
                 $("#panel_autoizacion_salida").slideDown();
-                detalle_vale_salida(id);
                 setPedidos(id);
             }, 500);
         }
@@ -157,12 +157,12 @@ function detalle_vale_salida(id_compra_lista){
         }
     });
 }
-function setPedidos(id_compra_lista){
+function setPedidos(id_pedido){
     var t = $('#dt_for_vobo').DataTable();
     var notice = new PNotify();
     $.ajax({
-        data:{id_compra_lista:id_compra_lista},
-        url: 'json_list_pedido_salida_compra_alm.php',
+        data:{id_pedido:id_pedido},
+        url: 'json_list_pedido_pendiente_surtido.php',
         type: 'POST',
         beforeSend: function (xhr){
             t.clear().draw();
@@ -185,45 +185,7 @@ function setPedidos(id_compra_lista){
                     value.justificacion
                 ] ).draw( false );
             });
-            $.each(obj, function (index, value) {
-                var id_valesalida_pedido = value.id_compra_lista;
-                
-                $("#number_"+id_valesalida_pedido).bind('keyup mouseup', function () {
-                var max = parseInt($("#number_"+id_valesalida_pedido).attr("max"));
-                var val = parseInt($("#number_"+id_valesalida_pedido).val());
-                if(val <= max ){
-                    var por = (val*100)/max;
-                    if(por >= 100){
-                        $("#progress_"+id_valesalida_pedido).removeClass("progress-bar-animated").addClass("bg-success");
-                    }else{
-                        $("#progress_"+id_valesalida_pedido).addClass("progress-bar-animated").removeClass("bg-success");
-                    }
-                    $("#progress_"+id_valesalida_pedido).css("width",por+"%");
-                }else{
-                    if (!isNaN(val) ){
-                        alert("El valor ingresado no es valido conforme a la solicitud");
-                    }
-                    $("#number_"+id_valesalida_pedido).val("");
-                    $("#progress_"+id_valesalida_pedido).css("width","100%");
-                }
-                if(val > 0){
-                    $("#A"+id_valesalida_pedido).prop( "checked",true).attr("disabled",false);
-                }else{
-                    $("#A"+id_valesalida_pedido).prop( "checked",false).attr("disabled",true);
-                }
-            });
-            $("#number_"+id_valesalida_pedido).focusout(function() {
-                var val = parseInt($("#number_"+id_valesalida_pedido).val());
-                if (isNaN(val) ){
-                    $("#number_"+id_valesalida_pedido).val("0");
-                    $("#A"+id_valesalida_pedido).prop( "checked",false);
-                }else if(val == 0){
-                    $("#A"+id_valesalida_pedido).prop( "checked",false);
-                }else if(val > 0){
-                    $("#A"+id_valesalida_pedido).prop( "checked",true);
-                }
-            });
-            });
+            
             var options = {
                 delay: 500,
                 hide: true,

@@ -1,6 +1,7 @@
 $(document).ready( function () {
     $("body").addClass("sidebar-xs");
     $(".almacen_salida").addClass("active");
+    $(".almacen_salida i").addClass("text-orange-800");
     $('#datatable_almacen_pase').DataTable({
         ordering: false,
         bDestroy: true,

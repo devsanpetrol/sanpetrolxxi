@@ -32,8 +32,8 @@
                 <li class="nav-item">
                     <a href="aprobacion_salida_compra_alm.php" class="nav-link aprobacion_salida_compra_alm"><i class="icon-clipboard2"></i> Depto. Compra - Status </a>
                 </li>
-                <li class="nav-item">
-                    <a href="almacen_pendiente_surtido.php" class="nav-link almacen_pendiente_surtido"><i class="icon-flag8"></i> Pendientes por surtir</a>
+                <li class="nav-item text-orange-800">
+                    <a href="almacen_pendiente_surtido.php" class="nav-link almacen_pendiente_surtido"><i class="icon-flag7"></i> Pendientes por surtir </a>
                 </li>
             </ul>
         </div>

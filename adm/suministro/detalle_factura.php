@@ -27,11 +27,15 @@
     <script src="../../global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
     <script src="../../global_assets/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script src="../../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <!-- Theme JS files -->
+    <script src="../../global_assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/picker.time.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/legacy.js"></script>
+    <script src="../../global_assets/js/plugins/notifications/jgrowl.min.js"></script>
     <!-- Theme JS files -->
     <script src="js/engineJS_1.js"></script>
     <script src="../../assets/js/app.js"></script>
-    <script src="../../global_assets/js/demo_pages/invoice_archive.js"></script>
-    
     <!-- /theme JS files -->
 </head>
 <body>
@@ -52,6 +56,16 @@
                 <div class="card">
                     <div class="card-header bg-transparent header-elements-inline">
                         <h6 class="card-title">Información de Facturas</h6>
+                        <div class="header-elements">
+                            <div class="list-icons">
+                                <div class="d-flex align-items-center mb-3 mb-md-0">
+                                    <div class="ml-3">
+                                        <h6 class="font-weight-semibold mb-0 text-blue-800" ></h6>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" data-toggle="modal" data-target="#invoice_new" title="Nueva factura"><i class="icon-plus3"></i></button>
+                            </div>
+                        </div>
                     </div>
                     <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_invoice_detail">
                         <thead>
@@ -180,7 +194,6 @@
                                         <span class="d-block font-size-sm text-muted">Payment method: Paypal</span>
                                     </h6>
                                 </td>
-                                
                                 <td>
                                     January 15, 2015
                                 </td>
@@ -218,30 +231,19 @@
     </div>
     <!-- Modal with invoice -->
     <div id="invoice" class="modal fade">
-            <div class="modal-dialog modal-full">
+            <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Invoice #49029</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
                         <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="mb-4">
-                                            <ul class="list list-unstyled mb-0">
-                                                <li>2269 Elba Lane</li>
-                                                <li>Paris, France</li>
-                                                <li>888-555-2311</li>
-                                            </ul>
-                                        </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="mb-4">
                                             <div class="text-sm-right">
-                                                <h4 class="text-primary mb-2 mt-md-2">Invoice #49029</h4>
+                                                <h4 class="text-primary mb-2 mt-md-2">DETALLE FACTURA</h4>
                                                 <ul class="list list-unstyled mb-0">
-                                                    <li>Date: <span class="font-weight-semibold">January 12, 2015</span></li>
-                                                    <li>Due date: <span class="font-weight-semibold">May 12, 2015</span></li>
+                                                    <li>Fecha Emision: <span class="font-weight-semibold">January 12, 2015</span></li>
+                                                    <li>Lugar Emision: <span class="font-weight-semibold">London E1 8BF</span></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -249,13 +251,12 @@
                                 </div>
                                 <div class="d-md-flex flex-md-wrap">
                                     <div class="mb-4 mb-md-2">
-                                        <span class="text-muted">Invoice To:</span>
+                                        <span class="text-muted">Datos del emisor</span>
                                         <ul class="list list-unstyled mb-0">
-                                            <li><h5 class="my-2">Rebecca Manes</h5></li>
-                                            <li><span class="font-weight-semibold">Normand axis LTD</span></li>
+                                            <li><h5 class="my-2">SURTIDO DE PERSIANAS SA DE CV</h5></li>
+                                            <li><span class="font-weight-semibold">SPER78623G9H</span></li>
                                             <li>3 Goodman Street</li>
-                                            <li>London E1 8BF</li>
-                                            <li>United Kingdom</li>
+                                            <li>London E1 8BF, United Kingdom</li>
                                             <li>888-555-2311</li>
                                             <li><a href="#">rebecca@normandaxis.ltd</a></li>
                                         </ul>
@@ -265,21 +266,13 @@
                                         <div class="d-flex flex-wrap wmin-md-400">
                                             <ul class="list list-unstyled mb-0">
                                                 <li><h5 class="my-2">Total Due:</h5></li>
-                                                <li>Bank name:</li>
-                                                <li>Country:</li>
-                                                <li>City:</li>
-                                                <li>Address:</li>
-                                                <li>IBAN:</li>
-                                                <li>SWIFT code:</li>
+                                                <li>Numero serie</li>
+                                                <li>UUID</li>
                                             </ul>
                                             <ul class="list list-unstyled text-right mb-0 ml-auto">
                                                 <li><h5 class="font-weight-semibold my-2">$8,750</h5></li>
-                                                <li><span class="font-weight-semibold">Profit Bank Europe</span></li>
-                                                <li>United Kingdom</li>
-                                                <li>London E1 8BF</li>
-                                                <li>3 Goodman Street</li>
-                                                <li><span class="font-weight-semibold">KFH37784028476740</span></li>
-                                                <li><span class="font-weight-semibold">BPT4E</span></li>
+                                                <li><span class="font-weight-semibold">DFU-4567</span></li>
+                                                <li><span class="font-weight-semibold">4A1B43E2-1183-4AD4-A3DE-C2DA787AE56A</span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -321,7 +314,7 @@
                                         </td>
                                         <td>70</td>
                                         <td>$200</td>
-                                        <td><span class="font-weight-semibold">$2,170</span></td>
+                                        <td><span class="font-weight-semibold">$2,170.00</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -334,15 +327,11 @@
                                             <tbody>
                                                 <tr>
                                                     <th>Subtotal:</th>
-                                                    <td class="text-right">$7,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Iva: <span class="font-weight-normal">(16%)</span></th>
-                                                    <td class="text-right">$1,750</td>
+                                                    <td class="text-right">$7,000.00</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Total:</th>
-                                                    <td class="text-right text-primary"><h5 class="font-weight-semibold">$8,750</h5></td>
+                                                    <td class="text-right text-primary"><h5 class="font-weight-semibold">$7,000.00</h5></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -355,6 +344,148 @@
                         </div>
                     </div>
             </div>
+    </div>
+    <!-- /modal with invoice -->
+    <!-- Modal new invoice -->
+    <div id="invoice_new" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="card-body">
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <legend class="font-weight-semibold"><i class="icon-truck mr-2"></i> Datos del Proveedor</legend>
+                                    <div class="form-group">
+                                        <label>Enter your name:</label>
+                                        <input type="text" class="form-control" placeholder="Eugene Kopyov">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Enter your password:</label>
+                                        <input type="password" class="form-control" placeholder="Your strong password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Select your state:</label>
+                                        <select data-placeholder="Select your state" class="form-control form-control-select2" data-fouc>
+                                            <option></option>
+                                            <optgroup label="Alaskan/Hawaiian Time Zone">
+                                                <option value="AK">Alaska</option>
+                                                <option value="HI">Hawaii</option>
+                                            </optgroup>
+                                            <optgroup label="Pacific Time Zone">
+                                                <option value="CA">California</option>
+                                                <option value="NV">Nevada</option>
+                                                <option value="WA">Washington</option>
+                                            </optgroup>
+                                            <optgroup label="Mountain Time Zone">
+                                                <option value="AZ">Arizona</option>
+                                                <option value="CO">Colorado</option>
+                                                <option value="WY">Wyoming</option>
+                                            </optgroup>
+                                            <optgroup label="Central Time Zone">
+                                                <option value="AL">Alabama</option>
+                                                <option value="AR">Arkansas</option>
+                                                <option value="KY">Kentucky</option>
+                                            </optgroup>
+                                            <optgroup label="Eastern Time Zone">
+                                                <option value="CT">Connecticut</option>
+                                                <option value="DE">Delaware</option>
+                                                <option value="WV">West Virginia</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Attach screenshot:</label>
+                                        <input type="file" class="form-input-styled" data-fouc>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <fieldset>
+                                <legend class="font-weight-semibold"><i class="icon-reading mr-2"></i> Datos de Factura</legend>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>First name:</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="icon-calendar5"></i></span>
+                                                    </span>
+                                                    <input type="text" class="form-control pickadate-accessibility" placeholder="Try me&hellip;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Last name:</label>
+                                                <input type="text" placeholder="Kopyov" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Email:</label>
+                                                <input type="text" placeholder="eugene@kopyov.com" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Phone #:</label>
+                                                <input type="text" placeholder="+99-99-9999-9999" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Country:</label>
+                                                <select data-placeholder="Select your country" class="form-control form-control-select2" data-fouc>
+                                                    <option></option>
+                                                    <option value="Cambodia">Cambodia</option> 
+                                                    <option value="Cameroon">Cameroon</option> 
+                                                    <option value="Canada">Canada</option> 
+                                                    <option value="Cape Verde">Cape Verde</option> 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>State/Province:</label>
+                                                <input type="text" placeholder="Bayern" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>ZIP code:</label>
+                                                <input type="text" placeholder="1031" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>City:</label>
+                                                <input type="text" placeholder="Munich" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Address line:</label>
+                                                <input type="text" placeholder="Ring street 12" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-transparent">
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- /modal with invoice -->
 </body>
