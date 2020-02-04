@@ -29,9 +29,14 @@
     <script src="../../global_assets/js/plugins/forms/selects/select2.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
     <!-- Theme JS files -->
+    <script src="../../global_assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/anytime.min.js"></script>
+
+    <script src="../../global_assets/js/plugins/pickers/pickadate/legacy.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/picker.js"></script>
     <script src="../../global_assets/js/plugins/pickers/pickadate/picker.date.js"></script>
     <script src="../../global_assets/js/plugins/pickers/pickadate/picker.time.js"></script>
-    <script src="../../global_assets/js/plugins/pickers/pickadate/legacy.js"></script>
     <script src="../../global_assets/js/plugins/notifications/jgrowl.min.js"></script>
     <!-- Theme JS files -->
     <script src="js/engineJS_1.js"></script>
@@ -52,6 +57,215 @@
 
             <!-- Content area -->
             <div class="content">
+                <!-- New Invoice -->
+                <div class="card card-new-invoice" >
+                    <!--<div class="card-header bg-transparent header-elements-inline">style="display: none"
+                        <h6 class="card-title">Ingreso de Articulo</h6>
+                        <div class="header-elements">
+                            <div class="list-icons">
+                                <div class="d-flex align-items-center mb-3 mb-md-0">
+                                    <div class="ml-3">
+                                        <h6 class="font-weight-semibold mb-0 text-blue-800" ></h6>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline bg-danger text-danger-800 rounded-round btn-icon ml-2" title="Cerrar"><i class="icon-minus2"></i></button>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="card-body">
+                    <form action="#">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <fieldset>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-truck mr-2"></i> DATOS DE PROVEEDOR</legend>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" placeholder="R.F.C.">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-shield-check"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Codigo Postal">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-mailbox"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Nombre Fiscal de la empresa" onkeyup="mayus(this);">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-office"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Domicilio Fiscal">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-pin-alt"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Teléfonos">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-phone"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="E-Mail">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-envelop"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                            <fieldset>
+                            <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DE DOCUMENTO</legend>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 pickadate-accessibility" placeholder="Fecha de Emisión">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-calendar22"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Serie - Folio">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-price-tag2"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Lugar de Emisión">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-stamp"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" placeholder="U.U.I.D.">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-embed"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label text-danger-800 font-weight-bold">TOTAL:</label>
+                                            <div class="col-lg-9">
+                                                <input type="text" class="form-control text-right font-weight-bold" value="2,456.00" readonly>
+                                                <div class="form-control-feedback">
+                                                    <i class="icon-coin-dollar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-12">
+                            <fieldset>
+                            <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> NUEVO DETALLE DE ARTICULO</legend>
+                            <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Codigo de Barra">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Codigo de Inventario">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Descripción">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Cantidad">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="P/Unidad">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-xs">
+                                <thead>
+                                    <tr>
+                                        <th>Codigo</th>
+                                        <th>Description</th>
+                                        <th>Cantidad</th>
+                                        <th>P. Unidad</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-semibold text-blue-800">HER00988</td>
+                                        <td class="font-weight-semibold text-blue-800">Create UI design model</td>
+                                        <td class="font-weight-semibold text-blue-800">7</td>
+                                        <td class="font-weight-semibold text-blue-800">$57</td>
+                                        <td class="font-weight-semibold text-blue-800"><span class="font-weight-semibold">$3,990</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold text-blue-800">SER80065</td>
+                                        <td class="font-weight-semibold text-blue-800">Support tickets list doesn't support commas</td>
+                                        <td class="font-weight-semibold text-blue-800">2</td>
+                                        <td class="font-weight-semibold text-blue-800">$12</td>
+                                        <td class="font-weight-semibold text-blue-800">$840</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold text-blue-800">SOL00987</td>
+                                        <td class="font-weight-semibold text-blue-800">Fix website issues on mobile</td>
+                                        <td class="font-weight-semibold text-blue-800">70</td>
+                                        <td class="font-weight-semibold text-blue-800">$200</td>
+                                        <td class="font-weight-semibold text-blue-800">$2,170.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                </div>
+                <div class="card-footer bg-transparent text-right">
+                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" data-dismiss="modal" onclick="hide_showNewInvoice()">Cerrar</button>
+                </div>
+                </div>
                 <!-- Invoice archive -->
                 <div class="card">
                     <div class="card-header bg-transparent header-elements-inline">
@@ -63,7 +277,7 @@
                                         <h6 class="font-weight-semibold mb-0 text-blue-800" ></h6>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" data-toggle="modal" data-target="#invoice_new" title="Nueva factura"><i class="icon-plus3"></i></button>
+                                <button type="button" class="btn btn-sm btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" title="Nueva factura" onclick="hide_showNewInvoice()"><i class="icon-plus3"></i></button>
                             </div>
                         </div>
                     </div>
@@ -222,7 +436,7 @@
                             </tbody>
                     </table>
                 </div>
-                    <!-- /invoice archive -->
+                <!-- /invoice archive -->
             </div>
             <!-- Footer -->
             <?php include '../bar_nav/footer_navbar.php'; ?>
@@ -411,7 +625,7 @@
                                                     <span class="input-group-prepend">
                                                         <span class="input-group-text"><i class="icon-calendar5"></i></span>
                                                     </span>
-                                                    <input type="text" class="form-control pickadate-accessibility" placeholder="Try me&hellip;">
+                                                    <input type="text" class="form-control" placeholder="Try me&hellip;">
                                                 </div>
                                             </div>
                                         </div>

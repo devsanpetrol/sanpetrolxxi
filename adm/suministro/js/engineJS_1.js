@@ -1,4 +1,12 @@
 $(document).ready( function () {
+    $('.pickadate-accessibility').pickadate({
+        labelMonthNext: 'Go to the next month',
+        labelMonthPrev: 'Go to the previous month',
+        labelMonthSelect: 'Pick a month from the dropdown',
+        labelYearSelect: 'Pick a year from the dropdown',
+        selectMonths: true,
+        selectYears: true
+    });
     $('#datatable_invoice_detail').DataTable({
         autoWidth: false,
         responsive: {
@@ -27,12 +35,12 @@ $(document).ready( function () {
         }
     });
     $('.form-control-select2').select2();
-    $('.pickadate-accessibility').pickadate({
-            labelMonthNext: 'Go to the next month',
-            labelMonthPrev: 'Go to the previous month',
-            labelMonthSelect: 'Pick a month from the dropdown',
-            labelYearSelect: 'Pick a year from the dropdown',
-            selectMonths: true,
-            selectYears: true
-        });
+    
 } );
+
+function hide_showNewInvoice(){
+    $( ".card-new-invoice" ).toggle("slow","swing");
+}
+function mayus(e) {
+    e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
+}
