@@ -81,7 +81,7 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" placeholder="R.F.C.">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="rfc" pattern="/^[A-Za-z]{3-16}/" placeholder="R.F.C." required>
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-shield-check"></i>
                                             </div>
@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Codigo Postal">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="codigopostal" placeholder="Codigo Postal">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-mailbox"></i>
                                             </div>
@@ -99,7 +99,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Nombre Fiscal de la empresa" onkeyup="mayus(this);">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="nombreempresa" placeholder="Nombre Fiscal de la empresa" onkeyup="mayus(this);">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-office"></i>
                                             </div>
@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Domicilio Fiscal">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="domicilioempresa" placeholder="Domicilio Fiscal">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-pin-alt"></i>
                                             </div>
@@ -117,7 +117,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Teléfonos">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="telefono" placeholder="Teléfonos">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-phone"></i>
                                             </div>
@@ -125,7 +125,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="E-Mail">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="correo" placeholder="E-Mail">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-envelop"></i>
                                             </div>
@@ -140,7 +140,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 pickadate-accessibility" placeholder="Fecha de Emisión">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 pickadate-accessibility" id="fechaemision" placeholder="Fecha de Emisión">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-calendar22"></i>
                                             </div>
@@ -148,7 +148,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Serie - Folio">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="seriefolio" placeholder="Serie - Folio">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-price-tag2"></i>
                                             </div>
@@ -158,7 +158,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Lugar de Emisión">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="lugaremision" placeholder="Lugar de Emisión">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-stamp"></i>
                                             </div>
@@ -168,7 +168,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" placeholder="U.U.I.D.">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="uuid" placeholder="U.U.I.D.">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-embed"></i>
                                             </div>
@@ -181,10 +181,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label text-danger-800 font-weight-bold">TOTAL:</label>
                                             <div class="col-lg-9">
-                                                <input type="text" class="form-control text-right font-weight-bold" value="2,456.00" readonly>
-                                                <div class="form-control-feedback">
-                                                    <i class="icon-coin-dollar"></i>
-                                                </div>
+                                                <input type="text" class="form-control text-right font-weight-bold" id="total" value="2,456.00" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -197,34 +194,39 @@
                             <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Codigo de Barra">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_codigobarra" placeholder="Codigo de Barra">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Codigo de Inventario">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_codigoinventario" placeholder="Codigo de Inventario">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Descripción">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Cantidad">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_descripcion" placeholder="Descripción">
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="P/Unidad">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_cantidad" placeholder="Cantidad">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_preciounidad" placeholder="P/Unidad">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="form-group text-right">
+                                            <button type="button" class="btn btn-sm btn-outline bg-success text-success-800 rounded-round btn-icon ml-2" onclick="addElementToTable()" ><i class="icon-checkmark-circle"></i></button>
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-xs">
+                            <table class="table table-xs" id="table_inventarioitems">
                                 <thead>
                                     <tr>
                                         <th>Codigo</th>
@@ -235,27 +237,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="font-weight-semibold text-blue-800">HER00988</td>
-                                        <td class="font-weight-semibold text-blue-800">Create UI design model</td>
-                                        <td class="font-weight-semibold text-blue-800">7</td>
-                                        <td class="font-weight-semibold text-blue-800">$57</td>
-                                        <td class="font-weight-semibold text-blue-800"><span class="font-weight-semibold">$3,990</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-semibold text-blue-800">SER80065</td>
-                                        <td class="font-weight-semibold text-blue-800">Support tickets list doesn't support commas</td>
-                                        <td class="font-weight-semibold text-blue-800">2</td>
-                                        <td class="font-weight-semibold text-blue-800">$12</td>
-                                        <td class="font-weight-semibold text-blue-800">$840</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-semibold text-blue-800">SOL00987</td>
-                                        <td class="font-weight-semibold text-blue-800">Fix website issues on mobile</td>
-                                        <td class="font-weight-semibold text-blue-800">70</td>
-                                        <td class="font-weight-semibold text-blue-800">$200</td>
-                                        <td class="font-weight-semibold text-blue-800">$2,170.00</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>

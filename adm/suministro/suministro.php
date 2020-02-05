@@ -58,6 +58,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_almacen_busqueda_rfc($searchTerm){
+        $sql = $this->_db->prepare("SELECT * FROM adm_proveedor WHERE adm_proveedor.rfc = :rfc");
+        $sql->execute(array('rfc' => $searchTerm));
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function get_almacen_destino($searchTerm){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_destino
                                     WHERE adm_view_destino.destino LIKE '%$searchTerm%'");//nombre = :Nombre'
