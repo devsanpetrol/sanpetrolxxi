@@ -49,6 +49,39 @@ $(document).ready( function () {
         },
         language: {
             zeroRecords: "Ningun elemento agregado"
+        },
+        footerCallback: function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            var total = api
+                .column( 4 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            var pageTotal = api
+                .column( 4, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $("#total").val("$ "+ total);
+            /*$( api.column( 4 ).footer() ).html(
+                '$'+pageTotal +' ( $'+ total +' total)'
+            );*/
         }
     });
     $("#rfc").on('keyup', function (e){
@@ -68,28 +101,29 @@ $(document).ready( function () {
             });
         }
     }).bind('keypress', function(event) {
-        var regex = new RegExp("^[a-zA-Z0-9 ]+$");
-        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-        if (!regex.test(key)) {
-            event.preventDefault();
-            return false;
-        }
+        mybind(event,"^[a-zA-Z0-9 ]|[\.]+$");
     });
     $("#i_preciounidad").bind('keypress', function(event) {
-        var regex = new RegExp("^[0-9 ]+$");
-        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-        if (!regex.test(key)) {
-            event.preventDefault();
-            return false;
-        }
+        mybind(event,"^[0-9 ]|[\.]+$");
     });
     $("#i_cantidad").bind('keypress', function(event) {
-        var regex = new RegExp("^[0-9 ]+$");
-        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-        if (!regex.test(key)) {
-            event.preventDefault();
-            return false;
+        mybind(event,"^[0-9 ]|[\.]+$");
+    });
+    $("#i_codigoinventario").on('keyup', function (e){
+        var searchTerm = $('#i_codigoinventario').val();
+        if (e.keyCode === 13){
+            searchTermn(searchTerm);
         }
+    }).bind('keypress', function(event) {
+        mybind(event,"^[a-zA-Z0-9 ]|[\.]+$");
+    });
+    $("#i_codigobarra").on('keyup', function (e){
+        var searchTerm = $('#i_codigobarra').val();
+        if (e.keyCode === 13){
+            searchTermn(searchTerm);
+        }
+    }).bind('keypress', function(event) {
+        mybind(event,"^[a-zA-Z0-9 ]|[\.]+$");
     });
 } );
 
@@ -98,7 +132,6 @@ function addElementToTable(){
         var cant = $('#i_cantidad').val();
         var puni = $('#i_preciounidad').val();
         var totl = cant * puni;
-        console.log(totl);
         var t = $('#table_inventarioitems').DataTable();
         t.row.add( [
             $('#i_codigoinventario').val(),
@@ -107,6 +140,7 @@ function addElementToTable(){
             $('#i_preciounidad').val(),
             totl
         ] ).draw( false );
+        borrar_input_nuevoArticulo();
     }    
 }
 function hide_showNewInvoice(){
@@ -114,4 +148,31 @@ function hide_showNewInvoice(){
 }
 function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
+}
+function mybind(event,expReg){
+    var regex = new RegExp(expReg);
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+    }
+}
+function searchTermn(searchTerm){
+    $.ajax({
+        url: 'json_codigosearch.php',
+        data:{ searchTerm:searchTerm },
+        type: 'POST',
+        success:(function(res){
+            $('#i_codigobarra').val(res.cod_barra);
+            $('#i_codigoinventario').val(res.cod_articulo);
+            $('#i_descripcion').val(res.descripcion);
+        })
+    });
+}
+function borrar_input_nuevoArticulo(){
+    $(".input-newarticle").val("");
+}
+function clearDatatable(){
+    var table = $('#table_inventarioitems').DataTable();
+    table.clear().draw();
 }

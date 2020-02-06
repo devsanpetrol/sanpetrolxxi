@@ -40,6 +40,7 @@
     <script src="../../global_assets/js/plugins/notifications/jgrowl.min.js"></script>
     <!-- Theme JS files -->
     <script src="js/engineJS_1.js"></script>
+    <script src="js/sum().js"></script>
     <script src="../../assets/js/app.js"></script>
     <!-- /theme JS files -->
 </head>
@@ -81,7 +82,7 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="rfc" pattern="/^[A-Za-z]{3-16}/" placeholder="R.F.C." required>
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="rfc" placeholder="R.F.C." required>
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-shield-check"></i>
                                             </div>
@@ -181,7 +182,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label text-danger-800 font-weight-bold">TOTAL:</label>
                                             <div class="col-lg-9">
-                                                <input type="text" class="form-control text-right font-weight-bold" id="total" value="2,456.00" readonly>
+                                                <input type="text" class="form-control text-right font-weight-bold" id="total" value="0" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -190,11 +191,14 @@
                         </div>
                         <div class="col-md-12">
                             <fieldset>
-                            <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> NUEVO DETALLE DE ARTICULO</legend>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> NUEVO DETALLE DE ARTICULO <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple btn-icon ml-1" title="Nuevo articulo"><i class="icon-clippy"></i></button></legend>
                             <div class="row">
                                     <div class="col-md-2">
-                                        <div class="form-group">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_codigobarra" placeholder="Codigo de Barra">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-barcode2"></i>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -219,7 +223,7 @@
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-group text-right">
-                                            <button type="button" class="btn btn-sm btn-outline bg-success text-success-800 rounded-round btn-icon ml-2" onclick="addElementToTable()" ><i class="icon-checkmark-circle"></i></button>
+                                            <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon ml-1" onclick="addElementToTable()"><i class="icon-add-to-list"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -244,7 +248,8 @@
                 </form>
                 </div>
                 <div class="card-footer bg-transparent text-right">
-                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" data-dismiss="modal" onclick="hide_showNewInvoice()">Cerrar</button>
+                    <button type="button" class="btn btn-sm alpha-slate text-slate-800 legitRipple" onclick="clearDatatable()"><i class="icon-eraser2"></i></button>
+                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="hide_showNewInvoice()">Cerrar</button>
                 </div>
                 </div>
                 <!-- Invoice archive -->
