@@ -1,4 +1,5 @@
 $(document).ready( function () {
+    get_categoria();
     $('.pickadate-accessibility').pickadate({
         labelMonthNext: 'Go to the next month',
         labelMonthPrev: 'Go to the previous month',
@@ -51,8 +52,7 @@ $(document).ready( function () {
             zeroRecords: "Ningun elemento agregado"
         },
         footerCallback: function ( row, data, start, end, display ) {
-            var api = this.api(), data;
- 
+            var api = this.api(), total, pageTotal;
             // Remove the formatting to get integer data for summation
             var intVal = function ( i ) {
                 return typeof i === 'string' ?
@@ -60,28 +60,23 @@ $(document).ready( function () {
                     typeof i === 'number' ?
                         i : 0;
             };
- 
             // Total over all pages
-            var total = api
+            total = api
                 .column( 4 )
                 .data()
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0 );
- 
             // Total over this page
-            var pageTotal = api
+            pageTotal = api
                 .column( 4, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0 );
- 
             // Update footer
             $("#total").val("$ "+ total);
-            /*$( api.column( 4 ).footer() ).html(
-                '$'+pageTotal +' ( $'+ total +' total)'
-            );*/
+            //$( api.column( 4 ).footer() ).html('$'+pageTotal +' ( $'+ total +' total)');
         }
     });
     $("#rfc").on('keyup', function (e){
@@ -175,4 +170,19 @@ function borrar_input_nuevoArticulo(){
 function clearDatatable(){
     var table = $('#table_inventarioitems').DataTable();
     table.clear().draw();
+}
+function  get_categoria(){
+    $.ajax({
+    type: "GET",
+    url: 'json_selectCategoria.php', 
+    dataType: "json",
+    success: function(data){
+      $.each(data,function(key, registro) {
+        $("#select_categoria").append("<option value='"+registro.id_categoria+"' data-resp='"+registro.id_empleado_resp+"' data-nombre='"+registro.nombre+"' data-apellidos='"+registro.apellidos+"'>"+registro.categoria+"</option>");
+      });
+    },
+    error: function(data) {
+      alert('error');
+    }
+  });
 }

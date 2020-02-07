@@ -191,7 +191,7 @@
                         </div>
                         <div class="col-md-12">
                             <fieldset>
-                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> NUEVO DETALLE DE ARTICULO <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple btn-icon ml-1" title="Nuevo articulo"><i class="icon-clippy"></i></button></legend>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> NUEVO DETALLE DE ARTICULO <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple btn-icon ml-1" title="Nuevo articulo" data-toggle="modal" data-target="#invoice_new"><i class="icon-pencil5"></i></button></legend>
                             <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
@@ -223,7 +223,7 @@
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-group text-right">
-                                            <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon ml-1" onclick="addElementToTable()"><i class="icon-add-to-list"></i></button>
+                                            <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon ml-1" onclick="addElementToTable()" title="Agregar"><i class="icon-add-to-list"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -245,10 +245,10 @@
                             </table>
                         </div>
                     </div>
-                </form>
+                    </form>
                 </div>
                 <div class="card-footer bg-transparent text-right">
-                    <button type="button" class="btn btn-sm alpha-slate text-slate-800 legitRipple" onclick="clearDatatable()"><i class="icon-eraser2"></i></button>
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon ml-1" onclick="clearDatatable()" title="Limpiar tabla"><i class="icon-eraser2"></i></button>
                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="hide_showNewInvoice()">Cerrar</button>
                 </div>
                 </div>
@@ -548,140 +548,92 @@
     <!-- /modal with invoice -->
     <!-- Modal new invoice -->
     <div id="invoice_new" class="modal fade">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="card-body">
                     <form action="#">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <fieldset>
-                                    <legend class="font-weight-semibold"><i class="icon-truck mr-2"></i> Datos del Proveedor</legend>
-                                    <div class="form-group">
-                                        <label>Enter your name:</label>
-                                        <input type="text" class="form-control" placeholder="Eugene Kopyov">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Enter your password:</label>
-                                        <input type="password" class="form-control" placeholder="Your strong password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Select your state:</label>
-                                        <select data-placeholder="Select your state" class="form-control form-control-select2" data-fouc>
-                                            <option></option>
-                                            <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                <option value="AK">Alaska</option>
-                                                <option value="HI">Hawaii</option>
-                                            </optgroup>
-                                            <optgroup label="Pacific Time Zone">
-                                                <option value="CA">California</option>
-                                                <option value="NV">Nevada</option>
-                                                <option value="WA">Washington</option>
-                                            </optgroup>
-                                            <optgroup label="Mountain Time Zone">
-                                                <option value="AZ">Arizona</option>
-                                                <option value="CO">Colorado</option>
-                                                <option value="WY">Wyoming</option>
-                                            </optgroup>
-                                            <optgroup label="Central Time Zone">
-                                                <option value="AL">Alabama</option>
-                                                <option value="AR">Arkansas</option>
-                                                <option value="KY">Kentucky</option>
-                                            </optgroup>
-                                            <optgroup label="Eastern Time Zone">
-                                                <option value="CT">Connecticut</option>
-                                                <option value="DE">Delaware</option>
-                                                <option value="WV">West Virginia</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Attach screenshot:</label>
-                                        <input type="file" class="form-input-styled" data-fouc>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="col-md-6">
-                                <fieldset>
-                                <legend class="font-weight-semibold"><i class="icon-reading mr-2"></i> Datos de Factura</legend>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>First name:</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="icon-calendar5"></i></span>
-                                                    </span>
-                                                    <input type="text" class="form-control" placeholder="Try me&hellip;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Last name:</label>
-                                                <input type="text" placeholder="Kopyov" class="form-control">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <fieldset>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> NUEVO ARTICULO</legend>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Codigo de barra">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-barcode2"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Email:</label>
-                                                <input type="text" placeholder="eugene@kopyov.com" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Phone #:</label>
-                                                <input type="text" placeholder="+99-99-9999-9999" class="form-control">
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Codigo Inventario">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-price-tag2"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Country:</label>
-                                                <select data-placeholder="Select your country" class="form-control form-control-select2" data-fouc>
-                                                    <option></option>
-                                                    <option value="Cambodia">Cambodia</option> 
-                                                    <option value="Cameroon">Cameroon</option> 
-                                                    <option value="Canada">Canada</option> 
-                                                    <option value="Cape Verde">Cape Verde</option> 
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>State/Province:</label>
-                                                <input type="text" placeholder="Bayern" class="form-control">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="nombreempresa" placeholder="Descripción" onkeyup="mayus(this);">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-file-text"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>ZIP code:</label>
-                                                <input type="text" placeholder="1031" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>City:</label>
-                                                <input type="text" placeholder="Munich" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Address line:</label>
-                                                <input type="text" placeholder="Ring street 12" class="form-control">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="domicilioempresa" placeholder="Especificación">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-design"></i>
                                             </div>
                                         </div>
                                     </div>
-                                </fieldset>
-                            </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <select data-placeholder="Categoria" class="form-control form-control-select2 text-right" id="select_categoria" data-fouc>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <select data-placeholder="Tipo de unidad" class="form-control form-control-select2 text-right">
+                                                <option></option>
+                                                <option value="pza">Pieza</option>
+                                                <option value="kgr">Kilogramo</option>
+                                                <option value="mtr">Metro</option>
+                                                <option value="pqt">Paquete</option>
+                                                <option value="cja">Caja</option>
+                                                <option value="ltr">Litro</option>
+                                                <option value="lte">Lote</option>
+                                                <option value="kit">Kit</option>
+                                                <option value="par">Par</option> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="telefono" placeholder="Marca">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-stamp"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
                         </div>
+                    </div>
                     </form>
                 </div>
                 <div class="modal-footer bg-transparent">
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-dismiss="modal">Agregar y Usar</button>
                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-dismiss="modal">Close</button>
                 </div>
             </div>
