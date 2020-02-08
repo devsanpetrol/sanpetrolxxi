@@ -41,6 +41,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_categoria_resume_name($searchTerm){
+        $sql = $this->_db->prepare("SELECT resume_name FROM adm_categoria_consumibles WHERE id_categoria = ".$searchTerm." LIMIT 1");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function get_almacen_busqueda_5(){
         $sql = $this->_db->prepare("SELECT adm_almacen.cod_articulo,adm_articulo.descripcion,adm_articulo.marca,adm_almacen.stock
                                     FROM adm_articulo

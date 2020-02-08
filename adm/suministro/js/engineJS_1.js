@@ -36,6 +36,17 @@ $(document).ready( function () {
         }
     });
     $('.form-control-select2').select2();
+    $('#select_categoria').change(function(){
+        var id_categoria = $(this).val();
+        $.ajax({
+            url: 'json_inventariar_cat.php',
+            data:{ id_categoria:id_categoria },
+            type: 'POST',
+            success:(function(res){
+                $('#new_cod_inventario').val(res.cod_articulo);
+            })
+        });
+    });
     $('#table_inventarioitems').DataTable({
         paging: false,
         searching: false,

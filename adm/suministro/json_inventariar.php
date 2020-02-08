@@ -13,8 +13,7 @@
     $descripcion = $articulo[0]["descripcion"];
     $unidad = $articulo[0]["tipo_unidad"];
     $stock = $articulo[0]["stock"];
-    
-    
+        
     for($i=1; $i <= $stock; $i++){
         $serial = get_numbercod($last_cod)+$i;
         $numer_cod_articulo = get_newcodarticulo($category,$serial);
@@ -28,7 +27,6 @@
                         "accion" => accion($numer_cod_articulo));
     }
     
-    
     function no_serie($numer_cod_articulo){
         return "<input type='text' class='form-control form-control-sm font-weight-semibold text-blue-800' id='ser_$numer_cod_articulo'>";
     }
@@ -37,7 +35,6 @@
     }
     function costo($numer_cod_articulo){
         return "<input type='text' value='0' class='form-control touchspin-prefix' id='cos_$numer_cod_articulo'>";
-        
     }
     function get_category($cod_articulo){//extrae la cateria del codigo
         return preg_replace('/\d/', '', $cod_articulo );

@@ -567,7 +567,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Codigo Inventario">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" readonly placeholder="Codigo Inventario" id="new_cod_inventario">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-price-tag2"></i>
                                             </div>
@@ -577,7 +577,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="nombreempresa" placeholder="Descripción" onkeyup="mayus(this);">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Descripción" onkeyup="mayus(this);">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-file-text"></i>
                                             </div>
@@ -585,7 +585,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="domicilioempresa" placeholder="Especificación">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Especificación">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-design"></i>
                                             </div>
@@ -620,7 +620,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="telefono" placeholder="Marca">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Marca">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-stamp"></i>
                                             </div>
