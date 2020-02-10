@@ -532,4 +532,23 @@ class suministro extends conect
             return "error_acount";
         }
     }
+    public function set_new_articulo($cod_barra, $descripcion,$especificacion,$tipo_unidad,$marca,$id_categoria){
+        $articulo = $this->_db->prepare("INSERT INTO adm_articulo (cod_barra,descripcion,especificacion,tipo_unidad,marca,id_categoria) VALUES ('$cod_barra', '$descripcion','$especificacion','$tipo_unidad','$marca',$id_categoria)");
+        
+        try {
+            $this ->_db-> beginTransaction();
+            $articulo -> execute();
+            $id_articulo = $this ->_db-> lastInsertId();
+            $this ->_db-> commit();
+            return $id_articulo;
+        } catch(PDOExecption $e) {
+            $this ->_db-> rollback();
+            return "Error!: " . $e -> getMessage();
+        }
+    }
+    public function set_new_articulo_almacen($cod_articulo,$id_articulo){
+        $almacen = $this->_db->prepare("INSERT INTO adm_almacen (cod_articulo,no_inventario,no_serie,stock,stock_min,stock_max,importancia,ubicacion,salida,activo,costo,id_articulo) VALUES ('$cod_articulo','','',0,1,1,3,NULL,0,0,NULL,$id_articulo)");
+        $resultado = $almacen->execute();
+        return $resultado;
+    }
 }

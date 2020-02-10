@@ -188,12 +188,44 @@ function  get_categoria(){
     url: 'json_selectCategoria.php', 
     dataType: "json",
     success: function(data){
-      $.each(data,function(key, registro) {
-        $("#select_categoria").append("<option value='"+registro.id_categoria+"' data-resp='"+registro.id_empleado_resp+"' data-nombre='"+registro.nombre+"' data-apellidos='"+registro.apellidos+"'>"+registro.categoria+"</option>");
-      });
+        $.each(data,function(key, registro) {
+            $("#select_categoria").append("<option value='"+registro.id_categoria+"'>"+registro.categoria+"</option>");
+        });
     },
     error: function(data) {
       alert('error');
     }
   });
+}
+function addArticle(use){
+    var cod_barra = $("#new_codigobarra").val();
+    var cod_articulo = $("#new_cod_inventario").val();
+    var descripcion = $("#new_descripcion").val();
+    var especificacion = $("#new_especificacion").val();
+    var tipo_unidad = $("#new_tipounidad").val();
+    var marca = $("#new_marca").val();
+    var id_categoria = $("#select_categoria").val();
+    
+    $.ajax({
+        url: 'json_addArticle.php',
+        data:{ cod_articulo:cod_articulo, cod_barra:cod_barra, descripcion:descripcion, especificacion:especificacion, tipo_unidad:tipo_unidad, marca:marca, id_categoria:id_categoria },
+        type:'POST',
+        success:(function(res){
+            if(use){
+                $('#i_codigobarra').val(cod_barra);
+                $('#i_codigoinventario').val(cod_articulo);
+                $('#i_descripcion').val(descripcion);
+            }
+        }),
+        complete:(function(){
+            $('#article_new').modal('hide');
+            $('#new_tipounidad').val(null).trigger('change');
+            $('#select_categoria').val(null).trigger('change');
+            $("#new_codigobarra").val("");
+            $("#new_cod_inventario").val("");
+            $("#new_descripcion").val("");
+            $("#new_especificacion").val("");
+            $("#new_marca").val("");
+        })
+    });
 }

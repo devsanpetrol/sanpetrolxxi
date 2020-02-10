@@ -191,7 +191,7 @@
                         </div>
                         <div class="col-md-12">
                             <fieldset>
-                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> NUEVO DETALLE DE ARTICULO <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple btn-icon ml-1" title="Nuevo articulo" data-toggle="modal" data-target="#invoice_new"><i class="icon-pencil5"></i></button></legend>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> AGREGAR ARTICULO <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple btn-icon ml-1" title="Nuevo articulo" data-toggle="modal" data-target="#article_new"><i class="icon-pencil5"></i></button></legend>
                             <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
@@ -547,7 +547,7 @@
     </div>
     <!-- /modal with invoice -->
     <!-- Modal new invoice -->
-    <div id="invoice_new" class="modal fade">
+    <div id="article_new" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="card-body">
@@ -557,37 +557,19 @@
                             <fieldset>
                                 <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> NUEVO ARTICULO</legend>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Codigo de barra">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_codigobarra" placeholder="Codigo de barra">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-barcode2"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" readonly placeholder="Codigo Inventario" id="new_cod_inventario">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_cod_inventario" readonly placeholder="Codigo Inv.">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-price-tag2"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Descripción" onkeyup="mayus(this);">
-                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                <i class="icon-file-text"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Especificación">
-                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                <i class="icon-design"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -602,7 +584,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <select data-placeholder="Tipo de unidad" class="form-control form-control-select2 text-right">
+                                            <select data-placeholder="Tipo de unidad" class="form-control form-control-select2 text-right" id="new_tipounidad">
                                                 <option></option>
                                                 <option value="pza">Pieza</option>
                                                 <option value="kgr">Kilogramo</option>
@@ -620,7 +602,25 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" placeholder="Marca">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_descripcion" placeholder="Descripción" onkeyup="mayus(this);">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-file-text"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_especificacion" placeholder="Especificación">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-design"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_marca" placeholder="Marca">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-stamp"></i>
                                             </div>
@@ -633,8 +633,8 @@
                     </form>
                 </div>
                 <div class="modal-footer bg-transparent">
-                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-dismiss="modal">Agregar y Usar</button>
-                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" id="new_aceptar" onclick="addArticle(false)">Agregar y Salir</button>
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="new_agregarusar" onclick="addArticle(true)">Agregar y Usar</button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <?php
-    require_once './suministro.php'; 
+    require_once './suministro.php';
     
     $id_categoria = $_POST['id_categoria'];
     $suministro = new suministro();
