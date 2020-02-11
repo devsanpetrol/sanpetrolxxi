@@ -55,13 +55,20 @@ $(document).ready( function () {
         createdRow: function ( row, data, index ) {
             $('td', row).eq(0).addClass('font-weight-semibold text-blue-800');
             $('td', row).eq(1).addClass('font-weight-semibold text-blue-800');
-            $('td', row).eq(2).addClass('font-weight-semibold');
-            $('td', row).eq(3).addClass('font-weight-semibold');
-            $('td', row).eq(4).addClass('font-weight-semibold');
+            $('td', row).eq(2).addClass('font-weight-semibold text-right');
+            $('td', row).eq(3).addClass('font-weight-semibold text-right');
+            $('td', row).eq(4).addClass('font-weight-semibold text-right');
         },
         language: {
             zeroRecords: "Ningun elemento agregado"
         },
+        columnDefs: [
+            {targets: 0,width: '15%'},
+            {targets: 1,width: '40%'},
+            {targets: 2,width: '15%'},
+            {targets: 3,width: '15%'},
+            {targets: 4,width: '15%'}
+        ],
         footerCallback: function ( row, data, start, end, display ) {
             var api = this.api(), total, pageTotal;
             // Remove the formatting to get integer data for summation
@@ -111,28 +118,45 @@ $(document).ready( function () {
     });
     $("#i_preciounidad").bind('keypress', function(event) {
         mybind(event,"^[0-9 ]|[\.]+$");
+    }).on('keyup', function (e){
+        if (e.keyCode === 13){
+            var pru = $("#i_preciounidad").val();
+            if(pru !== ""){
+                addElementToTable();
+            }
+        }
     });
     $("#i_cantidad").bind('keypress', function(event) {
         mybind(event,"^[0-9 ]|[\.]+$");
+    }).on('keyup', function (e){
+        if (e.keyCode === 13){
+            var cant = $("#i_cantidad").val();
+            if(cant !== ""){
+                $('#i_preciounidad').focus();
+            }
+        }
     });
     $("#i_codigoinventario").on('keyup', function (e){
         var searchTerm = $('#i_codigoinventario').val();
-        if (e.keyCode === 13){
-            searchTermn(searchTerm);
+        if(searchTerm !== ""){
+            if (e.keyCode === 13){
+                searchTermn(searchTerm);
+            }
         }
     }).bind('keypress', function(event) {
         mybind(event,"^[a-zA-Z0-9 ]|[\.]+$");
     });
     $("#i_codigobarra").on('keyup', function (e){
         var searchTerm = $('#i_codigobarra').val();
-        if (e.keyCode === 13){
-            searchTermn(searchTerm);
+        if(searchTerm !== ""){
+            if (e.keyCode === 13){
+                searchTermn(searchTerm);
+            }
         }
     }).bind('keypress', function(event) {
         mybind(event,"^[a-zA-Z0-9 ]|[\.]+$");
     });
 } );
-
 function addElementToTable(){
     if($('#i_codigoinventario').val() != "" && $('#i_descripcion').val() != "" && $('#i_cantidad').val() != "" && $('#i_preciounidad').val() != ""){
         var cant = $('#i_cantidad').val();
@@ -147,7 +171,66 @@ function addElementToTable(){
             totl
         ] ).draw( false );
         borrar_input_nuevoArticulo();
+        $('#i_codigobarra').focus();
     }    
+}
+function addArticle(use){
+    var cod_barra = $("#new_codigobarra").val();
+    var cod_articulo = $("#new_cod_inventario").val();
+    var descripcion = $("#new_descripcion").val();
+    var especificacion = $("#new_especificacion").val();
+    var tipo_unidad = $("#new_tipounidad").val();
+    var marca = $("#new_marca").val();
+    var id_categoria = $("#select_categoria").val();
+    
+    $.ajax({
+        url: 'json_addArticle.php',
+        data:{ cod_articulo:cod_articulo, cod_barra:cod_barra, descripcion:descripcion, especificacion:especificacion, tipo_unidad:tipo_unidad, marca:marca, id_categoria:id_categoria },
+        type:'POST',
+        beforeSend : function(xhr, opts){
+            if(validar_newArticulo() == false){
+                xhr.abort();
+            }
+        },
+        success:(function(res){
+            if(use){
+                $('#i_codigobarra').val(cod_barra);
+                $('#i_codigoinventario').val(cod_articulo);
+                $('#i_descripcion').val(descripcion);
+            }
+            salir_sin_guardar();
+        })
+    });
+}
+function searchTermn(searchTerm){
+    $.ajax({
+        url: 'json_codigosearch.php',
+        data:{ searchTerm:searchTerm },
+        type: 'POST',
+        success:(function(res){
+            $('#i_codigobarra').val(res.cod_barra);
+            $('#i_codigoinventario').val(res.cod_articulo);
+            $('#i_descripcion').val(res.descripcion);
+            if(res.cod_articulo !== ""){
+                $('#i_cantidad').focus();
+            }
+        })
+    });
+}
+function get_categoria(){
+    $.ajax({
+    type: "GET",
+    url: 'json_selectCategoria.php', 
+    dataType: "json",
+    success: function(data){
+        $.each(data,function(key, registro) {
+            $("#select_categoria").append("<option value='"+registro.id_categoria+"'>"+registro.categoria+"</option>");
+        });
+    },
+    error: function(data){
+      alert('error');
+    }
+  });
 }
 function hide_showNewInvoice(){
     $( ".card-new-invoice" ).toggle("slow","swing");
@@ -163,18 +246,6 @@ function mybind(event,expReg){
         return false;
     }
 }
-function searchTermn(searchTerm){
-    $.ajax({
-        url: 'json_codigosearch.php',
-        data:{ searchTerm:searchTerm },
-        type: 'POST',
-        success:(function(res){
-            $('#i_codigobarra').val(res.cod_barra);
-            $('#i_codigoinventario').val(res.cod_articulo);
-            $('#i_descripcion').val(res.descripcion);
-        })
-    });
-}
 function borrar_input_nuevoArticulo(){
     $(".input-newarticle").val("");
 }
@@ -182,50 +253,30 @@ function clearDatatable(){
     var table = $('#table_inventarioitems').DataTable();
     table.clear().draw();
 }
-function  get_categoria(){
-    $.ajax({
-    type: "GET",
-    url: 'json_selectCategoria.php', 
-    dataType: "json",
-    success: function(data){
-        $.each(data,function(key, registro) {
-            $("#select_categoria").append("<option value='"+registro.id_categoria+"'>"+registro.categoria+"</option>");
-        });
-    },
-    error: function(data) {
-      alert('error');
-    }
-  });
+function salir_sin_guardar(){
+    $('#article_new').modal('hide');
+    $('#msj_alert1').hide();
+    limpiar_form();
 }
-function addArticle(use){
-    var cod_barra = $("#new_codigobarra").val();
-    var cod_articulo = $("#new_cod_inventario").val();
-    var descripcion = $("#new_descripcion").val();
-    var especificacion = $("#new_especificacion").val();
-    var tipo_unidad = $("#new_tipounidad").val();
-    var marca = $("#new_marca").val();
-    var id_categoria = $("#select_categoria").val();
-    
-    $.ajax({
-        url: 'json_addArticle.php',
-        data:{ cod_articulo:cod_articulo, cod_barra:cod_barra, descripcion:descripcion, especificacion:especificacion, tipo_unidad:tipo_unidad, marca:marca, id_categoria:id_categoria },
-        type:'POST',
-        success:(function(res){
-            if(use){
-                $('#i_codigobarra').val(cod_barra);
-                $('#i_codigoinventario').val(cod_articulo);
-                $('#i_descripcion').val(descripcion);
-            }
-        }),
-        complete:(function(){
-            $('#article_new').modal('hide');
-            $('#new_tipounidad').val(null).trigger('change');
-            $('#select_categoria').val(null).trigger('change');
-            $("#new_codigobarra").val("");
-            $("#new_cod_inventario").val("");
-            $("#new_descripcion").val("");
-            $("#new_especificacion").val("");
-            $("#new_marca").val("");
-        })
-    });
+function limpiar_form(){
+    $('#new_tipounidad').val(null).trigger('change');
+    $('#select_categoria').val(null).trigger('change');
+    $("#new_codigobarra").val("");
+    $("#new_cod_inventario").val("");
+    $("#new_descripcion").val("");
+    $("#new_especificacion").val("");
+    $("#new_marca").val("");
+    $('#msj_alert1').hide();
+}
+function validar_newArticulo(){
+    if($('#new_tipounidad').val() != null && $('#select_categoria').val() != null && $('#new_descripcion').val() != '' && $("#new_marca").val() != ''){
+        $('#msj_alert1').hide();
+        return true;
+    }else{
+        $('#msj_alert1').show(200);
+        return false;
+    }
+}
+function close_alert(){
+    $('#msj_alert1').hide();
 }

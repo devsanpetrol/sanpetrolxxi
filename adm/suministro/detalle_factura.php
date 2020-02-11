@@ -137,7 +137,7 @@
                         </div>
                         <div class="col-md-6">
                             <fieldset>
-                            <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DE DOCUMENTO</legend>
+                            <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DEL DOCUMENTO</legend>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
@@ -229,20 +229,27 @@
                                 </div>
                             </fieldset>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-xs" id="table_inventarioitems">
-                                <thead>
-                                    <tr>
-                                        <th>Codigo</th>
-                                        <th>Description</th>
-                                        <th>Cantidad</th>
-                                        <th>P. Unidad</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-xs" id="table_inventarioitems">
+                                    <col width="15%">
+                                    <col width="40%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <thead>
+                                        <tr>
+                                            <th>Codigo</th>
+                                            <th>Description</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio/Unidad ( $ )</th>
+                                            <th>Total ( $ )</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     </form>
@@ -250,6 +257,7 @@
                 <div class="card-footer bg-transparent text-right">
                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon ml-1" onclick="clearDatatable()" title="Limpiar tabla"><i class="icon-eraser2"></i></button>
                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="hide_showNewInvoice()">Cerrar</button>
+                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple">Guardar</button>
                 </div>
                 </div>
                 <!-- Invoice archive -->
@@ -431,119 +439,119 @@
     </div>
     <!-- Modal with invoice -->
     <div id="invoice" class="modal fade">
-            <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="mb-4">
-                                            <div class="text-sm-right">
-                                                <h4 class="text-primary mb-2 mt-md-2">DETALLE FACTURA</h4>
-                                                <ul class="list list-unstyled mb-0">
-                                                    <li>Fecha Emision: <span class="font-weight-semibold">January 12, 2015</span></li>
-                                                    <li>Lugar Emision: <span class="font-weight-semibold">London E1 8BF</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-md-flex flex-md-wrap">
-                                    <div class="mb-4 mb-md-2">
-                                        <span class="text-muted">Datos del emisor</span>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-4">
+                                    <div class="text-sm-right">
+                                        <h4 class="text-primary mb-2 mt-md-2">DETALLE FACTURA</h4>
                                         <ul class="list list-unstyled mb-0">
-                                            <li><h5 class="my-2">SURTIDO DE PERSIANAS SA DE CV</h5></li>
-                                            <li><span class="font-weight-semibold">SPER78623G9H</span></li>
-                                            <li>3 Goodman Street</li>
-                                            <li>London E1 8BF, United Kingdom</li>
-                                            <li>888-555-2311</li>
-                                            <li><a href="#">rebecca@normandaxis.ltd</a></li>
+                                            <li>Fecha Emision: <span class="font-weight-semibold">January 12, 2015</span></li>
+                                            <li>Lugar Emision: <span class="font-weight-semibold">London E1 8BF</span></li>
                                         </ul>
-                                    </div>
-                                    <div class="mb-2 ml-auto">
-                                        <span class="text-muted">Payment Details:</span>
-                                        <div class="d-flex flex-wrap wmin-md-400">
-                                            <ul class="list list-unstyled mb-0">
-                                                <li><h5 class="my-2">Total Due:</h5></li>
-                                                <li>Numero serie</li>
-                                                <li>UUID</li>
-                                            </ul>
-                                            <ul class="list list-unstyled text-right mb-0 ml-auto">
-                                                <li><h5 class="font-weight-semibold my-2">$8,750</h5></li>
-                                                <li><span class="font-weight-semibold">DFU-4567</span></li>
-                                                <li><span class="font-weight-semibold">4A1B43E2-1183-4AD4-A3DE-C2DA787AE56A</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-xs">
-                                <thead>
-                                    <tr>
-                                        <th>Description</th>
-                                        <th>Cantidad</th>
-                                        <th>P. Unidad</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <h6 class="mb-0 font-weight-semibold">Create UI design model</h6>
-                                            
-                                        </td>
-                                        <td>7</td>
-                                        <td>$57</td>
-                                        <td><span class="font-weight-semibold">$3,990</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h6 class="mb-0 font-weight-semibold">Support tickets list doesn't support commas</h6>
-                                            
-                                        </td>
-                                        <td>2</td>
-                                        <td>$12</td>
-                                        <td><span class="font-weight-semibold">$840</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h6 class="mb-0 font-weight-semibold">Fix website issues on mobile</h6>
-                                            
-                                        </td>
-                                        <td>70</td>
-                                        <td>$200</td>
-                                        <td><span class="font-weight-semibold">$2,170.00</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-md-flex flex-md-wrap">
-                                <div class="pt-2 mb-3 wmin-md-400 ml-auto">
-                                    <div class="table-responsive">
-                                        <table class="table table-xs">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Subtotal:</th>
-                                                    <td class="text-right">$7,000.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Total:</th>
-                                                    <td class="text-right text-primary"><h5 class="font-weight-semibold">$7,000.00</h5></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer bg-transparent">
-                            <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-dismiss="modal">Close</button>
+                        <div class="d-md-flex flex-md-wrap">
+                            <div class="mb-4 mb-md-2">
+                                <span class="text-muted">Datos del emisor</span>
+                                <ul class="list list-unstyled mb-0">
+                                    <li><h5 class="my-2">SURTIDO DE PERSIANAS SA DE CV</h5></li>
+                                    <li><span class="font-weight-semibold">SPER78623G9H</span></li>
+                                    <li>3 Goodman Street</li>
+                                    <li>London E1 8BF, United Kingdom</li>
+                                    <li>888-555-2311</li>
+                                    <li><a href="#">rebecca@normandaxis.ltd</a></li>
+                                </ul>
+                            </div>
+                            <div class="mb-2 ml-auto">
+                                <span class="text-muted">Payment Details:</span>
+                                <div class="d-flex flex-wrap wmin-md-400">
+                                    <ul class="list list-unstyled mb-0">
+                                        <li><h5 class="my-2">Total Due:</h5></li>
+                                        <li>Numero serie</li>
+                                        <li>UUID</li>
+                                    </ul>
+                                    <ul class="list list-unstyled text-right mb-0 ml-auto">
+                                        <li><h5 class="font-weight-semibold my-2">$8,750</h5></li>
+                                        <li><span class="font-weight-semibold">DFU-4567</span></li>
+                                        <li><span class="font-weight-semibold">4A1B43E2-1183-4AD4-A3DE-C2DA787AE56A</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-xs">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Cantidad</th>
+                                <th>P. Unidad</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h6 class="mb-0 font-weight-semibold">Create UI design model</h6>
+
+                                </td>
+                                <td>7</td>
+                                <td>$57</td>
+                                <td><span class="font-weight-semibold">$3,990</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6 class="mb-0 font-weight-semibold">Support tickets list doesn't support commas</h6>
+
+                                </td>
+                                <td>2</td>
+                                <td>$12</td>
+                                <td><span class="font-weight-semibold">$840</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6 class="mb-0 font-weight-semibold">Fix website issues on mobile</h6>
+
+                                </td>
+                                <td>70</td>
+                                <td>$200</td>
+                                <td><span class="font-weight-semibold">$2,170.00</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-body">
+                    <div class="d-md-flex flex-md-wrap">
+                        <div class="pt-2 mb-3 wmin-md-400 ml-auto">
+                            <div class="table-responsive">
+                                <table class="table table-xs">
+                                    <tbody>
+                                        <tr>
+                                            <th>Subtotal:</th>
+                                            <td class="text-right">$7,000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td class="text-right text-primary"><h5 class="font-weight-semibold">$7,000.00</h5></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer bg-transparent">
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-dismiss="modal">Close</button>
+                </div>
             </div>
+        </div>
     </div>
     <!-- /modal with invoice -->
     <!-- Modal new invoice -->
@@ -557,7 +565,7 @@
                             <fieldset>
                                 <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> NUEVO ARTICULO</legend>
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-7">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_codigobarra" placeholder="Codigo de barra">
                                             <div class="form-control-feedback form-control-feedback-sm">
@@ -565,7 +573,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_cod_inventario" readonly placeholder="Codigo Inv.">
                                             <div class="form-control-feedback form-control-feedback-sm">
@@ -575,16 +583,16 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-7">
                                         <div class="form-group">
-                                            <select data-placeholder="Categoria" class="form-control form-control-select2 text-right" id="select_categoria" data-fouc>
+                                            <select data-placeholder="Categoria *" class="form-control form-control-select2 border-danger text-right" id="select_categoria" data-fouc>
                                                 <option></option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="form-group">
-                                            <select data-placeholder="Tipo de unidad" class="form-control form-control-select2 text-right" id="new_tipounidad">
+                                            <select data-placeholder="Tipo de unidad *" class="form-control form-control-select2 text-right" id="new_tipounidad">
                                                 <option></option>
                                                 <option value="pza">Pieza</option>
                                                 <option value="kgr">Kilogramo</option>
@@ -602,7 +610,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_descripcion" placeholder="Descripción" onkeyup="mayus(this);">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_descripcion" placeholder="Descripción *" onkeyup="mayus(this);">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-file-text"></i>
                                             </div>
@@ -620,10 +628,18 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_marca" placeholder="Marca">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_marca" placeholder="Marca *">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-stamp"></i>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger border-0 alert-dismissible" id="msj_alert1" style="display: none;">
+                                            <button type="button" class="close" onclick="close_alert()"><span>×</span></button>
+                                            <span class="font-weight-semibold">Error! </span> Debe completar el formulario <a href="#" class="alert-link" onclick="close_alert()">Intentar nuevamente</a>.
                                         </div>
                                     </div>
                                 </div>
@@ -633,8 +649,18 @@
                     </form>
                 </div>
                 <div class="modal-footer bg-transparent">
-                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" id="new_aceptar" onclick="addArticle(false)">Agregar y Salir</button>
-                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="new_agregarusar" onclick="addArticle(true)">Agregar y Usar</button>
+                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" id="new_agregarusar" onclick="addArticle(true)">GUARDAR Y APLICAR</button>
+                    <div class="list-icons text-danger-800">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" data-toggle="dropdown"><i class="icon-menu5"></i></button>
+                            <div class="dropdown-menu dropdown-menu-right bg-slate-600">
+                                <a class="dropdown-item" onclick="addArticle(false)"><i class="icon-floppy-disk"></i> GUARDAR Y SALIR</a>
+                                <a class="dropdown-item" onclick="limpiar_form()"><i class="icon-eraser2"></i> LIMPIAR FORMULARIO</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" onclick="salir_sin_guardar()"><i class="icon-cross2"></i> SALIR SIN GUARDAR</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

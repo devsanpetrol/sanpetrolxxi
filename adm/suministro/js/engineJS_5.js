@@ -203,11 +203,10 @@ function get_norm_form_solicitud(){
     });
 }
 function reset_select2(){
-    $("#select_article").empty().trigger('change');
+    $("#select_article").val(null).trigger('change');
 }
 function reset_select3(){
-    $("#area_aquipo").empty();
-    return false;
+    $("#area_aquipo").val(null).trigger('change');
 }
 function getValRadio(){
     reset_select2();
