@@ -77,7 +77,7 @@
                     <form action="#">
                     <div class="row">
                         <div class="col-md-6">
-                            <fieldset>
+                                <fieldset>
                                 <legend class="font-weight-semibold text-danger-800"><i class="icon-truck mr-2"></i> DATOS DE PROVEEDOR</legend>
                                 <div class="row">
                                     <div class="col-md-8">
@@ -255,9 +255,9 @@
                     </form>
                 </div>
                 <div class="card-footer bg-transparent text-right">
-                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon ml-1" onclick="clearDatatable()" title="Limpiar tabla"><i class="icon-eraser2"></i></button>
+                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="clearDatatable()" title="Limpiar tabla"><i class="icon-eraser2"></i></button>
                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="hide_showNewInvoice()">Cerrar</button>
-                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple">Guardar</button>
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon">Guardar</button>
                 </div>
                 </div>
                 <!-- Invoice archive -->
@@ -279,31 +279,28 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Period</th>
-                                <th>Proveedro</th>
-                                <th>Issue date</th>
-                                <th>Due date</th>
-                                <th>Amount</th>
-                                <th class="text-center">Actions</th>
+                                <th>Periodo</th>
+                                <th>Proveedor</th>
+                                <th>Fecha entrega</th>
+                                <th>Total</th>
+                                <th class="text-center">Accion</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>#0025</td>
-                                <td>February 2015</td>
+                                <td>Abril 2015</td>
                                 <td>
                                     <h6 class="mb-0">
-                                        <a href="#">Rebecca Manes</a>
-                                        <span class="d-block font-size-sm text-muted">Payment method: Skrill</span>
+                                        <a href="#">TAMEX</a>
+                                        <span class="d-block font-size-sm text-muted">DTA9601235Z9</span>
                                     </h6>
                                 </td>
                                 
                                 <td>
-                                    April 18, 2015
+                                    Abril 18, 2015
                                 </td>
-                                <td>
-                                    <span class="badge badge-success">Paid on Mar 16, 2015</span>
-                                </td>
+                                
                                 <td>
                                     <h6 class="mb-0 font-weight-bold">$17,890</h6>
                                 </td>
@@ -325,20 +322,18 @@
                             </tr>
                             <tr>
                                 <td>#0024</td>
-                                <td>February 2015</td>
+                                <td>Abril 2015</td>
                                 <td>
                                     <h6 class="mb-0">
-                                        <a href="#">James Alexander</a>
-                                        <span class="d-block font-size-sm text-muted">Payment method: Wire transfer</span>
+                                        <a href="#">MVA ENERGY PRODUCTS S.A. DE C.V.</a>
+                                        <span class="d-block font-size-sm text-muted">MEP180125N99</span>
                                     </h6>
                                 </td>
                                 
                                 <td>
-                                    April 17, 2015
+                                    Abril 17, 2015
                                 </td>
-                                <td>
-                                    <span class="badge badge-warning">5 days</span>
-                                </td>
+                                
                                 <td>
                                     <h6 class="mb-0 font-weight-bold">$2,769</h6>
                                 </td>
@@ -360,20 +355,18 @@
                             </tr>
                             <tr>
                                 <td>#0023</td>
-                                <td>February 2015</td>
+                                <td>Mayo 2015</td>
                                 <td>
                                     <h6 class="mb-0">
-                                        <a href="#">Jeremy Victorino</a>
-                                        <span class="d-block font-size-sm text-muted">Payment method: Payoneer</span>
+                                        <a href="#">COEL TABASCO</a>
+                                        <span class="d-block font-size-sm text-muted">COE9510055R6</span>
                                     </h6>
                                 </td>
                                 
                                 <td>
-                                    April 17, 2015
+                                    Mayo 17, 2015
                                 </td>
-                                <td>
-                                    <span class="badge badge-primary">27 days</span>
-                                </td>
+                                
                                 <td>
                                     <h6 class="mb-0 font-weight-bold">$1,500</h6>
                                 </td>
@@ -393,40 +386,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>#0022</td>
-                                <td>January 2015</td>
-                                <td>
-                                    <h6 class="mb-0">
-                                        <a href="#">Margo Baker</a>
-                                        <span class="d-block font-size-sm text-muted">Payment method: Paypal</span>
-                                    </h6>
-                                </td>
-                                <td>
-                                    January 15, 2015
-                                </td>
-                                <td>
-                                    <span class="badge badge-primary">12 days</span>
-                                </td>
-                                <td>
-                                    <h6 class="mb-0 font-weight-bold">$4,580</h6>
-                                </td>
-                                <td class="text-center">
-                                    <div class="list-icons list-icons-extended">
-                                        <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a>
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                            
                             </tbody>
                     </table>
                 </div>
@@ -499,30 +459,30 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <h6 class="mb-0 font-weight-semibold">Create UI design model</h6>
+                                    <h6 class="mb-0 font-weight-semibold">GRAPAS ESTÁNDAR  N.26/6 CAJA CON 500 PZS</h6>
 
                                 </td>
                                 <td>7</td>
                                 <td>$57</td>
-                                <td><span class="font-weight-semibold">$3,990</span></td>
+                                <td><span class="font-weight-semibold">$399</span></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <h6 class="mb-0 font-weight-semibold">Support tickets list doesn't support commas</h6>
+                                    <h6 class="mb-0 font-weight-semibold">BOTAS DE HULE T-6</h6>
 
                                 </td>
                                 <td>2</td>
                                 <td>$12</td>
-                                <td><span class="font-weight-semibold">$840</span></td>
+                                <td><span class="font-weight-semibold">$24</span></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <h6 class="mb-0 font-weight-semibold">Fix website issues on mobile</h6>
+                                    <h6 class="mb-0 font-weight-semibold">LENTES DE PROTEC. OBSCUROS</h6>
 
                                 </td>
                                 <td>70</td>
                                 <td>$200</td>
-                                <td><span class="font-weight-semibold">$2,170.00</span></td>
+                                <td><span class="font-weight-semibold">$1,400</span></td>
                             </tr>
                         </tbody>
                     </table>

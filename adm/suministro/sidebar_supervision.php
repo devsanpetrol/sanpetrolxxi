@@ -18,7 +18,7 @@
                 <li class="nav-item">
                     <a href="aprobacion_salida_noaprobe.php" class="nav-link menu-nav-link aprobacion_salida_noaprobe"><i class="icon-spam"></i> No Autorizados</a>
                 </li>
-                <li class="nav-item-header">Enviar a Compra</li>
+                <li class="nav-item-header">Enviar a Depto. Compras</li>
                 <li class="nav-item">
                     <a href="aprobacion_salida_compra.php" class="nav-link menu-nav-link aprobacion_salida_compra" ><i class="icon-drawer-in"></i> Bandeja entrada <span class="badge badge-pill ml-auto nuevas-entradas-inbox">0</span></a>
                 </li>

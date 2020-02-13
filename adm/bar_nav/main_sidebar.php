@@ -54,7 +54,6 @@
                         <li class="nav-item"><a href="inicio.php" class="nav-link">Adquisición de Material</a></li>
                         <li class="nav-item"><a href="almacen.php" class="nav-link">Almacen</a></li>
                         <li class="nav-item"><a href="aprobacion_salida.php" class="nav-link">Supervisión</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Compra</a></li>
                         <li class="nav-item"><a href="detalle_factura.php" class="nav-link">Factura</a></li>
                     </ul>
                 </li>

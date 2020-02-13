@@ -2,6 +2,14 @@ $(document).ready( function () {
     get_norm_form_solicitud();
     get_categoria();
     fecha_actual();
+    $('.pickadate-accessibility').pickadate({
+        labelMonthNext: 'Go to the next month',
+        labelMonthPrev: 'Go to the previous month',
+        labelMonthSelect: 'Pick a month from the dropdown',
+        labelYearSelect: 'Pick a year from the dropdown',
+        selectMonths: true,
+        selectYears: true
+    });
     var user_session_id = $('#user_session_id').data("employeid");
     var table = $('#tabla_pedidos').DataTable();
     $('.form-check-input-styled-primary').uniform({
@@ -94,8 +102,6 @@ $(document).ready( function () {
                     $('#especificacion').val(res.especificacion);
                     $('#select_categoria').val(res.id_categoria).trigger('change');
                     $('#unidad').val(res.tipo_unidad).trigger('change');
-                    $("#stock_disponible").text(res.stock).data("almacen",res.stock);
-                    
                     count_apartado(res.stock);
                     console.log("cae en else");
                 }
@@ -120,18 +126,10 @@ $(document).ready( function () {
             success:(function(res){
                 $('#area_aquipo').val(res.key_wh).data("textvalue",res.destino);
                 console.log($('#area_aquipo').data("textvalue"));
-                //$('#unidad').val(res.tipo_unidad).trigger('change');
             })
         });
     });
-    $(":radio[name='grado_r']").on('ifChanged',function(event) {
-        if ($("input[name='grado_r']:checked").val() === 'programado'){
-            $('#single_cal3').prop('disabled', false);
-        }else if ($("input[name='grado_r']:checked").val() === 'inmediato'){
-            $('#single_cal3').blur();
-            $('#single_cal3').prop('disabled', true);
-        }
-    });
+    
         
     $('#tabla_pedidos tbody').on( 'click', 'tr', function () {
         var table = $('#tabla_pedidos').DataTable();
@@ -156,33 +154,9 @@ $(document).ready( function () {
     } );
     
     $('#btn_send_pedido').on('click', function () {});
-    
-    $('#cantidad').on( 'change paste keyup', function () {
-        var x = $('#stock_disponible').data("almacen");
-        var c = $('#cantidad').val();
-        if((x-c) > 0){
-            $('#stock_compra').text(0).prepend("<i class='icon-cart-add2'></i> ");
-            $('#stock_disponible').empty();
-            $('#stock_disponible').text(x-c).prepend("<i class='icon-database4'></i> ");
-        }else{
-            $('#stock_disponible').text(0).prepend("<i class='icon-database4'></i> ");
-            $('#stock_compra').empty();
-            $('#stock_compra').text((x-c)*-1).prepend("<i class='icon-cart-add2'></i> ");
-        }
-    });
 } );
 function count_apartado(val){
     $('#cantidad').val(0);
-    $('#stock_disponible').empty();
-    $('#stock_compra').empty();
-    
-    $('#stock_disponible').data("almacen",val);
-    if(val == 0){
-        $('#stock_disponible').text(0).prepend("<i class='icon-database4'></i> ");
-    }else{
-        $('#stock_disponible').text(val).prepend("<i class='icon-database4'></i> ");
-    }
-    $('#stock_compra').text(0).prepend("<i class='icon-cart-add2'></i> ");
 }
 
 function get_norm_form_solicitud(){
@@ -204,32 +178,42 @@ function get_norm_form_solicitud(){
 }
 function reset_select2(){
     $("#select_article").val(null).trigger('change');
-}
-function reset_select3(){
     $("#area_aquipo").val(null).trigger('change');
 }
 function getValRadio(){
     reset_select2();
-    reset_select3();
-    count_apartado(0);
     $('#unidad').prop('selectedIndex',0).trigger('change');
     $('#cod_articulo').val('');
     $('#descripcion').val('');
     $('#especificacion').val('');
-    $('#anexo').val('');
     $('#justificacion').val('');
     $('#area_aquipo').val('');
+    $('#fecharequerimiento').val(null);
     $('#descripcion').removeClass("border-danger");
     $('#unidad').removeClass("border-danger");
     $('#area_aquipo').removeClass("border-danger");
     $('#justificacion').removeClass("border-danger");
     $('#mod_pedido').modal('hide');
 }
+function resetModal(){
+    reset_select2();
+    $('#unidad').prop('selectedIndex',0).trigger('change');
+    $('#cod_articulo').val('');
+    $('#descripcion').val('');
+    $('#especificacion').val('');
+    $('#justificacion').val('');
+    $('#area_aquipo').val('');
+    $('#fecharequerimiento').val(null);
+    $('#descripcion').removeClass("border-danger");
+    $('#unidad').removeClass("border-danger");
+    $('#area_aquipo').removeClass("border-danger");
+    $('#justificacion').removeClass("border-danger");
+}
 function agregar_pedido(){
     if(valida_pedido()){
         if(valida_campos(0)){
             var cod_articulo = $('#cod_articulo').val();
-            var fecha_req = $('#single_cal3').val();
+            var fecha_req = $('#fecharequerimiento').val();
             var grado_requerimiento = $("input[name='grado_r']:checked").val() === 'inmediato' ? "Inmediato" : "Programado";
             var grado_requerimiento2 = $("input[name='grado_r']:checked").val() === 'inmediato' ? "<i class='icon-star-full2 mr-3' data-popup='tooltip' title='Inmediato'></i>" : "<i class='icon-calendar2 mr-3' data-popup='tooltip' title='Requerido para: "+fecha_req+"'></i>";
             var t = $('#tabla_pedidos').DataTable();
@@ -241,7 +225,7 @@ function agregar_pedido(){
                 cantidad_compra = parseFloat($('#cantidad').val());
                 cantidad_aparta = 0;
             }else{
-                cantidad_compra = parseFloat($('#stock_compra').text());
+                
                 cantidad_aparta = cantidad_solici - cantidad_compra;
             }
             
@@ -255,7 +239,6 @@ function agregar_pedido(){
                 $('#especificacion').val(),
                 $('#area_aquipo').data("textvalue"),
                 $('#justificacion').val(),
-                $('#anexo').val(),
                 $('#select_categoria option:selected').data('resp'),
                 grado_requerimiento,
                 fecha_req,//grado_requerimiento,
@@ -273,7 +256,6 @@ function agregar_pedido(){
         alert('No se agrego ningun pedido');
         $("#unidad").val('pza').trigger('change');
         $('#especificacion').val('');
-        $('#anexo').val('');
         $('#justificacion').val('');
         $('#area_aquipo').val('');
         $('#modal_large').modal('hide');
@@ -281,14 +263,12 @@ function agregar_pedido(){
 }
 function resetModalPedido(){
     reset_select2();
-    reset_select3();
     count_apartado(0);
     $('#unidad').prop('selectedIndex',0).trigger('change');
     $('#cod_articulo').val('');
     $('#descripcion').val('');
     $('#cantidad').val('0');
     $('#especificacion').val('');
-    $('#anexo').val('');
     $('#justificacion').val('');
     $('#area_aquipo').val('');
     $('#modal_large').modal('hide');
@@ -348,7 +328,10 @@ function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
 }
 function  fecha_actual(){
-    $.post('json_now.php',function(res){$('#fecha_actual').text(res.fecha_actual);});
+    $.post('json_now.php',function(res){
+        $('#fecha_actual').text(res.fecha_actual);
+        $('#folioxx').slideDown();
+    });
 }
 function  get_categoria(){
     $.ajax({
@@ -426,6 +409,7 @@ function get_folio(){
             setTimeout(function() {
                 clear_modal();
                 generador_layout();
+                window.location.reload();
             }, 500);
         },
         error: function(data) {
@@ -473,13 +457,13 @@ function recorreDataTable(folio,clave_solicita){
             .rows( index )
             .data()
             .toArray());
-            guardaPedido(arr[index][0][10],arr[index][0][3],arr[index][0][5],arr[index][0][4],arr[index][0][6],arr[index][0][8],arr[index][0][9],arr[index][0][14],0,'',arr[index][0][11],arr[index][0][12],arr[index][0][1],arr[index][0][13],folio,clave_solicita,arr[index][0][15],arr[index][0][16]);
+            guardaPedido(arr[index][0][10],arr[index][0][3],arr[index][0][5],arr[index][0][4],arr[index][0][6],arr[index][0][8],arr[index][0][14],0,'',arr[index][0][11],arr[index][0][12],arr[index][0][1],arr[index][0][13],folio,clave_solicita,arr[index][0][15],arr[index][0][16]);
         });
     
 }
-function guardaPedido(autorizado, articulo, cantidad, unidad, detalle_articulo, justificacion, anexo_codicion, destino, status_pedido, comentario, grado_requerimiento, fecha_requerimiento, cod_articulo, id_categoria, folio,clave_solicita,cantidad_aparta,cantidad_compra){
+function guardaPedido(autorizado, articulo, cantidad, unidad, detalle_articulo, justificacion, destino, status_pedido, comentario, grado_requerimiento, fecha_requerimiento, cod_articulo, id_categoria, folio,clave_solicita,cantidad_aparta,cantidad_compra){
     $.ajax({
-        data:{autorizado:autorizado, articulo:articulo, cantidad:cantidad, unidad:unidad, detalle_articulo:detalle_articulo, justificacion:justificacion, anexo_codicion:anexo_codicion, destino:destino, status_pedido:status_pedido, comentario:comentario, grado_requerimiento:grado_requerimiento, fecha_requerimiento:fecha_requerimiento, cod_articulo:cod_articulo, id_categoria:id_categoria, folio:folio,clave_solicita:clave_solicita,cantidad_aparta:cantidad_aparta,cantidad_compra:cantidad_compra},
+        data:{autorizado:autorizado, articulo:articulo, cantidad:cantidad, unidad:unidad, detalle_articulo:detalle_articulo, justificacion:justificacion, destino:destino, status_pedido:status_pedido, comentario:comentario, grado_requerimiento:grado_requerimiento, fecha_requerimiento:fecha_requerimiento, cod_articulo:cod_articulo, id_categoria:id_categoria, folio:folio,clave_solicita:clave_solicita,cantidad_aparta:cantidad_aparta,cantidad_compra:cantidad_compra},
         type: 'post',
         url: 'json_insertPedido.php',
         dataType: 'json',

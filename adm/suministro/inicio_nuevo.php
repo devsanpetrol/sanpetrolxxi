@@ -192,7 +192,6 @@
                                                 </div>
                                             </div>
                                             <button type="button" class="btn text-primary-800 btn btn-link legitRipple" id="fecha_actual"></button>
-                                            <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" id="btn_info_formato" data-toggle="modal" data-target="#mod_num_formato"><i class="icon-info22"></i></button>
                                             <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" id="btn_send_pedido" onclick="get_folio()"><i class="icon-paperplane"></i></button>
                                             <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
                                             <button type="button" class="btn btn-sm btn-outline bg-danger text-danger-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_del_row_sel"><i class="icon-trash"></i></button>
@@ -219,14 +218,11 @@
                                                 <th>Descripció detallada</th> <!-- 5 -->
                                                 <th>Area ó equipo destinado</th> <!-- 6 -->
                                                 <th>Justificación</th> <!-- 7 -->
-                                                <th>Anexo/Condición</th> <!-- 8 -->
                                                 <th>Aprueba</th> <!-- 9 -->
                                                 <th>Grado Requerimiento</th> <!-- 10 -->
                                                 <th>Fecha Requerimiento</th> <!-- 11 -->
                                                 <th>ID Categoría</th> <!-- 12 -->
                                                 <th>ID destino</th> <!-- 13 -->
-                                                <th>cantidad_apartado</th> <!-- 12 -->
-                                                <th>cantidad_compra</th> <!-- 13 -->
                                               </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -242,159 +238,99 @@
                     <!-- /content area -->
                     <!-- Area modal -->
                     <div id="modal_large" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                <form id="add_articulo" data-numformat="SP-MX-CA-FO-003" data-idformat="1">
-                                    <div class="form-group row">
-                                      <div class="col-sm-11 form-group-feedback form-group-feedback-right">
-                                          <label class="font-weight-bold">Busqueda de articulo</label>
-                                          <div class="input-group">
-                                              <select data-placeholder="Buscar en almacen..." class="form-control select-minimum form-control-sm" data-fouc name='articulo_cod' id="select_article">
-                                              </select>
-                                              <div class="form-control-feedback text-danger">
-                                                <button type="button" class="btn text-pink-800 btn-link form-control-sm" onclick="reset_select2()" title="Remover selección actual"><i class="icon-spinner11"></i></button>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-1 form-group form-group-feedback-right text-center">
-
-                                      </div>
-                                      <div class="col-sm-12 form-group form-group-feedback-right"></div>
-                                      <div class="col-sm-4 form-group form-group-feedback-right">
-                                        <label class="d-block font-weight-bold">Grado de Requerimiento de la compra</label>
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input-styled-primary form-control-sm" name="grado_r" value="inmediato" checked data-fouc>
-                                                Inmediata
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input-styled-primary form-control-sm" name="grado_r" value="programado" data-fouc>
-                                                Programada
-                                            </label>
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-4 form-group form-group-feedback-right">
-                                        <div class="controls">
-                                          <div class="col-md-12 form-group-feedback form-group-feedback-right">
-                                            <label class="font-weight-bold">Fecha estimada de requerimiento</label>
-                                            <div class="input-group">
-                                                <span class="input-group-prepend">
-                                                <span class="input-group-text"><i class="icon-calendar22"></i></span>
-                                                </span>
-                                                <input type="text" class="form-control form-control-sm daterange-single font-weight-semibold text-blue-800" value="" id="single_cal3">
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-4 form-group form-group-feedback-right">
-                                        <label class="d-block font-weight-bold">Grado de Requerimiento de la compra</label>
-                                        <div class="form-check form-check-switchery form-check-inline form-check-right">
-                                            <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input-switchery" checked data-fouc>
-                                                Autorizar
-                                            </label>
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-2 form-group form-group-feedback-right">
-                                        <label class="font-weight-bold">Codigo</label>
-                                        <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="cod_articulo" readonly>
-                                      </div>
-                                      <div class="col-sm-6 form-group form-group-feedback-right">
-                                        <label class="font-weight-bold">Articulo</label><label style="color: red;"> *</label>
-                                        <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="descripcion" required="true" onkeyup="mayus(this);">
-                                      </div>
-                                      <div class="col-sm-2 form-group form-group-feedback-right">
-                                        <label class="font-weight-bold" data-fouc>Unidad</label>
-                                        <select name="select" class="form-control form-control-sm font-weight-semibold text-blue-800 select" id="unidad">
-                                          <option value="pza" selected>Pieza</option>
-                                          <option value="kgr">Kilogramo</option>
-                                          <option value="mtr">Metro</option>
-                                          <option value="pqt">Paquete</option>
-                                          <option value="cja">Caja</option>
-                                          <option value="ltr">Litro</option>
-                                          <option value="lte">Lote</option>
-                                          <option value="kit">Kit</option>
-                                          <option value="par">Par</option>
-                                        </select>
-                                      </div>
-                                      <div class="col-sm-2 form-group form-group-feedback-right">
-                                        <label class="font-weight-bold">Cantidad | </label>
-                                        <span class="text-blue-800 font-weight-bold" id="stock_disponible" data-almacen="0" title="Cantidad disponible en almacen"><i class="icon-database4"></i> 0</span>
-                                        <span class="text-danger-800 font-weight-bold" id="stock_compra" title="Cantidad que sera enviada a compra"><i class="icon-cart-add2"></i> 0</span>
-                                        <input type="number" class="form-control form-control-sm font-weight-semibold text-blue-800" step="1" value="1" min="0" id="cantidad" value="0" required="true">
-                                      </div>
-                                      <div class="col-sm-9 form-group form-group-feedback-right">
-                                        <label class="font-weight-bold">Descripción detallada</label>
-                                        <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="especificacion" onkeyup="mayus(this);">
-                                      </div>
-                                      <div class="col-sm-3 form-group form-group-feedback-right">
-                                        <label class="font-weight-bold">Categoria</label>
-                                        <select name="select" class="form-control form-control-sm font-weight-semibold text-blue-800 select" data-fouc id="select_categoria" required>
-                                        </select>
-                                      </div>
-                                      <div class="col-sm-6 form-group form-group-feedback-right">
-                                        <label class="font-weight-bold">Anexo/Condición</label>
-                                        <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="anexo" onkeyup="mayus(this);">
-                                      </div>
-                                      <div class="col-sm-6 form-group form-group-feedback-right" id="content_destinos">
-                                        <label class="font-weight-bold">Area/Equipo destinado</label><label style="color: red;"> *</label>
-                                        <div class="input-group">
-                                              <select data-placeholder="Area, Equipo, Empleado,..." class="form-control select-minimum form-control-sm" data-fouc name='area_aquipo' data-textvalue="" id="area_aquipo">
-                                              </select>
-                                              <div class="form-control-feedback text-danger">
-                                                <button type="button" class="btn text-pink-800 btn-link form-control-sm" onclick="reset_select3()" title="Remover selección actual"><i class="icon-spinner11"></i></button>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 form-group form-group-feedback-right">
-                                        <label class="font-weight-bold">Justificación de compra</label><label style="color: red;"> *</label>
-                                        <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="justificacion" required="true" onkeyup="mayus(this);">
-                                      </div>
-                                    </div>
-                                </form>                                                    
-                                </div>
-                                <div class="modal-footer">
-
-                                    <button type="button" class="btn btn-outline bg-danger-300 rounded-round btn-icon ml-2 btn-sm" onclick="resetModalPedido()"><i class="icon-exit2"></i> Salir</button>
-                                    <button type="button" class="btn btn-outline bg-slate rounded-round btn-icon ml-2 btn-sm" onclick="agregar_pedido()"><i class="icon-download4"></i> Añadir</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /large modal -->
-                    <div id="mod_num_formato" class="modal fade" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-6 form-group form-group-feedback-right">
-                                          <label class="font-weight-bold">Numero de formato</label>
-                                          <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="num_formato" readonly>
+                                    <form id="add_articulo">
+                                        <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="form-group form-group-feedback form-group-feedback-right">
+                                                        <select data-placeholder="Buscar articulo en catálogo de Almacen..." class="form-control select-minimum" data-fouc name='articulo_cod' id="select_article">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control text-blue-800 text-center" id="cod_articulo" readonly placeholder="Codigo articulo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                                  <div class="form-group form-group-feedback form-group-feedback-left">
+                                                      <input type="text" class="form-control text-blue-800 pickadate-accessibility" id="fecharequerimiento" placeholder="Fecha de Requerimiento">
+                                                      <div class="form-control-feedback form-control-feedback-sm">
+                                                          <i class="icon-calendar22"></i>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-sm-6" id="content_destinos">
+                                                <div class="form-group-feedback form-group-feedback-right">
+                                                    <select data-placeholder="Destino de la solicitud (Area ó Equipo)" class="form-control select-minimum form-control-sm" data-fouc name='area_aquipo' data-textvalue="" id="area_aquipo">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                          </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="text" class="form-control text-blue-800" id="descripcion" required="true" placeholder="Descripción del articulo" onkeyup="mayus(this);">
+                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                        <i class="icon-file-text"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6 form-group form-group-feedback-right">
-                                          <label class="font-weight-bold">Función</label>
-                                          <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="funcion" readonly>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="number" class="form-control text-danger-800 text-center" step="1" value="1" min="0" id="cantidad" value="0" required="true" title="Cantidad a solicitar">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <select data-placeholder="Unidad" name="select" class="form-control form-control-select2 text-right select" id="unidad">
+                                                        <option></option>
+                                                        <option value="pza">Pieza</option>
+                                                        <option value="kgr">Kilogramo</option>
+                                                        <option value="mtr">Metro</option>
+                                                        <option value="pqt">Paquete</option>
+                                                        <option value="cja">Caja</option>
+                                                        <option value="ltr">Litro</option>
+                                                        <option value="lte">Lote</option>
+                                                        <option value="kit">Kit</option>
+                                                        <option value="par">Par</option> 
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <select data-placeholder="Categoria" class="form-control form-control-select2 border-danger text-right select" id="select_categoria" data-fouc required>
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6 form-group form-group-feedback-right">
-                                          <label class="font-weight-bold">Región</label>
-                                          <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="region" readonly>
+                                        <div class="row">    
+                                            <div class="col-md-12">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="text" class="form-control text-blue-800" id="justificacion" required="true" onkeyup="mayus(this);" placeholder="Motivo del requerimiento">
+                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                        <i class="icon-help"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6 form-group form-group-feedback-right">
-                                          <label class="font-weight-bold">Fecha de Rev.</label>
-                                          <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="fecha_rev" readonly>
-                                        </div>
-                                        <div class="col-md-6 form-group form-group-feedback-right">
-                                          <label class="font-weight-bold">Autorizado por</label>
-                                          <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="autorizado" readonly>
-                                        </div>
-                                        <div class="col-md-6 form-group form-group-feedback-right">
-                                          <label class="font-weight-bold">Revisado por</label>
-                                          <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="revisado" readonly>
-                                        </div>
-                                    </div>                                                
+                                    </div>
+                                    </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="resetModal()" title="Limpiar formulario"><i class="icon-eraser2"></i></button>
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="resetModalPedido()" title="Limpiar formulario">Salir</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="agregar_pedido()" title="Agregar">Agregar</button>
                                 </div>
                             </div>
                         </div>
