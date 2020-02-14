@@ -77,21 +77,21 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_destino($searchTerm){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_destino
-                                    WHERE adm_view_destino.destino LIKE '%$searchTerm%'");//nombre = :Nombre'
+        $sql = $this->_db->prepare("SELECT * FROM adm_responsablearea
+                                    WHERE adm_responsablearea.area_depto_equipo LIKE '%$searchTerm%'");//nombre = :Nombre'
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
     public function get_almacen_destino_5(){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_destino LIMIT 0");
+        $sql = $this->_db->prepare("SELECT * FROM adm_responsablearea LIMIT 0");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
     public function get_almacen_destino_1($searchTerm){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_destino WHERE adm_view_destino.key_wh = :key_wh");
-        $sql->execute(array('key_wh' => $searchTerm));
+        $sql = $this->_db->prepare("SELECT * FROM adm_responsablearea WHERE adm_responsablearea.id_responsableArea = :clave");
+        $sql->execute(array('clave' => $searchTerm));
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }

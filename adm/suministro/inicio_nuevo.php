@@ -182,51 +182,95 @@
                     <div class="row" id="row_new_solicitudxx">
                         <div class="col-md-12">
                             <div class="card" id="card_addPedido">
-                                <div class="card-header bg-white header-elements-inline">
-                                    <h6 class="card-title">Nueva solicitud</h6>
-                                    <div class="header-elements">
-                                        <div class="list-icons">
-                                            <div class="d-flex align-items-center mb-3 mb-md-0">
-                                                <div class="ml-3">
-                                                    <h6 class="font-weight-semibold mb-0 text-blue-800" ></h6>
-                                                </div>
-                                            </div>
-                                            <button type="button" class="btn text-primary-800 btn btn-link legitRipple" id="fecha_actual"></button>
-                                            <button type="button" class="btn btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" id="btn_send_pedido" onclick="get_folio()"><i class="icon-paperplane"></i></button>
-                                            <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
-                                            <button type="button" class="btn btn-sm btn-outline bg-danger text-danger-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_del_row_sel"><i class="icon-trash"></i></button>
-                                            <button type="button" class="btn btn-sm btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" data-toggle="modal" data-target="#modal_large"><i class="icon-plus3"></i></button>
-                                        </div>
-                                    </div>      
-                                </div>
                                 <div class="card-body" id="mod_pedido">
                                     <div class="row">
-                                        <div class="col-sm-12 form-group">
-
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                            <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DEL SOLICITANTE</legend>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="solicitante" placeholder="Nombre del solicitante" onkeyup="mayus(this);" required>
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-man"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="puesto" placeholder="Puesto" onkeyup="mayus(this);" required>
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-stack3"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                            <legend class="font-weight-semibold text-danger-800"><i class="icon-clipboard6 mr-2"></i> DATOS DE LA SOLICITUD</legend>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" readonly required>
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-calendar22"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-7" id="content_destinos">
+                                                    <div class="form-group-feedback form-group-feedback-right">
+                                                        <select data-placeholder="Destino de la solicitud (Area ó Equipo)" class="form-control select-minimum form-control-sm" data-fouc name='area_aquipo' data-textvalue="" id="area_aquipo">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="sitio" placeholder="Sitio de operación" onkeyup="mayus(this);">
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-pin-alt"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                    </fieldset>
                                         </div>
                                     </div>
-                                    <div class="table-responsive">
-                                        <table id="tabla_pedidos" class="table datatable-selection-single" cellspacing="0" width="100%">
-                                            <thead>
-                                              <tr>
-                                                <th></th> <!-- 0 -->
-                                                <th>Clave</th> <!-- 0 -->
-                                                <th>Articulo</th> <!-- 1 -->
-                                                <th>Articulo</th> <!-- 2 -->
-                                                <th>Unidad</th> <!-- 3 -->
-                                                <th>Cantidad</th> <!-- 4 -->
-                                                <th>Descripció detallada</th> <!-- 5 -->
-                                                <th>Area ó equipo destinado</th> <!-- 6 -->
-                                                <th>Justificación</th> <!-- 7 -->
-                                                <th>Aprueba</th> <!-- 9 -->
-                                                <th>Grado Requerimiento</th> <!-- 10 -->
-                                                <th>Fecha Requerimiento</th> <!-- 11 -->
-                                                <th>ID Categoría</th> <!-- 12 -->
-                                                <th>ID destino</th> <!-- 13 -->
-                                              </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <div class="list-icons">
+                                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="btn_send_pedido" onclick="get_folio()" title="Enviar solicitud">Enviar <i class="icon-paperplane ml-2"></i></button>
+                                                <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
+                                                <button type="button" class="btn btn-sm btn-outline bg-danger text-danger-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_del_row_sel"><i class="icon-trash"></i></button>
+                                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-toggle="modal" data-target="#modal_large" title="Agregar item">Agregar <i class="icon-plus3 ml-2"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                            <table id="tabla_pedidos" class="table datatable-selection-single" cellspacing="0" width="100%">
+                                                <col width="10%">
+                                                <col width="10%">
+                                                <col width="35%">
+                                                <col width="35%">
+                                                <col width="10%">
+                                                <thead>
+                                                  <tr>
+                                                    <th>Clave</th> <!-- 0 -->
+                                                    <th>Cantidad</th><!-- 1 -->
+                                                    <th>Unidad</th><!-- 2 -->
+                                                    <th>Articulo</th><!-- 3 -->
+                                                    <th>Motivo del requerimiento</th><!-- 4 -->
+                                                    <th>Fecha Requerimiento</th> <!-- 6 -->
+                                                  </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -252,7 +296,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <div class="form-group">
                                                         <input type="text" class="form-control text-blue-800 text-center" id="cod_articulo" readonly placeholder="Codigo articulo">
                                                     </div>
                                                 </div>
@@ -266,27 +310,9 @@
                                                       </div>
                                                   </div>
                                               </div>
-                                              <div class="col-sm-6" id="content_destinos">
-                                                <div class="form-group-feedback form-group-feedback-right">
-                                                    <select data-placeholder="Destino de la solicitud (Area ó Equipo)" class="form-control select-minimum form-control-sm" data-fouc name='area_aquipo' data-textvalue="" id="area_aquipo">
-                                                    </select>
-                                                </div>
-                                            </div>
-                                          </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
+                                              <div class="col-md-3">
                                                 <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control text-blue-800" id="descripcion" required="true" placeholder="Descripción del articulo" onkeyup="mayus(this);">
-                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                        <i class="icon-file-text"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="number" class="form-control text-danger-800 text-center" step="1" value="1" min="0" id="cantidad" value="0" required="true" title="Cantidad a solicitar">
+                                                    <input type="number" class="form-control text-danger-800 text-center font-weight-bold" step="1" value="1" min="0" id="cantidad" value="0" required="true" title="Cantidad a solicitar">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -305,14 +331,18 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <select data-placeholder="Categoria" class="form-control form-control-select2 border-danger text-right select" id="select_categoria" data-fouc required>
-                                                        <option></option>
-                                                    </select>
+                                          </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="text" class="form-control text-blue-800" id="descripcion" required="true" placeholder="Descripción del articulo" onkeyup="mayus(this);">
+                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                        <i class="icon-file-text"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <div class="row">    
                                             <div class="col-md-12">
                                                 <div class="form-group form-group-feedback form-group-feedback-left">
@@ -335,41 +365,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /large modal -->
-                    <div id="pase_salida" class="modal fade" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <!-- Table -->
-                                        <div class="table-responsive" id="table_pase_salida">
-                                            <table class="table table-inbox" id="lay_out_salida" cellspacing="0" width="100%">
-                                                <thead style="display: none">
-                                                    <tr>
-                                                      <th>Id pedido</th>
-                                                      <th>Articulo</th>
-                                                      <th>Cantidad</th>
-                                                      <th>Unidad</th>
-                                                      <th>Destino</th>
-                                                      <th>status</th>
-                                                      <th>Cod Articulo</th>
-                                                      <th>Folio</th>
-                                                      <th>Autoriza</th>
-                                                      <th>Categoria</th>
-                                                      <th>Stock Alm.</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody data-link="row" class="rowlink">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!-- /table -->
-                                    </div>                                                
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Area modal -->
                     <!-- Footer -->
                     <?php include "../bar_nav/footer_navbar.php"; ?>
                     <!-- /footer -->

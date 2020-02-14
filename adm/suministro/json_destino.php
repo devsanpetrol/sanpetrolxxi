@@ -6,19 +6,15 @@ $searchTerm = $_POST['searchTerm'];
 if(!empty($_POST['searchTerm'])){
     $dato = $suministro->get_almacen_destino_1($searchTerm);
     $datos = array(
-        'key_wh' => $dato[0]['key_wh'],
-        'tipo' => $dato[0]['tipo'],
-        'destino' => $dato[0]['destino'],
-        'id_reference' => $dato[0]['id_reference'],
-        'tabla' => $dato[0]['tabla']
+        'resp' => $dato[0]['id_responsable_area'],
+        'dest' => $dato[0]['area_depto_equipo'],
+        'id_emp' => $dato[0]['id_empleado']
     );
 }else{
     $datos = array(
-        'key_wh' => '',
-        'tipo' => '',
-        'destino' => '',
-        'id_reference' => '',
-        'tabla' => ''
+        'resp' => '',
+        'dest' => '',
+        'id_emp' => ''
     );
 }
 header('Content-Type: application/json');

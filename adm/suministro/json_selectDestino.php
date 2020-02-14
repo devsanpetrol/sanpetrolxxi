@@ -11,7 +11,7 @@
     $data = array();
     
     foreach ($articulos as $valor) {
-        $data[] = array("id"=>$valor['key_wh'], "text"=>$valor['destino']." (".$valor['tipo'].")");
+        $data[] = array("id"=>$valor['id_responsableArea'], "text"=>$valor['area_depto_equipo']);
     }
     
     header('Content-Type: application/json');
