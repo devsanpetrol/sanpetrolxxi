@@ -77,14 +77,14 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_destino($searchTerm){
-        $sql = $this->_db->prepare("SELECT * FROM adm_responsablearea
-                                    WHERE adm_responsablearea.area_depto_equipo LIKE '%$searchTerm%'");//nombre = :Nombre'
+        $sql = $this->_db->prepare("SELECT * FROM ope_equipo_area
+                                    WHERE ope_equipo_area.nombre_generico");//nombre = :Nombre'
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
     public function get_almacen_destino_5(){
-        $sql = $this->_db->prepare("SELECT * FROM adm_responsablearea LIMIT 0");
+        $sql = $this->_db->prepare("SELECT * FROM ope_equipo_area LIMIT 0");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -112,6 +112,18 @@ class suministro extends conect
                                     FROM adm_categoria_consumibles
                                     INNER JOIN adm_empleado ON adm_categoria_consumibles.id_empleado_resp = adm_empleado.id_empleado
                                     INNER JOIN adm_persona ON adm_empleado.id_persona = adm_persona.id_persona");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_destinoSuministro(){
+        $sql = $this->_db->prepare("SELECT * FROM ope_equipo_area");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_sub_destinoSuministro($id_equipo){
+        $sql = $this->_db->prepare("SELECT * FROM ope_sub_area_equipo WHERE id_equipo_area = $id_equipo");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

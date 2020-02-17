@@ -220,8 +220,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-7" id="content_destinos">
-                                                    <div class="form-group-feedback form-group-feedback-right">
-                                                        <select data-placeholder="Destino de la solicitud (Area ó Equipo)" class="form-control select-minimum form-control-sm" data-fouc name='area_aquipo' data-textvalue="" id="area_aquipo">
+                                                    <div class="form-group">
+                                                        <select data-placeholder="Destino de la solicitud (Area ó Equipo)" class="form-control form-control-select2 border-danger text-right" name='area_aquipo' id="area_aquipo" data-fouc>
+                                                            <option></option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -256,7 +257,8 @@
                                                 <col width="10%">
                                                 <col width="10%">
                                                 <col width="35%">
-                                                <col width="35%">
+                                                <col width="25%">
+                                                <col width="10%">
                                                 <col width="10%">
                                                 <thead>
                                                   <tr>
@@ -265,7 +267,8 @@
                                                     <th>Unidad</th><!-- 2 -->
                                                     <th>Articulo</th><!-- 3 -->
                                                     <th>Motivo del requerimiento</th><!-- 4 -->
-                                                    <th>Fecha Requerimiento</th> <!-- 6 -->
+                                                    <th>Fecha Requerimiento</th> <!-- 5 -->
+                                                    <th>Para</th>
                                                   </tr>
                                                 </thead>
                                                 <tbody></tbody>
@@ -333,12 +336,19 @@
                                             </div>
                                           </div>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group form-group-feedback form-group-feedback-left">
                                                     <input type="text" class="form-control text-blue-800" id="descripcion" required="true" placeholder="Descripción del articulo" onkeyup="mayus(this);">
                                                     <div class="form-control-feedback form-control-feedback-sm">
                                                         <i class="icon-file-text"></i>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <select data-placeholder="Area / Equipo" class="form-control form-control-select2 border-danger text-right" name='area_aquipo' id="sub_area_aquipo" data-fouc>
+                                                        <option></option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
