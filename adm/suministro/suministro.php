@@ -29,8 +29,8 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_busqueda($searchTerm){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_stock_disponible
-                                    WHERE adm_view_stock_disponible.descripcion LIKE '%$searchTerm%'");//nombre = :Nombre'
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_list_articulo
+                                    WHERE adm_view_list_articulo.descripcion LIKE '%$searchTerm%' OR adm_view_list_articulo.cod_articulo LIKE '$searchTerm%'");//nombre = :Nombre'
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -48,18 +48,15 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_busqueda_5(){
-        $sql = $this->_db->prepare("SELECT adm_almacen.cod_articulo,adm_articulo.descripcion,adm_articulo.marca,adm_almacen.stock
-                                    FROM adm_articulo
-                                    INNER JOIN adm_almacen ON adm_articulo.id_articulo = adm_almacen.id_articulo
-                                    INNER JOIN adm_categoria_consumibles ON adm_articulo.id_categoria = adm_categoria_consumibles.id_categoria
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_list_articulo
                                     LIMIT 0");//nombre = :Nombre'
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
     public function get_almacen_busqueda_1($searchTerm){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_stock_disponible
-                                    WHERE adm_view_stock_disponible.cod_articulo = :codigo or adm_view_stock_disponible.cod_barra = :codigo");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_list_articulo
+                                    WHERE adm_view_list_articulo.cod_articulo = :codigo");
         $sql->execute(array('codigo' => $searchTerm));
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -128,23 +125,21 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    public function set_solicitud($fecha_solicitud,$status_solicitud,$id_formato,$clave_solicita){
-        $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha_solicitud,status_solicitud,id_formato,clave_solicita) VALUES ('$fecha_solicitud',$status_solicitud,$id_formato,$clave_solicita)");
+    public function set_solicitud($fecha_solicitud,$clave_solicita,$nombre_solicita,$puesto_solicita,$sitio_operacion,$id_equipo){
+        $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha_solicitud,clave_solicita,nombre_solicitante,puesto_solicitante,sitio_operacion,id_equipo) VALUES ('$fecha_solicitud',$clave_solicita,'$nombre_solicita','$puesto_solicita','$sitio_operacion',$id_equipo)");
         $sql2 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha_solicitud = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
         $sql1->execute();
         $sql2->execute();
         $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    public function set_pedido($autorizado, $articulo, $cantidad, $unidad, $detalle_articulo, $justificacion, $anexo_codicion, $destino, $status_pedido, $comentario, $grado_requerimiento, $fecha_requerimiento, $cod_articulo, $id_categoria, $folio,$cantidad_aparta,$cantidad_compra){
-        $date = new DateTime($fecha_requerimiento);
-        $fn = $date->format('Y-m-d');
+    public function set_pedido($articulo, $cantidad, $unidad, $justificacion, $destino, $fecha_requerimiento, $cod_articulo, $folio){
         if($cod_articulo == ""){
-            $sql = $this->_db->prepare("INSERT INTO adm_pedido (autoriza, articulo, cantidad, unidad, detalle_articulo, justificacion, anexo_codicion, destino, status_pedido, comentario, grado_requerimiento, fecha_requerimiento, cod_articulo, id_categoria, folio, aprobacion, cantidad_apartado, cantidad_compra)
-                                        VALUES ('$autorizado', '$articulo', $cantidad, '$unidad', '$detalle_articulo', '$justificacion', '$anexo_codicion', '$destino', $status_pedido, '$comentario', '$grado_requerimiento', '$fn', NULL, $id_categoria, $folio,$status_pedido,$cantidad_aparta,$cantidad_compra)");
+            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio)
+                                        VALUES ('$articulo', $cantidad, '$unidad', '$justificacion', '$destino', '$fecha_requerimiento', NULL, $folio)");
         }else{
-            $sql = $this->_db->prepare("INSERT INTO adm_pedido (autoriza, articulo, cantidad, unidad, detalle_articulo, justificacion, anexo_codicion, destino, status_pedido, comentario, grado_requerimiento, fecha_requerimiento, cod_articulo, id_categoria, folio, aprobacion, cantidad_apartado, cantidad_compra)
-                                        VALUES ('$autorizado', '$articulo', $cantidad, '$unidad', '$detalle_articulo', '$justificacion', '$anexo_codicion', '$destino', $status_pedido, '$comentario', '$grado_requerimiento', '$fn', '$cod_articulo', $id_categoria, $folio,$status_pedido,$cantidad_aparta,$cantidad_compra)");
+            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio)
+                                        VALUES ('$articulo', $cantidad, '$unidad', '$justificacion', '$destino','$fecha_requerimiento', '$cod_articulo', $folio)");
         }
         $resultado = $sql->execute();
         return $resultado;

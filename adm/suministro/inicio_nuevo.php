@@ -57,7 +57,6 @@
     <script src="js/engineJS_5.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
-    <script src="../../global_assets/js/demo_pages/picker_date.js"></script>
     <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
     <script src="../../global_assets/js/plugins/notifications/pnotify.min.js"></script>
     <script src="../../global_assets/js/demo_pages/extra_fab.js"></script>
@@ -244,9 +243,9 @@
                                     <div class="row">
                                         <div class="col-md-12 text-right">
                                             <div class="list-icons">
+                                                <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" style="display: none;" id="btn_del_row_sel" title="Remover item seleccionado"><i class="icon-trash"></i></button>
                                                 <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="btn_send_pedido" onclick="get_folio()" title="Enviar solicitud">Enviar <i class="icon-paperplane ml-2"></i></button>
                                                 <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
-                                                <button type="button" class="btn btn-sm btn-outline bg-danger text-danger-800 rounded-round btn-icon ml-2" style="display: none;" id="btn_del_row_sel"><i class="icon-trash"></i></button>
                                                 <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-toggle="modal" data-target="#modal_large" title="Agregar item">Agregar <i class="icon-plus3 ml-2"></i></button>
                                             </div>
                                         </div>
@@ -263,12 +262,12 @@
                                                 <thead>
                                                   <tr>
                                                     <th>Clave</th> <!-- 0 -->
-                                                    <th>Cantidad</th><!-- 1 -->
-                                                    <th>Unidad</th><!-- 2 -->
-                                                    <th>Articulo</th><!-- 3 -->
-                                                    <th>Motivo del requerimiento</th><!-- 4 -->
-                                                    <th>Fecha Requerimiento</th> <!-- 5 -->
-                                                    <th>Para</th>
+                                                    <th>Cantidad</th> <!-- 1 -->
+                                                    <th>Unidad</th> <!-- 2 -->
+                                                    <th>Articulo</th> <!-- 3 -->
+                                                    <th>Destino</th> <!-- 4 -->
+                                                    <th>Motivo del requerimiento</th> <!-- 5 -->
+                                                    <th>Fecha Requerimiento</th> <!-- 6 -->
                                                   </tr>
                                                 </thead>
                                                 <tbody></tbody>
@@ -280,7 +279,6 @@
                         </div>
                     </div>
                     <!-- /dashboard content -->
-
                     </div>
                     <!-- /content area -->
                     <!-- Area modal -->
