@@ -117,6 +117,7 @@ function get_area_equipo(){
     success: function(data){
         $.each(data,function(key, registro) {
             $("#area_aquipo").append("<option value='"+registro.id_equipo+"'>"+registro.nombre_generico+"</option>");
+            $("#area_aquipo").data("idcoordinador",registro.id_coordinacion);
         });
     },
     error: function(data){

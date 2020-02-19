@@ -220,7 +220,7 @@
                                                 </div>
                                                 <div class="col-sm-7" id="content_destinos">
                                                     <div class="form-group">
-                                                        <select data-placeholder="Destino de la solicitud (Area ó Equipo)" class="form-control form-control-select2 border-danger text-right" name='area_aquipo' id="area_aquipo" data-fouc>
+                                                        <select data-placeholder="Destino de la solicitud (Area ó Equipo)" class="form-control form-control-select2 border-danger text-right" name='area_aquipo' data-idcoordinador="" id="area_aquipo" data-fouc>
                                                             <option></option>
                                                         </select>
                                                     </div>
