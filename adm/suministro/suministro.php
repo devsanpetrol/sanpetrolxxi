@@ -126,8 +126,8 @@ class suministro extends conect
         return $resultado;
     }
     public function set_solicitud($fecha_solicitud,$clave_solicita,$nombre_solicita,$puesto_solicita,$sitio_operacion,$id_equipo){
-        $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha_solicitud,clave_solicita,nombre_solicitante,puesto_solicitante,sitio_operacion,id_equipo) VALUES ('$fecha_solicitud',$clave_solicita,'$nombre_solicita','$puesto_solicita','$sitio_operacion',$id_equipo)");
-        $sql2 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha_solicitud = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
+        $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha,clave_solicita,nombre_solicitante,puesto_solicitante,sitio_operacion,id_equipo) VALUES ('$fecha_solicitud',$clave_solicita,'$nombre_solicita','$puesto_solicita','$sitio_operacion',$id_equipo)");
+        $sql2 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
         $sql1->execute();
         $sql2->execute();
         $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
@@ -155,6 +155,7 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    
     public function get_pedidos($folio,$filtro=""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_pedido_detail WHERE folio = $folio $filtro");
         $sql->execute();
@@ -558,4 +559,12 @@ class suministro extends conect
         $resultado = $almacen->execute();
         return $resultado;
     }
+    //===========================NUEVAS CONSULTAS===============================
+    public function get_solicitudes_($filtro=""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_solicitud $filtro");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    
 }

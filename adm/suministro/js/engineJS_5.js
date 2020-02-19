@@ -35,7 +35,7 @@ $(document).ready( function () {
             {targets:4,visible: false,searchable: false},
             {targets:1,className: "dt-center"},
             {targets:2,className: "dt-center"},
-            {targets:6,className: "dt-center"}
+            {targets:6,visible: false}
         ],
         language: {
             zeroRecords: "Ningun elemento agregado"
@@ -61,7 +61,9 @@ $(document).ready( function () {
     
     $('#area_aquipo').change(function () {
         var id_equipo = $(this).val();
+        var idcoordinador = $(this).children('option:selected').data('idcoordinacion');
         $('#sub_area_aquipo').empty().trigger("change");
+        $("#area_aquipo").data("idcoordinador",idcoordinador);
         get_sub_area_equipo(id_equipo);
     });
     
@@ -101,7 +103,7 @@ $(document).ready( function () {
             }
         }
     } );
- 
+    
     $('#btn_del_row_sel').click( function () {
         var table = $('#tabla_pedidos').DataTable();
         table.row('.selected').remove().draw( false );
@@ -116,8 +118,7 @@ function get_area_equipo(){
     dataType: "json",
     success: function(data){
         $.each(data,function(key, registro) {
-            $("#area_aquipo").append("<option value='"+registro.id_equipo+"'>"+registro.nombre_generico+"</option>");
-            $("#area_aquipo").data("idcoordinador",registro.id_coordinacion);
+            $("#area_aquipo").append("<option data-idcoordinacion='"+registro.id_coordinacion+"' value='"+registro.id_equipo+"'>"+registro.nombre_generico+"</option>");
         });
     },
     error: function(data){
@@ -156,7 +157,7 @@ function agregar_pedido(){
     if(valida_pedido()){
         if(valida_campos(0)){
             var t = $('#tabla_pedidos').DataTable();
-            
+            var data = $('your-original-element').select2('data')
             t.row.add([
                 $('#cod_articulo').val(),
                 $('#cantidad').val(),
@@ -164,7 +165,8 @@ function agregar_pedido(){
                 $('#descripcion').val(),
                 $('#sub_area_aquipo').val(),
                 $('#justificacion').val(),
-                $("input[name='prefix____suffix']").val()
+                $("input[name='prefix____suffix']").val(),
+                $('#sub_area_aquipo option:selected').text()
             ] ).draw( false );
             
             resetModalPedido();

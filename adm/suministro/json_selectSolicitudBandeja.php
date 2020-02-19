@@ -2,44 +2,40 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_solicitudes();
     $user_session_id = $_POST["user_session_id"];
+    $categorias = $suministro->get_solicitudes_("WHERE id_coordinacion = 1 AND clave_solicita = $user_session_id GROUP BY id_equipo");//SELECT * FROM adm_view_solicitud $filtro
     $data = array();
     
     foreach ($categorias as $valor) {
-        $date = new DateTime($valor['fecha_solicitud']);
+        $date = new DateTime($valor['fecha']);
         $d = $date->format('d');
         $m = $date->format('M');
         $folio = $valor['folio'];
-        $contar = pedido_count($folio,$user_session_id);
+        
         $star = "<a href='#'>#$folio</a>";
         
-        $nombre_e = $valor['nombre']." ".$valor['apellidos'];
-        $pedido_mem = pedido($folio,$user_session_id);
-        if($pedido_mem != "<ul class='list-unstyled mb-0'></ul>"){
-            $data[] = array("star" => $star,
-                            "foto" => foto($contar,$valor['leido']),
-                            "solicita" => $nombre_e,
-                            "pedidos" => $pedido_mem,//pedido($folio),
-                            "fecha" => $m." ".$d,
-                            "folio" => $folio,
-                            "leido" => $valor['leido']
-                            );
-            }
+        $equipo = "<span class='font-weight-bold text-teal-800'>".$valor['nombre_generico']."</span>";
+        $data[] = array("star" => "",
+                        "foto" => "",
+                        "solicita" => $equipo,
+                        "pedidos" => pedido($folio),
+                        "fecha" => "<span class='font-weight-bold'>$m $d</span>",
+                        "folio" => "",
+                        "leido" => ""
+                        );
         }
-    function pedido($folio,$user_session_id){
-        $filtro = "AND id_autoriza = ".$user_session_id;
+    function pedido($folio){
+        $filtro = "WHERE id_coordinacion = 1 AND folio = $folio";
         $suministro = new suministro();
-        $pedidos = $suministro->get_pedidos($folio,$filtro);
+        $pedidos = $suministro->get_solicitudes_($filtro);
         $lista = array();
         foreach($pedidos as $valor){
                 $cantidad = $valor['cantidad'];
                 $unidad = $valor['unidad'];
-                $destino = $valor['destino'];
+                $destino = $valor['nombre_sub_area'];
                 $articulo = $valor['articulo'];
                 $justificacion = $valor['justificacion'];
-                $status_pedido = $valor['aprobacion'];
-                array_push($lista,"<li>".t_icon_x($status_pedido)." <span class='table-inbox-subject'>($cantidad $unidad) $articulo &nbsp;-&nbsp;</span><span class='badge badge-flat border-grey text-grey-600'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span></li>");
+                array_push($lista,"<li><span class='table-inbox-subject'><span class='font-weight-bold'>$cantidad $unidad</span> $articulo &nbsp;-&nbsp;</span><span class='badge badge-flat border-teal-300 alpha-teal text-teal-800'>$destino</span> <span class='text-muted font-weight-normal'>$justificacion</span></li>");
             }
         $todos = implode("", $lista);
         return "<ul class='list-unstyled mb-0'>".$todos."</ul>";

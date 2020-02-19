@@ -255,10 +255,9 @@
                                             <table id="tabla_pedidos" class="table datatable-selection-single" cellspacing="0" width="100%">
                                                 <col width="10%">
                                                 <col width="10%">
-                                                <col width="35%">
+                                                <col width="30%">
                                                 <col width="25%">
-                                                <col width="10%">
-                                                <col width="10%">
+                                                <col width="25%">
                                                 <thead>
                                                   <tr>
                                                     <th>Clave</th> <!-- 0 -->
@@ -268,6 +267,7 @@
                                                     <th>Destino</th> <!-- 4 -->
                                                     <th>Motivo del requerimiento</th> <!-- 5 -->
                                                     <th>Fecha Requerimiento</th> <!-- 6 -->
+                                                    <th>Destino</th> <!-- 7 -->
                                                   </tr>
                                                 </thead>
                                                 <tbody></tbody>

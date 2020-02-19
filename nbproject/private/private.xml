@@ -5,11 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_5.js</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_destinoSuministro.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/detalle_factura.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_1.js</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_destinoSuministro_sub.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_insertPedido.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/inicio_nuevo.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selecFolio.php</file>
         </group>
     </open-files>
 </project-private>
