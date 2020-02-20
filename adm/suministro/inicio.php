@@ -158,23 +158,6 @@
                     <!-- Content area -->
                     <div class="content">
                     <!-- Bottom right menu -->
-                    <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="click" id="tools_menu_select" style="display: none;">
-                        <li>
-                            <button type="button" class="fab-menu-btn btn btn-success btn-float rounded-round btn-icon">
-                                <i class="fab-icon-open icon-plus3"></i>
-                                <i class="fab-icon-close icon-cross2"></i>
-                            </button>
-                            <ul class="fab-menu-inner">
-                                <li>
-                                    <div data-fab-label="Regresar">
-                                        <a class="btn btn-light rounded-round btn-icon btn-float" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
-                                            <i class="icon-undo2"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
                     <!-- Right content -->
                     <div class="flex-fill overflow-auto">
                         <!-- Single line -->
@@ -203,6 +186,165 @@
                     <!-- /right content -->
                     </div>
                     <!-- /content area -->
+                    <div id="modal_detail_solicitud" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-solicitud="">
+                        <div class="modal-dialog modal-full">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger" style=" opacity: 0;"><i class="icon-clipboard6 mr-2"></i></legend>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 text-right" readonly disabled value="De">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 text-right" readonly disabled value="Para">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <fieldset>
+                                            <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> INFORMACIÓN DE LA SOLICITUD</legend>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="solicitante" readonly>
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-man"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="puesto" readonly>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-5" style="display: none">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" readonly>
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-calendar22"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" data-idcoordinador="" id="area_aquipo" readonly>
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-clipboard5"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="sitio" readonly>
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-pin-alt"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <fieldset>
+                                            <legend class="font-weight-semibold text-danger-800"><i class="icon-clipboard6 mr-2"></i> REVISIÓN</legend>
+                                            <div class="row">
+                                                <div class="col-sm-9 form-group text-right">
+                                                    <span class="font-weight-bold">Coordinador de Operación:</span>
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <span class="badge badge-warning">Pendiente</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-9 form-group text-right">
+                                                    <span class="font-weight-bold">Planeacion de Proyectos:</span>
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <span class="badge badge-danger">Pendiente</span>
+                                                </div>
+                                            </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                            <table id="tabla_pedidos" class="table datatable-selection-single datatable-scroll-y" cellspacing="0" width="100%">
+                                                <col width="10%">
+                                                <col width="10%">
+                                                <col width="30%">
+                                                <col width="25%">
+                                                <col width="25%">
+                                                <thead>
+                                                  <tr>
+                                                    <th>Cantidad</th> <!-- 1 -->
+                                                    <th>Unidad</th> <!-- 2 -->
+                                                    <th>Articulo</th> <!-- 3 -->
+                                                    <th>Motivo del requerimiento</th> <!-- 5 -->
+                                                    <th>Destino</th> <!-- 6 -->
+                                                  </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="" title="Guardar cambios" onclick="guardarCambios()">Firmar</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="" title="Guardar cambios" onclick="guardarCambios()">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /large modal -->
+                    <div id="mod_log_acces" class="modal fade" tabindex="-1" data-firmax="">
+                        <div class="modal-dialog modal-xs">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <!-- Login form -->
+                                    <div class="text-center mb-3">
+                                        <img src="../../global_assets/images/placeholders/Imagen4.jpg" class="img-fluid" width="120" height="50">
+                                        <h5 class="mb-0">AUTENTIFICAR</h5>
+                                    </div>
+                                    <form autocomplete="off" id="log_autentic_almacenista" >
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control" autocomplete="off" placeholder="Usuario" name="usuario" id="usuario">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-user text-muted"></i>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="password" class="form-control" autocomplete="off" placeholder="Password" name="password" id="password">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-key text-muted"></i>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-danger border-0 alert-dismissible text-center" style="display: none;padding-right: 20px;" id="msj_alert">
+                                        </div>
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-link legitRipple btn-sm" data-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="log_autentic()">Aceptar</button>
+                                        </div>
+                                    </form>
+                                    <!-- /login form -->                                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /large modal -->
                     <!-- Footer -->
                     <?php include "../bar_nav/footer_navbar.php"; ?>
                     <!-- /footer -->

@@ -20,7 +20,7 @@
                         "solicita" => $equipo,
                         "pedidos" => pedido($folio),
                         "fecha" => "<span class='font-weight-bold'>$m $d</span>",
-                        "folio" => "",
+                        "folio" => $folio,
                         "leido" => ""
                         );
         }

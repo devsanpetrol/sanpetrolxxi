@@ -6,7 +6,7 @@
     $password = $_POST['password'];
     $tokenid  = $_POST['tokenid'];
 
-    $resultado = $suministro->aut_encargado_almacen($usuario, $password, $tokenid);
+    $resultado = $suministro->autentificar_firma($usuario, $password, $tokenid);
 
     if($resultado == "error_acount"){
         $datos = array(

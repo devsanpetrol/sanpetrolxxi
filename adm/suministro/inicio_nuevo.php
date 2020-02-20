@@ -122,13 +122,10 @@
                                         <li class="nav-item-header">Folders</li>
                                         <li class="nav-item">
                                             <a href="inicio.php" class="nav-link">
-                                                <i class="icon-drawer-in"></i>
-                                                Entradas
+                                                <i class="icon-folder5"></i>
+                                                Mis solicitudes
                                                 <span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado" style="display: none;">0</span>
                                             </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="inicio_send.php" class="nav-link"><i class="icon-drawer3"></i> Enviados</a>
                                         </li>
                                     </ul>
                                 </div>

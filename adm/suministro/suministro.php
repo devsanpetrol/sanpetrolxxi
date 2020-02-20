@@ -5,7 +5,7 @@ class suministro extends conect
 {     
     public function __construct() 
     {
-        parent::__construct(); 
+        parent::__construct();
     }
     public function get_almacen_categoria(){
         $sql = $this->_db->prepare('SELECT adm_articulo.id_articulo,adm_articulo.descripcion,adm_categoria_consumibles.categoria,adm_articulo.marca,adm_almacen.cod_articulo,adm_almacen.stock_min,adm_almacen.stock_max,adm_almacen.stock
@@ -19,12 +19,6 @@ class suministro extends conect
     public function get_form_sol_mat($numformat){
         $sql = $this->_db->prepare("SELECT * FROM adm_formato WHERE num_formato = '$numformat' ORDER BY num_revision DESC LIMIT 1");//nombre = :Nombre'
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_notify_almacen(){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_notify_almacen");
-        $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
@@ -135,11 +129,11 @@ class suministro extends conect
     }
     public function set_pedido($articulo, $cantidad, $unidad, $justificacion, $destino, $fecha_requerimiento, $cod_articulo, $folio){
         if($cod_articulo == ""){
-            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio)
-                                        VALUES ('$articulo', $cantidad, '$unidad', '$justificacion', '$destino', '$fecha_requerimiento', NULL, $folio)");
+            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio)
+                                        VALUES ('$articulo', $cantidad, $cantidad, '$unidad', '$justificacion', '$destino', '$fecha_requerimiento', NULL, $folio)");
         }else{
-            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio)
-                                        VALUES ('$articulo', $cantidad, '$unidad', '$justificacion', '$destino','$fecha_requerimiento', '$cod_articulo', $folio)");
+            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio)
+                                        VALUES ('$articulo', $cantidad, $cantidad,'$unidad', '$justificacion', '$destino','$fecha_requerimiento', '$cod_articulo', $folio)");
         }
         $resultado = $sql->execute();
         return $resultado;
@@ -162,52 +156,9 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    //==========================================================================
-    public function get_solicitud_aprobacion($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_salida_almacen_all $filtro ORDER BY adm_view_salida_almacen_all.status_vale ASC,adm_view_salida_almacen_all.folio_vale DESC");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_solicitud_aprobacion_entrega($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_salida_almacen_all $filtro ORDER BY adm_view_salida_almacen_all.status_vale ASC,adm_view_salida_almacen_all.folio_vale DESC");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_solicitud_aprobacion_detalle($folio){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_salida_almacen_all WHERE adm_view_salida_almacen_all.folio_vale = $folio ORDER BY adm_view_salida_almacen_all.folio_vale ASC");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_solicitud_aprobacion_detail(){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_vale_salida_aprobado_detail");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_pedidos_salida($folio,$filtro=""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_para_firma_vobo WHERE folio_vale = $folio $filtro");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
     //=====================   COMPRA   =========================================
     public function get_solicitud_pendiente_surtido($filtro = ""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_pedido_detail WHERE status_pedido = 4 " . $filtro);
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_solicitud_aprobacion_compra($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail_firma_all $filtro ORDER BY adm_view_compra_lista_detail_firma_all.aprobado ASC, adm_view_compra_lista_detail_firma_all.id_compra_lista DESC");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_solicitud_aprobacion_compra_datos_firma($id_compra_lista){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail_firma_all WHERE id_compra_lista = $id_compra_lista");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -224,12 +175,6 @@ class suministro extends conect
     function set_update_compra_no_aprovado($id_compra_lista,$visto_bueno){
         $sql2 = $this->_db->prepare("UPDATE adm_almacen_compra_lista  SET cantidad_cancelada = cantidad_comprar, aprobado = 2, fecha_revision = NOW(), visto_bueno = $visto_bueno WHERE id_compra_lista = $id_compra_lista LIMIT 1");
         return $sql2->execute();
-    }
-    public function get_solicitud_compra($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_compra_lista_detail_firma_all $filtro ORDER BY adm_view_compra_lista_detail_firma_all.aprobado ASC, adm_view_compra_lista_detail_firma_all.id_compra_lista DESC");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
     }
     //==========================================================================
     
@@ -249,37 +194,6 @@ class suministro extends conect
         $sql = $this->_db->prepare("SELECT adm_solicitud_material.folio,adm_solicitud_material.leido
                                     FROM adm_solicitud_material
                                     WHERE status_solicitud = 0 order by adm_solicitud_material.folio desc");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_partida($id_pedido){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_pedido_detail
-                                    WHERE adm_view_pedido_detail.id_pedido = $id_pedido LIMIT 1");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_partida_detail2($folio){
-        $sql1 = $this->_db->prepare("SELECT * FROM adm_view_pedido_detail
-                                    WHERE adm_view_pedido_detail.folio = $folio order by adm_view_pedido_detail.id_pedido desc");
-        $sql2 = $this->_db->prepare("UPDATE adm_solicitud_material SET adm_solicitud_material.leido = 1 WHERE adm_solicitud_material.folio = $folio LIMIT 1");
-        
-        $sql1->execute();
-        $sql2->execute();
-        $resultado = $sql1->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_partida_detail($folio_vale){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_para_firma_vobo
-                                    WHERE adm_view_para_firma_vobo.folio_vale = $folio_vale ORDER BY adm_view_para_firma_vobo.folio_vale ASC");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function detalle_folio_salida($folio_vale){//adm_view_para_firma_vobo
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_para_firma_vobo
-                                    WHERE adm_view_para_firma_vobo.folio_vale = $folio_vale");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -347,18 +261,6 @@ class suministro extends conect
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado[0]["id_empleado_resp"];
-    }
-    public function get_almacen_salida($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_salida $filtro order by folio asc");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    public function get_almacen_salida_compra($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_salida_compra $filtro order by folio asc");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
     }
     public function get_almacen($filtro = "",$limit = ""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_detail $filtro order by id_categoria asc $limit");
@@ -522,17 +424,18 @@ class suministro extends conect
         return $resultado3;
     }
     //======================================================================================================================================================================
-    public function aut_encargado_almacen($usuario, $password, $tokenid){
+    public function autentificar_firma($usuario, $password, $tokenid){
         $sql = $this->_db->prepare("SELECT id_empleado FROM adm_login WHERE adm_login.usuario = '$usuario' AND adm_login.pass = '$password' AND adm_login.estado = 1 LIMIT 1");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         if(count($resultado) > 0){
             $id_empleado = $resultado[0]["id_empleado"];
-            $sql2 = $this->_db->prepare("SELECT id_empleado, nombre, apellidos, cargo, email, result FROM adm_view_autentificar WHERE id_empleado = '$id_empleado' AND status = 1 AND clase = '$tokenid' LIMIT 1");
+            $sql2 = $this->_db->prepare("SELECT * FROM adm_view_autentificar WHERE id_empleado = '$id_empleado' AND status = 1 AND id_coordinacion = '$tokenid' LIMIT 1");
             $sql2->execute();
             $resultado2 = $sql2->fetchAll(PDO::FETCH_ASSOC);
             if(count($resultado2) > 0){
-                return $resultado2;
+                $sql3 = $this->_db->prepare("UPDATE adm_solicitud_material  SET firm_coordinacion = $id_empleado WHERE id_pedido = $id_pedido LIMIT 1");
+                return $sql3->execute();
             }else{
                 return "acount_denied";
             }
@@ -565,6 +468,10 @@ class suministro extends conect
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
+    }
+    function set_update_cantidad_solicitudDetalle($id_pedido,$cantidad,$columna){
+        $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET $columna = $cantidad WHERE id_pedido = $id_pedido LIMIT 1");
+        return $sql2->execute();
     }
     
 }
