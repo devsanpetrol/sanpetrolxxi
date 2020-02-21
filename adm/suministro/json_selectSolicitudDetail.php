@@ -21,6 +21,7 @@
                     "clave_solicita" => $solicitud[0]['clave_solicita'],
                     "id_equipo" => $solicitud[0]['id_equipo'],
                     "coordinacion" => $solicitud[0]['coordinacion'],
+                    "coordinacion_up" => ucwords(mb_strtolower($solicitud[0]['coordinacion'])),
                     "id_coordinacion" => $solicitud[0]['id_coordinacion']
                     );
     

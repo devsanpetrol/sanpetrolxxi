@@ -165,12 +165,14 @@
                             <!-- Table -->
                             <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
                                 <table class="table" id="lay_out_solicitudesx" cellspacing="0" width="100%">
-                                    <col width="30%">
-                                    <col width="50%">
+                                    <col width="25%">
                                     <col width="20%">
-                                    <thead style="display: none">
+                                    <col width="35%">
+                                    <col width="20%">
+                                    <thead>
                                         <tr>
                                             <th>Equipo</th> <!-- 4 -->
+                                            <th>Status</th> <!-- 4 -->
                                             <th>Materiales solicitados</th> <!-- 3 -->
                                             <th>Fecha</th> <!-- 2 -->
                                         </tr>
@@ -191,132 +193,115 @@
                             <div class="modal-content">
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-sm-1">
-                                            <fieldset>
-                                                <legend class="font-weight-semibold text-danger" style=" opacity: 0;"><i class="icon-clipboard6 mr-2"></i></legend>
+                                        <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 text-right" readonly disabled value="De">
+                                                    <fieldset>
+                                                    <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> INFORMACIÓN DE LA SOLICITUD</legend>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                                                <input type="text" class="form-control font-weight-semibold text-blue-800" id="solicitante" readonly>
+                                                                <div class="form-control-feedback form-control-feedback-sm">
+                                                                    <i class="icon-man"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                                                <input type="text" class="form-control font-weight-semibold text-blue-800" id="puesto" readonly>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-5" style="display: none">
+                                                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                                                <input type="text" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" readonly>
+                                                                <div class="form-control-feedback form-control-feedback-sm">
+                                                                    <i class="icon-calendar22"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                                                <input type="text" class="form-control font-weight-semibold text-blue-800" data-idcoordinador="" id="area_aquipo" readonly>
+                                                                <div class="form-control-feedback form-control-feedback-sm">
+                                                                    <i class="icon-clipboard5"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                                                <input type="text" class="form-control font-weight-semibold text-blue-800" id="sitio" readonly>
+                                                                <div class="form-control-feedback form-control-feedback-sm">
+                                                                    <i class="icon-pin-alt"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 text-right" readonly disabled value="Para">
+                                                    <div class="table-responsive">
+                                                        <table id="tabla_pedidos" class="table datatable-scroll-y tabla-reslta-row-hover" cellspacing="0" width="100%">
+                                                            <col width="5%">
+                                                            <col width="35%">
+                                                            <col width="35%">
+                                                            <col width="25%">
+                                                            <thead>
+                                                              <tr>
+                                                                <th>Cantidad</th> <!-- 0 -->
+                                                                <th>Articulo</th> <!-- 1 -->
+                                                                <th>Motivo del requerimiento</th> <!-- 2 -->
+                                                                <th>Equipo</th> <!-- 3 -->
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            </fieldset>
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <fieldset>
-                                            <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> INFORMACIÓN DE LA SOLICITUD</legend>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="solicitante" readonly>
-                                                        <div class="form-control-feedback form-control-feedback-sm">
-                                                            <i class="icon-man"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="puesto" readonly>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-5" style="display: none">
-                                                    <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" readonly>
-                                                        <div class="form-control-feedback form-control-feedback-sm">
-                                                            <i class="icon-calendar22"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" data-idcoordinador="" id="area_aquipo" readonly>
-                                                        <div class="form-control-feedback form-control-feedback-sm">
-                                                            <i class="icon-clipboard5"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="sitio" readonly>
-                                                        <div class="form-control-feedback form-control-feedback-sm">
-                                                            <i class="icon-pin-alt"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <fieldset>
-                                            <legend class="font-weight-semibold text-danger-800"><i class="icon-clipboard6 mr-2"></i> REVISIÓN</legend>
-                                            <div class="row">
-                                                <div class="col-sm-9 form-group text-right">
-                                                    <span class="font-weight-bold">Coordinador de Operación:</span>
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <span class="badge" id="firm_coordinacion"></span> <!--<span class="badge badge-danger" id="firm_coordinacion">Pendiente</span>-->
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-9 form-group text-right">
-                                                    <span class="font-weight-bold">Planeacion de Proyectos:</span>
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <span class="badge" id="firm_planeacion"></span>
-                                                </div>
-                                            </div>
-                                            </fieldset>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <div class="table-responsive">
-                                                <table id="tabla_pedidos" class="table datatable-selection-single datatable-scroll-y tabla-reslta-row-hover" cellspacing="0" width="100%">
-                                                    <col width="5%">
-                                                    <col width="5%">
-                                                    <col width="35%">
-                                                    <col width="30%">
-                                                    <col width="25%">
-                                                    <thead>
-                                                      <tr>
-                                                        <th>Cantidad</th> <!-- 1 -->
-                                                        <th>Unidad</th> <!-- 2 -->
-                                                        <th>Articulo</th> <!-- 3 -->
-                                                        <th>Motivo del requerimiento</th> <!-- 5 -->
-                                                        <th>Destino</th> <!-- 6 -->
-                                                      </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <table id="tabla_pedidos_comentario" class="table datatable-selection-single datatable-scroll-y table-xs table-borderless" cellspacing="0" width="100%">
-                                                <col width="100%">
-                                                <thead>
-                                                  <tr>
-                                                    <th>Comentarios</th> <!-- 1 -->
-                                                  </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
+                                        <div class="col-sm-3">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table id="tabla_pedidos_comentario" class="table datatable-selection-single datatable-scroll-y table-xs table-borderless" cellspacing="0" width="100%">
+                                                        <col width="100%">
+                                                        <thead style="display: none">
+                                                          <tr>
+                                                            <th>Comentarios</th> <!-- 1 -->
+                                                          </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="" title="Guardar cambios" onclick="guardarCambios()">Guardar</button>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                                <div class="col-sm-3 form-group text-right">
+                                                    <span class="font-weight-bold" id="name_coordinacion"></span>
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <span class="badge" id="firm_coordinacion"></span> <!--<span class="badge badge-danger" id="firm_coordinacion">Pendiente</span>-->
+                                                </div>
+                                                <div class="col-sm-3 form-group text-right">
+                                                    <span class="font-weight-bold">Planeacion de Proyectos:</span>
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <span class="badge" id="firm_planeacion"></span>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

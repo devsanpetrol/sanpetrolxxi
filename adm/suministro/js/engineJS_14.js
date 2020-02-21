@@ -42,7 +42,7 @@ $(document).ready( function () {
         serverSide: true,
         dom: '<"datatable-scroll-wrap"t>',
         ajax: {
-            url: "json_selectSolicitudBandeja.php",
+            url: "json_selectSolicitudBandeja_coordTest.php",
             data:{user_session_id:user_session_id},
             type: 'POST',
             dataSrc:function ( json ) {
@@ -74,6 +74,7 @@ $(document).ready( function () {
 
     $('#lay_out_solicitudesx tbody').on('click', 'tr', function () {
         var folio = this.id;
+        $('#tabla_pedidos').data("folio",folio);
         openModalSolicitudDetail(folio);
         return false;
     } );
@@ -171,20 +172,38 @@ function getSolicitudDetail_pedido(folio){
         },
         success: function (obj) {
             $.each(obj, function (index, value) {
-                t.row.add( [
-                    value.cantidad + " " + value.unidad,
+                t.row.add([
+                    value.cantidad_coord,
+                    value.unidad,
                     value.articulo,
                     value.justificacion,
                     value.nombre_sub_area
-                ] ).node().id = value.id_pedido;
+                ]).node().id = value.id_pedido;
                 t.draw( false );
             });
         },
         error: function (obj) {
+            
         },
         complete: (function () {
-           $(".input-cantidad-coord").attr('disabled', true); 
+           //$(".input-cantidad-coord").attr('disabled', true); 
         })
+    });
+}
+function guardarCambios(){
+    $('.input-cantidad-coord').each( function () {
+        var cantidad = $(this).val();
+        var idpedido = $(this).data("idpedido");
+        guarda_cantidad_coord(idpedido,cantidad);
+    });
+    var folio = $('#tabla_pedidos').data("folio",folio);
+    $('#lay_out_solicitudesx').DataTable().ajax.reload ();
+    getSolicitudDetail_pedido(folio);
+}
+function guarda_cantidad_coord(id_pedido,cantidad){
+    var columna = "cantidad_coord";
+    $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:columna }).done(function( data ) {
+        console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
     });
 }
 function firma_almacen(firmax){

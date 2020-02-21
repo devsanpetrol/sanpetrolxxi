@@ -26,7 +26,7 @@
                     );
     }
     function cantidad($id_pedido, $cantidad){
-        return "<input type='text' class='font-weight-semibold text-blue-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cantidad'>";
+        return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cantidad'>";
     }
     function unidad($unidad){
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-700'>$unidad</h6>";

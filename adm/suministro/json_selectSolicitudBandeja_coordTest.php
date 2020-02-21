@@ -3,7 +3,7 @@
     
     $suministro = new suministro();
     $user_session_id = $_POST["user_session_id"];
-    $categorias = $suministro->get_solicitudes_("WHERE clave_solicita = $user_session_id GROUP BY id_equipo");//SELECT * FROM adm_view_solicitud $filtro
+    $categorias = $suministro->get_solicitudes_("WHERE id_coordinacion = 1 GROUP BY id_equipo");//SELECT * FROM adm_view_solicitud $filtro
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -30,7 +30,7 @@
         $pedidos = $suministro->get_solicitudes_($filtro);
         $lista = array();
         foreach($pedidos as $valor){
-                $cantidad = $valor['cantidad'];
+                $cantidad = $valor['cantidad_coord'];
                 $unidad = $valor['unidad'];
                 $destino = $valor['nombre_sub_area'];
                 $articulo = $valor['articulo'];
@@ -40,19 +40,7 @@
         $todos = implode("", $lista);
         return "<ul class='list-unstyled mb-0'>".$todos."</ul>";
     }
-    function pedido_count($folio,$user_session_id){
-        $filtro = "AND autoriza = ".$user_session_id;
-        $suministro = new suministro();
-        $pedidos = $suministro->get_pedidos_count($folio,$filtro);
-        return $pedidos[0]['c'];
-    }
-    function foto($contar, $leido){
-        if($leido == 0){
-            return "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/userlogin.jpg' class='rounded-circle' width='32' height='32' alt=''><span class='badge badge-danger badge-pill badge-float'>$contar</span></a>";
-        }else{
-            return "<a href='#' class='position-relative'><img src='../../global_assets/images/placeholders/userlogin.jpg' class='rounded-circle' width='32' height='32' alt=''><span class='badge bg-slate-300 badge-pill badge-float'>$contar</span></a>";
-        }
-    }
+    
     function t_icon_x($st){
        $status = array(
             "<i class='mi-adjust font-size-xl font-weight-bold text-primary-700 mr-2' title='Nuevo'></i>",//NO revisado

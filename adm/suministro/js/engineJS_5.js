@@ -313,7 +313,7 @@ function guardaPedido(cod_articulo,cantidad,unidad,articulo,destino,justificacio
             });
         },
         error: function(data){
-          alert('error');
+          console.log('error'+data);
         }
     });
 }
