@@ -473,5 +473,11 @@ class suministro extends conect
         $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET $columna = $cantidad WHERE id_pedido = $id_pedido LIMIT 1");
         return $sql2->execute();
     }
+    public function get_comentarioPedido($id_pedido){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_comentario_pedido WHERE id_pedido = $id_pedido");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     
 }

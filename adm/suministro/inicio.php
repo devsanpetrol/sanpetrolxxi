@@ -265,7 +265,7 @@
                                                     <span class="font-weight-bold">Coordinador de Operación:</span>
                                                 </div>
                                                 <div class="col-sm-3 form-group">
-                                                    <span class="badge badge-warning">Pendiente</span>
+                                                    <span class="badge" id="firm_coordinacion"></span> <!--<span class="badge badge-danger" id="firm_coordinacion">Pendiente</span>-->
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -273,27 +273,40 @@
                                                     <span class="font-weight-bold">Planeacion de Proyectos:</span>
                                                 </div>
                                                 <div class="col-sm-3 form-group">
-                                                    <span class="badge badge-danger">Pendiente</span>
+                                                    <span class="badge" id="firm_planeacion"></span>
                                                 </div>
                                             </div>
                                             </fieldset>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="table-responsive">
-                                            <table id="tabla_pedidos" class="table datatable-selection-single datatable-scroll-y" cellspacing="0" width="100%">
-                                                <col width="10%">
-                                                <col width="10%">
-                                                <col width="30%">
-                                                <col width="25%">
-                                                <col width="25%">
+                                        <div class="col-sm-8">
+                                            <div class="table-responsive">
+                                                <table id="tabla_pedidos" class="table datatable-selection-single datatable-scroll-y tabla-reslta-row-hover" cellspacing="0" width="100%">
+                                                    <col width="5%">
+                                                    <col width="5%">
+                                                    <col width="35%">
+                                                    <col width="30%">
+                                                    <col width="25%">
+                                                    <thead>
+                                                      <tr>
+                                                        <th>Cantidad</th> <!-- 1 -->
+                                                        <th>Unidad</th> <!-- 2 -->
+                                                        <th>Articulo</th> <!-- 3 -->
+                                                        <th>Motivo del requerimiento</th> <!-- 5 -->
+                                                        <th>Destino</th> <!-- 6 -->
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <table id="tabla_pedidos_comentario" class="table datatable-selection-single datatable-scroll-y table-xs table-borderless" cellspacing="0" width="100%">
+                                                <col width="100%">
                                                 <thead>
                                                   <tr>
-                                                    <th>Cantidad</th> <!-- 1 -->
-                                                    <th>Unidad</th> <!-- 2 -->
-                                                    <th>Articulo</th> <!-- 3 -->
-                                                    <th>Motivo del requerimiento</th> <!-- 5 -->
-                                                    <th>Destino</th> <!-- 6 -->
+                                                    <th>Comentarios</th> <!-- 1 -->
                                                   </tr>
                                                 </thead>
                                                 <tbody></tbody>
@@ -303,7 +316,6 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="" title="Guardar cambios" onclick="guardarCambios()">Firmar</button>
                                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="" title="Guardar cambios" onclick="guardarCambios()">Guardar</button>
                                 </div>
                             </div>

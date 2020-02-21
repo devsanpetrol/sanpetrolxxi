@@ -5,6 +5,7 @@ $(document).ready( function () {
         searching: false,
         ordering: false,
         bDestroy: true,
+        info: false,        
         createdRow: function ( row, data, index ){
             $(row).addClass('pointer font-weight-semibold text-grey');
         },
@@ -14,6 +15,22 @@ $(document).ready( function () {
         ],
         language: {
             zeroRecords: "Ningun elemento agregado"
+        }
+    });
+    $('#tabla_pedidos_comentario').DataTable({
+        paging: false,
+        searching: false,
+        ordering: false,
+        bDestroy: true,
+        info: false,
+        createdRow: function ( row, data, index ){
+            $(row).addClass('pointer font-weight-semibold text-grey');
+        },
+        columnDefs: [
+            
+        ],
+        language: {
+            zeroRecords: "No hay comentarios para mostrar"
         }
     });
     
@@ -71,31 +88,28 @@ $(document).ready( function () {
         table.row('.selected').remove().draw( false );
         $("#btn_del_row_sel").slideUp();
     } );
-    
-    $('#btn_send_pedido').on('click', function () {});
-    
-    $('#buscar_en_tabla_layoutx').on( 'change paste keyup', function () {
-        var table = $('#lay_out_solicitudesx').DataTable();
-        table
-            .search( this.value )
-            .draw();
-    });
-    
-} );
-function  no_read_inbox(){
-    $.post('json_count_no_read_inbox.php',function(res){
-        var count = parseInt(res.noread), badge = $(".nuevas-entradas-inbox");
-        if(count >= 100){
-            badge.text("99+").removeClass("bg-success").addClass("bg-danger");
-            badge.show();
-        }else if(count > 0 && count < 100){
-            badge.text(count).removeClass("bg-danger").addClass("bg-success");
-            badge.show();            
-        }else{
-            badge.hide();
+    $('#tabla_pedidos tbody').on( 'click', 'tr', function () {
+        var table = $('#tabla_pedidos').DataTable();
+        var table_coment = $('#tabla_pedidos_comentario').DataTable();
+        var filas = table.rows().count();
+        table_coment.clear().draw();
+        if (filas > 0){
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                get_comentario($(this).attr("id"));
+            }
         }
-    });
-}
+    } );
+    $('#btn_del_row_sel').click( function () {
+        var table = $('#tabla_pedidos').DataTable();
+        var id_pedido = table.row('.selected').id();
+        console.log(id_pedido);
+    } );
+} );
 function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
 }
@@ -105,52 +119,6 @@ function mybind(event){
     if (!regex.test(key)) {
         event.preventDefault();
         return false;
-    }
-}
-function set_list_resp(id_empleado,nombre,apellidos){
-    var apellidos_ = apellidos.replace(/ /g, "");
-    $('.'+apellidos_+id_empleado).remove();
-    $('#flex ul').append(
-        $('<li>').addClass(apellidos_+id_empleado).append("<button type='button' class='btn btn-success btn-sm' ><i class='fa fa-user'></i> "+nombre+" "+apellidos+" <i class='fa fa-check-circle-o'></i></button>")
-    );
-}
-function save_cantidad(id_pedido){
-    var cantidad = $("#cantidad_"+id_pedido).val();
-    $.ajax({
-        data:{id_pedido:id_pedido,cantidad:cantidad},
-        url: 'json_update_cantidad.php',
-        type: 'POST',
-        beforeSend: function (xhr){
-            console.log("Actualizando...");
-        },
-        success: function (obj) {
-            if(obj[0]["result"] == "exito"){
-                console.log("Información actualizada");
-            }else{
-                console.log("Ocurrio un error durante la operación!");
-            }
-        },
-        error: function (obj) {
-            console.log(obj.msg);
-        }
-    });
-}
-function edita_cantidad(id_pedido){
-    $("#guarda_cantidad"+id_pedido).toggle();
-    $("#cantidad_"+id_pedido).toggle();
-}
-function countNoRead(){
-    var count = $(".unread").length;
-    var badge = $("#total_pedidos_mostrado");
-    badge.hide();
-    if(count >= 100){
-        badge.text("99+").removeClass("bg-success").addClass("bg-danger");
-        badge.show();
-        console.log("count >= 100");
-    }else if(count > 0 && count < 100){
-        badge.text(count).removeClass("bg-danger").addClass("bg-success");
-        badge.show();
-        console.log("count > 0 || count < 100");
     }
 }
 function openModalSolicitudDetail(folio){
@@ -176,6 +144,16 @@ function getSolicitudDetail(folio){
             $("#area_aquipo").val(obj[0]["nombre_generico"]);
             $("#sitio").val(obj[0]["sitio_operacion"]);
             $("#modal_detail_solicitud").data("solicitud", obj[0]["sitio_operacion"]);
+            if(obj[0]["firm_coordinacion"] == 0){
+                $("#firm_coordinacion").addClass("badge-danger").text("Pendiente");
+            }else{
+                $("#firm_coordinacion").addClass("badge-success").text("Revisado");
+            }
+            if(obj[0]["firm_planeacion"] == 0){
+                $("#firm_planeacion").addClass("badge-danger").text("Pendiente");
+            }else{
+                $("#firm_planeacion").addClass("badge-success").text("Revisado");
+            }
         },
         error: function (obj) {
             console.log(obj.msg);
@@ -199,13 +177,14 @@ function getSolicitudDetail_pedido(folio){
                     value.articulo,
                     value.justificacion,
                     value.nombre_sub_area
-                ] ).draw( false );
+                ] ).node().id = value.id_pedido;
+                t.draw( false );
             });
         },
         error: function (obj) {
         },
         complete: (function () {
-           
+           $(".input-cantidad-coord").attr('disabled', true); 
         })
     });
 }
@@ -256,6 +235,16 @@ function guarda_cantidad_coord(id_pedido,cantidad){
     var columna = "cantidad_coord";
     $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad_coord:cantidad, columna:columna }).done(function( data ) {
         console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna);
+    });
+}
+function get_comentario(id_pedido){
+    var t = $('#tabla_pedidos_comentario').DataTable();
+    $.post( "json_getComentarioPedido.php",{ id_pedido:id_pedido}).done(function( data ) {
+        $.each(data, function (index, value) {
+            t.row.add( [
+                value.comentario
+            ] ).draw( false );
+        });
     });
 }
 
