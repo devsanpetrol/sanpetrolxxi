@@ -287,18 +287,18 @@
                                 <div class="modal-footer">
                                     <div class="col-sm-8">
                                         <div class="row">
-                                                <div class="col-sm-3 form-group text-right">
-                                                    <span class="font-weight-bold" id="name_coordinacion"></span>
-                                                </div>
-                                                <div class="col-sm-1 form-group">
-                                                    <span class="badge" id="firm_coordinacion"></span> <!--<span class="badge badge-danger" id="firm_coordinacion">Pendiente</span>-->
-                                                </div>
-                                                <div class="col-sm-3 form-group text-right">
-                                                    <span class="font-weight-bold">Planeacion de Proyectos:</span>
-                                                </div>
-                                                <div class="col-sm-1 form-group">
-                                                    <span class="badge" id="firm_planeacion"></span>
-                                                </div>
+                                            <div class="col-sm-3 form-group text-right">
+                                                <span class="font-weight-bold" id="name_coordinacion"></span>
+                                            </div>
+                                            <div class="col-sm-1 form-group">
+                                                <span class="btn btn-sm badge" id="firm_coordinacion"></span> <!--<span class="badge badge-danger" id="firm_coordinacion">Pendiente</span>-->
+                                            </div>
+                                            <div class="col-sm-3 form-group text-right">
+                                                <span class="font-weight-bold">Planeacion de Proyectos:</span>
+                                            </div>
+                                            <div class="col-sm-1 form-group">
+                                                <span class="btn btn-sm badge" id="firm_planeacion"></span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 text-right">

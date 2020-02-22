@@ -143,10 +143,10 @@ function getSolicitudDetail(folio){
             $("#fecha_actual").val(obj[0]["fecha"]);
             $("#area_aquipo").val(obj[0]["nombre_generico"]);
             $("#sitio").val(obj[0]["sitio_operacion"]);
-            $("#name_coordinacion").html(obj[0]["coordinacion_up"]);
+            $("#name_coordinacion").html(obj[0]["coordinacion_up"]+":");
             $("#modal_detail_solicitud").data("solicitud", obj[0]["sitio_operacion"]);
             if(obj[0]["firm_coordinacion"] == 0){
-                $("#firm_coordinacion").removeClass("badge-success").addClass("badge-danger").text("Pendiente");
+                $("#firm_coordinacion").removeClass("badge-success").addClass("badge-danger border-primary-300 alpha-primary text-primary-800").text("Firmar");
             }else{
                 $("#firm_coordinacion").removeClass("badge-danger").addClass("badge-success").text("Revisado");
             }

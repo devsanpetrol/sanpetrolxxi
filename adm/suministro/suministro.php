@@ -479,5 +479,4 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    
 }
