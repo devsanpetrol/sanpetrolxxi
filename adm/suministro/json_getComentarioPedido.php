@@ -28,7 +28,7 @@
         
         return "<li class='media media-chat-item-reverse'><div class='media-body'>
                     <div class='media-chat-item font-size-sm'>$comentario</div>
-                    <div class='font-size-xs text-muted mt-2'>$coordinacion - $d $m $g:$i $a<i class='icon-bubble-dots4 ml-2 text-muted'></i></div>
+                    <div class='font-size-xs text-muted mt-2'>$coordinacion - $d $m $g:$i $a<i class='mi-schedule ml-2 text-muted'></i></div>
                 </div></div>";
     }
     header('Content-Type: application/json');

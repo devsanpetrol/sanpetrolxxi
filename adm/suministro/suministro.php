@@ -430,12 +430,11 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         if(count($resultado) > 0){
             $id_empleado = $resultado[0]["id_empleado"];
-            $sql2 = $this->_db->prepare("SELECT * FROM adm_view_autentificar WHERE id_empleado = '$id_empleado' AND status = 1 AND id_coordinacion = '$tokenid' LIMIT 1");
+            $sql2 = $this->_db->prepare("SELECT * ,'aprobado' as result FROM adm_view_autentificar WHERE id_empleado = '$id_empleado' AND status = 1 AND id_coordinacion = '$tokenid' LIMIT 1");
             $sql2->execute();
             $resultado2 = $sql2->fetchAll(PDO::FETCH_ASSOC);
             if(count($resultado2) > 0){
-                $sql3 = $this->_db->prepare("UPDATE adm_solicitud_material  SET firm_coordinacion = $id_empleado WHERE id_pedido = $id_pedido LIMIT 1");
-                return $sql3->execute();
+                return $resultado2;
             }else{
                 return "acount_denied";
             }
@@ -471,6 +470,10 @@ class suministro extends conect
     }
     function set_update_cantidad_solicitudDetalle($id_pedido,$cantidad,$columna){
         $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET $columna = $cantidad WHERE id_pedido = $id_pedido LIMIT 1");
+        return $sql2->execute();
+    }
+    function set_update_firma($firm,$folio,$columna_firm, $columna_fecha){
+        $sql2 = $this->_db->prepare("UPDATE adm_solicitud_material SET $columna_firm = $firm, $columna_fecha = NOW() WHERE folio = $folio LIMIT 1");
         return $sql2->execute();
     }
     public function get_comentarioPedido($id_pedido){

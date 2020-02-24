@@ -159,40 +159,9 @@
                     <div class="content">
                     <!-- Bottom right menu -->
                     <!-- Right content -->
-                    <div class="flex-fill overflow-auto">
-                        <!-- Single line -->
-                        <div class="card" id="tabla_visor_solicitudes">
-                            <!-- Table -->
-                            <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
-                                <table class="table" id="lay_out_solicitudesx" cellspacing="0" width="100%">
-                                    <col width="25%">
-                                    <col width="20%">
-                                    <col width="35%">
-                                    <col width="20%">
-                                    <thead>
-                                        <tr>
-                                            <th>Equipo</th> <!-- 4 -->
-                                            <th>Status</th> <!-- 4 -->
-                                            <th>Materiales solicitados</th> <!-- 3 -->
-                                            <th>Fecha</th> <!-- 2 -->
-                                        </tr>
-                                    </thead>
-                                    <tbody data-link="row" class="rowlink">
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /table -->
-                        </div>
-                        <!-- /single line -->
-                    </div>
-                    <!-- /right content -->
-                    </div>
-                    <!-- /content area -->
-                    <div id="modal_detail_solicitud" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-solicitud="">
-                        <div class="modal-dialog modal-full">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="row">
+                    <div class="card" id="modal_detail_solicitud" style="display: none;">
+                            <div class="card-body">
+                                <div class="row">
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-sm-12">
@@ -268,7 +237,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
-                                            <div class="row">
+                                            <div class="row" style="height: 90%;">
                                                 <div class="col-sm-12">
                                                     <table id="tabla_pedidos_comentario" class="table datatable-selection-single datatable-scroll-y table-xs table-borderless" cellspacing="0" width="100%">
                                                         <col width="100%">
@@ -281,36 +250,65 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                            <div class="modal-footer">
+                                                <input type="text" class="form-control font-weight-semibold text-danger-800" onkeyup="mayus(this);">
+                                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple"><i class="icon-bubble-dots4 ml-2"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-4 form-group text-right">
+                                            <span class="font-weight-bold" id="name_coordinacion"></span>
+                                        </div>
+                                        <div class="col-sm-2 form-group">
+                                            <span class="btn btn-sm badge" id="firm_coordinacion"  data-idempleado="" data-nuevafirma="" onclick="firma_solicitud()"></span> <!--<span class="badge badge-danger" id="firm_coordinacion">Pendiente</span>-->
+                                        </div>
+                                        <div class="col-sm-4 form-group text-right">
+                                            <span class="font-weight-bold">Planeacion de Proyectos:</span>
+                                        </div>
+                                        <div class="col-sm-2 form-group">
+                                            <span class="btn btn-sm badge" id="firm_planeacion" data-idempleado=""></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-3 form-group text-right">
-                                                <span class="font-weight-bold" id="name_coordinacion"></span>
-                                            </div>
-                                            <div class="col-sm-1 form-group">
-                                                <span class="btn btn-sm badge" id="firm_coordinacion"></span> <!--<span class="badge badge-danger" id="firm_coordinacion">Pendiente</span>-->
-                                            </div>
-                                            <div class="col-sm-3 form-group text-right">
-                                                <span class="font-weight-bold">Planeacion de Proyectos:</span>
-                                            </div>
-                                            <div class="col-sm-1 form-group">
-                                                <span class="btn btn-sm badge" id="firm_planeacion"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 text-right">
-                                        <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guardarCambios()" title="Salir del formulario">Guardar</button>
-                                        <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
-                                    </div>
+                                <div class="col-sm-4 text-right">
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guardarCambios()" title="Salir del formulario" id="guarda_cambios_solicitud">Guardar</button>
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
                                 </div>
                             </div>
                         </div>
+                        <!-- Single line -->
+                        <div class="card" id="tabla_visor_solicitudes">
+                            <!-- Table -->
+                            <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
+                                <table class="table" id="lay_out_solicitudesx" cellspacing="0" width="100%">
+                                    <col width="25%">
+                                    <col width="20%">
+                                    <col width="35%">
+                                    <col width="20%">
+                                    <thead>
+                                        <tr>
+                                            <th>Equipo</th> <!-- 4 -->
+                                            <th>Status</th> <!-- 4 -->
+                                            <th>Materiales solicitados</th> <!-- 3 -->
+                                            <th>Fecha</th> <!-- 2 -->
+                                        </tr>
+                                    </thead>
+                                    <tbody data-link="row" class="rowlink">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /table -->
+                        </div>
+                        <!-- /single line -->
+                    <!-- /right content -->
                     </div>
+                    <!-- /content area -->
                     <!-- /large modal -->
-                    <div id="mod_log_acces" class="modal fade" tabindex="-1" data-firmax="">
+                    <div id="mod_log_acces" class="modal fade" tabindex="-1" data-firmax="1" style="display: none;">
                         <div class="modal-dialog modal-xs">
                             <div class="modal-content">
                                 <div class="modal-body">
@@ -319,7 +317,7 @@
                                         <img src="../../global_assets/images/placeholders/Imagen4.jpg" class="img-fluid" width="120" height="50">
                                         <h5 class="mb-0">AUTENTIFICAR</h5>
                                     </div>
-                                    <form autocomplete="off" id="log_autentic_almacenista" >
+                                    <form autocomplete="off" id="form_log_autentic">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                             <input type="text" class="form-control" autocomplete="off" placeholder="Usuario" name="usuario" id="usuario">
                                             <div class="form-control-feedback">

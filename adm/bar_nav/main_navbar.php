@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="navbar-nav-link sidebar-control sidebar-secondary-toggle d-none d-md-block">
+                <a href="#" class="navbar-nav-link sidebar-control sidebar-secondary-toggle d-none d-md-block" id="expand_menu_lateral">
                     <i class="icon-transmission"></i>
                 </a>
             </li>
