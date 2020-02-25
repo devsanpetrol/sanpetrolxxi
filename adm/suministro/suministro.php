@@ -248,12 +248,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    public function set_comentario($id_pedido,$comentario){
-        $sql1 = $this->_db->prepare("UPDATE adm_pedido SET adm_pedido.comentario = '$comentario' WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
-        $sql2 = $this->_db->prepare("SELECT adm_pedido.comentario FROM adm_pedido WHERE adm_pedido.id_pedido = $id_pedido LIMIT 1");
+    public function set_comentario($comentario,$id_pedido,$id_empleado){
+        $sql1 = $this->_db->prepare("UPDATE adm_pedido SET last_comentario = '$comentario', count_comentario = (count_comentario + 1) WHERE id_pedido = $id_pedido LIMIT 1");
+        $sql2 = $this->_db->prepare("INSERT INTO adm_pedido_comentario (comentario, id_pedido, id_empleado, fecha_hora) VALUES ('$comentario',$id_pedido,$id_empleado,NOW()) LIMIT 1");
         $sql1->execute();
         $sql2->execute();
-        $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
+        $resultado = $sql1;
         return $resultado;
     }
     public function get_responsable_categoria($id_categoria){

@@ -3,14 +3,17 @@
     $suministro = new suministro();
     $data = array();
     
-    $id_pedido  = $_POST['id_pedido'];
     $comentario = $_POST['comentario'];
+    $id_pedido  = $_POST['id_pedido'];
+    $id_empleado= $_POST['id_empleado'];
     
-    $pedido  = $suministro->set_comentario($id_pedido,$comentario);
+    $pedido  = $suministro->set_comentario($comentario,$id_pedido,$id_empleado);
     
-    foreach ($pedido as $valor){
-        $data[] = array("comentario" => $valor["comentario"]);
+    if ($pedido){
+        $data = array("result" => "ok");
+    }else{
+        $data = array("result" => "error");
     }
     
     header('Content-Type: application/json');
-    echo json_encode($data);
+    echo json_encode($data, JSON_FORCE_OBJECT);

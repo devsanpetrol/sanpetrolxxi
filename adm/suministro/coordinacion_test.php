@@ -251,8 +251,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <input type="text" class="form-control font-weight-semibold text-danger-800" onkeyup="mayus(this);">
-                                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple"><i class="icon-bubble-dots4 ml-2"></i></button>
+                                                <input type="text" class="form-control font-weight-semibold text-danger-800" onkeyup="mayus(this);" maxlength="140" id="text_comentario" data-idpedido="">
+                                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon rounded-round" onclick="send_comentario()"><i class="icon-bubble-dots4"></i></button>
                                             </div>
                                         </div>
                                     </div>

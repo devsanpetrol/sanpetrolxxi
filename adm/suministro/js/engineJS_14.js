@@ -92,6 +92,7 @@ $(document).ready( function () {
         var table_coment = $('#tabla_pedidos_comentario').DataTable();
         var filas = table.rows().count();
         table_coment.clear().draw();
+        $("#text_comentario").attr("disabled",true);
         if (filas > 0){
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
@@ -100,6 +101,8 @@ $(document).ready( function () {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
                 get_comentario($(this).attr("id"));
+                $("#text_comentario").attr("disabled",false);
+                $("#text_comentario").data("idpedido",$(this).attr("id"));
             }
         }
     } );
@@ -123,8 +126,8 @@ function mybind(event){
 function openModalSolicitudDetail(folio){
     getSolicitudDetail(folio);
     getSolicitudDetail_pedido(folio);
-    $("#modal_detail_solicitud").toggle(200);
-    $("#tabla_visor_solicitudes").toggle(200);
+    $("#modal_detail_solicitud").toggle(400);
+    $("#tabla_visor_solicitudes").toggle(400);
     $("#expand_menu_lateral").click();
 }
 function closeModalSolicitudDetail(){
@@ -132,8 +135,8 @@ function closeModalSolicitudDetail(){
     var table_coment = $('#tabla_pedidos_comentario').DataTable();
         table_coment.clear().draw();
         table_pedido.clear().draw();
-    $("#modal_detail_solicitud").toggle(200);
-    $("#tabla_visor_solicitudes").toggle(200);
+    $("#modal_detail_solicitud").toggle(400);
+    $("#tabla_visor_solicitudes").toggle(400);
     $("#expand_menu_lateral").click();
 }
 function guardarCambios(){
@@ -295,6 +298,25 @@ function set_firma_coord(){
                     .addClass('badge-success')
                     .data('nuevafirma','')
                     .text('Revisado');
+            }
+        });
+    }
+}
+function send_comentario(){
+    var txt_comt = $("#text_comentario");
+    var comentario = txt_comt.val();
+    if(comentario != ""){
+        var id_pedido = txt_comt.data("idpedido");
+        var id_empleado = $('#user_session_id').data("employeid");
+        var tabla = $('#tabla_pedidos_comentario').DataTable();
+
+        $.post('json_insertComentario.php',{comentario:comentario,id_empleado:id_empleado,id_pedido:id_pedido}).done(function( data ) {
+            if(data.result = "ok"){
+                tabla.clear().draw();
+                txt_comt.val("");
+                get_comentario(id_pedido);
+            }else{
+                alert("Error al guardar comentario");
             }
         });
     }
