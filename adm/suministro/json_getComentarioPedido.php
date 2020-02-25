@@ -3,33 +3,41 @@
     
     $suministro = new suministro();
     $id_pedido = $_POST['id_pedido'];
+    $id_empleado = $_POST['id_empleado'];
+    
     $comentarios = $suministro->get_comentarioPedido($id_pedido);
     $data = array();
     
     foreach ($comentarios as $valor) {
         $data[] = array(
-            "id_pedido_comentario"=>$valor['id_pedido_comentario'],
-            "id_pedido"=>$valor['id_pedido'],
-            "comentario"=>comentario($valor['comentario'],$valor['fecha_hora'],ucwords(mb_strtolower($valor['coordinacion']))),
-            "fecha_hora"=>$valor['fecha_hora'],
-            "id_empleado"=>$valor['id_empleado'],
-            "coordinacion"=>$valor['coordinacion'],
-            "nombre"=>$valor['nombre'],
-            "apellidos"=>$valor['apellidos']
-            );
+            "comentario"=>comentario($valor['comentario'],$valor['fecha_hora'],$valor['coordinacion'],$valor['id_empleado'],$id_empleado),
+        );
     }
-    function comentario($comentario,$fecha_hora,$coordinacion){
-        $date = new DateTime($fecha_hora);
-        $d = $date->format('d');
-        $m = $date->format('M');
-        $g = $date->format('g');
-        $a = $date->format('a');
-        $i = $date->format('i');
+    function comentario($comentario,$fecha_hora,$coord,$id_empleado_b,$id_empleado){
+        $f = new DateTime($fecha_hora);
+        $d = $f->format('d'); $m = $f->format('M'); $g = $f->format('g'); $a = $f->format('a'); $i = $f->format('i');
+        $coordinacion = ucwords(mb_strtolower($coord));
         
-        return "<li class='media media-chat-item-reverse'><div class='media-body'>
-                    <div class='media-chat-item font-size-sm'>$comentario</div>
-                    <div class='font-size-xs text-muted mt-2'>$coordinacion - $d $m $g:$i $a<i class='mi-schedule ml-2 text-muted'></i></div>
-                </div></div>";
+        
+        if($id_empleado == $id_empleado_b){
+            $chat = "<li class='media media-chat-item-reverse'>
+                    <div class='media-body'>
+                        <div class='media-chat-item'>$comentario</div>
+                        <div class='font-size-xs text-muted mt-2'>$coordinacion - $d $m $g:$i $a</div>
+                    </div>
+                    <div class='ml-3'></div>
+                </li>";
+        }else{
+            $chat = "<li class='media'>
+                        <div class='mr-3'></div>
+                        <div class='media-body'>
+                            <div class='media-chat-item'>$comentario</div>
+                            <div class='font-size-xs text-muted mt-2'>$coordinacion - $d $m $g:$i $a</div>
+                        </div>
+                    </li>";
+        }
+        
+        return $chat;
     }
     header('Content-Type: application/json');
     echo json_encode($data);

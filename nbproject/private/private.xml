@@ -6,6 +6,9 @@
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/coordinacion_test.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_14.js</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_getComentarioPedido.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectSolicitudDetail_pedidos.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_update_firma_coord.php</file>
         </group>
     </open-files>
 </project-private>

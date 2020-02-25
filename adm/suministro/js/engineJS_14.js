@@ -16,25 +16,6 @@ $(document).ready( function () {
             zeroRecords: "Ningun elemento agregado"
         }
     });
-    $('#tabla_pedidos_comentario').DataTable({
-        scrollY:        '60vh',
-        scrollY:        '60vh',
-        scrollCollapse: true,
-        paging: false,
-        searching: false,
-        ordering: false,
-        bDestroy: true,
-        info: false,
-        createdRow: function ( row, data, index ){
-            $(row).addClass('pointer font-weight-semibold text-grey');
-        },
-        columnDefs: [
-            
-        ],
-        language: {
-            zeroRecords: "No hay comentarios para mostrar"
-        }
-    });
     
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
@@ -89,9 +70,8 @@ $(document).ready( function () {
     } );
     $('#tabla_pedidos tbody').on( 'click', 'tr', function () {
         var table = $('#tabla_pedidos').DataTable();
-        var table_coment = $('#tabla_pedidos_comentario').DataTable();
         var filas = table.rows().count();
-        table_coment.clear().draw();
+        $("#conent_coment_area").find('li').remove();
         $("#text_comentario").attr("disabled",true);
         if (filas > 0){
             if ($(this).hasClass('selected')) {
@@ -127,15 +107,15 @@ function openModalSolicitudDetail(folio){
     getSolicitudDetail(folio);
     getSolicitudDetail_pedido(folio);
     $("#modal_detail_solicitud").toggle(400);
+    $("#modal_detail_solicitud_2").toggle(400);
     $("#tabla_visor_solicitudes").toggle(400);
     $("#expand_menu_lateral").click();
 }
 function closeModalSolicitudDetail(){
     var table_pedido = $('#tabla_pedidos').DataTable();
-    var table_coment = $('#tabla_pedidos_comentario').DataTable();
-        table_coment.clear().draw();
         table_pedido.clear().draw();
     $("#modal_detail_solicitud").toggle(400);
+    $("#modal_detail_solicitud_2").toggle(400);
     $("#tabla_visor_solicitudes").toggle(400);
     $("#expand_menu_lateral").click();
 }
@@ -163,8 +143,7 @@ function getSolicitudDetail(folio){
             $("#solicitante").val(data.nombre_solicitante);
             $("#puesto").val(data.puesto_solicitante);
             $("#fecha_actual").val(data.fecha);
-            $("#area_aquipo").val(data.nombre_generico);
-            $("#sitio").val(data.sitio_operacion);
+            $("#equipo_sitio").html(data.nombre_generico + " - Sitio: " + data.sitio_operacion);
             $("#name_coordinacion").html(data.coordinacion_up + ":");
             if(data.firm_coordinacion == 0){
                 $("#firm_coordinacion")
@@ -273,16 +252,6 @@ function firma_solicitud(){
             .addClass("badge-success")
             .text("Revisado");
  }
-function get_comentario(id_pedido){
-    var t = $('#tabla_pedidos_comentario').DataTable();
-    $.post( "json_getComentarioPedido.php",{ id_pedido:id_pedido}).done(function( data ) {
-        $.each(data, function (index, value) {
-            t.row.add([
-                value.comentario
-            ]).draw( false );
-        });
-    });
-}
 function set_firma_coord(){
     if($('#firm_coordinacion').data('nuevafirma') == 'new'){
         var firma       = $('#firm_coordinacion').data('idempleado');
@@ -302,17 +271,24 @@ function set_firma_coord(){
         });
     }
 }
+function get_comentario(id_pedido){
+    $ ("#conent_coment_area").find('li').remove();
+    var id_empleado = $('#user_session_id').data("employeid");
+    $.post( "json_getComentarioPedido.php",{ id_pedido:id_pedido,id_empleado:id_empleado}).done(function( data ) {
+        $.each(data, function (index, value) {
+            $("#conent_coment_area").append(value.comentario);
+        });
+    });
+}
 function send_comentario(){
     var txt_comt = $("#text_comentario");
     var comentario = txt_comt.val();
     if(comentario != ""){
         var id_pedido = txt_comt.data("idpedido");
         var id_empleado = $('#user_session_id').data("employeid");
-        var tabla = $('#tabla_pedidos_comentario').DataTable();
 
         $.post('json_insertComentario.php',{comentario:comentario,id_empleado:id_empleado,id_pedido:id_pedido}).done(function( data ) {
             if(data.result = "ok"){
-                tabla.clear().draw();
                 txt_comt.val("");
                 get_comentario(id_pedido);
             }else{
