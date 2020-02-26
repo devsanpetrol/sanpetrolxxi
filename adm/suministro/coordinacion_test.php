@@ -160,7 +160,7 @@
                     <!-- Bottom right menu -->
                     <!-- Right content -->
                     <div class="row">
-                        <div class="col-sm-8" id="modal_detail_solicitud" style="display: none;">
+                        <div class="col-sm-12" id="modal_detail_solicitud" style="display: none;">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -170,22 +170,6 @@
                                                         <fieldset>
                                                         <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> INFORMACIÓN DE LA SOLICITUD</legend>
                                                         <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                                    <input type="text" class="form-control font-weight-semibold text-blue-800" id="solicitante" readonly>
-                                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                                        <i class="icon-man"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                                    <input type="text" class="form-control font-weight-semibold text-blue-800" id="puesto" readonly>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
                                                             <div class="col-sm-5" style="display: none">
                                                                 <div class="form-group form-group-feedback form-group-feedback-left">
                                                                     <input type="text" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" readonly>
@@ -194,27 +178,13 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                                    <input type="text" class="form-control font-weight-semibold text-blue-800" data-idcoordinador="" id="area_aquipo" readonly>
-                                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                                        <i class="icon-clipboard5"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                                    <input type="text" class="form-control font-weight-semibold text-blue-800" id="sitio" readonly>
-                                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                                        <i class="icon-pin-alt"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6 form-group text-right">
-                                                                <span class="font-weight-bold">Equipo / Sitio</span>
+                                                            <div class="col-sm-6 form-group">
+                                                                <span class="font-weight-bold font-size-lg">Solicitante: </span>
+                                                                <span class="font-weight-bold font-size-lg text-blue-800" id="solicitante"></span>
                                                             </div>
                                                             <div class="col-sm-6 form-group">
-                                                                <span class="btn btn-sm badge" id="equipo_sitio"></span>
+                                                                <span class="font-weight-bold font-size-lg">Equipo / Sitio: </span>
+                                                                <span class="font-weight-bold font-size-lg text-blue-800" id="area_aquipo" data-idcoordinador=""></span>
                                                             </div>
                                                         </div>
                                                     </fieldset>
@@ -274,7 +244,7 @@
                         <!-- Single line -->
                         <div class="col-sm-4" id="modal_detail_solicitud_2" style="display: none;">
                             <div class="card">
-                                <div class="card-body" style="overflow-y: scroll; height:500px;">
+                                <div class="card-body" id="scrollxy" style="overflow-y: scroll; height:500px;">
                                     <ul class="media-list media-chat mb-3" id="conent_coment_area">
                                     </ul>
                                 </div>

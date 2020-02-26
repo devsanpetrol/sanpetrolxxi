@@ -21,12 +21,12 @@
         
         if($id_empleado == $id_empleado_b){
             $chat = "<li class='media media-chat-item-reverse'>
-                    <div class='media-body'>
-                        <div class='media-chat-item'>$comentario</div>
-                        <div class='font-size-xs text-muted mt-2'>$coordinacion - $d $m $g:$i $a</div>
-                    </div>
-                    <div class='ml-3'></div>
-                </li>";
+                        <div class='media-body'>
+                            <div class='media-chat-item'>$comentario</div>
+                            <div class='font-size-xs text-muted mt-2'>$d $m $g:$i $a</div>
+                        </div>
+                        <div class='ml-3'></div>
+                    </li>";
         }else{
             $chat = "<li class='media'>
                         <div class='mr-3'></div>
