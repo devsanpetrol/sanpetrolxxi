@@ -157,7 +157,7 @@ function agregar_pedido(){
     if(valida_pedido()){
         if(valida_campos(0)){
             var t = $('#tabla_pedidos').DataTable();
-            var data = $('your-original-element').select2('data')
+            var data = $('your-original-element').select2('data');
             t.row.add([
                 $('#cod_articulo').val(),
                 $('#cantidad').val(),
@@ -233,7 +233,7 @@ function valida_campos(x){
 function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
 }
-function  fecha_actual(){
+function fecha_actual(){
     $.post('json_now.php',function(res){
         $('#fecha_actual').val(res.fecha_actual);
         $('#folioxx').slideDown();

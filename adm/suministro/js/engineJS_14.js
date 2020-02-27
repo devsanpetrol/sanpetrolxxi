@@ -71,10 +71,7 @@ $(document).ready( function () {
     $('#tabla_pedidos tbody').on( 'click', 'tr', function () {
         var table = $('#tabla_pedidos').DataTable();
         var filas = table.rows().count();
-        $("#conent_coment_area").find('li').remove();
-        $("#modal_detail_solicitud").addClass("col-sm-12").removeClass("col-sm-8");
-        $("#modal_detail_solicitud_2").hide();
-        $("#text_comentario").attr("disabled",true);
+        
         if (filas > 0){
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
@@ -82,12 +79,7 @@ $(document).ready( function () {
             else{
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                get_comentario($(this).attr("id"));
-                $("#modal_detail_solicitud").toggleClass("col-sm-12 col-sm-8");
-                $("#modal_detail_solicitud_2").show();
-                $("#text_comentario").attr("disabled",false);
                 $("#text_comentario").data("idpedido",$(this).attr("id"));
-                $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 1000);
             }
         }
     } );
@@ -117,9 +109,11 @@ function openModalSolicitudDetail(folio){
 }
 function closeModalSolicitudDetail(){
     var table_pedido = $('#tabla_pedidos').DataTable();
-        table_pedido.clear().draw();
+    table_pedido.column(4).visible(true);
+    table_pedido.clear().draw();
+    
     $("#modal_detail_solicitud").toggle(400);
-    $("#modal_detail_solicitud_2").slideUp();
+    $("#modal_detail_solicitud_2").hide();
     $("#modal_detail_solicitud").addClass("col-sm-12").removeClass("col-sm-8");
     $("#tabla_visor_solicitudes").toggle(400);
     $("#expand_menu_lateral").click();
@@ -147,7 +141,7 @@ function getSolicitudDetail(folio){
             var data = obj[0];
             $("#solicitante").html(data.nombre_solicitante + " ("+ data.puesto_solicitante + ")");
             $("#area_aquipo").html(data.nombre_generico + ", " + data.sitio_operacion);
-            $("#fecha_actual").val(data.fecha);
+            $("#fecha_actual").html(data.fecha);
             $("#name_coordinacion").html(data.coordinacion_up + ":");
             if(data.firm_coordinacion == 0){
                 $("#firm_coordinacion")
@@ -197,7 +191,7 @@ function getSolicitudDetail_pedido(folio){
                     value.unidad,
                     value.articulo,
                     value.justificacion,
-                    value.nombre_sub_area
+                    value.comentarios
                 ]).node().id = value.id_pedido;
                 t.draw( false );
             });
@@ -282,19 +276,20 @@ function get_comentario(id_pedido){
         $.each(data, function (index, value) {
             $("#conent_coment_area").append(value.comentario);
         });
+        $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 300);
     });
-    $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 1000);
 }
 function send_comentario(){
     var txt_comt = $("#text_comentario");
     var comentario = txt_comt.val();
+    
     if(comentario != ""){
         var id_pedido = txt_comt.data("idpedido");
         var id_empleado = $('#user_session_id').data("employeid");
         var msj = "<li class='media media-chat-item-reverse'>\
                         <div class='media-body'>\
                             <div class='media-chat-item'>"+comentario+"</div>\
-                            <div class='font-size-xs text-muted mt-2'>Ahora</div>\
+                            <div class='font-size-xs mt-2' style='color:blue;'>Ahora</div>\
                         </div>\
                         <div class='ml-3'></div>\
                     </li>";
@@ -302,12 +297,26 @@ function send_comentario(){
             if(data.result = "ok"){
                 txt_comt.val("");
                 $("#conent_coment_area").append(msj).show('slow');
-                //get_comentario(id_pedido);
-                $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 1000);
+                $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 300);
             }else{
                 alert("Error al guardar comentario");
             }
         });
     }
+}
+function openCardComent(id_pedido){
+    var tbl = $('#tabla_pedidos');
+    
+    get_comentario(id_pedido);
+    $("#modal_detail_solicitud").toggleClass("col-sm-12 col-sm-8");
+    tbl.DataTable().column(4).visible(false);
+    $("#modal_detail_solicitud_2").show();
+    $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 300);
+}
+function closeCardComent(){
+    var tbl = $('#tabla_pedidos');
+    tbl.DataTable().column(4).visible(true);
+    $("#modal_detail_solicitud_2").hide();
+    $("#modal_detail_solicitud").toggleClass("col-sm-8 col-sm-12");
 }
 

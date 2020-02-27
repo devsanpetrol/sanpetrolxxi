@@ -9,10 +9,10 @@
     foreach ($pedidos as $valor){
         $id_pedido = $valor["id_pedido"];
         $data[] = array("id_pedido" => $id_pedido,
-                        "articulo" => $valor["articulo"],
+                        "articulo" => articulo($valor["articulo"]),
                         "cantidad" => $valor["cantidad"],
-                        "unidad" => $valor["unidad"],
-                        "justificacion" => $valor["justificacion"],
+                        "unidad" => unidad($valor["unidad"]),
+                        "justificacion" => detalle($valor["justificacion"],$valor["nombre_sub_area"]),
                         "destino" => $valor["destino"],
                         "status_pedido" => $valor["status_pedido"],
                         "fecha_requerimiento" => $valor["fecha_requerimiento"],
@@ -21,7 +21,9 @@
                         "cantidad_surtido" => $valor["cantidad_surtido"],
                         "cantidad_pendiente" => $valor["cantidad_pendiente"],
                         "cod_articulo" => $valor["cod_articulo"],
-                        "nombre_sub_area" => $valor["nombre_sub_area"],
+                        "comentarios" => comentario($valor["last_comentario"],$valor["count_comentario"],$id_pedido),
+                        "last_comentario" => $valor["last_comentario"],
+                        "count_comentario" => $valor["count_comentario"],
                         "id_sub_area" => $valor["id_sub_area"]
                     );
     }
@@ -29,16 +31,50 @@
         return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cantidad'>";
     }
     function unidad($unidad){
-        return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-700'>$unidad</h6>";
+        return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$unidad</h6>";
     }
     function destino($destino){
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-700'>$destino</h6>";
     }
     function articulo($articulo){
-        return "<h6 class='mb-0 font-size-sm font-weight-bold text-blue-800'>$articulo</h6>";
+        return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$articulo</h6>";
     }
     function justificacion($justificacion){
         return "<h6 class='mb-0 font-size-sm text-slate-700'>$justificacion</h6>";
+    }
+    function detalle($justificacion,$destino){
+        return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$destino </h6>
+                <span class='d-block font-size-sm text-blue-800'>$justificacion</span>";
+    }
+    function comentario($comentario,$count,$id_pedido){
+        $count2 = $count-1;
+        
+        if(!empty($comentario)){
+            if($count > 1){
+                $result =  "<blockquote class='blockquote d-flex py-2 mb-0'>
+                            <div class='mr-auto'>
+                                <p class='mb-1 font-size-sm'>$comentario.</p>
+                                <footer class=' font-size-sm text-right text-blue-800' onclick='openCardComent($id_pedido)'><cite title='Source Title'>Ver todos los comentarios...</cite></footer>
+                            </div>
+                            <div class='ml-2 align-self-start'>
+                                <i class='icon-comment-discussion icon-2x text-muted opacity-25'></i>
+                            </div>
+                        </blockquote>";
+            }else{
+               $result= "<blockquote class='blockquote d-flex py-2 mb-0'>
+                            <div class='mr-auto'>
+                                <p class='mb-1 font-size-sm'>$comentario.</p>
+                            </div>
+                            <div class='ml-2 align-self-start'>
+                                <i class='icon-comment-discussion icon-2x text-muted opacity-25'></i>
+                            </div>
+                        </blockquote>";
+            }
+            
+        }else{
+            $result =  "";
+        }
+        return $result;
     }
     function autorizacion($id_pedido,$cod_articulo,$cantidad_comprar,$id_compra_lista,$aprobado,$cantidad_cancelado){
         if( $aprobado == 1 ){

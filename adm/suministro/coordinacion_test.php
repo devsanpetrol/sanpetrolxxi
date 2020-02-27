@@ -122,9 +122,9 @@
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Folders</li>
                                         <li class="nav-item">
-                                            <a href="inicio.php" class="nav-link active">
+                                            <a href="coordinacion_test.php" class="nav-link active">
                                                 <i class="icon-folder-open2"></i>
-                                                Mis solicitudes
+                                                Solicitudes
                                                 <span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado">0</span>
                                             </a>
                                         </li>
@@ -170,21 +170,15 @@
                                                         <fieldset>
                                                         <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> INFORMACIÓN DE LA SOLICITUD</legend>
                                                         <div class="row">
-                                                            <div class="col-sm-5" style="display: none">
-                                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                                    <input type="text" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" readonly>
-                                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                                        <i class="icon-calendar22"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                             <div class="col-sm-6 form-group">
                                                                 <span class="font-weight-bold font-size-lg">Solicitante: </span>
-                                                                <span class="font-weight-bold font-size-lg text-blue-800" id="solicitante"></span>
+                                                                <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="solicitante"></span>
+                                                                <span class="font-weight-bold font-size-lg ml-3">Fecha: </span>
+                                                                <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="fecha_actual"></span>
                                                             </div>
                                                             <div class="col-sm-6 form-group">
                                                                 <span class="font-weight-bold font-size-lg">Equipo / Sitio: </span>
-                                                                <span class="font-weight-bold font-size-lg text-blue-800" id="area_aquipo" data-idcoordinador=""></span>
+                                                                <span class="font-weight-bold font-size-lg ml-1 text-danger-800" id="area_aquipo" data-idcoordinador=""></span>
                                                             </div>
                                                         </div>
                                                     </fieldset>
@@ -195,17 +189,17 @@
                                                         <div class="table-responsive">
                                                             <table id="tabla_pedidos" class="table datatable-scroll-y tabla-reslta-row-hover" cellspacing="0" width="100%" data-folio="">
                                                                 <col width="5%">
-                                                                <col width="5%">
+                                                                <col width="3%">
                                                                 <col width="35%">
-                                                                <col width="30%">
+                                                                <col width="32%">
                                                                 <col width="25%">
                                                                 <thead>
                                                                   <tr>
                                                                     <th>Cantidad</th> <!-- 0 -->
-                                                                    <th>Unidad</th> <!-- 1 -->
+                                                                    <th></th> <!-- 1 -->
                                                                     <th>Articulo</th> <!-- 2 -->
                                                                     <th>Motivo del requerimiento</th> <!-- 3 -->
-                                                                    <th>Equipo</th> <!-- 4 -->
+                                                                    <th>Comentarios</th> <!-- 4 -->
                                                                   </tr>
                                                                 </thead>
                                                                 <tbody></tbody>
@@ -244,6 +238,14 @@
                         <!-- Single line -->
                         <div class="col-sm-4" id="modal_detail_solicitud_2" style="display: none;">
                             <div class="card">
+                                <div class="card-header header-elements-inline bg-white">
+                                    <h6 class="card-title">Comentarios</h6>
+                                    <div class="header-elements">
+                                        <div class="list-icons">
+                                            <a class="list-icons-item" onclick="closeCardComent()"><i class="icon-cross2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="card-body" id="scrollxy" style="overflow-y: scroll; height:500px;">
                                     <ul class="media-list media-chat mb-3" id="conent_coment_area">
                                     </ul>
@@ -265,7 +267,7 @@
                             <div class="card" id="tabla_visor_solicitudes">
                                 <!-- Table -->
                                 <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
-                                    <table class="table" id="lay_out_solicitudesx" cellspacing="0" width="100%">
+                                    <table class="table table-xs compact display " id="lay_out_solicitudesx" cellspacing="0" width="100%">
                                         <col width="25%">
                                         <col width="20%">
                                         <col width="35%">

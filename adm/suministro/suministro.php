@@ -477,7 +477,7 @@ class suministro extends conect
         return $sql2->execute();
     }
     public function get_comentarioPedido($id_pedido){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_comentario_pedido WHERE id_pedido = $id_pedido");
+        $sql = $this->_db->prepare("SELECT *, NOW() as ahora FROM adm_view_comentario_pedido WHERE id_pedido = $id_pedido");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
