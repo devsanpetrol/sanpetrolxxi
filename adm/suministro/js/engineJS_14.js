@@ -1,5 +1,24 @@
 $(document).ready( function () {
     var user_session_id = $('#user_session_id').data("employeid");
+    $('.form-control-select2').select2();
+    $('.pickadate-accessibility').pickadate({
+        format: 'dddd, dd mmmm, yyyy',
+        formatSubmit: 'yyyy-mm-dd',
+        hiddenPrefix: 'prefix__',
+        hiddenSuffix: '__suffix',
+        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+        labelMonthNext: 'Ir al siguiente mes',
+        labelMonthPrev: 'Ir al mes anterior',
+        labelMonthSelect: 'Pick a month from the dropdown',
+        labelYearSelect: 'Pick a year from the dropdown',
+        selectMonths: true,
+        selectYears: true
+        /*onStart: function() {
+            var date = new Date();
+            this.set('select', date.getFullYear(), date.getMonth(), date.getDate() );
+        }*/
+    });
     $('#tabla_pedidos').DataTable({
         paging: false,
         searching: false,
@@ -55,10 +74,46 @@ $(document).ready( function () {
             zeroRecords: "Ningun elemento seleccionado"
         }
     });
-
+    $('#select_article').select2({
+        dropdownParent: $('#modal_large'),
+        ajax:{
+            url: 'json_selectArticle.php',
+            type: 'post',
+            dataType: 'json',
+            delay: 1000,
+            cache: true,
+            data: function (params) {
+             return { searchTerm: params.term };
+            },
+            processResults: function (response) {
+                return { results: response };
+            }
+        }
+    });
+    $( '#select_article' ).change(function () {
+       var searchTerm = $( '#select_article' ).val();
+        $.ajax({
+            url: 'json_pedido.php',
+            data:{searchTerm:searchTerm},
+            type: 'POST',
+            success:(function(res){
+                $('#cod_articulo').val(res.cod_articulo);
+                $('#descripcion').val(res.descripcion);
+                $('#unidad').val(res.tipo_unidad).trigger('change');
+            })
+        });
+        if(isNaN($('#select_article').val())){
+            $('#descripcion').prop('readonly', true);
+            $('#unidad').prop('disabled', true);
+        }else{
+            $('#descripcion').prop('readonly', false);
+            $('#unidad').prop('disabled', false);
+        }
+    });
     $('#lay_out_solicitudesx tbody').on('click', 'tr', function () {
         var folio = this.id;
         $('#tabla_pedidos').data("folio",folio);
+        $('#modal_large').data("folio",folio);
         openModalSolicitudDetail(folio);
         return false;
     } );
@@ -80,6 +135,7 @@ $(document).ready( function () {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
                 $("#text_comentario").data("idpedido",$(this).attr("id"));
+                get_sub_area_equipo($(this).attr("id"));
             }
         }
     } );
@@ -111,7 +167,7 @@ function closeModalSolicitudDetail(){
     var table_pedido = $('#tabla_pedidos').DataTable();
     table_pedido.column(4).visible(true);
     table_pedido.clear().draw();
-    
+    $('#sub_area_aquipo').empty().trigger("change");
     $("#modal_detail_solicitud").toggle(400);
     $("#modal_detail_solicitud_2").hide();
     $("#modal_detail_solicitud").addClass("col-sm-12").removeClass("col-sm-8");
@@ -143,6 +199,7 @@ function getSolicitudDetail(folio){
             $("#area_aquipo").html(data.nombre_generico + ", " + data.sitio_operacion);
             $("#fecha_actual").html(data.fecha);
             $("#name_coordinacion").html(data.coordinacion_up + ":");
+            $("#modal_large").data("idequipo",data.id_equipo);
             if(data.firm_coordinacion == 0){
                 $("#firm_coordinacion")
                     .removeClass("badge-success badge-danger")
@@ -195,9 +252,6 @@ function getSolicitudDetail_pedido(folio){
                 ]).node().id = value.id_pedido;
                 t.draw( false );
             });
-        },
-        error: function (obj) {
-            
         },
         complete: (function () {
             if( $("#firm_coordinacion").data("idempleado") > 0 ){
@@ -314,9 +368,109 @@ function openCardComent(id_pedido){
     $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 300);
 }
 function closeCardComent(){
+    var folio = $("#modal_large").data("folio"); ////ULTIMO AGREGADO, REVISAR NO GUARDA COMENTARIO
+    getSolicitudDetail_pedido(folio); ////ULTIMO AGREGADO, REVISAR NO GUARDA COMENTARIO
     var tbl = $('#tabla_pedidos');
     tbl.DataTable().column(4).visible(true);
     $("#modal_detail_solicitud_2").hide();
     $("#modal_detail_solicitud").toggleClass("col-sm-8 col-sm-12");
 }
-
+function get_sub_area_equipo(id_equipo){
+    $.ajax({
+    type: "POST",
+    url: 'json_destinoSuministro_sub.php',
+    data:{ id_equipo:id_equipo },
+    dataType: "json",
+    success: function(data){
+        $.each(data,function(key, registro) {
+            $("#sub_area_aquipo").append("<option value='"+registro.id_sub_area+"'>"+registro.nombre_sub_area+"</option>");
+        });
+    },
+    error: function(data){
+      alert('error');
+    }
+  });
+}
+function guardaPedido(cod_articulo,cantidad,unidad,articulo,destino,justificacion,fecha_requerimiento,folio){
+    $.ajax({
+        data:{cod_articulo:cod_articulo,cantidad:cantidad,unidad:unidad,articulo:articulo,justificacion:justificacion, destino:destino, fecha_requerimiento:fecha_requerimiento, folio:folio},
+        type: 'post',
+        url: 'json_insertPedido.php',
+        dataType: 'json',
+        success: function(data){
+            if(data[0]["result"] == "exito"){
+                 getSolicitudDetail_pedido(folio);
+            }else{
+                alert(data.result);
+            }
+            $('#modal_large').modal('hide');
+            resetModalPedido();
+        },
+        error: function(data){
+          console.log('error'+data);
+        }
+    });
+}
+function resetModalPedido(){
+    $('#unidad').prop('selectedIndex',0).trigger('change');
+    $('#cod_articulo').val('');
+    $('#descripcion').val('');
+    $('#cantidad').val('0');
+    $('#justificacion').val('');
+    $('#modal_large').modal('hide');
+}
+function valida_campos(){
+    var total_error = 0;
+    
+    if ($('#descripcion').val() == ""){
+        total_error++;
+    }else{
+        console.log("#descripcion error "+total_error);
+    }
+    //-----------------------------------------------------
+    if ($('#cantidad').val() == "0"){
+        total_error++;
+    }else{
+        console.log("#cantidad error"+total_error);
+    }
+    //-----------------------------------------------------
+    if ($('#area_aquipo').val() == null){
+        total_error++;
+    }else{
+        console.log("#area_aquipo error"+total_error);
+    }
+    //-----------------------------------------------------
+    if ($('#justificacion').val() == ""){
+        total_error++;
+    }else{
+        console.log("#justificacion error"+total_error);
+    }
+    //-----------------------------------------------------
+    if(total_error == 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+function openModelAddPedido(){
+    var id_equipo = $("#modal_large").data("idequipo");
+    get_sub_area_equipo(id_equipo);
+    $('#modal_large').modal('show');
+}
+function savePedidoModal(){
+    var folio = $("#modal_large").data("folio");
+    var codigo = $('#cod_articulo').val();
+    var cantidad = $('#cantidad').val();
+    var unidad = $('#unidad').val();
+    var articulo = $('#descripcion').val();
+    var destino = $('#sub_area_aquipo').val();
+    var justificacion = $('#justificacion').val();
+    var fecha_requerimiento = $("input[name='prefix____suffix']").val();
+    
+    if(valida_campos()){
+        guardaPedido(codigo,cantidad,unidad,articulo,destino,justificacion,fecha_requerimiento,folio);
+    }else{
+        alert("Debe ingresasr todos los datos al formulario.");
+    }
+    
+}

@@ -171,14 +171,48 @@
                                                         <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> INFORMACIÓN DE LA SOLICITUD</legend>
                                                         <div class="row">
                                                             <div class="col-sm-6 form-group">
-                                                                <span class="font-weight-bold font-size-lg">Solicitante: </span>
-                                                                <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="solicitante"></span>
-                                                                <span class="font-weight-bold font-size-lg ml-3">Fecha: </span>
-                                                                <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="fecha_actual"></span>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12 form-group">
+                                                                            <span class="font-weight-bold font-size-lg">Solicitante: </span>
+                                                                            <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="solicitante"></span>
+                                                                            <span class="font-weight-bold font-size-lg ml-3">Fecha: </span>
+                                                                            <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="fecha_actual"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        </br>
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12 form-group">
+                                                                            <span class="font-weight-bold font-size-lg">Equipo / Sitio: </span>
+                                                                            <span class="font-weight-bold font-size-lg ml-1 text-danger-800" id="area_aquipo" data-idcoordinador=""></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="col-sm-6 form-group">
-                                                                <span class="font-weight-bold font-size-lg">Equipo / Sitio: </span>
-                                                                <span class="font-weight-bold font-size-lg ml-1 text-danger-800" id="area_aquipo" data-idcoordinador=""></span>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4 form-group">
+                                                                                <span class="font-weight-bold font-size-lg" id="name_coordinacion"></span>
+                                                                            </div>
+                                                                            <div class="col-sm-8 form-group">
+                                                                                <span class="btn btn-sm badge" id="firm_coordinacion"  data-idempleado="" data-nuevafirma="" onclick="firma_solicitud()"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        </br>
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4 form-group">
+                                                                                <span class="font-weight-bold font-size-lg">Planeacion de Proyectos:</span>
+                                                                            </div>
+                                                                            <div class="col-sm-4 form-group">
+                                                                                <span class="btn btn-sm badge" id="firm_planeacion" data-idempleado=""></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </fieldset>
@@ -203,6 +237,11 @@
                                                                   </tr>
                                                                 </thead>
                                                                 <tbody></tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <th colspan="5"><button type="button" class="btn btn-outline bg-success text-success btn-icon ml-2 rounded-round legitRipple" onclick="openModelAddPedido()" title="Agregar item"><i class='icon-plus-circle2'></i> Agregar</button></th> <!-- 0 -->
+                                                                    </tr>
+                                                                </tfoot>
                                                             </table>
                                                         </div>
                                                     </div>
@@ -213,20 +252,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-4 form-group text-right">
-                                                <span class="font-weight-bold" id="name_coordinacion"></span>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <span class="btn btn-sm badge" id="firm_coordinacion"  data-idempleado="" data-nuevafirma="" onclick="firma_solicitud()"></span> <!--<span class="badge badge-danger" id="firm_coordinacion">Pendiente</span>-->
-                                            </div>
-                                            <div class="col-sm-4 form-group text-right">
-                                                <span class="font-weight-bold">Planeacion de Proyectos:</span>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <span class="btn btn-sm badge" id="firm_planeacion" data-idempleado=""></span>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                     <div class="col-sm-4 text-right">
                                         <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guardarCambios()" title="Salir del formulario" id="guarda_cambios_solicitud">Guardar</button>
@@ -325,6 +351,99 @@
                         </div>
                     </div>
                     <!-- /large modal -->
+                    <!-- Area modal -->
+                    <div id="modal_large" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-idequipo="" data-folio="">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <form id="add_articulo">
+                                        <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="form-group form-group-feedback form-group-feedback-right">
+                                                        <select data-placeholder="Buscar articulo en catálogo de Almacen..." class="form-control select-minimum" data-fouc name='articulo_cod' id="select_article">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control text-blue-800 text-center" id="cod_articulo" readonly placeholder="Codigo articulo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                                  <div class="form-group form-group-feedback form-group-feedback-left">
+                                                      <input type="text" class="form-control text-blue-800 pickadate-accessibility" id="fecharequerimiento" placeholder="Fecha de Requerimiento">
+                                                      <div class="form-control-feedback form-control-feedback-sm">
+                                                          <i class="icon-calendar22"></i>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="number" class="form-control text-danger-800 text-center font-weight-bold" step="1" value="1" min="0" id="cantidad" value="0" required="true" title="Cantidad a solicitar">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <select data-placeholder="Unidad" name="select" class="form-control form-control-select2 text-right select" id="unidad">
+                                                        <option></option>
+                                                        <option value="pza">Pieza</option>
+                                                        <option value="kgr">Kilogramo</option>
+                                                        <option value="mtr">Metro</option>
+                                                        <option value="pqt">Paquete</option>
+                                                        <option value="cja">Caja</option>
+                                                        <option value="ltr">Litro</option>
+                                                        <option value="lte">Lote</option>
+                                                        <option value="kit">Kit</option>
+                                                        <option value="par">Par</option> 
+                                                    </select>
+                                                </div>
+                                            </div>
+                                          </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="text" class="form-control text-blue-800" id="descripcion" required="true" placeholder="Descripción del articulo" onkeyup="mayus(this);">
+                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                        <i class="icon-file-text"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <select data-placeholder="Area / Equipo" class="form-control form-control-select2 border-danger text-right" name='area_aquipo' id="sub_area_aquipo" data-fouc>
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">    
+                                            <div class="col-md-12">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="text" class="form-control text-blue-800" id="justificacion" required="true" onkeyup="mayus(this);" placeholder="Motivo del requerimiento">
+                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                        <i class="icon-help"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="resetModal()" title="Limpiar formulario"><i class="icon-eraser2"></i></button>
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="resetModalPedido()" title="Limpiar formulario">Salir</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="savePedidoModal()" title="Agregar">Agregar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer -->
                     <!-- Footer -->
                     <?php include "../bar_nav/footer_navbar.php"; ?>
                     <!-- /footer -->
