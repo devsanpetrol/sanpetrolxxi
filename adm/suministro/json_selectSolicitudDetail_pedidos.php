@@ -51,17 +51,17 @@
         
         if(!empty($comentario)){
             if($count > 1){
-                $result =  "<blockquote class='blockquote d-flex py-2 mb-0'>
+                $result =  "<blockquote class='blockquote d-flex mb-0 text-right'>
                             <div class='mr-auto'>
-                                <p class='mb-1 font-size-sm'>$comentario.</p>
-                                <footer class=' font-size-sm text-right text-blue-800' onclick='openCardComent($id_pedido)'><cite title='Source Title'>Ver todos los comentarios...</cite></footer>
+                                <p class='mb-1 font-size-sm text-primary-800'>$comentario.</p>
+                                
                             </div>
                             <div class='ml-2 align-self-start'>
-                                <i class='icon-comment-discussion icon-2x text-muted opacity-25'></i>
+                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple'><i class='icon-comment-discussion' onclick='openCardComent($id_pedido)'></i></button>
                             </div>
                         </blockquote>";
             }else{
-               $result= "<blockquote class='blockquote d-flex py-2 mb-0'>
+               $result= "<blockquote class='blockquote d-flex mb-0 text-right'>
                             <div class='mr-auto'>
                                 <p class='mb-1 font-size-sm'>$comentario.</p>
                             </div>

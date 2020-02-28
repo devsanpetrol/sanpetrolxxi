@@ -239,7 +239,7 @@
                         <div class="col-sm-4" id="modal_detail_solicitud_2" style="display: none;">
                             <div class="card">
                                 <div class="card-header header-elements-inline bg-white">
-                                    <h6 class="card-title">Comentarios</h6>
+                                    <h6 class="card-title"><i class="icon-comment-discussion mr-2 icon-2x text-danger-800"></i> Comentarios</h6>
                                     <div class="header-elements">
                                         <div class="list-icons">
                                             <a class="list-icons-item" onclick="closeCardComent()"><i class="icon-cross2"></i></a>
