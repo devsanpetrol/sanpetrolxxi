@@ -50,20 +50,14 @@
         $count2 = $count-1;
         
         if(!empty($comentario)){
-            if($count > 1){
-                $count = $count - 1;
-                if(($count - 1) > 1){
-                    $count = "Ver ".$count." comentarios más";
-                }else{
-                    $count = "Ver ".$count." comentario más";
-                }
+            if($count2 > 1){
                 $result =  "<blockquote class='blockquote d-flex mb-0 text-right'>
                             <div class='mr-auto'>
                                 <p class='mb-1 font-size-sm text-primary-800'>$comentario.</p>
                                 
                             </div>
                             <div class='ml-2 align-self-start'>
-                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple' title='$count'><i class='icon-comment-discussion' onclick='openCardComent($id_pedido)'></i></button>
+                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple' title='$count2 comentarios más' onClick='openCardComent($id_pedido)'><i class='icon-comment-discussion'></i></button>
                             </div>
                         </blockquote>";
             }else{
@@ -72,7 +66,7 @@
                                 <p class='mb-1 font-size-sm'>$comentario.</p>
                             </div>
                             <div class='ml-2 align-self-start'>
-                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple' title='$count'><i class='icon-comment-discussion' onclick='openCardComent($id_pedido)'></i></button>
+                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple' title='1 comentario más'  onClick='openCardComent($id_pedido)'><i class='icon-comment-discussion'></i></button>
                             </div>
                         </blockquote>";
             }
@@ -83,7 +77,7 @@
                                 <p class='mb-1 font-size-sm'></p>
                             </div>
                             <div class='ml-2 align-self-start'>
-                                <button type='button' class='btn btn-outline bg-success text-success btn-icon ml-2 rounded-round legitRipple' title='Agregar comentario'><strong>+<strong><i class='icon-comment' onclick='openCardComent($id_pedido)'></i></button>
+                                <button type='button' class='btn btn-outline bg-success text-success btn-icon ml-2 rounded-round legitRipple' title='Agregar comentario' onClick='openCardComent($id_pedido)'><strong>+<strong><i class='icon-comment'></i></button>
                             </div>
                         </blockquote>";
         }

@@ -123,22 +123,7 @@ $(document).ready( function () {
         table.row('.selected').remove().draw( false );
         $("#btn_del_row_sel").slideUp();
     } );
-    $('#tabla_pedidos tbody').on( 'click', 'tr', function () {
-        var table = $('#tabla_pedidos').DataTable();
-        var filas = table.rows().count();
-        
-        if (filas > 0){
-            if ($(this).hasClass('selected')) {
-                $(this).removeClass('selected');
-            }
-            else{
-                table.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-                $("#text_comentario").data("idpedido",$(this).attr("id"));
-                get_sub_area_equipo($(this).attr("id"));
-            }
-        }
-    } );
+    
     $('#btn_del_row_sel').click( function () {
         var table = $('#tabla_pedidos').DataTable();
         var id_pedido = table.row('.selected').id();
@@ -347,6 +332,7 @@ function send_comentario(){
                         </div>\
                         <div class='ml-3'></div>\
                     </li>";
+        //alert("Comentario: "+comentario+", Id_pedido: "+id_pedido+", Id_empleado: "+id_empleado);
         $.post('json_insertComentario.php',{comentario:comentario,id_empleado:id_empleado,id_pedido:id_pedido}).done(function( data ) {
             if(data.result = "ok"){
                 txt_comt.val("");
@@ -360,7 +346,7 @@ function send_comentario(){
 }
 function openCardComent(id_pedido){
     var tbl = $('#tabla_pedidos');
-    
+    $("#text_comentario").data("idpedido",id_pedido);
     get_comentario(id_pedido);
     $("#modal_detail_solicitud").toggleClass("col-sm-12 col-sm-8");
     tbl.DataTable().column(4).visible(false);
