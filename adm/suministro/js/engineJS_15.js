@@ -193,31 +193,29 @@ function getSolicitudDetail(folio){
             $("#name_coordinacion").html(data.coordinacion_up + ":");
             $("#modal_large").data("idequipo",data.id_equipo);
             
-            if(data.firm_coordinacion == 0){
-                $("#firm_coordinacion")
+            if(data.firm_planeacion == 0){
+                $("#firm_planeacion")
                     .removeClass("badge-success badge-danger")
                     .addClass("border-primary-300 alpha-primary text-primary-800")
-                    .data({idempleado:data.firm_coordinacion,nuevafirma:""})
+                    .data({idempleado:data.firm_planeacion,nuevafirma:""})
                     .text("Firmar solicitud");
                 $("#guarda_cambios_solicitud").show();
-                $("#addItemSolicitud").show();
             }else{
-                $("#firm_coordinacion")
+                $("#firm_planeacion")
                     .removeClass("badge-danger border-primary-300 alpha-primary text-primary-800")
                     .addClass("badge-success")
-                    .data({idempleado:data.firm_coordinacion,nuevafirma:""})
+                    .data({idempleado:data.firm_planeacion,nuevafirma:""})
                     .text("Revisado");
                 $("#guarda_cambios_solicitud").hide();
-                $("#addItemSolicitud").hide();
             }
             
-            if(obj[0]["firm_planeacion"] == 0){
-                $("#firm_planeacion")
+            if(data.firm_coordinacion == 0){
+                $("#firm_coordinacion")
                     .removeClass("badge-success bg-orange")
                     .addClass("bg-orange")
                     .text("Pendiente");
             }else{
-                $("#firm_planeacion")
+                $("#firm_coordinacion")
                     .removeClass("bg-orange badge-success")
                     .addClass("badge-success")
                     .text("Revisado");
@@ -250,9 +248,9 @@ function getSolicitudDetail_pedido(folio){
             });
         },
         complete: (function () {
-            if( $("#firm_coordinacion").data("idempleado") > 0 ){
+            if( $("#firm_planeacion").data("idempleado") > 0 ){
                 $(".input-cantidad-coord").attr('disabled', true);
-                if( $("#firm_coordinacion").data("nuevafirma") == "new" ){
+                if( $("#firm_planeacion").data("nuevafirma") == "new" ){
                     $("#guarda_cambios_solicitud").show();
                 }else{
                     $("#guarda_cambios_solicitud").hide();
@@ -262,13 +260,13 @@ function getSolicitudDetail_pedido(folio){
     });
 }
 function guarda_cantidad_coord(id_pedido,cantidad){
-    var columna = "cantidad_coord";
+    var columna = "cantidad_plan";
     $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:columna }).done(function( data ) {
         console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
     });
 }
 function firma_solicitud(){
-    if($("#firm_coordinacion").data("idempleado") == 0){
+    if($("#firm_planeacion").data("idempleado") == 0){
         $("#form_log_autentic").trigger("reset");
         $("#mod_log_acces").modal("show");
     }
@@ -294,23 +292,23 @@ function firma_solicitud(){
     });
  }
  function aplica_firma(id_empleado){
-    $("#firm_coordinacion")
+    $("#firm_planeacion")
             .data({idempleado:id_empleado,nuevafirma:"new"})
             .removeClass("badge-danger border-primary-300 alpha-primary text-primary-800")
             .addClass("badge-success")
             .text("Revisado");
  }
 function set_firma_coord(){
-    if($('#firm_coordinacion').data('nuevafirma') == 'new'){
-        var firma       = $('#firm_coordinacion').data('idempleado');
+    if($('#firm_planeacion').data('nuevafirma') == 'new'){
+        var firma       = $('#firm_planeacion').data('idempleado');
         var folio       = $('#tabla_pedidos').data('folio');
-        var column_firm = 'firm_coordinacion';
-        var column_date = 'fecha_firm_coordinacion';
+        var column_firm = 'firm_planeacion';
+        var column_date = 'fecha_firm_planeacion';
         
         $.post('json_update_firma_coord.php',{firma:firma,folio:folio,column_firm:column_firm,column_date:column_date}).done(function( data ) {
             if(data.result = "exito"){
-                alert("La solicitud fue enviada correctamente al Depto. de Planeación!");
-                $('#firm_coordinacion')
+                alert("La solicitud fue actualizada correctamente!");
+                $('#firm_planeacion')
                     .removeClass('border-primary-300 alpha-primary text-primary-800')
                     .addClass('badge-success')
                     .data('nuevafirma','')
@@ -369,103 +367,4 @@ function closeCardComent(){
     var tbl = $('#tabla_pedidos');
     tbl.DataTable().column(4).visible(true);
     $("#sidebar_sticky").hide();
-}
-function get_sub_area_equipo(id_equipo){
-    $.ajax({
-    type: "POST",
-    url: 'json_destinoSuministro_sub.php',
-    data:{ id_equipo:id_equipo },
-    dataType: "json",
-    success: function(data){
-        $.each(data,function(key, registro) {
-            $("#sub_area_aquipo").append("<option value='"+registro.id_sub_area+"'>"+registro.nombre_sub_area+"</option>");
-        });
-    },
-    error: function(data){
-      alert('error');
-    }
-  });
-}
-function guardaPedido(cod_articulo,cantidad,unidad,articulo,destino,justificacion,fecha_requerimiento,folio){
-    $.ajax({
-        data:{cod_articulo:cod_articulo,cantidad:cantidad,unidad:unidad,articulo:articulo,justificacion:justificacion, destino:destino, fecha_requerimiento:fecha_requerimiento, folio:folio},
-        type: 'post',
-        url: 'json_insertPedido.php',
-        dataType: 'json',
-        success: function(data){
-            if(data[0]["result"] == "exito"){
-                 getSolicitudDetail_pedido(folio);
-            }else{
-                alert(data.result);
-            }
-            $('#modal_large').modal('hide');
-            resetModalPedido();
-        },
-        error: function(data){
-          console.log('error'+data);
-        }
-    });
-}
-function resetModalPedido(){
-    $('#unidad').prop('selectedIndex',0).trigger('change');
-    $('#cod_articulo').val('');
-    $('#descripcion').val('');
-    $('#cantidad').val('0');
-    $('#justificacion').val('');
-    $('#modal_large').modal('hide');
-}
-function valida_campos(){
-    var total_error = 0;
-    
-    if ($('#descripcion').val() == ""){
-        total_error++;
-    }else{
-        console.log("#descripcion error "+total_error);
-    }
-    //-----------------------------------------------------
-    if ($('#cantidad').val() == "0"){
-        total_error++;
-    }else{
-        console.log("#cantidad error"+total_error);
-    }
-    //-----------------------------------------------------
-    if ($('#area_aquipo').val() == null){
-        total_error++;
-    }else{
-        console.log("#area_aquipo error"+total_error);
-    }
-    //-----------------------------------------------------
-    if ($('#justificacion').val() == ""){
-        total_error++;
-    }else{
-        console.log("#justificacion error"+total_error);
-    }
-    //-----------------------------------------------------
-    if(total_error == 0){
-        return true;
-    }else{
-        return false;
-    }
-}
-function openModelAddPedido(){
-    var id_equipo = $("#modal_large").data("idequipo");
-    get_sub_area_equipo(id_equipo);
-    $('#modal_large').modal('show');
-}
-function savePedidoModal(){
-    var folio = $("#modal_large").data("folio");
-    var codigo = $('#cod_articulo').val();
-    var cantidad = $('#cantidad').val();
-    var unidad = $('#unidad').val();
-    var articulo = $('#descripcion').val();
-    var destino = $('#sub_area_aquipo').val();
-    var justificacion = $('#justificacion').val();
-    var fecha_requerimiento = $("input[name='prefix____suffix']").val();
-    
-    if(valida_campos()){
-        guardaPedido(codigo,cantidad,unidad,articulo,destino,justificacion,fecha_requerimiento,folio);
-    }else{
-        alert("Debe ingresasr todos los datos al formulario.");
-    }
-    
 }

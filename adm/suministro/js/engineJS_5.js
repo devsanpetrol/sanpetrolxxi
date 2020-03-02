@@ -108,6 +108,9 @@ $(document).ready( function () {
         var table = $('#tabla_pedidos').DataTable();
         table.row('.selected').remove().draw( false );
         $("#btn_del_row_sel").hide();
+        if (!table.data().count() ) {
+            $("#area_aquipo").prop("disabled", false);
+        }
     } );
     
     $('#btn_send_pedido').on('click', function () {});
@@ -133,9 +136,11 @@ function get_sub_area_equipo(id_equipo){
     data:{ id_equipo:id_equipo },
     dataType: "json",
     success: function(data){
+        $("#sub_area_aquipo").append("<option selec></option>");
         $.each(data,function(key, registro) {
             $("#sub_area_aquipo").append("<option value='"+registro.id_sub_area+"'>"+registro.nombre_sub_area+"</option>");
         });
+        $('#sub_area_aquipo option:eq(0)').prop('selected',true);
     },
     error: function(data){
       alert('error');
@@ -168,7 +173,7 @@ function agregar_pedido(){
                 $("input[name='prefix____suffix']").val(),
                 $('#sub_area_aquipo option:selected').text()
             ] ).draw( false );
-            
+            $("#area_aquipo").prop("disabled", true);
             resetModalPedido();
         }else{
             alert('Debe completar los campos requeridos');
@@ -184,6 +189,7 @@ function agregar_pedido(){
 function resetModalPedido(){
     reset_select2();
     $('#unidad').prop('selectedIndex',0).trigger('change');
+    $('#sub_area_aquipo').prop('selectedIndex',0).trigger('change');
     $('#cod_articulo').val('');
     $('#descripcion').val('');
     $('#cantidad').val('0');
@@ -367,4 +373,13 @@ function setPedidos(folio){
 function regresar_lista(){
     var idrow = $("#tools_menu_regresa").data("idrow");
     $("#"+idrow+"").click();
+}
+function openModalAddItem(){
+    var area_aquipo = $('#area_aquipo').find(':selected').val();
+    console.log(area_aquipo);
+    if(area_aquipo != ""){
+        $("#modal_large").modal("show");
+    }else{
+        alert("Debe seleccionar un Equipo!");
+    }
 }

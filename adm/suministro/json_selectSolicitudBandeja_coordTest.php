@@ -3,7 +3,14 @@
     
     $suministro = new suministro();
     $user_session_id = $_POST["user_session_id"];
-    $categorias = $suministro->get_solicitudes_("WHERE id_coordinacion = 1 GROUP BY id_equipo");//SELECT * FROM adm_view_solicitud $filtro
+    $id_coordinacion = $_POST["id_coordinacion"];
+    if($id_coordinacion == 1 || $id_coordinacion == 2){
+        $filter = "WHERE id_coordinacion = $id_coordinacion GROUP BY id_equipo";
+    }
+    if($id_coordinacion == 4){
+        $filter = "WHERE firm_coordinacion > 0 GROUP BY id_equipo";
+    }
+    $categorias = $suministro->get_solicitudes_($filter);//SELECT * FROM adm_view_solicitud $filtro
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -16,7 +23,7 @@
         
         $equipo = "<span class='font-weight-bold text-teal-800'>".$valor['nombre_generico']."</span>";
         $data[] = array("star" => "",
-                        "status" => firma_revision($valor['firm_coordinacion'],$valor['fecha_firm_planeacion'],$valor['coordinacion']),
+                        "status" => firma_revision($valor['firm_coordinacion'],$valor['firm_planeacion'],$valor['coordinacion']),
                         "solicita" => $equipo,
                         "pedidos" => pedido($folio),
                         "fecha" => "<span class='font-weight-bold'>$m $d</span>",
@@ -57,20 +64,22 @@
         );
         return $status[$st];
     }
-    function firma_revision($firm_coordinacion,$fecha_firm_planeacion,$coordinacion){
+    function firma_revision($firm_coordinacion,$firm_planeacion,$coordinacion){
         $firma = "";
-        if( $firm_coordinacion == 0 && $fecha_firm_planeacion == 0 ){
+        if( $firm_coordinacion == 0 && $firm_planeacion == 0 ){
             $firma = "<ul class='list-unstyled mb-0'>
-                        <li><span class='badge badge-info border-info-800 d-block'>Pendiente</span></li>
+                        <li><span class='badge badge-info border-info-800 d-block'>Coordinación</span></li>
+                        <li><span class='badge badge-info border-info-800 d-block'>Planeación</span></li>
                       </ul>";
-        }elseif ( $firm_coordinacion > 0 && $fecha_firm_planeacion == 0){
+        }elseif ( $firm_coordinacion > 0 && $firm_planeacion == 0){
             $firma = "<ul class='list-unstyled mb-0'>
-                        <li><span class='badge badge-success border-success-800 d-block'>$coordinacion</span></li>
+                        <li><span class='badge badge-success badge-icon border-left-teal-300'><i class='mi-done mr-2 mi-1x'></i> $coordinacion</span></li>
+                        <li><span class='badge badge-info badge-icon border-left-teal-300'><i class='mi-hourglass-empty mr-2 mi-1x'></i> PLANEACIÓN</span></li>
                       </ul>";
-        }elseif ( $firm_coordinacion > 0 && $fecha_firm_planeacion > 0 ){
+        }elseif ( $firm_coordinacion > 0 && $firm_planeacion > 0 ){
             $firma = "<ul class='list-unstyled mb-0'>
-                        <li><span class='badge badge-success border-success-800 d-block'>$coordinacion</span></li>
-                        <li><span class='badge badge-success border-success-800 d-block'>PLANEACION</span></li>
+                        <li><span class='badge badge-success badge-icon border-left-teal-300'><i class='mi-done mr-2 mi-1x'></i> $coordinacion</span></li>
+                        <li><span class='badge badge-info badge-icon border-left-teal-300'><i class='mi-hourglass-empty mr-2 mi-1x'></i> PLANEACIÓN</span></li>
                       </ul>";
         }
         return $firma;

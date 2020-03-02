@@ -264,7 +264,7 @@
                                         
                                         <div class="card" id="tabla_visor_solicitudes">
                                             <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
-                                                <table class="table table-xs compact display " id="lay_out_solicitudesx" cellspacing="0" width="100%" data-idcoordinacion="1">
+                                                <table class="table table-xs " id="lay_out_solicitudesx" cellspacing="0" width="100%" data-idcoordinacion="2">
                                                     <col width="25%">
                                                     <col width="20%">
                                                     <col width="35%">
@@ -442,12 +442,14 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Footer -->
+                    <!-- Footer -->
+                   
+                    <!-- /footer -->
 		</div>
-                <!-- /main content -->
-                <!-- Footer -->
-                <?php include "../bar_nav/footer_navbar.php"; ?>
-                <!-- /footer -->     
-            </div>
-            <!-- /page content -->
-    </body>
+                     <?php include "../bar_nav/footer_navbar.php"; ?>
+		<!-- /main content -->
+	</div>
+	<!-- /page content -->
+</body>
 </html>

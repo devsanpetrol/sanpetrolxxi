@@ -54,7 +54,6 @@
                 $result =  "<blockquote class='blockquote d-flex mb-0 text-right'>
                             <div class='mr-auto'>
                                 <p class='mb-1 font-size-sm text-primary-800'>$comentario.</p>
-                                
                             </div>
                             <div class='ml-2 align-self-start'>
                                 <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple' title='$count2 comentarios más' onClick='openCardComent($id_pedido)'><i class='icon-comment-discussion'></i></button>
@@ -63,14 +62,13 @@
             }else{
                $result= "<blockquote class='blockquote d-flex mb-0 text-right'>
                             <div class='mr-auto'>
-                                <p class='mb-1 font-size-sm'>$comentario.</p>
+                                <p class='mb-1 font-size-sm text-primary-800'>$comentario.</p>
                             </div>
                             <div class='ml-2 align-self-start'>
-                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple' title='1 comentario más'  onClick='openCardComent($id_pedido)'><i class='icon-comment-discussion'></i></button>
+                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple'  onClick='openCardComent($id_pedido)'><i class='icon-comment-discussion'></i></button>
                             </div>
                         </blockquote>";
             }
-            
         }else{
             $result= "<blockquote class='blockquote d-flex mb-0 text-right'>
                             <div class='mr-auto'>

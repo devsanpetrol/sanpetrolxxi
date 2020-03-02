@@ -51,12 +51,13 @@
                 <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link"><i class="icon-copy"></i> <span>Suministro</span></a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
-                        <li class="nav-item"><a href="inicio.php" class="nav-link">Adquisición de Material</a></li>
-                        <li class="nav-item"><a href="coordinacion_test.php" class="nav-link">Coordinación Testing</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Coordinación Swabing</a></li>
-                        <li class="nav-item"><a href="almacen.php" class="nav-link">Almacen</a></li>
-                        <li class="nav-item"><a href="aprobacion_salida.php" class="nav-link">Supervisión</a></li>
-                        <li class="nav-item"><a href="detalle_factura.php" class="nav-link">Factura</a></li>
+                        <li class="nav-item"><a class="nav-link" href="inicio.php">Adquisición de Material</a></li>
+                        <li class="nav-item"><a class="nav-link" href="coordinacion_test.php">Coordinación Testing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="coordinacion_swab.php">Coordinación Swabing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="coordinacion_plan.php">Planeación de Proyecto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="almacen.php">Almacen</a></li>
+                        <li class="nav-item"><a class="nav-link" href="aprobacion_salida.php">Supervisión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="detalle_factura.php">Factura</a></li>
                     </ul>
                 </li>
             </ul>

@@ -243,7 +243,7 @@
                                                 <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" style="display: none;" id="btn_del_row_sel" title="Remover item seleccionado"><i class="icon-trash"></i></button>
                                                 <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="btn_send_pedido" onclick="get_folio()" title="Enviar solicitud">Enviar <i class="icon-paperplane ml-2"></i></button>
                                                 <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
-                                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-toggle="modal" data-target="#modal_large" title="Agregar item">Agregar <i class="icon-plus3 ml-2"></i></button>
+                                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="openModalAddItem()" title="Agregar item">Agregar <i class="icon-plus3 ml-2"></i></button>
                                             </div>
                                         </div>
                                     </div>
