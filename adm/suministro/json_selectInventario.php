@@ -2,7 +2,7 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_almacen("WHERE no_inventario <> ''");
+    $categorias = $suministro->get_almacen("WHERE no_inventario = ''");
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -16,7 +16,8 @@
                         "marca" => $valor['marca'],
                         "costo" => costo($valor['costo']),
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
-                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario'])
+                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario']),
+                        "stock2" => $valor['stock']
                         );
         
     }

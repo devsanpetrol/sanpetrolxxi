@@ -51,7 +51,7 @@ $(document).ready( function () {
         processing: true,
         selected: true,
         serverSide: true,
-        dom: '<"datatable-scroll-wrap"t>',
+        dom: '<lf<t>p>',
         ajax: {
             url: "json_selectSolicitudBandeja_coordTest.php",
             data:{user_session_id:user_session_id,id_coordinacion:id_coordinacion},
@@ -77,6 +77,29 @@ $(document).ready( function () {
             {data : 'status'},
             {data : 'pedidos'},
             {data : 'fecha'}
+        ],
+        language: {
+            zeroRecords: "Ningun elemento seleccionado"
+        }
+    });
+    $('#search_article').DataTable({
+        lengthChange: false,
+        bDestroy: true,
+        ajax: {
+            url: "json_selectInventario.php",
+            dataSrc:function ( json ) {
+                return json;
+            }
+        },
+        createdRow: function ( row, data, index ) {
+            $(row).attr('id',data['cod_articulo']);
+            $(row).addClass('unread');
+            $(row).css("cursor","pointer");
+            $(row).data('scroll');
+        },
+        columns: [
+            {data : 'descripcion'},
+            {data : 'stock2'}
         ],
         language: {
             zeroRecords: "Ningun elemento seleccionado"

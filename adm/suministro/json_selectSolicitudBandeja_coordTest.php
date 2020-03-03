@@ -79,7 +79,7 @@
         }elseif ( $firm_coordinacion > 0 && $firm_planeacion > 0 ){
             $firma = "<ul class='list-unstyled mb-0'>
                         <li><span class='badge badge-success badge-icon border-left-teal-300'><i class='mi-done mr-2 mi-1x'></i> $coordinacion</span></li>
-                        <li><span class='badge badge-info badge-icon border-left-teal-300'><i class='mi-hourglass-empty mr-2 mi-1x'></i> PLANEACIÓN</span></li>
+                        <li><span class='badge badge-success badge-icon border-left-teal-300'><i class='mi-done mr-2 mi-1x'></i> PLANEACIÓN</span></li>
                       </ul>";
         }
         return $firma;
