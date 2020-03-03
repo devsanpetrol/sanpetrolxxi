@@ -51,7 +51,7 @@ $(document).ready( function () {
         processing: true,
         selected: true,
         serverSide: true,
-        dom: '<lf<t>p>',
+        dom: '<"datatable-scroll-wrap"t>',
         ajax: {
             url: "json_selectSolicitudBandeja_coordTest.php",
             data:{user_session_id:user_session_id,id_coordinacion:id_coordinacion},
@@ -82,29 +82,28 @@ $(document).ready( function () {
             zeroRecords: "Ningun elemento seleccionado"
         }
     });
+    //==========================================================================
     $('#search_article').DataTable({
         lengthChange: false,
         bDestroy: true,
-        ajax: {
-            url: "json_selectInventario.php",
-            dataSrc:function ( json ) {
-                return json;
-            }
-        },
+        dom: '<"top"i>rt<"bottom"lp>',
+        pagingType: "simple",
+        pageLength: 5,
         createdRow: function ( row, data, index ) {
             $(row).attr('id',data['cod_articulo']);
             $(row).addClass('unread');
-            $(row).css("cursor","pointer");
-            $(row).data('scroll');
         },
-        columns: [
-            {data : 'descripcion'},
-            {data : 'stock2'}
-        ],
         language: {
             zeroRecords: "Ningun elemento seleccionado"
         }
     });
+    $("#buscar_en_tabla_layoutx").on('keyup', function (e) {
+        if (e.keyCode === 13) {
+           getAlmacenSearch();
+           $("#sidebar_sticky_article").show();
+        }
+    });
+    //==========================================================================
     $('#select_article').select2({
         dropdownParent: $('#modal_large'),
         ajax:{
@@ -188,6 +187,8 @@ function closeModalSolicitudDetail(){
     $("#card_solicitud_detail").toggle(400);
     $("#expand_menu_lateral").click();
     $("#sidebar_sticky").hide();
+    $("#sidebar_sticky_article").hide();
+    $("#buscar_en_tabla_layoutx").hide();
 }
 function guardarCambios(){
     $('.input-cantidad-coord').each( function () {
@@ -280,6 +281,27 @@ function getSolicitudDetail_pedido(folio){
                 }
             }
         })
+    });
+}
+function getAlmacenSearch(){
+    var filter = $("#buscar_en_tabla_layoutx").val();
+    var table  = $("#search_article").DataTable();
+    $.ajax({
+        data:{filter:filter},
+        url: 'json_selectAlmacenFilter.php',
+        type: 'POST',
+        beforeSend: function (xhr){
+            table.clear().draw();
+        },
+        success: function (obj) {
+            $.each(obj, function (index, value){
+                table.row.add([
+                    value.descripcion,
+                    value.stock2
+                ]).node().id = value.cod_articulo;
+                table.draw( false );
+            });
+        }
     });
 }
 function guarda_cantidad_coord(id_pedido,cantidad){
@@ -390,4 +412,7 @@ function closeCardComent(){
     var tbl = $('#tabla_pedidos');
     tbl.DataTable().column(4).visible(true);
     $("#sidebar_sticky").hide();
+}
+function showAlmacenLateral(){
+    $("#sidebar_sticky_article").toggle("slow");
 }

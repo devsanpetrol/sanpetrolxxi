@@ -13,9 +13,10 @@
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/layout.min.css" rel="stylesheet" type="text/css">
+    <link href="../../global_assets/js/plugins/tables/datatables/datatables/datatables.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/components.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/colors.min.css" rel="stylesheet" type="text/css">
-    <link href="../../global_assets/js/plugins/tables/datatables/datatables/datatables.css" rel="stylesheet" type="text/css">
+    
     <link href="css/css_custom.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
     <!-- Core JS files -->
@@ -147,7 +148,7 @@
                             <div class="header-elements d-none">
                                 <form action="#">
                                     <div class="form-group form-group-feedback form-group-feedback-right">
-                                        <input type="search" class="form-control wmin-200" placeholder="Buscar..." id="buscar_en_tabla_layoutx">
+                                        <input type="search" class="form-control wmin-200" placeholder="Buscar articulo..." id="buscar_en_tabla_layoutx">
                                         <div class="form-control-feedback">
                                             <i class="icon-search4 font-size-base text-muted"></i>
                                         </div>
@@ -247,7 +248,6 @@
                                                     </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guardarCambios()" title="Salir del formulario" id="guarda_cambios_solicitud">Almacen</button>
                                                 <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guardarCambios()" title="Salir del formulario" id="guarda_cambios_solicitud">Guardar</button>
                                                 <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
                                             </div>
@@ -303,33 +303,31 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="sidebar-sticky w-100 order-1 order-md-2" id="sidebar_sticky_article">
-                                        <div class="sidebar sidebar-light sidebar-component sidebar-component-right sidebar-expand-md w-100">
+                                    <div class="sidebar-sticky w-100 w-md-auto order-1 order-md-2" id="sidebar_sticky_article" style="display: none;">
+                                        <div class="sidebar sidebar-light sidebar-component sidebar-component-right sidebar-expand-md">
                                             <div class="sidebar-content">
                                                 <div class="card">
                                                     <div class="card-header header-elements-inline bg-white">
                                                         <h6 class="card-title"><i class="icon-comment-discussion mr-2 icon-1x text-danger-800"></i> Comentarios</h6>
                                                         <div class="header-elements">
                                                             <div class="list-icons">
-                                                                <a class="list-icons-item" onclick="closeCardComent()"><i class="icon-cross2"></i></a>
+                                                                <a class="list-icons-item" onclick="showAlmacenLateral()"><i class="icon-cross2"></i></a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="card-body">
-                                                        <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
-                                                            <table class="table table-xs" id="search_article" cellspacing="0" width="100%">
-                                                                <col width="80%">
-                                                                <col width="20%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Articulo</th> <!-- 4 -->
-                                                                        <th>Cant.</th> <!-- 4 -->
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody data-link="row" class="rowlink">
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                                        <table class="table datatable-basic table-responsive table-responsive-sm" id="search_article" cellspacing="0" width="100%">
+                                                            <col width="80%">
+                                                            <col width="20%">
+                                                            <thead style="display: none;">
+                                                                <tr>
+                                                                    <th>Articulo</th> <!-- 4 -->
+                                                                    <th>Cant.</th> <!-- 4 -->
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody data-link="row" class="rowlink">
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>

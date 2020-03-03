@@ -2,7 +2,8 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_almacen("WHERE no_inventario = ''");
+    $searchTerm = $_POST["filter"];
+    $categorias = $suministro->get_almacen("WHERE descripcion LIKE '%$searchTerm%'");
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -17,7 +18,7 @@
                         "costo" => costo($valor['costo']),
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
                         "accion" => accion($valor['cod_articulo'],$valor['no_inventario']),
-                        "stock2" => $valor['stock']
+                        "stock2" => $valor['stock']//stock2($valor['stock'])
                         );
         
     }
@@ -97,5 +98,14 @@
             return "<span class='badge bg-slate-300 align-self-start ml-3'>Disponible</span>";
         }
     }
+    function stock2($stock){
+        if($stock > 0){
+            return $stock;
+        }else{
+            return "<div class='list-icons text-danger-600'>
+                        <i class='icon-cross3'></i>
+                    </div>";
+        }
+    }
     header('Content-Type: application/json');
-    echo json_encode($data);
+    echo json_encode($data, JSON_FORCE_OBJECT);
