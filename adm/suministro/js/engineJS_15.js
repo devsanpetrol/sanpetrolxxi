@@ -94,7 +94,7 @@ $(document).ready( function () {
             $(row).addClass('unread');
         },
         language: {
-            zeroRecords: "Ningun elemento seleccionado"
+            zeroRecords: "Ningun elemento encontrado"
         }
     });
     $("#buscar_en_tabla_layoutx").on('keyup', function (e) {
@@ -177,6 +177,7 @@ function openModalSolicitudDetail(folio){
     $("#tabla_visor_solicitudes").toggle(400);
     $("#card_solicitud_detail").toggle(400);
     $("#expand_menu_lateral").click();
+    $("#div_seach_article").show();
 }
 function closeModalSolicitudDetail(){
     var table_pedido = $('#tabla_pedidos').DataTable();
@@ -188,7 +189,7 @@ function closeModalSolicitudDetail(){
     $("#expand_menu_lateral").click();
     $("#sidebar_sticky").hide();
     $("#sidebar_sticky_article").hide();
-    $("#buscar_en_tabla_layoutx").hide();
+    $("#div_seach_article").hide();
 }
 function guardarCambios(){
     $('.input-cantidad-coord').each( function () {

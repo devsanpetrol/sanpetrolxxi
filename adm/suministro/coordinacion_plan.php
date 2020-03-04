@@ -56,6 +56,7 @@
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
     <script src="js/engineJS_15.js"></script>
+    <script src="js/js_char_radar.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/picker_date.js"></script>
@@ -68,6 +69,9 @@
     <script src="../../global_assets/js/plugins/forms/styling/switch.min.js"></script>
     <script src="../../global_assets/js/demo_pages/components_scrollspy.js"></script>
     <script src="../../..global_assets/js/demo_pages/components_scrollspy.js"></script>
+    <!-- Theme JS files -->
+    <script src="../../global_assets/js/plugins/visualization/echarts/echarts.min.js"></script>
+    <!-- /theme JS files -->
    
     <!-- /theme JS files -->
 </head>
@@ -148,7 +152,7 @@
                             </div>
                             <div class="header-elements d-none">
                                 <form action="#">
-                                    <div class="form-group form-group-feedback form-group-feedback-right">
+                                    <div class="form-group form-group-feedback form-group-feedback-right" id="div_seach_article">
                                         <input type="search" class="form-control wmin-200" placeholder="Buscar articulo..." id="buscar_en_tabla_layoutx">
                                         <div class="form-control-feedback">
                                             <i class="icon-search4 font-size-base text-muted"></i>
@@ -309,7 +313,7 @@
                                     <div class="sidebar-content">
                                         <div class="card">
                                             <div class="card-header header-elements-inline bg-white">
-                                                <h6 class="card-title"><i class="icon-comment-discussion mr-2 icon-1x text-danger-800"></i> Comentarios</h6>
+                                                <h6 class="card-title"><i class="icon-search4 mr-2 icon-1x text-danger-800"></i> Almacen</h6>
                                                 <div class="header-elements">
                                                     <div class="list-icons">
                                                         <a class="list-icons-item" onclick="showAlmacenLateral()"><i class="icon-cross2"></i></a>
@@ -329,6 +333,11 @@
                                                     <tbody data-link="row" class="rowlink">
                                                     </tbody>
                                                 </table>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="chart-container">
+                                                    <div class="chart has-fixed-height" id="gauge_basic"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

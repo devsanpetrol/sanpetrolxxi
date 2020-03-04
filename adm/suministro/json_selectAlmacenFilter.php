@@ -18,7 +18,7 @@
                         "costo" => costo($valor['costo']),
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
                         "accion" => accion($valor['cod_articulo'],$valor['no_inventario']),
-                        "stock2" => $valor['stock']//stock2($valor['stock'])
+                        "stock2" => stock2($valor['stock'])
                         );
         
     }
@@ -32,14 +32,14 @@
         if(!empty($marca_)){
             return "<div class='d-flex align-items-center'>
                         <div>
-                            <a class='text-default font-weight-semibold letter-icon-title'>$articulo_</a>
+                            <h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$articulo_</h6>
                             <div class='text-muted font-size-sm'><span class='badge badge-mark border-blue mr-1'></span> $marca_</div>
                         </div>
                     </div>";
         }else{
             return "<div class='d-flex align-items-center'>
                         <div>
-                            <a class='text-default font-weight-semibold letter-icon-title'>$articulo_</a>
+                            <h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$articulo_</h6>
                         </div>
                     </div>";
         }
@@ -100,7 +100,9 @@
     }
     function stock2($stock){
         if($stock > 0){
-            return $stock;
+            return "<div class='list-icons text-primary-800 font-weight-bold'>
+                        $stock
+                    </div>";
         }else{
             return "<div class='list-icons text-danger-600'>
                         <i class='icon-cross3'></i>
