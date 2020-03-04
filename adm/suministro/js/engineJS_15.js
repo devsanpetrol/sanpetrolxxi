@@ -1,14 +1,14 @@
 $(document).ready( function () {
     var user_session_id = $('#user_session_id').data("employeid");
     $('.form-control-select2').select2();
-    $('.sidebar-sticky .sidebar').stick_in_parent({
-            offset_top: 20,
-            parent: '.content'
-        });
+    $('.sidebar-sticky .sidebar-xxx').stick_in_parent({
+        offset_top: 20,
+        parent: '.content'
+    });
         // Detach on mobiles
-        $('.sidebar-mobile-component-toggle').on('click', function() {
-            $('.sidebar-sticky .sidebar').trigger("sticky_kit:detach");
-        });
+    $('.sidebar-mobile-component-toggle').on('click', function() {
+        $('.sidebar-sticky .sidebar-xxx').trigger("sticky_kit:detach");
+    });
     $('.pickadate-accessibility').pickadate({
         format: 'dddd, dd mmmm, yyyy',
         formatSubmit: 'yyyy-mm-dd',
@@ -262,7 +262,7 @@ function getSolicitudDetail_pedido(folio){
         success: function (obj) {
             $.each(obj, function (index, value) {
                 t.row.add([
-                    value.cantidad_coord,
+                    value.cantidad_plan,
                     value.unidad,
                     value.articulo,
                     value.justificacion,

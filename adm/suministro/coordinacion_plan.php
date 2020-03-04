@@ -67,6 +67,7 @@
     <script src="../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/styling/switch.min.js"></script>
     <script src="../../global_assets/js/demo_pages/components_scrollspy.js"></script>
+    <script src="../../..global_assets/js/demo_pages/components_scrollspy.js"></script>
    
     <!-- /theme JS files -->
 </head>
@@ -160,112 +161,169 @@
                     <!-- Content area -->
                     <div class="content">
                         <!-- Inner container -->
-				<div class="d-flex align-items-start flex-column flex-md-row">
-                                    <div class="w-100 order-2 order-md-1">
-                                        <!-- CARDS -->
-                                        <div class="card" id="card_solicitud_detail" style="display: none;">
-                                            <div class="card-body">
-                                                <div class="row">
+                        <div class="d-flex align-items-start flex-column flex-md-row">
+                            <div class="w-100 order-2 order-md-1">
+                                <!-- CARDS -->
+                                <div class="card" id="card_solicitud_detail" style="display: none;">
+                                    <div class="card-body">
+                                        <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
                                                         <div class="col-sm-12">
+                                                            <fieldset>
+                                                            <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> INFORMACIÓN DE LA SOLICITUD</legend>
                                                             <div class="row">
-                                                                <div class="col-sm-12">
-                                                                    <fieldset>
-                                                                    <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> INFORMACIÓN DE LA SOLICITUD</legend>
+                                                                <div class="col-sm-6 form-group">
                                                                     <div class="row">
-                                                                        <div class="col-sm-6 form-group">
+                                                                        <div class="col-sm-12 form-group">
                                                                             <div class="row">
                                                                                 <div class="col-sm-12 form-group">
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-12 form-group">
-                                                                                        <span class="font-weight-bold font-size-lg">Solicitante: </span>
-                                                                                        <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="solicitante"></span>
-                                                                                        <span class="font-weight-bold font-size-lg ml-3">Fecha: </span>
-                                                                                        <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="fecha_actual"></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    </br>
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-12 form-group">
-                                                                                        <span class="font-weight-bold font-size-lg">Equipo / Sitio: </span>
-                                                                                        <span class="font-weight-bold font-size-lg ml-1 text-danger-800" id="area_aquipo" data-idcoordinador=""></span>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                <span class="font-weight-bold font-size-lg">Solicitante: </span>
+                                                                                <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="solicitante"></span>
+                                                                                <span class="font-weight-bold font-size-lg ml-3">Fecha: </span>
+                                                                                <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="fecha_actual"></span>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6 form-group">
+                                                                            </br>
                                                                             <div class="row">
                                                                                 <div class="col-sm-12 form-group">
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-4 form-group">
-                                                                                            <span class="font-weight-bold font-size-lg" id="name_coordinacion"></span>
-                                                                                        </div>
-                                                                                        <div class="col-sm-8 form-group">
-                                                                                            <span class="btn btn-sm badge" id="firm_coordinacion"  data-idempleado="" data-nuevafirma="" ></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    </br>
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-4 form-group">
-                                                                                            <span class="font-weight-bold font-size-lg">Planeacion de Proyectos:</span>
-                                                                                        </div>
-                                                                                        <div class="col-sm-4 form-group">
-                                                                                            <span class="btn btn-sm badge" id="firm_planeacion" data-idempleado="" data-nuevafirma="" onclick="firma_solicitud()"></span>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                <span class="font-weight-bold font-size-lg">Equipo / Sitio: </span>
+                                                                                <span class="font-weight-bold font-size-lg ml-1 text-danger-800" id="area_aquipo" data-idcoordinador=""></span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </fieldset>
+                                                                </div>
+                                                                <div class="col-sm-6 form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12 form-group">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-4 form-group">
+                                                                                    <span class="font-weight-bold font-size-lg" id="name_coordinacion"></span>
+                                                                                </div>
+                                                                                <div class="col-sm-8 form-group">
+                                                                                    <span class="btn btn-sm badge" id="firm_coordinacion"  data-idempleado="" data-nuevafirma="" ></span>
+                                                                                </div>
+                                                                            </div>
+                                                                            </br>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-4 form-group">
+                                                                                    <span class="font-weight-bold font-size-lg">Planeacion de Proyectos:</span>
+                                                                                </div>
+                                                                                <div class="col-sm-4 form-group">
+                                                                                    <span class="btn btn-sm badge" id="firm_planeacion" data-idempleado="" data-nuevafirma="" onclick="firma_solicitud()"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-12">
-                                                                    <div class="table-responsive">
-                                                                        <table id="tabla_pedidos" class="table datatable-scroll-y tabla-reslta-row-hover" cellspacing="0" width="100%" data-folio=""><!--Id Coordinador = 1 Test, 2 Swab-->
-                                                                            <col width="5%">
-                                                                            <col width="3%">
-                                                                            <col width="35%">
-                                                                            <col width="32%">
-                                                                            <col width="25%">
-                                                                            <thead>
-                                                                              <tr>
-                                                                                <th>Cantidad</th> <!-- 0 -->
-                                                                                <th></th> <!-- 1 -->
-                                                                                <th>Articulo</th> <!-- 2 -->
-                                                                                <th>Motivo del requerimiento</th> <!-- 3 -->
-                                                                                <th>Comentarios</th> <!-- 4 -->
-                                                                              </tr>
-                                                                            </thead>
-                                                                            <tbody></tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
+                                                        </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="table-responsive">
+                                                                <table id="tabla_pedidos" class="table datatable-scroll-y tabla-reslta-row-hover" cellspacing="0" width="100%" data-folio=""><!--Id Coordinador = 1 Test, 2 Swab-->
+                                                                    <col width="5%">
+                                                                    <col width="3%">
+                                                                    <col width="35%">
+                                                                    <col width="32%">
+                                                                    <col width="25%">
+                                                                    <thead>
+                                                                      <tr>
+                                                                        <th>Cantidad</th> <!-- 0 -->
+                                                                        <th></th> <!-- 1 -->
+                                                                        <th>Articulo</th> <!-- 2 -->
+                                                                        <th>Motivo del requerimiento</th> <!-- 3 -->
+                                                                        <th>Comentarios</th> <!-- 4 -->
+                                                                      </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
-
                                                     </div>
+                                                </div>
+
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guardarCambios()" title="Salir del formulario" id="guarda_cambios_solicitud">Guardar</button>
-                                                <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guardarCambios()" title="Salir del formulario" id="guarda_cambios_solicitud">Guardar</button>
+                                        <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
+                                    </div>
+                                </div>
+                                <!-- CARDS -->
+                                <div class="card" id="tabla_visor_solicitudes">
+                                    <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
+                                        <table class="table table-xs" id="lay_out_solicitudesx" cellspacing="0" width="100%" data-idcoordinacion="4">
+                                            <col width="25%">
+                                            <col width="20%">
+                                            <col width="35%">
+                                            <col width="20%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Equipo</th> <!-- 4 -->
+                                                    <th>Status</th> <!-- 4 -->
+                                                    <th>Materiales solicitados</th> <!-- 3 -->
+                                                    <th>Fecha</th> <!-- 2 -->
+                                                </tr>
+                                            </thead>
+                                            <tbody data-link="row" class="rowlink">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /left content -->
+                            <div class="sidebar-sticky w-100 w-md-auto order-1 order-md-2" id="sidebar_sticky" style="display: none;">
+                                <div class="sidebar sidebar-xxx sidebar-light sidebar-component sidebar-component-right sidebar-expand-md">
+                                    <div class="sidebar-content">
+                                        <div class="card">
+                                            <div class="card-header header-elements-inline bg-white">
+                                                <h6 class="card-title"><i class="icon-comment-discussion mr-2 icon-1x text-danger-800"></i> Comentarios</h6>
+                                                <div class="header-elements">
+                                                    <div class="list-icons">
+                                                        <a class="list-icons-item" onclick="closeCardComent()"><i class="icon-cross2"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body" id="scrollxy" style="overflow-y: scroll; height:400px;">
+                                                <ul class="media-list media-chat mb-3" id="conent_coment_area">
+                                                </ul>
+                                            </div>
+                                            <div class="card-footer">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-right-0" placeholder="Agregar comentario..." onkeyup="mayus(this);" maxlength="140" id="text_comentario" data-idpedido="">
+                                                    <span class="input-group-append">
+                                                        <button class="btn btn-sm alpha-primary text-primary-800" type="button" onclick="send_comentario()"><i class="icon-paperplane"></i></button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                        
-                                        <div class="card" id="tabla_visor_solicitudes">
-                                            <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
-                                                <table class="table table-xs" id="lay_out_solicitudesx" cellspacing="0" width="100%" data-idcoordinacion="4">
-                                                    <col width="25%">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sidebar-sticky w-100 w-md-auto order-1 order-md-2" id="sidebar_sticky_article" style="display: none;">
+                                <div class="sidebar sidebar-xxx sidebar-light sidebar-component sidebar-component-right sidebar-expand-md">
+                                    <div class="sidebar-content">
+                                        <div class="card">
+                                            <div class="card-header header-elements-inline bg-white">
+                                                <h6 class="card-title"><i class="icon-comment-discussion mr-2 icon-1x text-danger-800"></i> Comentarios</h6>
+                                                <div class="header-elements">
+                                                    <div class="list-icons">
+                                                        <a class="list-icons-item" onclick="showAlmacenLateral()"><i class="icon-cross2"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <table class="table datatable-basic table-responsive table-responsive-sm" id="search_article" cellspacing="0" width="100%">
+                                                    <col width="80%">
                                                     <col width="20%">
-                                                    <col width="35%">
-                                                    <col width="20%">
-                                                    <thead>
+                                                    <thead style="display: none;">
                                                         <tr>
-                                                            <th>Equipo</th> <!-- 4 -->
-                                                            <th>Status</th> <!-- 4 -->
-                                                            <th>Materiales solicitados</th> <!-- 3 -->
-                                                            <th>Fecha</th> <!-- 2 -->
+                                                            <th>Articulo</th> <!-- 4 -->
+                                                            <th>Cant.</th> <!-- 4 -->
                                                         </tr>
                                                     </thead>
                                                     <tbody data-link="row" class="rowlink">
@@ -274,67 +332,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- /left content -->
-                                    <div class="sidebar-sticky w-100 w-md-auto order-1 order-md-2" id="sidebar_sticky" style="display: none;">
-                                        <div class="sidebar sidebar-light sidebar-component sidebar-component-right sidebar-expand-md">
-                                            <div class="sidebar-content">
-                                                <div class="card">
-                                                    <div class="card-header header-elements-inline bg-white">
-                                                        <h6 class="card-title"><i class="icon-comment-discussion mr-2 icon-1x text-danger-800"></i> Comentarios</h6>
-                                                        <div class="header-elements">
-                                                            <div class="list-icons">
-                                                                <a class="list-icons-item" onclick="closeCardComent()"><i class="icon-cross2"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-body" id="scrollxy" style="overflow-y: scroll; height:400px;">
-                                                        <ul class="media-list media-chat mb-3" id="conent_coment_area">
-                                                        </ul>
-                                                    </div>
-                                                    <div class="card-footer">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control border-right-0" placeholder="Agregar comentario..." onkeyup="mayus(this);" maxlength="140" id="text_comentario" data-idpedido="">
-                                                            <span class="input-group-append">
-                                                                <button class="btn btn-sm alpha-primary text-primary-800" type="button" onclick="send_comentario()"><i class="icon-paperplane"></i></button>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="sidebar-sticky w-100 w-md-auto order-1 order-md-2" id="sidebar_sticky_article" style="display: none;">
-                                        <div class="sidebar sidebar-light sidebar-component sidebar-component-right sidebar-expand-md">
-                                            <div class="sidebar-content">
-                                                <div class="card">
-                                                    <div class="card-header header-elements-inline bg-white">
-                                                        <h6 class="card-title"><i class="icon-comment-discussion mr-2 icon-1x text-danger-800"></i> Comentarios</h6>
-                                                        <div class="header-elements">
-                                                            <div class="list-icons">
-                                                                <a class="list-icons-item" onclick="showAlmacenLateral()"><i class="icon-cross2"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <table class="table datatable-basic table-responsive table-responsive-sm" id="search_article" cellspacing="0" width="100%">
-                                                            <col width="80%">
-                                                            <col width="20%">
-                                                            <thead style="display: none;">
-                                                                <tr>
-                                                                    <th>Articulo</th> <!-- 4 -->
-                                                                    <th>Cant.</th> <!-- 4 -->
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody data-link="row" class="rowlink">
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                            <!-- /inner container -->
+                            </div>
+                        </div>
+                        <!-- /inner container -->
+                    </div>
                     <!-- /large modal -->
                     <div id="mod_log_acces" class="modal fade" tabindex="-1" data-firmax="4" style="display: none;">
                         <div class="modal-dialog modal-xs">
@@ -464,12 +466,12 @@
                         </div>
                     </div>
                     <!-- Footer -->
-		</div>
                 <!-- /main content -->
                 <!-- Footer -->
                 <?php include "../bar_nav/footer_navbar.php"; ?>
                 <!-- /footer -->     
             </div>
             <!-- /page content -->
+        </div>
     </body>
 </html>

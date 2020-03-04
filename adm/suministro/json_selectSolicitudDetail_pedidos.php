@@ -10,14 +10,14 @@
         $id_pedido = $valor["id_pedido"];
         $data[] = array("id_pedido" => $id_pedido,
                         "articulo" => articulo($valor["articulo"]),
-                        "cantidad" => $valor["cantidad"],
+                        "cantidad" => cantidad_user($valor["cantidad"],$valor["cantidad_coord"],$valor["cantidad_plan"],$valor["firm_coordinacion"],$valor["firm_planeacion"]),
                         "unidad" => unidad($valor["unidad"]),
                         "justificacion" => detalle($valor["justificacion"],$valor["nombre_sub_area"]),
                         "destino" => $valor["destino"],
                         "status_pedido" => $valor["status_pedido"],
                         "fecha_requerimiento" => $valor["fecha_requerimiento"],
-                        "cantidad_coord" => cantidad($id_pedido, $valor["cantidad_coord"]),
-                        "cantidad_plan" => $valor["cantidad_plan"],
+                        "cantidad_coord" => cantidad_coord($valor["cantidad_coord"],$valor["cantidad_plan"],$valor["firm_coordinacion"],$valor["firm_planeacion"],$id_pedido),
+                        "cantidad_plan" => cantidad_plan($valor["cantidad_plan"],$valor["firm_planeacion"],$id_pedido),
                         "cantidad_surtido" => $valor["cantidad_surtido"],
                         "cantidad_pendiente" => $valor["cantidad_pendiente"],
                         "cod_articulo" => $valor["cod_articulo"],
@@ -100,6 +100,37 @@
                         <input type='checkbox' class='custom-control-input' data-cantidadsurtir='$cantidad_comprar' data-idpedido='$id_pedido' data-codarticulo='$cod_articulo' data-idcompralista='$id_compra_lista' id='A$id_compra_lista' checked>
                         <label class='custom-control-label position-static' for='A$id_compra_lista'></label>
                     </div>";
+        }
+    }
+    function cantidad_user($cant, $cant_coord,$cant_plan,$firm_coord,$firm_plan){
+        if($firm_coord){
+            if($firm_plan){
+                return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";
+            }else{
+                return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_coord</h6>";
+            }
+        }else{
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant</h6>";
+            
+        }        
+    }
+    function cantidad_coord($cant_coord,$cant_plan,$firm_coord,$firm_plan,$id_pedido){
+        if($firm_coord){
+            if($firm_plan){
+                return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";
+            }else{
+                return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_coord</h6>";
+            }
+        }else{
+            return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cant_coord'>";
+            
+        }
+    }
+    function cantidad_plan($cant_plan,$firm_plan,$id_pedido){
+        if($firm_plan){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";
+        }else{
+            return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cant_plan'>";
         }
     }
     header('Content-Type: application/json');
