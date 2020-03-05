@@ -202,19 +202,18 @@
                                                                     <div class="row">
                                                                         <div class="col-sm-12 form-group">
                                                                             <div class="row">
-                                                                                <div class="col-sm-4 form-group">
+                                                                                <div class="col-sm-5 form-group">
                                                                                     <span class="font-weight-bold font-size-lg" id="name_coordinacion"></span>
                                                                                 </div>
-                                                                                <div class="col-sm-8 form-group">
+                                                                                <div class="col-sm-7 form-group">
                                                                                     <span class="btn btn-sm badge" id="firm_coordinacion"  data-idempleado="" data-nuevafirma="" ></span>
                                                                                 </div>
                                                                             </div>
-                                                                            </br>
                                                                             <div class="row">
-                                                                                <div class="col-sm-4 form-group">
+                                                                                <div class="col-sm-5 form-group">
                                                                                     <span class="font-weight-bold font-size-lg">Planeacion de Proyectos:</span>
                                                                                 </div>
-                                                                                <div class="col-sm-4 form-group">
+                                                                                <div class="col-sm-7 form-group">
                                                                                     <span class="btn btn-sm badge" id="firm_planeacion" data-idempleado="" data-nuevafirma="" onclick="firma_solicitud()"></span>
                                                                                 </div>
                                                                             </div>
@@ -231,14 +230,16 @@
                                                                 <table id="tabla_pedidos" class="table datatable-scroll-y tabla-reslta-row-hover" cellspacing="0" width="100%" data-folio=""><!--Id Coordinador = 1 Test, 2 Swab-->
                                                                     <col width="5%">
                                                                     <col width="3%">
-                                                                    <col width="35%">
                                                                     <col width="32%">
+                                                                    <col width="5%">
+                                                                    <col width="30%">
                                                                     <col width="25%">
                                                                     <thead>
                                                                       <tr>
                                                                         <th>Cantidad</th> <!-- 0 -->
                                                                         <th></th> <!-- 1 -->
                                                                         <th>Articulo</th> <!-- 2 -->
+                                                                        <th></th> <!-- 2 -->
                                                                         <th>Motivo del requerimiento</th> <!-- 3 -->
                                                                         <th>Comentarios</th> <!-- 4 -->
                                                                       </tr>
@@ -333,11 +334,6 @@
                                                     <tbody data-link="row" class="rowlink">
                                                     </tbody>
                                                 </table>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="chart-container">
-                                                    <div class="chart has-fixed-height" id="gauge_basic"></div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

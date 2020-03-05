@@ -94,7 +94,8 @@ $(document).ready( function () {
             $(row).addClass('unread');
         },
         language: {
-            zeroRecords: "Ningun elemento encontrado"
+            zeroRecords: "Ningun elemento encontrado",
+            lengthMenu: '<span>Mostrado </span> _MENU_ <span>elementos</span>',
         }
     });
     $("#buscar_en_tabla_layoutx").on('keyup', function (e) {
@@ -266,6 +267,7 @@ function getSolicitudDetail_pedido(folio){
                     value.cantidad_plan,
                     value.unidad,
                     value.articulo,
+                    value.status_pedido,
                     value.justificacion,
                     value.comentarios
                 ]).node().id = value.id_pedido;

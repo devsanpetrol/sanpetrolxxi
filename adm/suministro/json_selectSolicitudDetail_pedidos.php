@@ -14,7 +14,7 @@
                         "unidad" => unidad($valor["unidad"]),
                         "justificacion" => detalle($valor["justificacion"],$valor["nombre_sub_area"]),
                         "destino" => $valor["destino"],
-                        "status_pedido" => $valor["status_pedido"],
+                        "status_pedido" => "<span class='badge badge-danger d-block'>Cancelado</span>",//$valor["status_pedido"],
                         "fecha_requerimiento" => $valor["fecha_requerimiento"],
                         "cantidad_coord" => cantidad_coord($valor["cantidad_coord"],$valor["cantidad_plan"],$valor["firm_coordinacion"],$valor["firm_planeacion"],$id_pedido),
                         "cantidad_plan" => cantidad_plan($valor["cantidad_plan"],$valor["firm_planeacion"],$id_pedido),
@@ -56,7 +56,7 @@
                                 <p class='mb-1 font-size-sm text-primary-800'>$comentario.</p>
                             </div>
                             <div class='ml-2 align-self-start'>
-                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple' title='$count2 comentarios más' onClick='openCardComent($id_pedido)'><i class='icon-comment-discussion'></i></button>
+                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple' title='$count2 comentarios más' onClick='openCardComent($id_pedido)'><i class='icon-bubbles5'></i></button>
                             </div>
                         </blockquote>";
             }else{
@@ -65,7 +65,7 @@
                                 <p class='mb-1 font-size-sm text-primary-800'>$comentario.</p>
                             </div>
                             <div class='ml-2 align-self-start'>
-                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple'  onClick='openCardComent($id_pedido)'><i class='icon-comment-discussion'></i></button>
+                                <button type='button' class='btn btn-outline bg-danger-400 text-danger-800 btn-icon ml-2 rounded-round legitRipple'  onClick='openCardComent($id_pedido)'><i class='icon-bubbles5'></i></button>
                             </div>
                         </blockquote>";
             }
@@ -75,7 +75,7 @@
                                 <p class='mb-1 font-size-sm'></p>
                             </div>
                             <div class='ml-2 align-self-start'>
-                                <button type='button' class='btn btn-outline bg-success text-success btn-icon ml-2 rounded-round legitRipple' title='Agregar comentario' onClick='openCardComent($id_pedido)'><strong>+<strong><i class='icon-comment'></i></button>
+                                <button type='button' class='btn btn-outline text-slate-300 btn-icon ml-2 rounded-round legitRipple' title='Agregar comentario' onClick='openCardComent($id_pedido)'><i class='icon-bubbles6'></i></button>
                             </div>
                         </blockquote>";
         }
