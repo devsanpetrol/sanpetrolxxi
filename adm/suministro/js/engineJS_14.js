@@ -1,14 +1,7 @@
 $(document).ready( function () {
     var user_session_id = $('#user_session_id').data("employeid");
     $('.form-control-select2').select2();
-    $('.sidebar-sticky .sidebar').stick_in_parent({
-            offset_top: 20,
-            parent: '.content'
-        });
-        // Detach on mobiles
-        $('.sidebar-mobile-component-toggle').on('click', function() {
-            $('.sidebar-sticky .sidebar').trigger("sticky_kit:detach");
-        });
+    
     $('.pickadate-accessibility').pickadate({
         format: 'dddd, dd mmmm, yyyy',
         formatSubmit: 'yyyy-mm-dd',
@@ -137,6 +130,14 @@ $(document).ready( function () {
         var id_pedido = table.row('.selected').id();
         console.log(id_pedido);
     } );
+    $('.sidebar-sticky .sidebar').stick_in_parent({
+        offset_top: 20,
+        parent: '.content'
+    });
+        // Detach on mobiles
+    $('.sidebar-mobile-component-toggle').on('click', function() {
+        $('.sidebar-sticky .sidebar').trigger("sticky_kit:detach");
+    });
 } );
 function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);

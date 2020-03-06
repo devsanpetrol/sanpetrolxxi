@@ -9,7 +9,7 @@
     foreach ($pedidos as $valor){
         $id_pedido = $valor["id_pedido"];
         $data[] = array("id_pedido" => $id_pedido,
-                        "articulo" => articulo($valor["articulo"]),
+                        "articulo" => articulo($valor["articulo"],$id_pedido,$valor["unidad"],$valor["cod_articulo"]),
                         "cantidad" => cantidad_user($valor["cantidad"],$valor["cantidad_coord"],$valor["cantidad_plan"],$valor["firm_coordinacion"],$valor["firm_planeacion"]),
                         "unidad" => unidad($valor["unidad"]),
                         "justificacion" => detalle($valor["justificacion"],$valor["nombre_sub_area"]),
@@ -36,8 +36,8 @@
     function destino($destino){
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-700'>$destino</h6>";
     }
-    function articulo($articulo){
-        return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$articulo</h6>";
+    function articulo($articulo,$id_pedido,$unidad,$cod_articulo){
+        return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600' data-articulo='$articulo' data-idpedido='$id_pedido' data-unidad='$unidad' data-codarticulo='$cod_articulo' ondblclick='openModalEditArticle(event)'>$articulo</h6>";
     }
     function justificacion($justificacion){
         return "<h6 class='mb-0 font-size-sm text-slate-700'>$justificacion</h6>";

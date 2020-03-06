@@ -134,10 +134,8 @@ $(document).ready( function () {
             })
         });
         if(isNaN($('#select_article').val())){
-            $('#descripcion').prop('readonly', true);
             $('#unidad').prop('disabled', true);
         }else{
-            $('#descripcion').prop('readonly', false);
             $('#unidad').prop('disabled', false);
         }
     });
@@ -418,4 +416,68 @@ function closeCardComent(){
 }
 function showAlmacenLateral(){
     $("#sidebar_sticky_article").toggle("slow");
+}
+function openModalEditArticle(e){
+    var inp = e.target;
+    var articulo = $(inp).data("articulo");
+    var codarticulo = $(inp).data("codarticulo");
+    var unidad = $(inp).data("unidad");
+    
+    $('#cod_articulo').val(codarticulo);
+    $('#descripcion').val(articulo);
+    $('#unidad').val(unidad).trigger('change');
+    
+    $('#cod_articulo_sub').html(codarticulo);
+    $('#descripcion_sub').html(articulo);
+    $('#unidad_sub').html(unidad);
+    if( codarticulo != "" ){
+        $("#unidad").attr('disabled', true);
+    }else{
+        $("#unidad").attr('disabled', false);
+    }
+    $("#modal_large").modal("show");
+    
+}
+function updateArticle(){
+    var cod_articulo = $('#cod_articulo').val();
+    var articulo = $('#descripcion').val();
+    var unidad = $('#unidad').val();
+    console.log(cod_articulo+"::"+articulo+"::"+unidad)
+}
+function closeModalUpArticle(){
+    $('#cod_articulo').val("");
+    $('#descripcion').val("");
+    $('#unidad').val(null).trigger('change');
+    
+    $('#cod_articulo_sub').html("");
+    $('#descripcion_sub').html("");
+    $('#unidad_sub').html("");
+    
+    $("#modal_large").modal("hide");
+}
+function clearCodArticle(){
+    var a1 = $('#descripcion').val();
+    var a2 = $('#descripcion_sub').html();
+    
+    if( a1 == a2){
+        resetModal();
+    }else{
+        $('#cod_articulo').val("");
+        $("#unidad").attr('disabled', false);
+    }
+}
+function resetModal(){
+    var cod_articulo_sub = $('#cod_articulo_sub').html();
+    var descripcion_sub = $('#descripcion_sub').html();
+    var unidad_sub = $('#unidad_sub').html();
+    
+    $('#cod_articulo').val(cod_articulo_sub);
+    $('#descripcion').val(descripcion_sub);
+    $('#unidad').val(unidad_sub).trigger('change');
+    
+    if( cod_articulo_sub != "" ){
+        $("#unidad").attr('disabled', true);
+    }else{
+        $("#unidad").attr('disabled', false);
+    }
 }

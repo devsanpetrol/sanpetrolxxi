@@ -145,7 +145,7 @@
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
                             <div class="header-elements d-none">
-                                <form action="#">
+                                <form action="#" style="display: none">
                                     <div class="form-group form-group-feedback form-group-feedback-right">
                                         <input type="search" class="form-control wmin-200" placeholder="Buscar..." id="buscar_en_tabla_layoutx">
                                         <div class="form-control-feedback">
@@ -203,7 +203,6 @@
                                                                                             <span class="btn btn-sm badge" id="firm_coordinacion"  data-idempleado="" data-nuevafirma="" onclick="firma_solicitud()"></span>
                                                                                         </div>
                                                                                     </div>
-                                                                                    </br>
                                                                                     <div class="row">
                                                                                         <div class="col-sm-4 form-group">
                                                                                             <span class="font-weight-bold font-size-lg">Planeacion de Proyectos:</span>

@@ -67,8 +67,6 @@
     <script src="../../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/styling/switch.min.js"></script>
-    <script src="../../global_assets/js/demo_pages/components_scrollspy.js"></script>
-    <script src="../../..global_assets/js/demo_pages/components_scrollspy.js"></script>
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/visualization/echarts/echarts.min.js"></script>
     <!-- /theme JS files -->
@@ -396,76 +394,46 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control text-blue-800 text-center" id="cod_articulo" readonly placeholder="Codigo articulo">
+                                                        <span class="form-text text-muted text-right font-size-xs" id="cod_articulo_sub">example</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                              <div class="col-md-6">
-                                                  <div class="form-group form-group-feedback form-group-feedback-left">
-                                                      <input type="text" class="form-control text-blue-800 pickadate-accessibility" id="fecharequerimiento" placeholder="Fecha de Requerimiento">
-                                                      <div class="form-control-feedback form-control-feedback-sm">
-                                                          <i class="icon-calendar22"></i>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                              <div class="col-md-3">
-                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="number" class="form-control text-danger-800 text-center font-weight-bold" step="1" value="1" min="0" id="cantidad" value="0" required="true" title="Cantidad a solicitar">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <select data-placeholder="Unidad" name="select" class="form-control form-control-select2 text-right select" id="unidad">
-                                                        <option></option>
-                                                        <option value="pza">Pieza</option>
-                                                        <option value="kgr">Kilogramo</option>
-                                                        <option value="mtr">Metro</option>
-                                                        <option value="pqt">Paquete</option>
-                                                        <option value="cja">Caja</option>
-                                                        <option value="ltr">Litro</option>
-                                                        <option value="lte">Lote</option>
-                                                        <option value="kit">Kit</option>
-                                                        <option value="par">Par</option> 
-                                                    </select>
-                                                </div>
-                                            </div>
-                                          </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control text-blue-800" id="descripcion" required="true" placeholder="Descripción del articulo" onkeyup="mayus(this);">
-                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                        <i class="icon-file-text"></i>
+                                                <div class="col-md-9">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control text-blue-800" id="descripcion" required="true" placeholder="Descripción del articulo" onkeyup="clearCodArticle(event)">
+                                                        <span class="form-text text-muted text-right font-size-xs" id="descripcion_sub">example 2</span>
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-file-text"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <select data-placeholder="Area / Equipo" class="form-control form-control-select2 border-danger text-right" name='area_aquipo' id="sub_area_aquipo" data-fouc>
-                                                        <option></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row">    
-                                            <div class="col-md-12">
-                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control text-blue-800" id="justificacion" required="true" onkeyup="mayus(this);" placeholder="Motivo del requerimiento">
-                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                        <i class="icon-help"></i>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select data-placeholder="Unidad" name="select" class="form-control form-control-select2 text-right select" id="unidad">
+                                                            <option></option>
+                                                            <option value="pza">Pieza</option>
+                                                            <option value="kgr">Kilogramo</option>
+                                                            <option value="mtr">Metro</option>
+                                                            <option value="pqt">Paquete</option>
+                                                            <option value="cja">Caja</option>
+                                                            <option value="ltr">Litro</option>
+                                                            <option value="lte">Lote</option>
+                                                            <option value="kit">Kit</option>
+                                                            <option value="par">Par</option> 
+                                                        </select>
+                                                        <span class="form-text text-muted text-right font-size-xs" id="unidad_sub">example 3</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="resetModal()" title="Limpiar formulario"><i class="icon-eraser2"></i></button>
-                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="resetModalPedido()" title="Limpiar formulario">Salir</button>
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="savePedidoModal()" title="Agregar">Agregar</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="resetModal()"><i class="icon-reset mr-1"></i> RESET</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updateArticle()"><i class="icon-floppy-disk mr-1"></i> GUARDAR</button>
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalUpArticle()">Salir</button>
                                 </div>
                             </div>
                         </div>
