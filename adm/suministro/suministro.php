@@ -482,4 +482,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    function set_update_pedidoDetail($id_pedido,$cod_articulo, $articulo,$unidad){
+        if(trim($cod_articulo) == ""){
+            $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET cod_articulo = NULL, articulo = '$articulo', unidad = '$unidad' WHERE id_pedido = $id_pedido LIMIT 1");
+        }else{
+            $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET cod_articulo = '$cod_articulo', articulo = '$articulo', unidad = '$unidad' WHERE id_pedido = $id_pedido LIMIT 1");
+        }
+        return $sql2->execute();
+    }
 }

@@ -14,7 +14,7 @@
                         "unidad" => unidad($valor["unidad"]),
                         "justificacion" => detalle($valor["justificacion"],$valor["nombre_sub_area"]),
                         "destino" => $valor["destino"],
-                        "status_pedido" => "<span class='badge badge-danger d-block'>Cancelado</span>",//$valor["status_pedido"],
+                        "status_pedido" => status_pedido($valor["status_pedido"]),//$valor["status_pedido"],
                         "fecha_requerimiento" => $valor["fecha_requerimiento"],
                         "cantidad_coord" => cantidad_coord($valor["cantidad_coord"],$valor["cantidad_plan"],$valor["firm_coordinacion"],$valor["firm_planeacion"],$id_pedido),
                         "cantidad_plan" => cantidad_plan($valor["cantidad_plan"],$valor["firm_planeacion"],$id_pedido),
@@ -45,6 +45,34 @@
     function detalle($justificacion,$destino){
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$destino </h6>
                 <span class='d-block font-size-sm text-blue-800'>$justificacion</span>";
+    }
+    function status_pedido($status_pedido){
+        $status = "";
+        switch ($status_pedido) {
+            case 0:
+                $status = "<span class='badge badge-flat border-primary text-primary-600 d-block' onClick='openMiniModalStatus()'>Nuevo</span>";
+                break;
+            case 1:
+                $status = "<span class='badge badge-success d-block' onClick='openMiniModalStatus()'>Aprobado</span>";
+                break;
+            case 2:
+                $status = "<span class='badge badge-danger d-block' onClick='openMiniModalStatus()'>Cancelado</span>";
+                break;
+            case 3:
+                $status = "<span class='badge bg-purple d-block' onClick='openMiniModalStatus()'>Surtir</span>";
+                break;
+            case 4:
+                $status = "<span class='badge badge-primary d-block' onClick='openMiniModalStatus()'>Completado</span>";
+                break;  
+            case 5:
+                $status = "<span class='badge bg-teal d-block' onClick='openMiniModalStatus()'>Compra</span>";
+                break;
+            case 6:
+                $status = "<span class='badge badge-danger d-block' onClick='openMiniModalStatus()'>Anulado</span>";
+                break;
+         }
+        
+        return $status;
     }
     function comentario($comentario,$count,$id_pedido){
         $count2 = $count-1;

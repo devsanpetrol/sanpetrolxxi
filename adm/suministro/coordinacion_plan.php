@@ -377,7 +377,7 @@
                     </div>
                     <!-- /large modal -->
                     <!-- Area modal -->
-                    <div id="modal_large" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-idequipo="" data-folio="">
+                    <div id="modal_large" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-idequipo="" data-folio="" data-idpedido>
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-body">
@@ -438,6 +438,31 @@
                             </div>
                         </div>
                     </div>
+                    <!-- /large modal -->
+                    <div id="status_pedido" class="modal fade" tabindex="-1" data-firmax="4" data-backdrop="false" style="display: none;">
+                        <div class="modal-dialog modal-xs">
+                            <div class="modal-content">
+                                <div class="modal-body" style="padding-bottom: 0px;">
+                                    <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                       <button type="button" class="btn btn-outline-success legitRipple w-100"><i class="icon-checkmark-circle mr-2"></i> APROBAR </button>
+                                    </div>
+                                    <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                        <button type="button" class="btn btn-outline-danger legitRipple w-100"><i class="icon-cancel-circle2 mr-2"></i> CANCELAR </button>
+                                    </div>
+                                    <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                       <button type="button" class="btn btn-outline-primary legitRipple w-100"><i class="icon-checkmark-circle mr-2"></i> APROBAR </button>
+                                    </div>
+                                    <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                        <button type="button" class="btn btn-outline-purple legitRipple w-100"><i class="icon-cancel-circle2 mr-2"></i> CANCELAR </button>
+                                    </div>
+                                    <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                        <button type="button" class="btn btn-link legitRipple" data-dismiss="modal"><i class="icon-arrow-left12 mr-1"></i> Regresar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /large modal -->
                     <!-- Footer -->
                 <!-- /main content -->
                 <!-- Footer -->

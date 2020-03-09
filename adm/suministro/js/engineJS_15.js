@@ -419,10 +419,12 @@ function showAlmacenLateral(){
 }
 function openModalEditArticle(e){
     var inp = e.target;
+    var idpedido = $(inp).data("idpedido");
     var articulo = $(inp).data("articulo");
     var codarticulo = $(inp).data("codarticulo");
     var unidad = $(inp).data("unidad");
     
+    $("#modal_large").data("idpedido",idpedido);
     $('#cod_articulo').val(codarticulo);
     $('#descripcion').val(articulo);
     $('#unidad').val(unidad).trigger('change');
@@ -442,12 +444,19 @@ function updateArticle(){
     var cod_articulo = $('#cod_articulo').val();
     var articulo = $('#descripcion').val();
     var unidad = $('#unidad').val();
-    console.log(cod_articulo+"::"+articulo+"::"+unidad)
+    var id_pedido = $("#modal_large").data("idpedido");
+    
+    $.post( "update_pedidoDetail.php",{ id_pedido:id_pedido,cod_articulo:cod_articulo,articulo:articulo,unidad:unidad}).done(function( data ) {
+        var folio = $('#modal_large').data('folio');
+        getSolicitudDetail_pedido(folio);
+        closeModalUpArticle();
+    });
 }
 function closeModalUpArticle(){
     $('#cod_articulo').val("");
     $('#descripcion').val("");
     $('#unidad').val(null).trigger('change');
+    $("#select_article").val(null).trigger('change');
     
     $('#cod_articulo_sub').html("");
     $('#descripcion_sub').html("");
@@ -480,4 +489,7 @@ function resetModal(){
     }else{
         $("#unidad").attr('disabled', false);
     }
+}
+function openMiniModalStatus(){
+    $("#status_pedido").modal("show");
 }
