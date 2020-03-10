@@ -190,7 +190,7 @@
                                                                             <div class="row">
                                                                                 <div class="col-sm-12 form-group">
                                                                                 <span class="font-weight-bold font-size-lg">Equipo / Sitio: </span>
-                                                                                <span class="font-weight-bold font-size-lg ml-1 text-danger-800" id="area_aquipo" data-idcoordinador=""></span>
+                                                                                <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="area_aquipo" data-idcoordinador=""></span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -439,24 +439,27 @@
                         </div>
                     </div>
                     <!-- /large modal -->
-                    <div id="status_pedido" class="modal fade" tabindex="-1" data-firmax="4" data-backdrop="false" style="display: none;">
+                    <div id="status_pedido" class="modal fade" tabindex="-1" data-idpedido="" data-backdrop="false" style="display: none;">
                         <div class="modal-dialog modal-xs">
                             <div class="modal-content">
                                 <div class="modal-body" style="padding-bottom: 0px;">
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                       <button type="button" class="btn btn-outline-success legitRipple w-100"><i class="icon-checkmark-circle mr-2"></i> APROBAR </button>
+                                        <button type="button" class="btn bg-success-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="1" onclick="saveStatusItems(event)"><b><i class="icon-checkmark-circle"></i></b> APROBAR </button>
                                     </div>
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                        <button type="button" class="btn btn-outline-danger legitRipple w-100"><i class="icon-cancel-circle2 mr-2"></i> CANCELAR </button>
+                                        <button type="button" class="btn bg-danger-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="2" onclick="saveStatusItems(event)"><b><i class="icon-cancel-circle2"></i></b> CANCELAR </button>
                                     </div>
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                       <button type="button" class="btn btn-outline-primary legitRipple w-100"><i class="icon-checkmark-circle mr-2"></i> APROBAR </button>
+                                        <button type="button" class="btn bg-primary btn-labeled btn-labeled-left legitRipple w-100" data-status="4" onclick="saveStatusItems(event)"><b><i class="icon-checkmark4"></i></b> COMPLETADO </button>
                                     </div>
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                        <button type="button" class="btn btn-outline-purple legitRipple w-100"><i class="icon-cancel-circle2 mr-2"></i> CANCELAR </button>
+                                        <button type="button" class="btn bg-purple-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="3" onclick="saveStatusItems(event)"><b><i class="icon-power2"></i></b> SURTIR </button>
                                     </div>
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                        <button type="button" class="btn btn-link legitRipple" data-dismiss="modal"><i class="icon-arrow-left12 mr-1"></i> Regresar</button>
+                                        <button type="button" class="btn bg-info-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="5" onclick="saveStatusItems(event)"><b><i class="icon-cart2"></i></b> COMPRA </button>
+                                    </div>
+                                    <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                        <button type="button" class="btn btn-link legitRipple text-danger-800" data-dismiss="modal"><i class="icon-cross2"></i></button>
                                     </div>
                                 </div>
                             </div>

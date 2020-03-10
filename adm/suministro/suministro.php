@@ -490,4 +490,8 @@ class suministro extends conect
         }
         return $sql2->execute();
     }
+    function set_update_pedidoStatus($id_pedido,$status){
+        $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET status_pedido = $status WHERE id_pedido = $id_pedido LIMIT 1");
+        return $sql2->execute();
+    }
 }

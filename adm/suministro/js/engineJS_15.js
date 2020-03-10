@@ -490,6 +490,22 @@ function resetModal(){
         $("#unidad").attr('disabled', false);
     }
 }
-function openMiniModalStatus(){
+function openMiniModalStatus(e){
+    var obj = e.target;
+    var idpedido = $(obj).data("idpedido");
+    
+    $("#status_pedido").data("idpedido",idpedido);
     $("#status_pedido").modal("show");
+}
+function saveStatusItems(e){
+    var obj = e.target;
+    var idpedido = $("#status_pedido").data("idpedido");
+    var status = $(obj).data("status");
+    
+    $.post( "update_pedidoStatus.php",{ id_pedido:idpedido,status:status}).done(function( data ) {
+        var folio = $('#modal_large').data('folio');
+        var t = $('#tabla_pedidos').DataTable();
+        t.draw(false);
+        $("#status_pedido").modal("hide");
+    });
 }
