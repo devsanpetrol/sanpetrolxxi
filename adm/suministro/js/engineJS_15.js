@@ -32,7 +32,7 @@ $(document).ready( function () {
         searching: false,
         ordering: false,
         bDestroy: true,
-        info: false,        
+        info: false,
         createdRow: function ( row, data, index ){
             $(row).addClass('pointer font-weight-semibold text-grey');
         },
@@ -66,11 +66,8 @@ $(document).ready( function () {
                 $(row).addClass('unread');
                 $(row).css("cursor","pointer");
             //}
-            
             $(row).data('scroll');
-            
             $('td', row).eq(2).addClass('table-inbox-message');
-            
         },
         columns: [
             {data : 'solicita'},
@@ -257,7 +254,7 @@ function getSolicitudDetail_pedido(folio){
         url: 'json_selectSolicitudDetail_pedidos.php',
         type: 'POST',
         beforeSend: function (xhr){
-            t.clear().draw();
+            t.clear().draw(false);
         },
         success: function (obj) {
             $.each(obj, function (index, value) {
@@ -273,14 +270,14 @@ function getSolicitudDetail_pedido(folio){
             });
         },
         complete: (function () {
-            if( $("#firm_planeacion").data("idempleado") > 0 ){
-                $(".input-cantidad-coord").attr('disabled', true);
-                if( $("#firm_planeacion").data("nuevafirma") == "new" ){
-                    $("#guarda_cambios_solicitud").show();
-                }else{
-                    $("#guarda_cambios_solicitud").hide();
-                }
-            }
+    if( $("#firm_planeacion").data("idempleado") > 0 ){
+        $(".input-cantidad-coord").attr('disabled', true);
+        if( $("#firm_planeacion").data("nuevafirma") == "new" ){
+            $("#guarda_cambios_solicitud").show();
+        }else{
+            $("#guarda_cambios_solicitud").hide();
+        }
+    }
         })
     });
 }
@@ -504,8 +501,25 @@ function saveStatusItems(e){
     
     $.post( "update_pedidoStatus.php",{ id_pedido:idpedido,status:status}).done(function( data ) {
         var folio = $('#modal_large').data('folio');
-        var t = $('#tabla_pedidos').DataTable();
-        t.draw(false);
+        getSolicitudDetail_pedido(folio);
         $("#status_pedido").modal("hide");
     });
+}
+function reloadTableDetail(){
+    var folio = $('#tabla_pedidos').data("folio");
+    var table = $('#tabla_pedidos').DataTable({
+        ajax: {
+                data: {folio:folio}
+            },
+        columns: [
+            {data : 'cantidad_plan'},
+            {data : 'unidad'},
+            {data : 'articulo'},
+            {data : 'status_pedido'},
+            {data : 'justificacion'},
+            {data : 'comentarios'}
+        ]
+    });
+    console.log(folio);
+    table.ajax.reload();
 }
