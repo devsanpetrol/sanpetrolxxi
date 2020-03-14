@@ -59,13 +59,13 @@
                 $status = "<span class='badge badge-danger d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Cancelado</span>";
                 break;
             case 3:
-                $status = "<span class='badge bg-purple d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Surtir</span>";
+                $status = "<span class='badge bg-purple-300 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Surtir</span>";
                 break;
             case 4:
                 $status = "<span class='badge badge-primary d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Completado</span>";
                 break;  
             case 5:
-                $status = "<span class='badge bg-teal d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Compra</span>";
+                $status = "<span class='badge bg-info-300 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Compra</span>";
                 break;
             case 6:
                 $status = "<span class='badge badge-danger d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Anulado</span>";
@@ -139,7 +139,6 @@
             }
         }else{
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant</h6>";
-            
         }        
     }
     function cantidad_coord($cant_coord,$cant_plan,$firm_coord,$firm_plan,$id_pedido){

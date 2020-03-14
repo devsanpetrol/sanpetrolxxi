@@ -10,6 +10,9 @@
     if($id_coordinacion == 4){
         $filter = "WHERE firm_coordinacion > 0 GROUP BY id_equipo";
     }
+    if($id_coordinacion == 0){
+        $filter = "WHERE clave_solicita = $user_session_id GROUP BY id_equipo";
+    }
     $categorias = $suministro->get_solicitudes_($filter);//SELECT * FROM adm_view_solicitud $filtro
     $data = array();
     

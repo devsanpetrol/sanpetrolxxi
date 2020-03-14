@@ -159,7 +159,7 @@ function openModalSolicitudDetail(folio){
 }
 function closeModalSolicitudDetail(){
     var table_pedido = $('#tabla_pedidos').DataTable();
-    table_pedido.column(4).visible(true);
+    table_pedido.column(5).visible(true);
     table_pedido.clear().draw();
     $('#sub_area_aquipo').empty().trigger("change");
     $("#tabla_visor_solicitudes").toggle(400);
@@ -244,6 +244,7 @@ function getSolicitudDetail_pedido(folio){
                     value.cantidad_coord,
                     value.unidad,
                     value.articulo,
+                    value.status_pedido,
                     value.justificacion,
                     value.comentarios
                 ]).node().id = value.id_pedido;
@@ -361,14 +362,14 @@ function openCardComent(id_pedido){
     $("#text_comentario").data("idpedido",id_pedido);
     get_comentario(id_pedido);
     $("#sidebar_sticky").show();
-    tbl.DataTable().column(4).visible(false);
+    tbl.DataTable().column(5).visible(false);
     $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 300);
 }
 function closeCardComent(){
     var folio = $("#modal_large").data("folio");
     getSolicitudDetail_pedido(folio);
     var tbl = $('#tabla_pedidos');
-    tbl.DataTable().column(4).visible(true);
+    tbl.DataTable().column(5).visible(true);
     $("#sidebar_sticky").hide();
 }
 function get_sub_area_equipo(id_equipo){
@@ -469,4 +470,22 @@ function savePedidoModal(){
         alert("Debe ingresasr todos los datos al formulario.");
     }
     
+}
+function openMiniModalStatus(e){
+    var obj = e.target;
+    var idpedido = $(obj).data("idpedido");
+    
+    $("#status_pedido").data("idpedido",idpedido);
+    $("#status_pedido").modal("show");
+}
+function saveStatusItems(e){
+    var obj = e.target;
+    var idpedido = $("#status_pedido").data("idpedido");
+    var status = $(obj).data("status");
+    
+    $.post( "update_pedidoStatus.php",{ id_pedido:idpedido,status:status}).done(function( data ) {
+        var folio = $('#modal_large').data('folio');
+        getSolicitudDetail_pedido(folio);
+        $("#status_pedido").modal("hide");
+    });
 }

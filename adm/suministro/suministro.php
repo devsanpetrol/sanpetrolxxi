@@ -474,7 +474,7 @@ class suministro extends conect
     }
     function set_update_firma($firm,$folio,$columna_firm, $columna_fecha){
         $sql2 = $this->_db->prepare("UPDATE adm_solicitud_material SET $columna_firm = $firm, $columna_fecha = NOW() WHERE folio = $folio LIMIT 1");
-        $sql3 = $this->_db->prepare("UPDATE adm_pedido  SET cantidad_plan = cantidad_coord WHERE folio = $folio LIMIT 1");
+        $sql3 = $this->_db->prepare("UPDATE adm_pedido SET cantidad_plan = cantidad_coord WHERE folio = $folio");
         $sql3 -> execute();
         return $sql2 -> execute();
     }

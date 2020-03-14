@@ -177,7 +177,7 @@ function openModalSolicitudDetail(folio){
 }
 function closeModalSolicitudDetail(){
     var table_pedido = $('#tabla_pedidos').DataTable();
-    table_pedido.column(4).visible(true);
+    table_pedido.column(5).visible(true);
     table_pedido.clear().draw();
     $('#sub_area_aquipo').empty().trigger("change");
     $("#tabla_visor_solicitudes").toggle(400);
@@ -401,14 +401,14 @@ function openCardComent(id_pedido){
     $("#text_comentario").data("idpedido",id_pedido);
     get_comentario(id_pedido);
     $("#sidebar_sticky").show();
-    tbl.DataTable().column(4).visible(false);
+    tbl.DataTable().column(5).visible(false);
     $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 300);
 }
 function closeCardComent(){
     var folio = $("#modal_large").data("folio");
     getSolicitudDetail_pedido(folio);
     var tbl = $('#tabla_pedidos');
-    tbl.DataTable().column(4).visible(true);
+    tbl.DataTable().column(5).visible(true);
     $("#sidebar_sticky").hide();
 }
 function showAlmacenLateral(){

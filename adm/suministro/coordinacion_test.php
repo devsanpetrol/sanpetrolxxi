@@ -224,12 +224,14 @@
                                                                         <table id="tabla_pedidos" class="table datatable-scroll-y tabla-reslta-row-hover" cellspacing="0" width="100%" data-folio=""><!--Id Coordinador = 1 Test, 2 Swab-->
                                                                             <col width="5%">
                                                                             <col width="3%">
-                                                                            <col width="35%">
                                                                             <col width="32%">
+                                                                            <col width="5%">
+                                                                            <col width="30%">
                                                                             <col width="25%">
                                                                             <thead>
                                                                               <tr>
                                                                                 <th>Cantidad</th> <!-- 0 -->
+                                                                                <th></th> <!-- 1 -->
                                                                                 <th></th> <!-- 1 -->
                                                                                 <th>Articulo</th> <!-- 2 -->
                                                                                 <th>Motivo del requerimiento</th> <!-- 3 -->
@@ -442,6 +444,28 @@
                         </div>
                     </div>
 		</div>
+                <!-- /large modal -->
+                <div id="status_pedido" class="modal fade" tabindex="-1" data-idpedido="" data-backdrop="false" style="display: none;">
+                    <div class="modal-dialog modal-xs">
+                        <div class="modal-content">
+                            <div class="modal-body" style="padding-bottom: 0px;">
+                                <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                    <button type="button" class="btn bg-success-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="1" onclick="saveStatusItems(event)"><b><i class="icon-checkmark-circle"></i></b> APROBAR </button>
+                                </div>
+                                <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                    <button type="button" class="btn bg-danger-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="2" onclick="saveStatusItems(event)"><b><i class="icon-cancel-circle2"></i></b> CANCELAR </button>
+                                </div>
+                                <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                    <button type="button" class="btn bg-info-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="5" onclick="saveStatusItems(event)"><b><i class="icon-cart2"></i></b> COMPRA </button>
+                                </div>
+                                <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                    <button type="button" class="btn btn-link legitRipple text-danger-800" data-dismiss="modal"><i class="icon-cross2"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /large modal -->
                 <!-- /main content -->
                 <!-- Footer -->
                 <?php include "../bar_nav/footer_navbar.php"; ?>
