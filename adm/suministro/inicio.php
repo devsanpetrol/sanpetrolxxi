@@ -141,7 +141,7 @@
                     <div class="page-header page-header-light">
                         <div class="page-header-content header-elements-md-inline">
                             <div class="page-title d-flex">
-                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">COORDINACIÓN TESTING</span></h4>
+                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">MIS SOLICITUDES</span></h4>
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
                             <div class="header-elements d-none">
@@ -255,7 +255,7 @@
                                                 </div>
                                                 <div class="col-sm-4 text-right">
                                                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guardarCambios()" title="Salir del formulario" id="guarda_cambios_solicitud">Guardar</button>
-                                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
+                                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail_user()" title="Salir del formulario">Salir</button>
                                                 </div>
                                             </div>
                                         </div>

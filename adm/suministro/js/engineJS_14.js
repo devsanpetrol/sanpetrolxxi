@@ -167,6 +167,13 @@ function closeModalSolicitudDetail(){
     $("#expand_menu_lateral").click();
     $("#sidebar_sticky").hide();
 }
+function closeModalSolicitudDetail_user(){
+    var table_pedido = $('#tabla_pedidos').DataTable();
+    table_pedido.clear().draw();
+    $('#sub_area_aquipo').empty().trigger("change");
+    $("#tabla_visor_solicitudes").toggle(400);
+    $("#card_solicitud_detail").toggle(400);
+}
 function guardarCambios(){
     $('.input-cantidad-coord').each( function () {
         var cantidad = $(this).val();
