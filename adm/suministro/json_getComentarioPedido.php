@@ -37,24 +37,36 @@
                 }
             }
         }
+        $key_init = substr($comentario, 0, 10);
+        $key_stat = str_replace("::status::", "", $comentario);
+
         
-        if($id_empleado == $id_empleado_b){
-            $chat = "<li class='media media-chat-item-reverse'>
-                        <div class='media-body'>
-                            <div class='media-chat-item'>$comentario</div>
-                            <div class='font-size-xs $color_text mt-2'>$date_msj</div>
-                        </div>
-                        <div class='ml-3'></div>
-                    </li>";
+        if($key_init == "::status::"){
+            $chat = "<li class='media content-divider justify-content-center text-blue-800 mx-0'>
+                        <span class='px-2'>$key_stat</span>
+                    </li><div class='font-size-xs mt-2 text-muted text-right'>$date_msj</div>";
         }else{
-            $chat = "<li class='media'>
-                        <div class='mr-3'></div>
-                        <div class='media-body'>
-                            <div class='media-chat-item'>$comentario</div>
-                            <div class='font-size-xs $color_text mt-2'>$coordinacion - $date_msj</div>
-                        </div>
-                    </li>";
+            if($id_empleado == $id_empleado_b){
+                $chat = "<li class='media media-chat-item-reverse'>
+                            <div class='media-body'>
+                                <div class='media-chat-item'>$comentario</div>
+                                <div class='font-size-xs $color_text mt-2'>$date_msj</div>
+                            </div>
+                            <div class='ml-3'></div>
+                        </li>";
+            }else{
+                $chat = "<li class='media'>
+                            <div class='mr-3'></div>
+                            <div class='media-body'>
+                                <div class='media-chat-item'>$comentario</div>
+                                <div class='font-size-xs $color_text mt-2'>$coordinacion - $date_msj</div>
+                            </div>
+                        </li>";
+            }
         }
+        
+        
+        
         
         return $chat;
     }

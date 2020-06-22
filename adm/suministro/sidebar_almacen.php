@@ -16,14 +16,14 @@
                     <a href="almacen.php" class="nav-link almacen"><i class="icon-home"></i> Almacen </a>
                 </li>
                 <li class="nav-item">
-                    <a href="inventario.php" class="nav-link inventario"><i class="icon-books"></i> Inventario </a>
+                    <a href="inventario.php" class="nav-link inventario"><i class="icon-books"></i> Activo Fijo </a>
                 </li>
                 <li class="nav-item-header">SURTIDO DE MATERIAL</li>
                 <li class="nav-item">
                     <a href="almacen_salida.php" class="nav-link almacen_salida"><i class="icon-clipboard3"></i> Generar surtido de material </a>
                 </li>
                 <li class="nav-item">
-                    <a href="almacen_salida_aprobada.php" class="nav-link almacen_salida_aprobada"><i class="icon-clipboard2"></i> Aprobación salida de material</a>
+                    <a href="almacen_salida_aprobada.php" class="nav-link almacen_salida_aprobada"><i class="icon-clipboard2"></i> Entrega de materiales</a>
                 </li>
                 <li class="nav-item-header">LISTA DE COMPRA</li>
                 <li class="nav-item">

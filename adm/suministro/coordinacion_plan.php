@@ -101,7 +101,7 @@
                             <!-- Actions -->
                             <div class="card">
                                 <div class="card-header bg-transparent header-elements-inline">
-                                    <span class="text-uppercase font-size-sm font-weight-semibold">Nueva</span>
+                                    <span class="text-uppercase font-size-sm font-weight-semibold">Solicitudes</span>
                                     <div class="header-elements">
                                         <div class="list-icons">
                                             <a class="list-icons-item" data-action="collapse"></a>
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <a href="inicio_nuevo.php" class="btn bg-teal btn-block">Solicitud</a>
+                                    <a onclick="OpenHistoric()" class="btn bg-teal btn-block"><i class="icon-table2"></i> Historico</a>
                                 </div>
                             </div>
                             <!-- /actions -->
@@ -261,13 +261,15 @@
                                     <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
                                         <table class="table table-xs" id="lay_out_solicitudesx" cellspacing="0" width="100%" data-idcoordinacion="4">
                                             <col width="25%">
-                                            <col width="20%">
-                                            <col width="35%">
+                                            <col width="5%">
+                                            <col width="5%">
+                                            <col width="45%">
                                             <col width="20%">
                                             <thead>
                                                 <tr>
                                                     <th>Equipo</th> <!-- 4 -->
-                                                    <th>Status</th> <!-- 4 -->
+                                                    <th>Coord.</th> <!-- 4 -->
+                                                    <th>Plan.</th> <!-- 4 -->
                                                     <th>Materiales solicitados</th> <!-- 3 -->
                                                     <th>Fecha</th> <!-- 2 -->
                                                 </tr>
@@ -399,10 +401,10 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-9">
+                                                <div class="col-md-3">
                                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control text-blue-800" id="descripcion" required="true" placeholder="Descripción del articulo" onkeyup="clearCodArticle(event)">
-                                                        <span class="form-text text-muted text-right font-size-xs" id="descripcion_sub">example 2</span>
+                                                        <input type="text" class="form-control text-blue-800" id="cantidad" data-user="plan" required="true">
+                                                        <span class="form-text text-muted text-right font-size-xs" id="cantidad_sub">example 2</span>
                                                         <div class="form-control-feedback form-control-feedback-sm">
                                                             <i class="icon-file-text"></i>
                                                         </div>
@@ -426,13 +428,35 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control text-blue-800" id="descripcion" required="true" placeholder="Descripción del articulo" onkeyup="clearCodArticle(event)">
+                                                        <span class="form-text text-muted text-right font-size-xs" id="descripcion_sub">example 2</span>
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-file-text"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                        <input type="text" class="form-control text-blue-800" id="motivo" required="true" placeholder="Justificación de la solicitud">
+                                                        <span class="form-text text-muted text-right font-size-xs" id="motivo_sub">example 2</span>
+                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                            <i class="icon-info22"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="resetModal()"><i class="icon-reset mr-1"></i> RESET</button>
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updateArticle()"><i class="icon-floppy-disk mr-1"></i> GUARDAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="reset_modal_update" onclick="resetModal()"><i class="icon-reset mr-1"></i> RESET</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="guarda_modal_update" onclick="updateArticle()"><i class="icon-floppy-disk mr-1"></i> GUARDAR</button>
                                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalUpArticle()">Salir</button>
                                 </div>
                             </div>
@@ -444,22 +468,63 @@
                             <div class="modal-content">
                                 <div class="modal-body" style="padding-bottom: 0px;">
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                        <button type="button" class="btn bg-success-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="1" onclick="saveStatusItems(event)"><b><i class="icon-checkmark-circle"></i></b> APROBAR </button>
+                                        <button type="button" class="btn bg-success-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="1" data-statustxt="APROBADO" onclick="saveStatusItems(event)"><b><i class="icon-checkmark-circle"></i></b> APROBAR </button>
                                     </div>
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                        <button type="button" class="btn bg-danger-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="2" onclick="saveStatusItems(event)"><b><i class="icon-cancel-circle2"></i></b> CANCELAR </button>
+                                        <button type="button" class="btn bg-danger-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="2" data-statustxt="CANCELADO" onclick="saveStatusItems(event)"><b><i class="icon-cancel-circle2"></i></b> CANCELAR </button>
                                     </div>
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                        <button type="button" class="btn bg-primary btn-labeled btn-labeled-left legitRipple w-100" data-status="4" onclick="saveStatusItems(event)"><b><i class="icon-checkmark4"></i></b> COMPLETADO </button>
+                                        <button type="button" class="btn bg-primary btn-labeled btn-labeled-left legitRipple w-100" data-status="4" data-statustxt="COMPLETADO" onclick="saveStatusItems(event)"><b><i class="icon-checkmark4"></i></b> COMPLETADO </button>
                                     </div>
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                        <button type="button" class="btn bg-purple-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="3" onclick="saveStatusItems(event)"><b><i class="icon-power2"></i></b> SURTIR </button>
+                                        <button type="button" class="btn bg-purple-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="3" data-statustxt="LISTO PARA SURTIR" onclick="saveStatusItems(event)"><b><i class="icon-power2"></i></b> SURTIR </button>
                                     </div>
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                        <button type="button" class="btn bg-info-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="5" onclick="saveStatusItems(event)"><b><i class="icon-cart2"></i></b> COMPRA </button>
+                                        <button type="button" class="btn bg-info-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="5" data-statustxt="ENVIADO A COMPRA" onclick="saveStatusItems(event)"><b><i class="icon-cart2"></i></b> COMPRA </button>
                                     </div>
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
                                         <button type="button" class="btn btn-link legitRipple text-danger-800" data-dismiss="modal"><i class="icon-cross2"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /large modal -->
+                    <!-- /large modal -->
+                    <div id="historico_pedido" class="modal fade" tabindex="-1" data-idpedido="" data-backdrop="false" style="display: none;">
+                        <div class="modal-dialog modal-full">
+                            <div class="modal-content">
+                                <!--<div class="modal-header">
+                                    <div class="row">
+                                        <div class="col-md-12" id="content_destinos_histori">
+                                            <div class="form-group">
+                                                <select data-placeholder="Destino de la solicitud (Area ó Equipo)" class="form-control form-control-select2 border-danger text-right" name='area_aquipo_historico' data-idcoordinador="" id="area_aquipo_historico" data-fouc>
+                                                    <option></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>-->
+                                <div class="modal-body" style="padding-bottom: 0px;">
+                                    <div class="table-responsive">
+                                        <table class="table datatable-basic text-nowrap" id="historico_tabla" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>folio</th>
+                                                    <th>C-Solc</th>
+                                                    <th>C-Coor</th>
+                                                    <th>C-Plan</th>
+                                                    <th>C-Entr</th>
+                                                    <th>F-Entr</th>
+                                                    <th>Unidad</th>
+                                                    <th>Articulo</th>
+                                                    <th>Status</th>
+                                                    <th>Equipo</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

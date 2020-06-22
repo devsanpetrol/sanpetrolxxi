@@ -26,7 +26,8 @@
         
         $equipo = "<span class='font-weight-bold text-teal-800'>".$valor['nombre_generico']."</span>";
         $data[] = array("star" => "",
-                        "status" => firma_revision($valor['firm_coordinacion'],$valor['firm_planeacion'],$valor['coordinacion']),
+                        "status_c" => firma_revision_c($valor['firm_coordinacion']),
+                        "status_p" => firma_revision_p($valor['firm_planeacion']),
                         "solicita" => $equipo,
                         "pedidos" => pedido($folio),
                         "fecha" => "<span class='font-weight-bold'>$m $d</span>",
@@ -67,7 +68,7 @@
         );
         return $status[$st];
     }
-    function firma_revision($firm_coordinacion,$firm_planeacion,$coordinacion){
+    function firma_revision($firm_coordinacion,$coordinacion){
         $firma = "";
         if( $firm_coordinacion == 0 && $firm_planeacion == 0 ){
             $firma = "<ul class='list-unstyled mb-0'>
@@ -76,17 +77,34 @@
                       </ul>";
         }elseif ( $firm_coordinacion > 0 && $firm_planeacion == 0){
             $firma = "<ul class='list-unstyled mb-0'>
-                        <li><span class='badge badge-success badge-icon border-left-teal-300'><i class='mi-done mr-2 mi-1x'></i> $coordinacion</span></li>
+                        <div class='mr-3'><a href='#' class='btn bg-transparent border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-checkmark3'></i></a></div>
                         <li><span class='badge badge-info badge-icon border-left-teal-300'><i class='mi-hourglass-empty mr-2 mi-1x'></i> PLANEACIÓN</span></li>
                       </ul>";
         }elseif ( $firm_coordinacion > 0 && $firm_planeacion > 0 ){
             $firma = "<ul class='list-unstyled mb-0'>
-                        <li><span class='badge badge-success badge-icon border-left-teal-300'><i class='mi-done mr-2 mi-1x'></i> $coordinacion</span></li>
-                        <li><span class='badge badge-success badge-icon border-left-teal-300'><i class='mi-done mr-2 mi-1x'></i> PLANEACIÓN</span></li>
+                        <div class='mr-3'><a href='#' class='btn bg-transparent border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-checkmark3'></i></a></div>
+                        <div class='mr-3'><a href='#' class='btn bg-transparent border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-checkmark3'></i></a></div>
                       </ul>";
         }
         return $firma;
-        
+    }
+    function firma_revision_p($firm_planeacion){
+        $firma = "";
+        if( $firm_planeacion == 0 ){
+            $firma = "<a href='#' class='btn bg-transparent border-danger text-danger rounded-round border-2 btn-icon legitRipple'><i class='icon-cross2'></i></a>";
+        }elseif ( $firm_planeacion > 0 ){
+            $firma = "<a href='#' class='btn bg-transparent border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-checkmark3'></i></a>";
+        }
+        return $firma;
+    }
+    function firma_revision_c($firm_coordinacion){
+        $firma = "";
+        if( $firm_coordinacion == 0 ){
+            $firma = "<a href='#' class='btn bg-transparent border-danger text-danger rounded-round border-2 btn-icon legitRipple'><i class='icon-cross2'></i></a>";
+        }elseif ( $firm_coordinacion > 0 ){
+            $firma = "<a href='#' class='btn bg-transparent border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-checkmark3'></i></a>";
+        }
+        return $firma;
     }
     header('Content-Type: application/json');
     echo json_encode($data);

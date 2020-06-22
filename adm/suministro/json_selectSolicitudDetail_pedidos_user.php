@@ -28,10 +28,10 @@
                     );
     }
     function cantidad($id_pedido, $cantidad){
-        return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cantidad'>";
+        return "<h6 class='mb-0 font-size-sm font-weight-bold text-blue-800' id='cantidad_$id_pedido' data-idpedido='$id_pedido'>$cantidad</h6>";
     }
     function unidad($unidad){
-        return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$unidad</h6>";
+        return "<h6 class='mb-0 font-size-sm font-weight-bold text-blue-800'>$unidad</h6>";
     }
     function destino($destino){
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-700'>$destino</h6>";
@@ -150,7 +150,7 @@
             }
         }else{
             return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cant_coord'>";
-            
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_coord</h6>";
         }
     }
     function cantidad_plan($cant_plan,$firm_plan,$id_pedido){

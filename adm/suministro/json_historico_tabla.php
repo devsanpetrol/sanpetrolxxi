@@ -2,24 +2,64 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_almacen("WHERE no_inventario != ''");
+    $categorias = $suministro->get_solicitudes_("");
     $data = array();
     
     foreach ($categorias as $valor) {
-        $data[] = array("cod_articulo" => $valor['cod_articulo'],
-                        "no_inventario" => serie_inventario($valor['no_serie'],$valor['no_inventario']),
-                        "descripcion" => articulo_marca($valor['descripcion'],$valor['marca']),
-                        "tipo_unidad" => $valor['tipo_unidad'],
-                        "stock" => status_disponible($valor['stock']),
-                        "stock_min" => stock_min_max($valor['stock_min']),
-                        "stock_max" => stock_min_max($valor['stock_max']),
-                        "marca" => $valor['marca'],
-                        "costo" => costo($valor['costo']),
-                        "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
-                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario']),
-                        "stock2" => $valor['stock']
+        $data[] = array("cant" => $valor['cantidad'],
+                        "coord" => $valor['cantidad_coord'],
+                        "plan" => $valor['cantidad_plan'],
+                        "surt" => $valor['cantidad_surtido'],
+                        "surt_fecha" => $valor['fecha_firm_almacen'],
+                        "unidad" => $valor['unidad'],
+                        "articulo" => articulo($valor['articulo']),
+                        "status" => status_pedido($valor['status_pedido'],$valor['id_pedido']),
+                        "equipo" => equipo($valor['nombre_sub_area'],$valor['last_comentario']),
+                        "grupo" => grupo($valor['folio'],$valor['nombre_solicitante'],$valor['fecha'],$valor['nombre_generico']),
+                        "folio" => $valor['folio']
                         );
+    }
+    function articulo($articulo){
+        return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$articulo</h6>";
+    }
+    function equipo($equipo,$comentario){
+        $info = "";
+        if(!empty($comentario)){
+            $info = "<i class='icon-info22' title='$comentario'></i>";
+        }
+        return "<h6 class='mb-0 font-size-sm'><span class='font-weight-bold text-slate-600'>$equipo</span> <span class='text-primary'>$info</span></h6>";
+    }
+    function grupo($folio,$nombre_solicita,$fecha_sol,$nombre_generico){
+        return "<h6 class='mb-0 font-size-sm font-weight-bold'><span class='text-danger-600'>$nombre_generico - </span><span class='text-slate-600'>$nombre_solicita</span></h6>
+                <span class='d-block font-size-sm text-blue-800'>$fecha_sol ( Folio: $folio )</span>";
+    }
+    function status_pedido($status_pedido,$id_pedido){
+        $status = "";
+        switch ($status_pedido) {
+            case 0:
+                $status = "<span class='badge badge-flat border-primary text-primary-600 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Nuevo</span>";
+                break;
+            case 1:
+                $status = "<span class='badge badge-success d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Aprobado</span>";
+                break;
+            case 2:
+                $status = "<span class='badge badge-danger d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Cancelado</span>";
+                break;
+            case 3:
+                $status = "<span class='badge bg-purple-300 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Surtir</span>";
+                break;
+            case 4:
+                $status = "<span class='badge badge-primary d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Completado</span>";
+                break;  
+            case 5:
+                $status = "<span class='badge bg-info-300 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Compra</span>";
+                break;
+            case 6:
+                $status = "<span class='badge badge-danger d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Anulado</span>";
+                break;
+         }
         
+        return $status;
     }
     function cantidad_unidad($cantidad,$unidad){
         return "<h6 class='mb-0'>$cantidad</h6>
@@ -87,7 +127,7 @@
             return "";
         }
     }
-    function nombre_categoria($nombre_categoria){
+    function detalle_solicitud($nombre_categoria){
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>$nombre_categoria</h6>";
     }
     function status_disponible($stock){

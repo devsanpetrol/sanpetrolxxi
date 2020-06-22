@@ -267,13 +267,15 @@
                                             <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
                                                 <table class="table table-xs compact display " id="lay_out_solicitudesx" cellspacing="0" width="100%" data-idcoordinacion="1">
                                                     <col width="25%">
-                                                    <col width="20%">
-                                                    <col width="35%">
+                                                    <col width="5%">
+                                                    <col width="5%">
+                                                    <col width="45%">
                                                     <col width="20%">
                                                     <thead>
                                                         <tr>
                                                             <th>Equipo</th> <!-- 4 -->
-                                                            <th>Status</th> <!-- 4 -->
+                                                            <th>Coord.</th> <!-- 4 -->
+                                                            <th>Planeación</th> <!-- 4 -->
                                                             <th>Materiales solicitados</th> <!-- 3 -->
                                                             <th>Fecha</th> <!-- 2 -->
                                                         </tr>
@@ -450,13 +452,13 @@
                         <div class="modal-content">
                             <div class="modal-body" style="padding-bottom: 0px;">
                                 <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                    <button type="button" class="btn bg-success-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="1" onclick="saveStatusItems(event)"><b><i class="icon-checkmark-circle"></i></b> APROBAR </button>
+                                    <button type="button" class="btn bg-success-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="1" data-statustxt="APROBADO" onclick="saveStatusItems(event)"><b><i class="icon-checkmark-circle"></i></b> APROBAR </button>
                                 </div>
                                 <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                    <button type="button" class="btn bg-danger-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="2" onclick="saveStatusItems(event)"><b><i class="icon-cancel-circle2"></i></b> CANCELAR </button>
+                                    <button type="button" class="btn bg-danger-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="2" data-statustxt="CANCELADO" onclick="saveStatusItems(event)"><b><i class="icon-cancel-circle2"></i></b> CANCELAR </button>
                                 </div>
                                 <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                    <button type="button" class="btn bg-info-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="5" onclick="saveStatusItems(event)"><b><i class="icon-cart2"></i></b> COMPRA </button>
+                                    <button type="button" class="btn bg-info-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="5" data-statustxt="ENVIADO A COMPRA" onclick="saveStatusItems(event)"><b><i class="icon-cart2"></i></b> COMPRA </button>
                                 </div>
                                 <div class="form-group form-group-feedback form-group-feedback-left text-center">
                                     <button type="button" class="btn btn-link legitRipple text-danger-800" data-dismiss="modal"><i class="icon-cross2"></i></button>

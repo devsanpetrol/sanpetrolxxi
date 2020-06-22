@@ -54,7 +54,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <script src="js/engineJS_14.js"></script>
+    <script src="js/engineJS_17.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/picker_date.js"></script>
@@ -123,7 +123,7 @@
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Folders</li>
                                         <li class="nav-item">
-                                            <a href="coordinacion_test.php" class="nav-link active">
+                                            <a href="inicio.php" class="nav-link active">
                                                 <i class="icon-folder-open2"></i>
                                                 Solicitudes
                                                 <span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado">0</span>
@@ -237,11 +237,11 @@
                                                                               </tr>
                                                                             </thead>
                                                                             <tbody></tbody>
-                                                                            <tfoot>
+                                                                            <tfoot class="d-none">
                                                                                 <tr>
                                                                                     <th colspan="5"><button type="button" class="btn btn-outline bg-success text-success btn-icon ml-2 rounded-round legitRipple" id="addItemSolicitud" onclick="openModelAddPedido()" title="Agregar item"><i class='icon-plus-circle2'></i> Agregar</button></th> <!-- 0 -->
                                                                                 </tr>
-                                                                            </tfoot>
+                                                                            </tfoot>    
                                                                         </table>
                                                                     </div>
                                                                 </div>
@@ -254,7 +254,6 @@
 
                                                 </div>
                                                 <div class="col-sm-4 text-right">
-                                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guardarCambios()" title="Salir del formulario" id="guarda_cambios_solicitud">Guardar</button>
                                                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail_user()" title="Salir del formulario">Salir</button>
                                                 </div>
                                             </div>
@@ -264,12 +263,14 @@
                                             <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
                                                 <table class="table table-xs compact display " id="lay_out_solicitudesx" cellspacing="0" width="100%" data-idcoordinacion="0">
                                                     <col width="25%">
-                                                    <col width="20%">
-                                                    <col width="35%">
+                                                    <col width="5%">
+                                                    <col width="5%">
+                                                    <col width="45%">
                                                     <col width="20%">
                                                     <thead>
                                                         <tr>
                                                             <th>Equipo</th> <!-- 4 -->
+                                                            <th>Status</th> <!-- 4 -->
                                                             <th>Status</th> <!-- 4 -->
                                                             <th>Materiales solicitados</th> <!-- 3 -->
                                                             <th>Fecha</th> <!-- 2 -->

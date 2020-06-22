@@ -3,16 +3,17 @@
     
     $suministro = new suministro();
 
-    $categorias = $suministro->get_select_query_("SELECT *, sum(cantidad_pendiente) as total_pendiente,  sum(cantidad_surtido) as total_surtido, sum(cantidad_plan) as total_plan FROM adm_view_solicitud where firm_planeacion > 0 and status_pedido in (1,4) group BY folio");
+    $categorias = $suministro->get_select_query_("SELECT * FROM adm_view_valesalida_solicitud");
     $data = array();
     
     foreach ($categorias as $valor) {
-        $data[] = array("folio" => $valor['folio'],
-                        "fecha" => fecha($valor['fecha_firm_planeacion']),
-                        "nombre_generico" => $valor['nombre_generico'],
+        $data[] = array("folio" => $valor['folio_vale_salida'],
+                        "fecha" => fecha($valor['fecha_vale']),
+                        "recibe" => $valor['recibe'],
                         "nombre_solicitante" => $valor['nombre_solicitante'],
-                        "avance" => avance($valor['total_pendiente'],$valor['total_surtido'],$valor['total_plan']),
-                        "status" => "<button type='button' class='btn btn-sm alpha-warning text-warning-800 legitRipple  rounded-round btn-icon ml-1' onclick='openModalSolicitudDetail(".$valor['folio'].")'><i class='icon-circle-right2'></i></button>"
+                        "destino" => destino($valor['nombre_generico'],$valor['sitio_operacion']),
+                        "status_valesalida" => status_valesalida($valor['status_valesalida']),
+                        "accion" => "<button type='button' class='btn btn-sm alpha-warning text-warning-800 legitRipple rounded-round btn-icon ml-1' onclick='openModalSolicitudDetail(".$valor['folio_vale_salida'].")'><i class='icon-circle-right2'></i></button>"
                         );
         
     }
@@ -54,13 +55,25 @@
     function cantidad_apartado($cantidad, $unidad){
         return "<h6 class='mb-0 font-weight-bold text-blue-800'>$cantidad </h6><h6 class='mb-0 font-weight-bold text-slate-300 font-size-sm'>$unidad</h6>";
     }
-    function destino($id_pedido,$destino,$tipo_detino){
+    function destino($destino,$justificacion){
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-blue-800'>$destino </h6>
-                <span class='d-block font-size-sm text-muted'>$tipo_detino</span>";
+                <span class='d-block font-size-sm text-muted'>$justificacion</span>";
     }
     function fecha($fecha){
         $date = new DateTime($fecha);
         return $date->format('F d (ga)');
+    }
+    function status_valesalida($status_valesalida){
+        $status = "";
+        switch ($status_valesalida) {
+            case 0:
+                $status = "<span class='badge badge-warning d-block'>Pendiente</span>";
+                break;
+            case 1:
+                $status = "<span class='badge badge-primary d-block'>Entregado</span>";
+                break;
+         }
+        return $status;
     }
     function accion($id_pedido){
         return "<div class='list-icons'>

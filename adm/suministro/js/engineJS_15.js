@@ -67,11 +67,12 @@ $(document).ready( function () {
                 $(row).css("cursor","pointer");
             //}
             $(row).data('scroll');
-            $('td', row).eq(2).addClass('table-inbox-message');
+            $('td', row).eq(3).addClass('table-inbox-message');
         },
         columns: [
             {data : 'solicita'},
-            {data : 'status'},
+            {data : 'status_c'},
+            {data : 'status_p'},
             {data : 'pedidos'},
             {data : 'fecha'}
         ],
@@ -79,7 +80,6 @@ $(document).ready( function () {
             zeroRecords: "Ningun elemento seleccionado"
         }
     });
-    //==========================================================================
     $('#search_article').DataTable({
         lengthChange: false,
         bDestroy: true,
@@ -93,6 +93,39 @@ $(document).ready( function () {
         language: {
             zeroRecords: "Ningun elemento encontrado",
             lengthMenu: '<span>Mostrado </span> _MENU_ <span>elementos</span>',
+        }
+    });
+    $('#historico_tabla').DataTable({
+        bDestroy: true,
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        ajax: {
+            url: "json_historico_tabla.php",
+            dataSrc:function ( json ) {
+                return json;
+            }
+        },
+        columns: [
+            {data : 'folio'},
+            {data : 'cant'},
+            {data : 'coord'},
+            {data : 'plan'},
+            {data : 'surt'},
+            {data : 'surt_fecha'},
+            {data : 'unidad'},
+            {data : 'articulo'},
+            {data : 'status'},
+            {data : 'equipo'}
+        ],
+        rowGroup: {
+            dataSrc: 'grupo'
+        },
+        columnDefs: [
+            {targets:0, visible:false}
+        ],
+        language: {
+            search: '<span>Filtro:</span> _INPUT_',
+            searchPlaceholder: 'Busqueda...',
+            info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
         }
     });
     $("#buscar_en_tabla_layoutx").on('keyup', function (e) {
@@ -155,6 +188,11 @@ $(document).ready( function () {
         var id_pedido = table.row('.selected').id();
         console.log(id_pedido);
     } );
+    $('#area_aquipo_historico').change(function () {
+        var id_equipo = $(this).val();
+              
+        get_sub_area_equipo(id_equipo);
+    });
 } );
 function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
@@ -270,14 +308,17 @@ function getSolicitudDetail_pedido(folio){
             });
         },
         complete: (function () {
-    if( $("#firm_planeacion").data("idempleado") > 0 ){
-        $(".input-cantidad-coord").attr('disabled', true);
-        if( $("#firm_planeacion").data("nuevafirma") == "new" ){
-            $("#guarda_cambios_solicitud").show();
-        }else{
-            $("#guarda_cambios_solicitud").hide();
-        }
-    }
+            if( $("#firm_planeacion").data("idempleado") > 0 ){
+                $(".input-cantidad-coord").attr('disabled', true);
+                if( $("#firm_planeacion").data("nuevafirma") == "new" ){
+                    $("#guarda_cambios_solicitud").show();
+                }else{
+                    $("#guarda_cambios_solicitud").hide();
+                }
+                $('.icon-pencil').hide();
+            }else{
+                $('.icon-pencil').show();
+            }
         })
     });
 }
@@ -304,9 +345,21 @@ function getAlmacenSearch(){
 }
 function guarda_cantidad_coord(id_pedido,cantidad){
     var columna = "cantidad_plan";
-    $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:columna }).done(function( data ) {
-        console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
-    });
+    var columna2 = "cantidad_pendiente";
+    var firma_plan = $("#firm_planeacion").data("idempleado");
+    
+    if (firma_plan == "0"){
+        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:columna }).done(function( data ) {
+            console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
+        });
+    }else{
+        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:columna }).done(function( data ) {
+            console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
+        });
+        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:columna2 }).done(function( data ) {
+            console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna2 + " data:" + data);
+        });
+    }
 }
 function firma_solicitud(){
     if($("#firm_planeacion").data("idempleado") == 0){
@@ -314,7 +367,7 @@ function firma_solicitud(){
         $("#mod_log_acces").modal("show");
     }
 }
- function log_autentic(){
+function log_autentic(){
      var password = $("#password").val();
      var usuario  = $("#usuario").val();
      var tokenid  = $("#mod_log_acces").data("firmax");
@@ -334,7 +387,7 @@ function firma_solicitud(){
         })
     });
  }
- function aplica_firma(id_empleado){
+function aplica_firma(id_empleado){
     $("#firm_planeacion")
             .data({idempleado:id_empleado,nuevafirma:"new"})
             .removeClass("badge-danger border-primary-300 alpha-primary text-primary-800")
@@ -361,7 +414,8 @@ function set_firma_coord(){
     }
 }
 function get_comentario(id_pedido){
-    $ ("#conent_coment_area").find('li').remove();
+    $ ('#conent_coment_area').find('li').remove();
+    $ ('#conent_coment_area').find('div').remove();
     var id_empleado = $('#user_session_id').data("employeid");
     $.post( "json_getComentarioPedido.php",{ id_pedido:id_pedido,id_empleado:id_empleado}).done(function( data ) {
         $.each(data, function (index, value) {
@@ -401,14 +455,14 @@ function openCardComent(id_pedido){
     $("#text_comentario").data("idpedido",id_pedido);
     get_comentario(id_pedido);
     $("#sidebar_sticky").show();
-    tbl.DataTable().column(5).visible(false);
+    //tbl.DataTable().column(5).visible(false);
     $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 300);
 }
 function closeCardComent(){
     var folio = $("#modal_large").data("folio");
     getSolicitudDetail_pedido(folio);
     var tbl = $('#tabla_pedidos');
-    tbl.DataTable().column(5).visible(true);
+    //tbl.DataTable().column(5).visible(true);
     $("#sidebar_sticky").hide();
 }
 function showAlmacenLateral(){
@@ -420,30 +474,47 @@ function openModalEditArticle(e){
     var articulo = $(inp).data("articulo");
     var codarticulo = $(inp).data("codarticulo");
     var unidad = $(inp).data("unidad");
+    var cantidad = $('#cantidad_'+idpedido).val();
+    var justifi = $(inp).data("justificacion");
+    var firm_plan = $('#firm_planeacion').data('idempleado');
+    var firm_coord = $('#firm_coordinacion').data('idempleado');
     
     $("#modal_large").data("idpedido",idpedido);
     $('#cod_articulo').val(codarticulo);
     $('#descripcion').val(articulo);
     $('#unidad').val(unidad).trigger('change');
+    $('#motivo').val(justifi);
+    $('#cantidad').val(cantidad);
     
     $('#cod_articulo_sub').html(codarticulo);
     $('#descripcion_sub').html(articulo);
     $('#unidad_sub').html(unidad);
+    $('#motivo_sub').html(justifi);
+    $('#cantidad_sub').html(cantidad);
     if( codarticulo != "" ){
         $("#unidad").attr('disabled', true);
     }else{
         $("#unidad").attr('disabled', false);
     }
-    $("#modal_large").modal("show");
-    
+    if(firm_plan != '0'){
+        $("#reset_modal_update").hide();
+        $("#guarda_modal_update").hide();
+    }else{
+        $("#reset_modal_update").show();
+        $("#guarda_modal_update").show();
+    }
+    $("#modal_large").modal("show");    
 }
 function updateArticle(){
     var cod_articulo = $('#cod_articulo').val();
     var articulo = $('#descripcion').val();
+    var justifi = $('#motivo').val();
+    var cantidad = $('#cantidad').val();
+    var user =  $('#cantidad').data('user');
     var unidad = $('#unidad').val();
     var id_pedido = $("#modal_large").data("idpedido");
-    
-    $.post( "update_pedidoDetail.php",{ id_pedido:id_pedido,cod_articulo:cod_articulo,articulo:articulo,unidad:unidad}).done(function( data ) {
+        
+    $.post( "update_pedidoDetail.php",{ id_pedido:id_pedido,cod_articulo:cod_articulo,articulo:articulo,unidad:unidad,justifi:justifi,cantidad:cantidad,user:user}).done(function( data ) {
         var folio = $('#modal_large').data('folio');
         getSolicitudDetail_pedido(folio);
         closeModalUpArticle();
@@ -452,11 +523,15 @@ function updateArticle(){
 function closeModalUpArticle(){
     $('#cod_articulo').val("");
     $('#descripcion').val("");
+    $('#motivo').val("");
+    $('#cantidad').val("");
     $('#unidad').val(null).trigger('change');
     $("#select_article").val(null).trigger('change');
     
     $('#cod_articulo_sub').html("");
     $('#descripcion_sub').html("");
+    $('#motivo_sub').html("");
+    $('#cantidad_sub').html("");
     $('#unidad_sub').html("");
     
     $("#modal_large").modal("hide");
@@ -476,9 +551,13 @@ function resetModal(){
     var cod_articulo_sub = $('#cod_articulo_sub').html();
     var descripcion_sub = $('#descripcion_sub').html();
     var unidad_sub = $('#unidad_sub').html();
+    var motivo_sub = $('#motivo_sub').html();
+    var cantidad_sub = $('#cantidad_sub').html();
     
     $('#cod_articulo').val(cod_articulo_sub);
     $('#descripcion').val(descripcion_sub);
+    $('#motivo').val(motivo_sub);
+    $('#cantidad').val(cantidad_sub);
     $('#unidad').val(unidad_sub).trigger('change');
     
     if( cod_articulo_sub != "" ){
@@ -489,21 +568,41 @@ function resetModal(){
 }
 function openMiniModalStatus(e){
     var obj = e.target;
-    var idpedido = $(obj).data("idpedido");
-    
-    $("#status_pedido").data("idpedido",idpedido);
-    $("#status_pedido").modal("show");
+    var idpedido = $(obj).data('idpedido');
+    var idempleado = $('#firm_planeacion').data('idempleado');
+    if(idempleado == '0'){
+        $("#status_pedido").data("idpedido",idpedido);
+        $("#status_pedido").modal("show");
+    } 
 }
 function saveStatusItems(e){
     var obj = e.target;
     var idpedido = $("#status_pedido").data("idpedido");
     var status = $(obj).data("status");
+    var comentario = $(obj).data("statustxt");
+    var txt_comt = $("#text_comentario");
     
     $.post( "update_pedidoStatus.php",{ id_pedido:idpedido,status:status}).done(function( data ) {
         var folio = $('#modal_large').data('folio');
         getSolicitudDetail_pedido(folio);
         $("#status_pedido").modal("hide");
     });
+    
+    if(comentario != ""){
+        var id_empleado = $('#user_session_id').data("employeid");
+        var msj = "<li class='media content-divider justify-content-center text-blue-800 mx-0'>\
+                        <span class='px-2'>"+comentario+"</span>\
+                    </li><div class='font-size-xs mt-2 text-muted text-right'>Ahora</div>";
+        $.post('json_insertComentario.php',{comentario:'::status::'+comentario,id_empleado:id_empleado,id_pedido:idpedido}).done(function( data ) {
+            if(data.result = "ok"){
+                txt_comt.val("");
+                $("#conent_coment_area").append(msj).show('slow');
+                $("#scrollxy").animate({ scrollTop: $('#scrollxy')[0].scrollHeight}, 300);
+            }else{
+                alert("Error al guardar comentario");
+            }
+        });
+    }
 }
 function reloadTableDetail(){
     var folio = $('#tabla_pedidos').data("folio");
@@ -522,4 +621,7 @@ function reloadTableDetail(){
     });
     console.log(folio);
     table.ajax.reload();
+}
+function OpenHistoric(){
+    $("#historico_pedido").modal("show");
 }

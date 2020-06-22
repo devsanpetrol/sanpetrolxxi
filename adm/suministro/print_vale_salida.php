@@ -3,26 +3,25 @@
     
     $suministro = new suministro();
     $folio_vale = $_POST['folio_vale'];
-    $detalle_folio = $suministro->get_solicitud_aprobacion_detalle($folio_vale);
-    $detalle_folio_lista = $suministro->detalle_folio_salida_imprimir($folio_vale);
+    $detalle_folio = $suministro->get_select_query_("SELECT * FROM adm_view_valesalida_solicitud");
+    $detalle_vobo = $suministro->get_select_query_("SELECT * FROM adm_view_responsable_depto WHERE id_empleado = ".$detalle_folio[0]['firm_planeacion']);
+    $detalle_coor = $suministro->get_select_query_("SELECT * FROM adm_view_responsable_depto WHERE id_empleado = ".$detalle_folio[0]['firm_coordinacion']);
+    
+    $detalle_folio_lista = $suministro->get_select_query_("SELECT * FROM adm_view_valesalida_detail WHERE folio_vale_salida = $folio_vale");
     $dato = $suministro->get_now();
         
-        $encargado_almacen = $detalle_folio[0]['encargado_almacen'];
-        $fecha_firma_encargado = $detalle_folio[0]['fecha_firma_encargado'];
-        $visto_bueno = $detalle_folio[0]['visto_bueno'];
-        $fecha_firma_vobo = $detalle_folio[0]['fecha_firma_vobo'];
         
-        $nombre_encargado = $detalle_folio[0]['nombre_encargado'];
-        $apellido_encargado = $detalle_folio[0]['apellido_encargado'];
-        $cargo_encargado = $detalle_folio[0]['cargo_encargado'];
-        $nombre_vobo = $detalle_folio[0]['nombre_vobo'];
-        $apellido_vobo = $detalle_folio[0]['apellido_vobo'];
-        $cargo_vobo = $detalle_folio[0]['cargo_vobo'];
-        $nombre_recibe = $detalle_folio[0]['recibe_vale'];
+        $visto_bueno = $detalle_vobo[0]['nombre']." ".$detalle_vobo[0]['apellidos'];
+        $visto_bueno_cargo = $detalle_vobo[0]['cargo'];
         
+        $coordinador = $detalle_coor[0]['nombre']." ".$detalle_coor[0]['apellidos'];
+        $coordinador_cargo = $detalle_coor[0]['cargo'];
         
-        $status_vale = $detalle_folio[0]['status_vale'];
-        $observacion = $detalle_folio[0]['observacion'];
+        $nombre_recibe = $detalle_folio[0]['recibe'];
+        $nombre_generico = $detalle_folio[0]['nombre_generico'];
+        $nombre_solicito = $detalle_folio[0]['nombre_solicitante'];
+        $nombre_puesto = $detalle_folio[0]['puesto_solicitante'];
+        $sitio = $detalle_folio[0]['sitio_operacion'];
         $fecha_actual = $dato[0]['fecha_actual'];
 
 ?>
@@ -107,12 +106,25 @@
             <td class="style17"></td>
             <td class="style17"></td>
             <td class="style17"></td>
-            <td class="style17"></td>
-            <td class="style17"></td>
+            <td class="style42 s x">Area/Equipo:</td>
+            <td class="style26 style28 x" colspan="2"><?php echo $nombre_generico.", ".$sitio; ?></td>
             <td class="style42 s x">Folio:</td>
             <td class="style26 style28 x" colspan="2"><?php echo $folio_vale; ?></td>
             <td class="style42 s x">Fecha:</td>
             <td class="style26 style28 x" colspan="2"><?php echo $fecha_actual; ?></td>
+          </tr>
+          <tr class="row4">
+            <td class="style40"></td>
+            <td class="style40"></td>
+            <td class="style17"></td>
+            <td class="style17"></td>
+            <td class="style17"></td>
+            <td class="style42 s x">Solicitó:</td>
+            <td class="style26 style28 x" colspan="2"><?php echo $nombre_solicito ." (".$nombre_puesto.")"; ?></td>
+            <td ></td>
+            <td  colspan="2"></td>
+            <td ></td>
+            <td  colspan="2"></td>
           </tr>
           <tr class="row3">
               <td class="style41" colspan="13"></td>
@@ -122,39 +134,39 @@
             <td class="style15 x">Unidad</td>
             <td class="style15 x" colspan="6">Descripción del bien y/o equipo </td>
             <td class="style15 x" colspan="2">Destino</td>
-            <td class="style15 x" colspan="3">Autorizó</td>
+            <td class="style15 x" colspan="3">Justificación</td>
           </tr>
           <!--INICIA CICLO DE ELEMENTOS SURTIDOS-->
           <?php
             foreach ($detalle_folio_lista as &$valor) {
                 echo "<tr class='row4'>
-                        <td class='style2 x' style='vertical-align:middle;'>".$valor["cantidad_aprobada"]."</td>
+                        <td class='style2 x' style='vertical-align:middle;'>".$valor["cantidad_surtida"]."</td>
                         <td class='style2 x' style='vertical-align:middle;'>".$valor["unidad"]."</td>
                         <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='6'>".$valor["articulo"]."</td>
-                        <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='2'>".$valor["destino"]."</td>
-                        <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='3'>".$valor["autoriza"]."</br>Recibió: ".$valor["recibe"]."</td>
+                        <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='2'>".$valor["nombre_sub_area"]."</td>
+                        <td class='style2' style='vertical-align:middle;padding: 5px;' colspan='3'>".$valor["justificacion"]."</td>
                       </tr>";
             }
           ?>  
           <!--FINALIZA CICLO DE ELEMENTOS SURTIDOS-->
           <tr class="row16">
             <td class="style11 s style12 x" colspan="2">Observacion:</td>
-            <td class="style13" style="text-align:left;font-style: italic;padding: 5px;" colspan="11"><?php echo $observacion; ?></td>
+            <td class="style13" style="text-align:left;font-style: italic;padding: 5px;" colspan="11"><?php echo $observacion = ""; ?></td>
           </tr>
           <tr class="row16">
             <td class="style30"></td>
-            <td class="style29" colspan="3"><?php echo $nombre_encargado." ".$apellido_encargado; ?></td>
+            <td class="style29" colspan="3"><?php echo $coordinador; ?></td>
             <td class="style30"></td>
-            <td class="style29" colspan="3"><?php echo $nombre_vobo." ".$apellido_vobo;$nombre_recibe ?></td>
+            <td class="style29" colspan="3"><?php echo $visto_bueno; ?></td>
             <td class="style30"></td>
             <td class="style29" colspan="3"><?php echo $nombre_recibe ?></td>
             <td class="style30"></td>
           </tr>
           <tr class="row0">
             <td class="style21"></td>
-            <td class="style20" colspan="3">Nombre y firma Encargado de almacen</td>
+            <td class="style20" colspan="3">Coordinación</td>
             <td class="style21"></td>
-            <td class="style20" colspan="3">Nombre y firma Vo. Bo.</td>
+            <td class="style20" colspan="3">Vo. Bo.</td>
             <td class="style21"></td>
             <td class="style20" colspan="3">Nombre y firma Recibe</td>
             <td class="style21"></td>

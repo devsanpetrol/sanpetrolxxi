@@ -150,6 +150,7 @@ class suministro extends conect
         return $resultado;
     }
     
+    
     public function get_pedidos($folio,$filtro=""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_pedido_detail WHERE folio = $folio $filtro");
         $sql->execute();
@@ -249,11 +250,19 @@ class suministro extends conect
         return $resultado;
     }
     public function set_comentario($comentario,$id_pedido,$id_empleado){
-        $sql1 = $this->_db->prepare("UPDATE adm_pedido SET last_comentario = '$comentario', count_comentario = (count_comentario + 1) WHERE id_pedido = $id_pedido LIMIT 1");
-        $sql2 = $this->_db->prepare("INSERT INTO adm_pedido_comentario (comentario, id_pedido, id_empleado, fecha_hora) VALUES ('$comentario',$id_pedido,$id_empleado,NOW()) LIMIT 1");
-        $sql1->execute();
-        $sql2->execute();
-        $resultado = $sql1;
+        $key_init = substr($comentario, 0, 10);
+        
+        if($key_init == "::status::"){
+            $sql2 = $this->_db->prepare("INSERT INTO adm_pedido_comentario (comentario, id_pedido, id_empleado, fecha_hora) VALUES ('$comentario',$id_pedido,$id_empleado,NOW()) LIMIT 1");
+            $sql2->execute();
+            $resultado = $sql2;
+        }else{
+            $sql1 = $this->_db->prepare("UPDATE adm_pedido SET last_comentario = '$comentario', count_comentario = (count_comentario + 1) WHERE id_pedido = $id_pedido LIMIT 1");
+            $sql2 = $this->_db->prepare("INSERT INTO adm_pedido_comentario (comentario, id_pedido, id_empleado, fecha_hora) VALUES ('$comentario',$id_pedido,$id_empleado,NOW()) LIMIT 1");
+            $sql1->execute();
+            $sql2->execute();
+            $resultado = $sql1;
+        }
         return $resultado;
     }
     public function get_responsable_categoria($id_categoria){
@@ -484,16 +493,68 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    function set_update_pedidoDetail($id_pedido,$cod_articulo, $articulo,$unidad){
+    function set_update_pedidoDetail($id_pedido,$cod_articulo, $articulo,$unidad,$justifi,$cantidad,$user){
         if(trim($cod_articulo) == ""){
-            $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET cod_articulo = NULL, articulo = '$articulo', unidad = '$unidad' WHERE id_pedido = $id_pedido LIMIT 1");
+            $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET cod_articulo = NULL, articulo = '$articulo', unidad = '$unidad', justificacion = '$justifi', cantidad_$user='$cantidad' WHERE id_pedido = $id_pedido LIMIT 1");
         }else{
-            $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET cod_articulo = '$cod_articulo', articulo = '$articulo', unidad = '$unidad' WHERE id_pedido = $id_pedido LIMIT 1");
+            $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET cod_articulo = '$cod_articulo', articulo = '$articulo', unidad = '$unidad', justificacion = '$justifi', cantidad_$user='$cantidad' WHERE id_pedido = $id_pedido LIMIT 1");
         }
         return $sql2->execute();
     }
     function set_update_pedidoStatus($id_pedido,$status){
         $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET status_pedido = $status WHERE id_pedido = $id_pedido LIMIT 1");
         return $sql2->execute();
+    }
+    public function get_select_query_($filtro){
+        $sql = $this->_db->prepare($filtro);
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function set_new_valesalida($folio){
+        $articulo = $this->_db->prepare("INSERT INTO adm_almacen_valesalida (solicitud_material_folio,fecha) VALUES ($folio, NOW())");
+        
+        try {
+            $this ->_db-> beginTransaction();
+            $articulo -> execute();
+            $id_articulo = $this ->_db-> lastInsertId();
+            $this ->_db-> commit();
+            return $id_articulo;
+        } catch(PDOExecption $e) {
+            $this ->_db-> rollback();
+            return "Error!: " . $e -> getMessage();
+        }
+    }
+    public function set_valesalidaDetail($folio_vale,$id_pedido,$codarticulo,$cant_surtir){
+        $almacen = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (folio_vale_salida,cantidad_surtida, fecha, id_pedido, cod_articulo) VALUES ($folio_vale, '$cant_surtir', NOW(), $id_pedido, '$codarticulo')");
+        $entrega = $this->_db->prepare("UPDATE adm_pedido SET cantidad_pendiente = cantidad_pendiente - $cant_surtir, cantidad_surtido = cantidad_surtido + $cant_surtir WHERE id_pedido = $id_pedido LIMIT 1");
+        $product = $this->_db->prepare("UPDATE adm_almacen SET stock = stock - $cant_surtir WHERE cod_articulo = $codarticulo LIMIT 1");
+        $resultado1 = $almacen -> execute();
+        $entrega -> execute();
+        $product -> execute();
+        return $resultado1;
+    }
+    public function get_solicitudes_valesalida($filtro=""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_valesalida_solicitud $filtro");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function set_update_valesalida_detail_status($idpedidovalesalida, $recibe, $status){
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen_valesalida_detail SET recibe = '$recibe', status = $status WHERE id_valesalida_pedido = $idpedidovalesalida LIMIT 1");
+        return $sql2->execute();
+    }
+    public function set_update_valesalida_detail_status_vale($folio_vale_salida, $recibe, $status){
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen_valesalida SET recibe = '$recibe', status_valesalida = $status WHERE folio_vale_salida = $folio_vale_salida LIMIT 1");
+        return $sql2->execute();
+    }
+    public function update_status_pedido($id_pedido){
+        $sql = $this->_db->prepare("SELECT cantidad_plan,cantidad_surtido,cantidad_pendiente from adm_pedido WHERE id_pedido = $id_pedido LIMIT 1");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        if($resultado[0]["cantidad_plan"] == $resultado[0]["cantidad_surtido"]){
+            $sql2 = $this->_db->prepare("UPDATE adm_pedido SET status_pedido = 4 WHERE id_pedido = $id_pedido LIMIT 1");
+            $sql2->execute();
+        }
     }
 }

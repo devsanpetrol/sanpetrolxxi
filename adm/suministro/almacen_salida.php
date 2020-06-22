@@ -51,7 +51,7 @@
     <script src="../../global_assets/js/plugins/notifications/pnotify.min.js"></script>
     <script src="../../global_assets/js/demo_pages/extra_fab.js"></script>
     <!-- /theme JS files -->
-     <script src="js/engineJS_2.js"></script>
+     <script src="js/engineJS_16.js"></script>
      <script src="js/ini_menu_almacen.js"></script>
 </head>
 
@@ -93,150 +93,190 @@
                     </div>
                     <!-- Content area -->
             <div class="content">
-                <!-- Invoice archive -->
-                <div class="card" data-vista="no" id="card_almacen_pase" style="display: none;">
-                    <div class="card-header bg-white header-elements-sm-inline">
-                        <h6 class="card-title"></h6>
-                        <div class="header-elements">Folio: 
-                            <span class="badge badge-danger ml-3" id="num_folio_vale_salida"></span>
+                <div class="d-flex align-items-start flex-column flex-md-row">
+                    <div class="w-100 order-2 order-md-1">
+                        <!-- CARDS -->
+                        <div class="card" id="card_solicitud_detail" style="display: none;">
+                            <div class="card-body">
+                                <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <fieldset>
+                                                    <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> INFORMACIÓN DE LA SOLICITUD</legend>
+                                                    <div class="row">
+                                                        <div class="col-sm-6 form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-12 form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12 form-group">
+                                                                        <span class="font-weight-bold font-size-lg">Solicitante: </span>
+                                                                        <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="solicitante"></span>
+                                                                        <span class="font-weight-bold font-size-lg ml-3">Fecha: </span>
+                                                                        <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="fecha_actual"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    </br>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12 form-group">
+                                                                        <span class="font-weight-bold font-size-lg">Equipo / Sitio: </span>
+                                                                        <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="area_aquipo" data-idcoordinador=""></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-12 form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-7 form-group">
+                                                                            <span class="font-weight-bold font-size-lg" id="name_coordinacion"></span>
+                                                                        </div>
+                                                                        <div class="col-sm-5 form-group">
+                                                                            <span class="btn btn-sm badge" id="firm_coordinacion"  data-idempleado="" data-nuevafirma="" ></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-7 form-group">
+                                                                            <span class="font-weight-bold font-size-lg">Planeacion de Proyectos:</span>
+                                                                        </div>
+                                                                        <div class="col-sm-5 form-group">
+                                                                            <span class="btn btn-sm badge" id="firm_planeacion" data-idempleado="" data-nuevafirma="" onclick="firma_solicitud()"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2 form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-12 form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-5 form-group">
+                                                                            <span class="font-weight-bold font-size-lg">Folio:</span>
+                                                                        </div>
+                                                                        <div class="col-sm-7 form-group">
+                                                                            <span class="btn btn-sm badge legitRipple legitRipple-empty badge-danger d-block" id="folio_vale"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <fieldset>
+                                                        <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> AGREGAR ARTICULO </legend>
+                                                    <div class="row">
+                                                            <div class="col-md-2">
+                                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_codigobarra" placeholder="Codigo de Barra">
+                                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                                        <i class="icon-barcode2"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_codigoinventario" placeholder="Codigo de Inventario">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                
+                                                            </div>
+                                                            
+                                                            <div class="col-md-1">
+                                                                
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle text-center " id="i_cantidad" placeholder="Cantidad">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="form-group text-right">
+                                                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon ml-1" onclick="addElementToTable()" title="Agregar"><i class="icon-add-to-list"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="table-responsive">
+                                                        <table id="tabla_pedidos" class="table datatable-scroll-y tabla-reslta-row-hover" cellspacing="0" width="100%" data-folio=""><!--Id Coordinador = 1 Test, 2 Swab-->
+                                                            <col width="5%">
+                                                            <col width="5%">
+                                                            <col width="3%">
+                                                            <col width="42%">
+                                                            <col width="5%">
+                                                            <col width="40%">
+                                                            <thead>
+                                                              <tr>
+                                                                <th>Cantidad</th> <!-- 0 -->
+                                                                <th>Surtir</th> <!-- 0 -->
+                                                                <th></th> <!-- 1 -->
+                                                                <th>Articulo</th> <!-- 2 -->
+                                                                <th></th> <!-- 2 -->
+                                                                <th>Motivo del requerimiento</th> <!-- 3 -->
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon ml-1" onclick="guarda_valesalida()" title="Salir del formulario" id="guarda_cambios_solicitud"><i class="icon-file-text"></i> Generar</button>
+                                <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_almacen_pase" width="100%">
-                            <col width="10%">
-                            <col width="40%">
-                            <col width="35%">
-                            <col width="5%">
-                            <col width="5%">
-                            <col width="5%">
-                            <col>
-                            <thead>
-                                <tr>
-                                    <th>Surtir</th>
-                                    <th>articulo</th>
-                                    <th>Destino</th>
-                                    <th>Apartado</th>
-                                    <th>Entregado</th>
-                                    <th>Accion</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <div class="row w-100">
-                            <div class="col-sm-3 form-group">
-                                <div class="form-group-feedback form-group-feedback-right">
-                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" readonly data-idempleado="" data-tokenid="salida_almacen_01" id="firma_almacenista">
-                                    <div class="d-block form-text text-center">
-                                        <span class="badge">Encargado Almacen</span>
-                                        <i class="icon-checkmark-circle text-success" id="firma_almacenista_check" style="display: none;"></i>
-                                    </div>
-                                    <div class="form-control-feedback">
-                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" onclick="firma_almacen('firma_almacenista')">
-                                            <i class="icon-pencil3 text-blue-800"></i>
-                                        </button>
-                                    </div>
+                        <!-- Invoice archive -->
+                        <div class="card" data-vista="no" id="card_almacen_pase">
+                            <div class="card-header bg-white header-elements-sm-inline">
+                                <h6 class="card-title"></h6>
+                                <div class="header-elements">Folio: 
+                                    <span class="badge badge-danger ml-3" id="num_folio_vale_salida"></span>
                                 </div>
                             </div>
-                            <div class="col-sm-3 form-group">
-                                <div class="form-group-feedback form-group-feedback-right">
-                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" readonly data-idempleado="" data-tokenid="salida_almacen_vobo_1" id="firma_vobo">
-                                    <div class="d-block form-text text-center">
-                                        <span class="badge">Vo. Bo.</span>
-                                        <i class="icon-checkmark-circle text-success" id="firma_vobo_check" style="display: none;"></i>
-                                    </div>
-                                    <div class="form-control-feedback">
-                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" onclick="firma_almacen('firma_vobo')">
-                                            <i class="icon-pencil3 text-blue-800"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="card-body">
+                                <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_almacen_salida" width="100%">
+                                    <col width="5%">
+                                    <col width="15%">
+                                    <col width="35%">
+                                    <col width="20%">
+                                    <col width="20%">
+                                    <col width="5%">
+                                    <thead>
+                                        <tr>
+                                            <th>Folio</th>
+                                            <th>Aprobado</th>
+                                            <th>Equipo / Destino</th>
+                                            <th>Solicitante</th>
+                                            <th>Avance</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="col-sm-4 form-group">
-                                <div class="form-group-feedback form-group-feedback-right">
-                                    </div>
-                                <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="vale_observacion" onkeyup="mayus(this);" maxlength="200">
-                                    <div class="d-block form-text text-justify">
-                                        <span class="badge">Observación</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-2 form-group text-right">
-                                <button type="button" class="btn btn-success btn-sm" data-aprobado="" id="btn_envia_valesalida" onclick="insert_vale_salida()" disabled><i class="icon-clipboard5 mr-2"></i> Enviar</button>
-                            </div>
-                            </div>
-                    </div>
-                </div>
-                <!-- /invoice archive -->
-                <!-- Invoice archive -->
-                <div class="card card-pedidos-xsurtir">
-                    <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_almacen_salida" width="100%">
-                        <col width="3%">
-                        <col width="37%">
-                        <col width="20%">
-                        <col width="5%">
-                        <col width="5%">
-                        <col width="20%">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>articulo</th>
-                                <th>Destino</th>
-                                <th>Cantidad</th>
-                                <th>Apartado</th>
-                                <th>FechaFolio</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /invoice archive -->
-            </div>
-            <!-- /large modal -->
-            <div id="mod_log_acces" class="modal fade" tabindex="-1" data-firmax="">
-                <div class="modal-dialog modal-xs">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <!-- Login form -->
-                            <div class="text-center mb-3">
-                                <img src="../../global_assets/images/placeholders/Imagen4.jpg" class="img-fluid" width="120" height="50">
-                                <h5 class="mb-0">AUTENTIFICAR</h5>
-                            </div>
-                            <form autocomplete="off" id="log_autentic_almacenista" >
-                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                    <input type="text" class="form-control" autocomplete="off" placeholder="Usuario" name="usuario" id="usuario">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-user text-muted"></i>
-                                    </div>
-                                </div>
-                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                    <input type="password" class="form-control" autocomplete="off" placeholder="Password" name="password" id="password">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-key text-muted"></i>
-                                    </div>
-                                </div>
-                                <div class="alert alert-danger border-0 alert-dismissible text-center" style="display: none;padding-right: 20px;" id="msj_alert">
-                                </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-link legitRipple btn-sm" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="log_autentic()">Aceptar</button>
-                                </div>
-                            </form>
-                            <!-- /login form -->                                              
                         </div>
+                        <!-- /invoice archive -->
                     </div>
                 </div>
+                <!-- /inner container -->
             </div>
-            <!-- /large modal -->
-                    <!-- Footer -->
-                    <?php include "../bar_nav/footer_navbar.php"; ?>
-                    <!-- /footer -->
-		</div>
-		<!-- /main content -->
+            <!-- Footer -->
+            <?php include "../bar_nav/footer_navbar.php"; ?>
+            <!-- /footer -->
+            </div>
+            <!-- /main content -->
 	</div>
 	<!-- /page content -->
 </body>

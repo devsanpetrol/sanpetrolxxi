@@ -77,218 +77,175 @@
 		<?php include "../bar_nav/main_sidebar.php"; ?>
 		<!-- /main sidebar -->
 		<!-- Secondary sidebar -->
-		<div class="sidebar sidebar-light sidebar-secondary sidebar-expand-md">
-
-			<!-- Sidebar mobile toggler -->
-			<div class="sidebar-mobile-toggler text-center">
-                            <a href="#" class="sidebar-mobile-secondary-toggle">
-                                <i class="icon-arrow-left8"></i>
-                            </a>
-                            <span class="font-weight-semibold">Modulo Almacén</span>
-                            <a href="#" class="sidebar-mobile-expand">
-                                <i class="icon-screen-full"></i>
-                                <i class="icon-screen-normal"></i>
-                            </a>
-			</div>
-			<!-- /sidebar mobile toggler -->
-			<!-- Sidebar content -->
-                        <?php include "./sidebar_almacen.php"; ?>
-			<!-- /sidebar content -->
-		</div>
+            <div class="sidebar sidebar-light sidebar-secondary sidebar-expand-md">
+                <!-- Sidebar mobile toggler -->
+                <div class="sidebar-mobile-toggler text-center">
+                    <a href="#" class="sidebar-mobile-secondary-toggle">
+                        <i class="icon-arrow-left8"></i>
+                    </a>
+                    <span class="font-weight-semibold">Modulo Almacén</span>
+                    <a href="#" class="sidebar-mobile-expand">
+                        <i class="icon-screen-full"></i>
+                        <i class="icon-screen-normal"></i>
+                    </a>
+                </div>
+                <!-- /sidebar mobile toggler -->
+                <!-- Sidebar content -->
+                <?php include "./sidebar_almacen.php"; ?>
+                <!-- /sidebar content -->
+            </div>
 		<!-- Main content -->
-		<div class="content-wrapper">
+            <div class="content-wrapper">
                     <!-- Page header -->
-                    <div class="page-header page-header-light">
-                        <div class="page-header-content header-elements-md-inline">
-                            <div class="page-title d-flex">
-                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">Enviados a revisión</span></h4>
-                                <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-                            </div>
-                            <div class="header-elements d-none">
-                                <form action="#">
-                                    <div class="form-group form-group-feedback form-group-feedback-right">
-                                        <input type="search" class="form-control wmin-200" placeholder="Buscar..." id="buscar_en_tabla_vobo">
-                                        <div class="form-control-feedback">
-                                            <i class="icon-search4 font-size-base text-muted"></i>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Content area -->
-                    <div class="content">
-                        <!-- Right content -->
-                        
-                <!-- Single line -->
-                <div class="card" id="tabla_visor_solicitudes">
-                    <!-- Table -->
-                    <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
-                        <table class="table table-inbox" id="lay_out_solicitudesx" cellspacing="0" width="100%">
-                            <col width="10%">
-                            <col width="10%">
-                            <col width="65%">
-                            <col width="15%">
-                            <thead>
-                                <tr>
-                                    <th class="table-inbox-time text-center">Revisado</th>
-                                    <th class="table-inbox-time text-center">Fecha</th>
-                                    <th class="table-inbox-message">Materiales solicitados</th>
-                                    <th class="table-inbox-time text-center">Folio</th>
-                                </tr>
-                            </thead>
-                            <tbody data-link="row" class="rowlink">
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /table -->
-                </div>
-                <!-- /single line -->
-                <!-- Bottom tabs -->
-                <div class="card" id="panel_autoizacion_salida" style="display: none;" data-foliovalesalida="" data-statusvale="">
-                    <div class="card-header bg-white pb-0 pt-sm-0 pr-sm-0 header-elements-sm-inline">
-                        <h6 class="card-title"></h6>
-                        <ul class="nav nav-tabs nav-tabs-bottom card-header-tabs mx-0">
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu7 mr-2"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a tabindex="-1" class="dropdown-item" data-btn_list="" data-idrow="" id="tools_menu_regresa" onclick="regresar_lista()">
-                                        <i class="icon-arrow-left13"></i>
-                                        Regresar
-                                    </a>
-                                    <a tabindex="-1" class="dropdown-item" data-idrow="" id="tools_re-send" onclick="reset_vale_salida()">
-                                        <i class="icon-reset"></i>
-                                        Volver a revisar
-                                    </a>
-                                    <a tabindex="-1" class="dropdown-item" onclick="envia()">
-                                        <i class="icon-printer2"></i>
-                                        Imprimir ficha
-                                    </a>
-                                    <a tabindex="-1" class="dropdown-item" onclick="guarda_cambios()" >
-                                        <i class="icon-checkmark3"></i>
-                                        Finalizar
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-responsive-sm table-xs dt-responsive" id="dt_for_vobo" width="100%">
-                            <col width="6%">
-                            <col width="4%">
-                            <col width="30%">
-                            <col width="30%">
-                            <col width="30%">
-                            <thead>
-                                <tr>
-                                    <th>Cantidad</th>
-                                    <th>Status</th>
-                                    <th>Articulo</th>
-                                    <th>Destino</th>
-                                    <th>Recibe</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer align-items-center">
-                        <div class="row w-100">
-                            <div class="col-sm-3 form-group">
-                                <div class="form-group-feedback form-group-feedback-right">
-                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center firma" disabled id="firma_almacenista">
-                                    <div class="d-block form-text text-center">
-                                        <span class="badge">Encargado Almacen</span>
-                                    </div>
-                                    <div class="form-control-feedback">
-                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" disabled>
-                                            <i class="icon-pencil3 text-blue-800"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3 form-group">
-                                <div class="form-group-feedback form-group-feedback-right">
-                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center firma" disabled id="firma_vobo">
-                                    <div class="d-block form-text text-center">
-                                        <span class="badge">Vo. Bo.</span>
-                                    </div>
-                                    <div class="form-control-feedback">
-                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm" disabled>
-                                            <i class="icon-pencil3 text-blue-800"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3 form-group">
-                                <div class="form-group-feedback form-group-feedback-right">
-                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-pink text-center" id="firma_recibe">
-                                    <div class="d-block form-text text-center">
-                                        <span class="badge">Recibido</span>
-                                    </div>
-                                    <div class="form-control-feedback">
-                                        <button type="button" class="btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm"> 
-                                            <i class="icon-pencil3 text-blue-800"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3 form-group text-right">
-                                <!--<button type="button" class="btn btn-primary btn-sm" id="btn_envia_guarda_valesalida">Guardar</button>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /bottom tabs -->
-            
-                        <!-- /right content -->
-                    </div>
-                    <!-- /large modal -->
-                    <div id="mod_log_acces" class="modal fade" tabindex="-1" data-firmax="">
-                <div class="modal-dialog modal-xs">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <!-- Login form -->
-                            <div class="text-center mb-3">
-                                <img src="../../global_assets/images/placeholders/Imagen4.jpg" class="img-fluid" width="120" height="50">
-                                <h5 class="mb-0">AUTENTIFICAR</h5>
-                            </div>
-                            <form autocomplete="off" id="log_autentic_almacenista" >
-                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                    <input type="text" class="form-control" autocomplete="off" placeholder="Usuario" name="usuario" id="usuario">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-user text-muted"></i>
-                                    </div>
-                                </div>
-                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                    <input type="password" class="form-control" autocomplete="off" placeholder="Password" name="password" id="password">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-key text-muted"></i>
-                                    </div>
-                                </div>
-                                <div class="alert alert-danger border-0 alert-dismissible text-center" style="display: none;padding-right: 20px;" id="msj_alert">
-                                </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-link legitRipple btn-sm" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="log_autentic()">Aceptar</button>
-                                </div>
-                            </form>
-                            <!-- /login form -->                                              
-                        </div>
+            <div class="page-header page-header-light">
+                <div class="page-header-content header-elements-md-inline">
+                    <div class="page-title d-flex">
+                        <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">Entrega de Material</span></h4>
                     </div>
                 </div>
             </div>
-            <!-- /large modal -->
-            <!-- /content area -->
+            <!-- Content area -->
+            <div class="content">
+                <div class="d-flex align-items-start flex-column flex-md-row">
+                    <div class="w-100 order-2 order-md-1">
+                        <!-- CARDS -->
+                        <div class="card" id="card_solicitud_detail" style="display: none;">
+                            <div class="card-body">
+                                <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-sm-5 form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-12 form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12 form-group">
+                                                                        <span class="font-weight-bold font-size-lg">Solicitante: </span>
+                                                                        <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="solicitante"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    </br>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12 form-group">
+                                                                        <span class="font-weight-bold font-size-lg">Equipo / Sitio: </span>
+                                                                        <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="area_aquipo" data-idcoordinador=""></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <div class="row" id="s_pendiente">
+                                                                <div class="col-sm-12 form-group">
+                                                                   <div class="form-group form-group-feedback form-group-feedback-left">
+                                                                        <input type="text" class="form-control text-blue-800" id="nombre_recibe" data-foliovalesalida="" onkeyup="mayus(this)">
+                                                                        <span class="form-text text-muted text-right font-size-xs" id="motivo_sub">Nombre del personal que recibe</span>
+                                                                        <div class="form-control-feedback form-control-feedback-sm">
+                                                                            <i class="icon-user-check"></i>
+                                                                        </div>
+                                                                    </div> 
+                                                                </div>  
+                                                            </div>
+                                                            <div class="row" id="s_completado">
+                                                                <div class="col-sm-12 form-group">
+                                                                <span class="font-weight-bold font-size-lg">Recibió: </span>
+                                                                <span class="font-weight-bold font-size-lg ml-1 text-blue-800" id="recibio_surtido"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-1 form-group"></div>
+                                                        <div class="col-sm-2 form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-12 form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-5 form-group">
+                                                                            <span class="font-weight-bold font-size-lg">Folio:</span>
+                                                                        </div>
+                                                                        <div class="col-sm-7 form-group">
+                                                                            <span class="btn btn-sm badge legitRipple legitRipple-empty badge-danger d-block" id="folio_vale" data-foliovale="" data-foliopedido=""></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="table-responsive">
+                                                        <table id="tabla_pedidos" class="table datatable-scroll-y" cellspacing="0" width="100%" data-folio="">
+                                                            <col width="35%">
+                                                            <col width="30%">
+                                                            <col width="5%">
+                                                            <col width="5%">
+                                                            <col width="20%">
+                                                            <col width="5%">
+                                                            <thead>
+                                                              <tr>
+                                                                <th>Articulo</th> <!-- 0 -->
+                                                                <th>Equipo/Justificacion</th> <!-- 0 -->
+                                                                <th>Cantidad</th> <!-- 1 -->
+                                                                <th>Unidad</th> <!-- 2 -->
+                                                                <th>Recibe</th>
+                                                                <th></th> <!-- 2 -->
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guarda_itemsentrega()" title="Finalizar vale de salida" id="guarda_cambios_solicitud">Finalizar</button>
+                                <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon " onclick="envia()" title="Imprimir"><i class="icon-printer"></i> Imprimir</button>
+                                <button type="button" class="btn btn-sm alpha-danger  text-danger-800  legitRipple" onclick="closeModalSolicitudDetail()" title="Salir del formulario">Salir</button>
+                            </div>
+                        </div>
+                        <!-- Invoice archive -->
+                        <div class="card" data-vista="no" id="card_almacen_pase">
+                            <div class="card-body">
+                                <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_almacen_salida" width="100%">
+                                    <col width="5%">
+                                    <col width="15%">
+                                    <col width="5%">
+                                    <col width="30%">
+                                    <col width="20%">
+                                    <col width="20%">
+                                    <col width="5%">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fecha</th>
+                                            <th>Status</th>
+                                            <th>Equipo / Destino</th>
+                                            <th>Solicitante</th>
+                                            <th>Recibe</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /invoice archive -->
+                    </div>
+                </div>
+                <!-- /inner container -->
+            </div>
             <!-- Footer -->
             <?php include "../bar_nav/footer_navbar.php"; ?>
             <!-- /footer -->
-        </div>
-        <!-- /main content -->
+            </div>
+            <!-- /main content -->
 	</div>
 	<!-- /page content -->
-
 </body>
 </html>
