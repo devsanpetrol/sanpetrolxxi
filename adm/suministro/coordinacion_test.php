@@ -192,25 +192,32 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm-6 form-group">
+                                                                        <div class="col-sm-4 form-group">
                                                                             <div class="row">
                                                                                 <div class="col-sm-12 form-group">
                                                                                     <div class="row">
-                                                                                        <div class="col-sm-4 form-group">
+                                                                                        <div class="col-sm-6 form-group">
                                                                                             <span class="font-weight-bold font-size-lg" id="name_coordinacion"></span>
                                                                                         </div>
-                                                                                        <div class="col-sm-8 form-group">
+                                                                                        <div class="col-sm-6 form-group">
                                                                                             <span class="btn btn-sm badge" id="firm_coordinacion"  data-idempleado="" data-nuevafirma="" onclick="firma_solicitud()"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="row">
-                                                                                        <div class="col-sm-4 form-group">
+                                                                                        <div class="col-sm-6 form-group">
                                                                                             <span class="font-weight-bold font-size-lg">Planeacion de Proyectos:</span>
                                                                                         </div>
-                                                                                        <div class="col-sm-4 form-group">
+                                                                                        <div class="col-sm-6 form-group">
                                                                                             <span class="btn btn-sm badge" id="firm_planeacion" data-idempleado=""></span>
                                                                                         </div>
                                                                                     </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-2 form-group">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12 form-group">
+                                                                                    <h1 class="mb-0 font-weight-semibold text-danger text-center" id="folio_solicitud"><small class="font-weight-semibold ml-1 text-grey-300">Folio</br></small>000000</h1>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -266,18 +273,16 @@
                                         <div class="card" id="tabla_visor_solicitudes">
                                             <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
                                                 <table class="table table-xs compact display " id="lay_out_solicitudesx" cellspacing="0" width="100%" data-idcoordinacion="1">
-                                                    <col width="25%">
+                                                    <col width="15%">
                                                     <col width="5%">
                                                     <col width="5%">
-                                                    <col width="45%">
-                                                    <col width="20%">
+                                                    <col width="75%">
                                                     <thead>
                                                         <tr>
-                                                            <th>Equipo</th> <!-- 4 -->
+                                                            <th class="text-center">Fecha</th> <!-- 2 -->
                                                             <th>Coord.</th> <!-- 4 -->
                                                             <th>Planeación</th> <!-- 4 -->
                                                             <th>Materiales solicitados</th> <!-- 3 -->
-                                                            <th>Fecha</th> <!-- 2 -->
                                                         </tr>
                                                     </thead>
                                                     <tbody data-link="row" class="rowlink">

@@ -141,18 +141,11 @@
                     <div class="page-header page-header-light">
                         <div class="page-header-content header-elements-md-inline">
                             <div class="page-title d-flex">
-                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">MIS SOLICITUDES</span></h4>
+                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">SOLICITUDES ENVIADAS</span></h4>
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
                             <div class="header-elements d-none">
-                                <form action="#" style="display: none">
-                                    <div class="form-group form-group-feedback form-group-feedback-right">
-                                        <input type="search" class="form-control wmin-200" placeholder="Buscar..." id="buscar_en_tabla_layoutx">
-                                        <div class="form-control-feedback">
-                                            <i class="icon-search4 font-size-base text-muted"></i>
-                                        </div>
-                                    </div>
-                                </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -192,7 +185,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm-6 form-group">
+                                                                        <div class="col-sm-4 form-group">
                                                                             <div class="row">
                                                                                 <div class="col-sm-12 form-group">
                                                                                     <div class="row">
@@ -214,6 +207,13 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="col-sm-2 form-group">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12 form-group">
+                                                                                    <h1 class="mb-0 font-weight-semibold text-danger text-center" id="folio_solicitud"><small class="font-weight-semibold ml-1 text-grey-300">Folio</br></small> 000123</h1>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </fieldset>
                                                                 </div>
@@ -232,7 +232,7 @@
                                                                                 <th>Cantidad</th> <!-- 0 -->
                                                                                 <th></th> <!-- 1 -->
                                                                                 <th>Articulo</th> <!-- 1 -->
-                                                                                <th></th> <!-- 2 -->
+                                                                                <th>Status</th> <!-- 2 -->
                                                                                 <th>Motivo del requerimiento</th> <!-- 3 -->
                                                                               </tr>
                                                                             </thead>
@@ -250,9 +250,7 @@
                                                     </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <div class="col-sm-8">
-
-                                                </div>
+                                                <div class="col-sm-8"></div>
                                                 <div class="col-sm-4 text-right">
                                                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="closeModalSolicitudDetail_user()" title="Salir del formulario">Salir</button>
                                                 </div>
@@ -262,18 +260,17 @@
                                         <div class="card" id="tabla_visor_solicitudes">
                                             <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
                                                 <table class="table table-xs compact display " id="lay_out_solicitudesx" cellspacing="0" width="100%" data-idcoordinacion="0">
-                                                    <col width="25%">
-                                                    <col width="5%">
-                                                    <col width="5%">
-                                                    <col width="45%">
                                                     <col width="20%">
+                                                    <col width="5%">
+                                                    <col width="5%">
+                                                    <col width="70%">
                                                     <thead>
                                                         <tr>
-                                                            <th>Equipo</th> <!-- 4 -->
-                                                            <th>Status</th> <!-- 4 -->
-                                                            <th>Status</th> <!-- 4 -->
+                                                            <th class="text-center">Fecha</th> <!-- 2 -->
+                                                            <th>Coord.</th> <!-- 4 -->
+                                                            <th>Plan.</th> <!-- 4 -->
                                                             <th>Materiales solicitados</th> <!-- 3 -->
-                                                            <th>Fecha</th> <!-- 2 -->
+                                                            
                                                         </tr>
                                                     </thead>
                                                     <tbody data-link="row" class="rowlink">

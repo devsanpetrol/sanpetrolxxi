@@ -5,13 +5,13 @@
     $user_session_id = $_POST["user_session_id"];
     $id_coordinacion = $_POST["id_coordinacion"];
     if($id_coordinacion == 1 || $id_coordinacion == 2){
-        $filter = "WHERE id_coordinacion = $id_coordinacion GROUP BY id_equipo";
+        $filter = "WHERE id_coordinacion = $id_coordinacion GROUP BY id_equipo ORDER BY folio DESC";
     }
     if($id_coordinacion == 4){
-        $filter = "WHERE firm_coordinacion > 0 GROUP BY id_equipo";
+        $filter = "WHERE firm_coordinacion > 0 GROUP BY id_equipo ORDER BY folio DESC";
     }
     if($id_coordinacion == 0){
-        $filter = "WHERE clave_solicita = $user_session_id GROUP BY id_equipo";
+        $filter = "WHERE clave_solicita = $user_session_id GROUP BY id_equipo ORDER BY folio DESC";
     }
     $categorias = $suministro->get_solicitudes_($filter);//SELECT * FROM adm_view_solicitud $filtro
     $data = array();
@@ -24,24 +24,23 @@
         
         $star = "<a href='#'>#$folio</a>";
         
-        $equipo = "<span class='font-weight-bold text-teal-800'>".$valor['nombre_generico']."</span>";
         $data[] = array("star" => "",
                         "status_c" => firma_revision_c($valor['firm_coordinacion']),
                         "status_p" => firma_revision_p($valor['firm_planeacion']),
-                        "solicita" => $equipo,
-                        "pedidos" => pedido($folio),
-                        "fecha" => "<span class='font-weight-bold'>$m $d</span>",
+                        "solicita" => "<span class='font-weight-bold text-blue-800'>".$valor['nombre_generico']."</span>",
+                        "pedidos" => "<span class='font-weight-bold text-blue-800'>".$valor['nombre_generico']."</span></br>".pedido($folio,$id_coordinacion),
+                        "fecha" => "<span class='font-weight-bold'>$m $d</span></br><h5 class='font-weight-bold text-danger'>".str_pad($folio, 6, "0", STR_PAD_LEFT)."</h5>",
                         "folio" => $folio,
                         "leido" => ""
                         );
         }
-    function pedido($folio){
+    function pedido($folio,$id_coordinacion){
         $filtro = "WHERE folio = $folio";
         $suministro = new suministro();
         $pedidos = $suministro->get_solicitudes_($filtro);
         $lista = array();
         foreach($pedidos as $valor){
-                $cantidad = $valor['cantidad_coord'];
+                $cantidad = cantidad_user($valor['cantidad'],$valor['cantidad_coord'],$valor['cantidad_plan'],$id_coordinacion);
                 $unidad = $valor['unidad'];
                 $destino = $valor['nombre_sub_area'];
                 $articulo = $valor['articulo'];
@@ -51,7 +50,26 @@
         $todos = implode("", $lista);
         return "<ul class='list-unstyled mb-0'>".$todos."</ul>";
     }
-    
+    function cantidad_user($cant, $cant_coord,$cant_plan, $id_coordinacion){
+        if( $id_coordinacion == 1 || $id_coordinacion == 2 ){
+            return $cant_coord;
+        }else if( $id_coordinacion == 4 ){
+            return $cant_plan;
+        }else {
+            return $cant;
+        }
+    }
+    function cantidad_bsoluta($cant_user,$cant_coord,$cant_plan,$firm_coord,$firm_plan){
+        if($firm_coord && $firm_plan){
+            return $cant_plan;
+        }else if($firm_coord && !$firm_plan){
+            return $cant_coord;
+        }else if(!$firm_coord && $firm_plan){
+            return $cant_plan;
+        }else if(!$firm_coord && !$firm_plan){
+            return $cant_user;
+        }
+    }
     function t_icon_x($st){
        $status = array(
             "<i class='mi-adjust font-size-xl font-weight-bold text-primary-700 mr-2' title='Nuevo'></i>",//NO revisado
@@ -68,41 +86,19 @@
         );
         return $status[$st];
     }
-    function firma_revision($firm_coordinacion,$coordinacion){
-        $firma = "";
-        if( $firm_coordinacion == 0 && $firm_planeacion == 0 ){
-            $firma = "<ul class='list-unstyled mb-0'>
-                        <li><span class='badge badge-info border-info-800 d-block'>Coordinación</span></li>
-                        <li><span class='badge badge-info border-info-800 d-block'>Planeación</span></li>
-                      </ul>";
-        }elseif ( $firm_coordinacion > 0 && $firm_planeacion == 0){
-            $firma = "<ul class='list-unstyled mb-0'>
-                        <div class='mr-3'><a href='#' class='btn bg-transparent border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-checkmark3'></i></a></div>
-                        <li><span class='badge badge-info badge-icon border-left-teal-300'><i class='mi-hourglass-empty mr-2 mi-1x'></i> PLANEACIÓN</span></li>
-                      </ul>";
-        }elseif ( $firm_coordinacion > 0 && $firm_planeacion > 0 ){
-            $firma = "<ul class='list-unstyled mb-0'>
-                        <div class='mr-3'><a href='#' class='btn bg-transparent border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-checkmark3'></i></a></div>
-                        <div class='mr-3'><a href='#' class='btn bg-transparent border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-checkmark3'></i></a></div>
-                      </ul>";
-        }
-        return $firma;
-    }
     function firma_revision_p($firm_planeacion){
-        $firma = "";
         if( $firm_planeacion == 0 ){
-            $firma = "<a href='#' class='btn bg-transparent border-danger text-danger rounded-round border-2 btn-icon legitRipple'><i class='icon-cross2'></i></a>";
+            $firma = "<a href='#' class='btn bg-transparent border-grey-300 text-grey-300 rounded-round border-2 btn-icon legitRipple'><i class='icon-paperplane'></i></a>";
         }elseif ( $firm_planeacion > 0 ){
-            $firma = "<a href='#' class='btn bg-transparent border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-checkmark3'></i></a>";
+            $firma = "<a href='#' class='btn alpha-success border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-paperplane'></i></a>";
         }
         return $firma;
     }
     function firma_revision_c($firm_coordinacion){
-        $firma = "";
         if( $firm_coordinacion == 0 ){
-            $firma = "<a href='#' class='btn bg-transparent border-danger text-danger rounded-round border-2 btn-icon legitRipple'><i class='icon-cross2'></i></a>";
+            $firma = "<a href='#' class='btn bg-transparent border-grey-300 text-grey-300 rounded-round border-2 btn-icon legitRipple'><i class='icon-paperplane'></i></a>";
         }elseif ( $firm_coordinacion > 0 ){
-            $firma = "<a href='#' class='btn bg-transparent border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-checkmark3'></i></a>";
+            $firma = "<a href='#' class='btn alpha-success border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-paperplane'></i></a>";
         }
         return $firma;
     }

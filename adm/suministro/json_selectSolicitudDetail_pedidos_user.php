@@ -10,7 +10,7 @@
         $id_pedido = $valor["id_pedido"];
         $data[] = array("id_pedido" => $id_pedido,
                         "articulo" => articulo($valor["articulo"],$id_pedido,$valor["unidad"],$valor["cod_articulo"],$valor["justificacion"],$valor["cantidad"]),
-                        "cantidad" => cantidad_user($valor["cantidad"],$valor["cantidad_coord"],$valor["cantidad_plan"],$valor["firm_coordinacion"],$valor["firm_planeacion"]),
+                        "cantidad" => cantidad_bsoluta($valor["cantidad"],$valor["cantidad_coord"],$valor["cantidad_plan"],$valor["firm_coordinacion"],$valor["firm_planeacion"]),
                         "unidad" => unidad($valor["unidad"]),
                         "justificacion" => detalle($valor["justificacion"],$valor["nombre_sub_area"]),
                         "destino" => $valor["destino"],
@@ -149,7 +149,6 @@
                 return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_coord</h6>";
             }
         }else{
-            return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cant_coord'>";
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_coord</h6>";
         }
     }
@@ -157,7 +156,18 @@
         if($firm_plan){
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";
         }else{
-            return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cant_plan'>";
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";
+        }
+    }
+    function cantidad_bsoluta($cant_user,$cant_coord,$cant_plan,$firm_coord,$firm_plan){
+        if($firm_coord && $firm_plan){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-blue-800'>$cant_plan</h6>";
+        }else if($firm_coord && !$firm_plan){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-blue-800'>$cant_coord</h6>";
+        }else if(!$firm_coord && $firm_plan){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-blue-800'>$cant_plan</h6>";
+        }else if(!$firm_coord && !$firm_plan){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-blue-800'>$cant_user</h6>";
         }
     }
     header('Content-Type: application/json');

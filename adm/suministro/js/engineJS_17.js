@@ -2,24 +2,7 @@ $(document).ready( function () {
     var user_session_id = $('#user_session_id').data("employeid");
     $('.form-control-select2').select2();
     
-    $('.pickadate-accessibility').pickadate({
-        format: 'dddd, dd mmmm, yyyy',
-        formatSubmit: 'yyyy-mm-dd',
-        hiddenPrefix: 'prefix__',
-        hiddenSuffix: '__suffix',
-        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-        labelMonthNext: 'Ir al siguiente mes',
-        labelMonthPrev: 'Ir al mes anterior',
-        labelMonthSelect: 'Pick a month from the dropdown',
-        labelYearSelect: 'Pick a year from the dropdown',
-        selectMonths: true,
-        selectYears: true
-        /*onStart: function() {
-            var date = new Date();
-            this.set('select', date.getFullYear(), date.getMonth(), date.getDate() );
-        }*/
-    });
+    
     $('#tabla_pedidos').DataTable({
         paging: false,
         searching: false,
@@ -62,60 +45,29 @@ $(document).ready( function () {
             
             $(row).data('scroll');
             
+            $('td', row).eq(0).addClass('text-center');
             $('td', row).eq(3).addClass('table-inbox-message');
+            
             
         },
         columns: [
-            {data : 'solicita'},
+            {data : 'fecha'},
             {data : 'status_c'},
             {data : 'status_p'},
-            {data : 'pedidos'},
-            {data : 'fecha'}
+            {data : 'pedidos'}
+            
         ],
         language: {
             zeroRecords: "Ningun elemento seleccionado"
         }
     });
-    $('#select_article').select2({
-        dropdownParent: $('#modal_large'),
-        ajax:{
-            url: 'json_selectArticle.php',
-            type: 'post',
-            dataType: 'json',
-            delay: 1000,
-            cache: true,
-            data: function (params) {
-             return { searchTerm: params.term };
-            },
-            processResults: function (response) {
-                return { results: response };
-            }
-        }
-    });
-    $( '#select_article' ).change(function () {
-       var searchTerm = $( '#select_article' ).val();
-        $.ajax({
-            url: 'json_pedido.php',
-            data:{searchTerm:searchTerm},
-            type: 'POST',
-            success:(function(res){
-                $('#cod_articulo').val(res.cod_articulo);
-                $('#descripcion').val(res.descripcion);
-                $('#unidad').val(res.tipo_unidad).trigger('change');
-            })
-        });
-        if(isNaN($('#select_article').val())){
-            $('#descripcion').prop('readonly', true);
-            $('#unidad').prop('disabled', true);
-        }else{
-            $('#descripcion').prop('readonly', false);
-            $('#unidad').prop('disabled', false);
-        }
-    });
+    
+    
     $('#lay_out_solicitudesx tbody').on('click', 'tr', function () {
         var folio = this.id;
         $('#tabla_pedidos').data("folio",folio);
         $('#modal_large').data("folio",folio);
+        $("#folio_solicitud").html("<small class='font-weight-semibold ml-1 text-grey-300'>Folio</br></small> "+folio.padStart(6,'0'));
         openModalSolicitudDetail(folio);
         return false;
     } );
@@ -156,22 +108,19 @@ function openModalSolicitudDetail(folio){
     getSolicitudDetail_pedido(folio);
     $("#tabla_visor_solicitudes").toggle(400);
     $("#card_solicitud_detail").toggle(400);
-    $("#expand_menu_lateral").click();
+    //$("#expand_menu_lateral").click();
 }
 function closeModalSolicitudDetail(){
     var table_pedido = $('#tabla_pedidos').DataTable();
     table_pedido.column(5).visible(true);
     table_pedido.clear().draw();
-    $('#sub_area_aquipo').empty().trigger("change");
     $("#tabla_visor_solicitudes").toggle(400);
     $("#card_solicitud_detail").toggle(400);
-    $("#expand_menu_lateral").click();
-    $("#sidebar_sticky").hide();
+    //$("#expand_menu_lateral").click();
 }
 function closeModalSolicitudDetail_user(){
     var table_pedido = $('#tabla_pedidos').DataTable();
     table_pedido.clear().draw();
-    $('#sub_area_aquipo').empty().trigger("change");
     $("#tabla_visor_solicitudes").toggle(400);
     $("#card_solicitud_detail").toggle(400);
 }
@@ -237,7 +186,7 @@ function getSolicitudDetail_pedido(folio){
         success: function (obj) {
             $.each(obj, function (index, value) {
                 t.row.add([
-                    value.cantidad_coord,
+                    value.cantidad,
                     value.unidad,
                     value.articulo,
                     value.status_pedido,
@@ -248,57 +197,14 @@ function getSolicitudDetail_pedido(folio){
             });
         },
         complete: (function () {
-            if( $("#firm_coordinacion").data("idempleado") > 0 ){
-                $(".input-cantidad-coord").attr('disabled', true);
-                if( $("#firm_coordinacion").data("nuevafirma") == "new" ){
-                    $("#guarda_cambios_solicitud").show();
-                }else{
-                    $("#guarda_cambios_solicitud").hide();
-                }
-            }
             $('.icon-pencil').hide();
         })
     });
 }
-function guarda_cantidad_coord(id_pedido,cantidad){
-    var columna = "cantidad_coord";
-    $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:columna }).done(function( data ) {
-        console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
-    });
-}
-function firma_solicitud(){
-    if($("#firm_coordinacion").data("idempleado") == 0){
-        $("#form_log_autentic").trigger("reset");
-        $("#mod_log_acces").modal("show");
-    }
-}
-function log_autentic(){
-     var password = $("#password").val();
-     var usuario  = $("#usuario").val();
-     var tokenid  = $("#mod_log_acces").data("firmax");
-     $.ajax({
-        data:{password:password,usuario:usuario,tokenid:tokenid},
-        url: 'json_aut_firma.php',
-        type: 'POST',
-        success:(function(res){
-            if(res.result == "error_acount"){
-                $("#msj_alert").html("<span class='font-weight-semibold'>Error en los datos de la cuenta</span>").show(200);
-            }else if(res.result == "acount_denied"){
-                $("#msj_alert").html("<span class='font-weight-semibold'>¡Acceso denegado!</span>").show(200);
-            }else if(res.result == "aprobado"){
-                aplica_firma(res.id_empleado);
-                $("#mod_log_acces").modal("hide");
-            }
-        })
-    });
- }
- function aplica_firma(id_empleado){
-    $("#firm_coordinacion")
-            .data({idempleado:id_empleado,nuevafirma:"new"})
-            .removeClass("badge-danger border-primary-300 alpha-primary text-primary-800")
-            .addClass("badge-success")
-            .text("Revisado");
- }
+
+
+
+ 
 
 
 

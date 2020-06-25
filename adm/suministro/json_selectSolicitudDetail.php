@@ -9,7 +9,7 @@
     $data[] = array("nombre_generico" => $solicitud[0]['nombre_generico'],
                     "nombre_solicitante" => $solicitud[0]['nombre_solicitante'],
                     "puesto_solicitante" => $solicitud[0]['puesto_solicitante'],
-                    "fecha" => $solicitud[0]['fecha'],
+                    "fecha" => fecha($solicitud[0]['fecha']),
                     "sitio_operacion" => $solicitud[0]['sitio_operacion'],
                     "status" => $solicitud[0]['status'],
                     "firm_coordinacion" => $solicitud[0]['firm_coordinacion'],
@@ -22,7 +22,8 @@
                     "id_equipo" => $solicitud[0]['id_equipo'],
                     "coordinacion" => $solicitud[0]['coordinacion'],
                     "coordinacion_up" => ucwords(mb_strtolower($solicitud[0]['coordinacion'])),
-                    "id_coordinacion" => $solicitud[0]['id_coordinacion']
+                    "id_coordinacion" => $solicitud[0]['id_coordinacion'],
+                    "folio" => $solicitud[0]['folio']
                     );
     
     function t_icon_x($st){
@@ -40,6 +41,10 @@
             "<span class='badge badge-mark bg-indigo-800 border-indigo-800'></span>"
         );
         return $status[$st];
+    }
+    function fecha($fecha){
+        $date = new DateTime($fecha);
+        return $date->format('F d (ga)');
     }
     header('Content-Type: application/json');
     echo json_encode($data);

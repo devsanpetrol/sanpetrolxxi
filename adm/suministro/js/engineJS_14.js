@@ -62,15 +62,14 @@ $(document).ready( function () {
             
             $(row).data('scroll');
             
+            $('td', row).eq(0).addClass('text-center');
             $('td', row).eq(3).addClass('table-inbox-message');
-            
         },
         columns: [
-            {data : 'solicita'},
+            {data : 'fecha'},
             {data : 'status_c'},
             {data : 'status_p'},
-            {data : 'pedidos'},
-            {data : 'fecha'}
+            {data : 'pedidos'}
         ],
         language: {
             zeroRecords: "Ningun elemento seleccionado"
@@ -116,6 +115,7 @@ $(document).ready( function () {
         var folio = this.id;
         $('#tabla_pedidos').data("folio",folio);
         $('#modal_large').data("folio",folio);
+        $("#folio_solicitud").html("<small class='font-weight-semibold ml-1 text-grey-300'>Folio</br></small> "+folio.padStart(6,'0'));
         openModalSolicitudDetail(folio);
         return false;
     } );
