@@ -40,7 +40,7 @@
         $pedidos = $suministro->get_solicitudes_($filtro);
         $lista = array();
         foreach($pedidos as $valor){
-                $cantidad = cantidad_user($valor['cantidad'],$valor['cantidad_coord'],$valor['cantidad_plan'],$id_coordinacion);
+                $cantidad = cantidad_relativa($id_coordinacion,$valor['cantidad'],$valor['cantidad_coord'],$valor['cantidad_plan'],$valor['firm_coordinacion'],$valor['firm_planeacion']);
                 $unidad = $valor['unidad'];
                 $destino = $valor['nombre_sub_area'];
                 $articulo = $valor['articulo'];
@@ -69,6 +69,32 @@
         }else if(!$firm_coord && !$firm_plan){
             return $cant_user;
         }
+    }
+    function cantidad_relativa($ambito,$cant_user,$cant_coord,$cant_plan,$firm_coord,$firm_plan){
+        $cantidad = 0;
+        switch ($ambito) {
+            case 1:
+                if ($firm_plan){
+                    $cantidad = $cant_plan ;
+                }else{$cantidad = $cant_coord;}
+                break;
+            case 2:
+                if ($firm_plan){
+                    $cantidad = $cant_plan ;
+                }else{$cantidad = $cant_coord;}
+                break;
+            case 4:
+                $cantidad = $cant_plan;
+                break;
+            default:
+                if ($firm_plan)  { 
+                    $cantidad = $cant_plan;
+                }else if($firm_coord){ 
+                    $cantidad = $cant_coord ;
+                }else{$cantidad = $cant_user; }
+                break;
+        }
+        return $cantidad;
     }
     function t_icon_x($st){
        $status = array(
@@ -101,6 +127,44 @@
             $firma = "<a href='#' class='btn alpha-success border-success text-success rounded-round border-2 btn-icon legitRipple'><i class='icon-paperplane'></i></a>";
         }
         return $firma;
+    }
+    function cantidad_ini($cant, $cant_coord,$cant_plan,$firm_coord,$firm_plan){
+        if($firm_coord){
+            if($firm_plan){
+                return $cant_plan;
+            }else{
+                return $cant_coord;
+            }
+        }else{
+            return $cant;
+        }        
+    }
+    function cantidad_coord($cant_coord,$cant_plan,$firm_coord,$firm_plan,$id_pedido){
+        if($firm_coord){
+            if($firm_plan){
+                return $cant_plan;
+            }else{
+                return $cant_coord;
+            }
+        }else{
+            return $cant_coord;
+        }
+    }
+    function cantidad_plan($cant_plan,$firm_plan,$id_pedido){
+        if($firm_plan){
+            return $cant_plan;
+        }else{
+            return $cant_plan;
+        }
+    }
+    function cantidad_bsoluta_2($cant_user,$cant_coord,$cant_plan,$firm_coord,$firm_plan){
+        if($firm_plan){
+            return $cant_plan;
+        }else if($firm_coord){
+            return $cant_coord;
+        }else if(!$firm_coord && !$firm_plan){
+            return $cant_user;
+        }
     }
     header('Content-Type: application/json');
     echo json_encode($data);

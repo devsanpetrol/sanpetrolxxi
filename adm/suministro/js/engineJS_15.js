@@ -1,5 +1,6 @@
 $(document).ready( function () {
     var user_session_id = $('#user_session_id').data("employeid");
+    var id_coordinacion = $('#lay_out_solicitudesx').data('idcoordinacion');
     $('.form-control-select2').select2();
     $('.sidebar-sticky .sidebar-xxx').stick_in_parent({
         offset_top: 20,
@@ -43,7 +44,7 @@ $(document).ready( function () {
             zeroRecords: "Ningun elemento agregado"
         }
     });
-    var id_coordinacion = $('#lay_out_solicitudesx').data("idcoordinacion");
+    
     $('#lay_out_solicitudesx').DataTable({
         paging: false,
         ordering: false,
@@ -54,7 +55,7 @@ $(document).ready( function () {
         dom: '<"datatable-scroll-wrap"t>',
         ajax: {
             url: "json_selectSolicitudBandeja_coordTest.php",
-            data:{user_session_id:user_session_id,id_coordinacion:id_coordinacion},
+            data:{user_session_id:user_session_id,id_coordinacion:$('#lay_out_solicitudesx').data('idcoordinacion')},
             type: 'POST',
             dataSrc:function ( json ) {
                 return json;
