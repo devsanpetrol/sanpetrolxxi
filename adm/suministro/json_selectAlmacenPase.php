@@ -3,7 +3,7 @@
     
     $suministro = new suministro();
 
-    $categorias = $suministro->get_select_query_("SELECT *, sum(cantidad_pendiente) as total_pendiente,  sum(cantidad_surtido) as total_surtido, sum(cantidad_plan) as total_plan FROM adm_view_solicitud where firm_planeacion > 0 and status_pedido in (1,4) group BY folio");
+    $categorias = $suministro->get_select_query_("SELECT *, sum(cantidad_surtido) as total_surtido, sum(cantidad_plan) as total_plan FROM adm_view_solicitud where firm_planeacion > 0 and status_pedido in (1,4) group BY folio");
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -11,16 +11,22 @@
                         "fecha" => fecha($valor['fecha_firm_planeacion']),
                         "nombre_generico" => $valor['nombre_generico'],
                         "nombre_solicitante" => $valor['nombre_solicitante'],
-                        "avance" => avance($valor['total_pendiente'],$valor['total_surtido'],$valor['total_plan']),
+                        "avance" => avance($valor['total_surtido'],$valor['total_plan']),
                         "status" => "<button type='button' class='btn btn-sm alpha-warning text-warning-800 legitRipple  rounded-round btn-icon ml-1' onclick='openModalSolicitudDetail(".$valor['folio'].")'><i class='icon-circle-right2'></i></button>"
                         );
         
     }
-    function avance($total_pendiente,$total_surtido,$total_plan){
-        $porcentaje = (100/$total_plan)*$total_surtido;
-        return "$porcentaje%<div class='progress mb-3' style='height: 0.375rem;'>
+    function avance($total_surtido,$total_plan){
+        $porcentaje = round((100/$total_plan)*$total_surtido,0);
+        if($porcentaje >= 100 ){
+            return "$porcentaje%<div class='progress mb-3' style='height: 0.375rem;'>
+                        <div class='progress-bar progress-bar-striped progress-bar bg-primary' style='width: $porcentaje%'></div>
+                </div>";
+        }else{
+            return "$porcentaje%<div class='progress mb-3' style='height: 0.375rem;'>
                         <div class='progress-bar progress-bar-striped progress-bar-animated bg-success' style='width: $porcentaje%'></div>
                 </div>";
+        }
     }
 
     function articulo_detail($id_pedido,$articulo, $categoria, $nombre_aprueba, $cargo_aprueba,$cod_articulo,$nombre_solicita){

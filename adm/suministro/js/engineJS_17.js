@@ -54,8 +54,8 @@ $(document).ready( function () {
             {data : 'fecha'},
             {data : 'status_c'},
             {data : 'status_p'},
-            {data : 'pedidos'}
-            
+            {data : 'pedidos'},
+            {data : 'avance'}
         ],
         language: {
             zeroRecords: "Ningun elemento seleccionado"

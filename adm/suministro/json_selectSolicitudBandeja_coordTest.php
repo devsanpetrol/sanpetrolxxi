@@ -5,15 +5,15 @@
     $user_session_id = $_POST["user_session_id"];
     $id_coordinacion = $_POST["id_coordinacion"];
     if($id_coordinacion == 1 || $id_coordinacion == 2){
-        $filter = "WHERE id_coordinacion = $id_coordinacion GROUP BY id_equipo ORDER BY folio DESC";
+        $filter = "WHERE id_coordinacion = $id_coordinacion GROUP BY folio ORDER BY folio DESC";
     }
     if($id_coordinacion == 4){
-        $filter = "WHERE firm_coordinacion > 0 GROUP BY id_equipo ORDER BY folio DESC";
+        $filter = "WHERE firm_coordinacion > 0 GROUP BY folio ORDER BY folio DESC";
     }
     if($id_coordinacion == 0){
-        $filter = "WHERE clave_solicita = $user_session_id GROUP BY id_equipo ORDER BY folio DESC";
+        $filter = "WHERE clave_solicita = $user_session_id GROUP BY folio ORDER BY folio DESC";
     }
-    $categorias = $suministro->get_solicitudes_($filter);//SELECT * FROM adm_view_solicitud $filtro
+    $categorias = $suministro->get_solicitudes_op($filter);//SELECT * FROM adm_view_solicitud $filtro
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -31,7 +31,8 @@
                         "pedidos" => "<span class='font-weight-bold text-blue-800'>".$valor['nombre_generico']."</span></br>".pedido($folio,$id_coordinacion),
                         "fecha" => "<span class='font-weight-bold'>$m $d</span></br><h5 class='font-weight-bold text-danger'>".str_pad($folio, 6, "0", STR_PAD_LEFT)."</h5>",
                         "folio" => $folio,
-                        "leido" => ""
+                        "leido" => "",
+                        "avance" => avance($valor['total_surtido'],$valor['total_plan']),
                         );
         }
     function pedido($folio,$id_coordinacion){
@@ -49,6 +50,25 @@
             }
         $todos = implode("", $lista);
         return "<ul class='list-unstyled mb-0'>".$todos."</ul>";
+    }
+    function avance($total_surtido,$total_plan){
+        if($total_plan > 0){
+            $porcentaje = round((100/$total_plan)*$total_surtido,0);
+            if($porcentaje >= 100 ){
+                return "$porcentaje%<div class='progress mb-3' style='height: 0.375rem;'>
+                            <div class='progress-bar progress-bar-striped progress-bar bg-primary' style='width: $porcentaje%'></div>
+                    </div>";
+            }else{
+                return "$porcentaje%<div class='progress mb-3' style='height: 0.375rem;'>
+                            <div class='progress-bar progress-bar-striped progress-bar-animated bg-success' style='width: $porcentaje%'></div>
+                    </div>";
+            }
+            
+        }else{
+            return "<div class='progress mb-3' style='height: 0.375rem;'>
+                            <div class='progress-bar progress-bar-striped progress-bar-animated bg-success' style='width: 0%'></div>
+                    </div>";
+        }
     }
     function cantidad_user($cant, $cant_coord,$cant_plan, $id_coordinacion){
         if( $id_coordinacion == 1 || $id_coordinacion == 2 ){

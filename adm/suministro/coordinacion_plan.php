@@ -270,13 +270,15 @@
                                             <col width="15%">
                                             <col width="5%">
                                             <col width="5%">
-                                            <col width="75%">
+                                            <col width="50%">
+                                            <col width="20%">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">Fecha</th> <!-- 2 -->
                                                     <th>Coord.</th> <!-- 4 -->
                                                     <th>Plan.</th> <!-- 4 -->
                                                     <th>Materiales solicitados</th> <!-- 3 -->
+                                                    <th>Avance</th> <!-- 3 -->
                                                 </tr>
                                             </thead>
                                             <tbody data-link="row" class="rowlink">

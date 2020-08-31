@@ -103,6 +103,7 @@ function agrega_pase(){
     getSolicitudDetail_pedido(folio);
     $("#card_almacen_pase").toggle(400);
     $("#card_solicitud_detail").toggle(400);
+    $("#guarda_cambios_solicitud").show();
 }
 function closeModalSolicitudDetail(){
     var table_pedido = $('#tabla_pedidos').DataTable();
@@ -216,7 +217,7 @@ function reset_addCodigo(){
 }
 function guarda_valesalida(){
     var folio = $("#tabla_pedidos").data("folio");
-    if($(".input-cantidad-surtir").length > 0){
+    if(sumaTotalValida()){
         $.ajax({
             data:{folio:folio},
             url: 'json_addValesalida.php',
@@ -230,33 +231,50 @@ function guarda_valesalida(){
                 }
             }),
             complete: (function () {
-                 $("#btn_envia_guarda_valesalida").attr("disabled",true);
+                $("#btn_envia_guarda_valesalida").attr("disabled",true);
             })
         });
     }else{
-        alert("No hay elementos pendientes por procesar.");
+        alert("No se ha seleccionado ningun elemento.");
     }
 }
 function guarda_itemsentrega(){
+    var folio_vale  = $("#folio_vale").html();
     $(".input-cantidad-surtir").each(function(){
-           var folio_vale  = $("#folio_vale").html();
-           var idpedido    = $(this).data("idpedido");
-           var codarticulo = $(this).data("codarticulo");
-           var cant_surtir = parseInt($(this).val());
-           
-           if( cant_surtir > 0 ){
-                $.ajax({
-                   data:{folio_vale:folio_vale,idpedido:idpedido,codarticulo:codarticulo,cant_surtir:cant_surtir},
-                   url: 'json_insert_valesalida_detail.php',
-                   type: 'POST',
-                   success:(function(res){
-                       if(res.result == "exito"){
-
-                       }else{
-
-                       }
-                   })
-                });
-           }
+        var cs = parseInt($(this).val());
+        if( cs > 0 ){
+            var idpedido    = $(this).data("idpedido");
+            var codarticulo = $(this).data("codarticulo");
+            $.ajax({
+                data:{folio_vale:folio_vale,idpedido:idpedido,codarticulo:codarticulo,cant_surtir:cs},
+                url: 'json_insert_valesalida_detail.php',
+                type: 'POST',
+                success:(function(res){
+                    if(res.result == "exito"){
+                        $("#"+idpedido).removeClass("text-warning-800").addClass("text-success-300");
+                    }else{
+                        
+                    }
+                }),
+                complete: function(){
+                  
+                }
+            });
+        }
+    }).promise().done(function () {
+        alert("Proceso finalizado.");
+        $("#guarda_cambios_solicitud").hide();
+    });
+}
+function sumaTotalValida(){
+    if($('.input-cantidad-surtir').length > 0){
+        var t = 0;
+        $('.input-cantidad-surtir').each(function(){
+            var cs = parseInt($(this).val());
+            t = cs + t;
         });
- }
+        return t > 0 ? true:false;
+    }else{
+        return false;
+    }
+}

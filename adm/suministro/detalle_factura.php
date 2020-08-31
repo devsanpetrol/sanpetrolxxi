@@ -59,7 +59,7 @@
             <!-- Content area -->
             <div class="content">
                 <!-- New Invoice -->
-                <div class="card card-new-invoice" >
+                <div class="card card-new-invoice" style="display: none">
                     <!--<div class="card-header bg-transparent header-elements-inline">style="display: none"
                         <h6 class="card-title">Ingreso de Articulo</h6>
                         <div class="header-elements">
@@ -74,74 +74,44 @@
                         </div>
                     </div>-->
                     <div class="card-body">
-                    <form action="#">
+                    
                     <div class="row">
                         <div class="col-md-6">
                                 <fieldset>
-                                <legend class="font-weight-semibold text-danger-800"><i class="icon-truck mr-2"></i> DATOS DE PROVEEDOR</legend>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-truck mr-2"></i> DATOS DE PROVEEDOR <button type="button" class="btn btn-sm rounded-round alpha-success text-success-800 legitRipple btn-icon ml-1" title="Agregar referencia del proveedor" data-toggle="modal" data-target="#busca_proveedor"><i class="icon-plus3"></i></button></legend>
+                                <form action="" id="form_proveedor">
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="rfc" placeholder="R.F.C." required>
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="rfc" placeholder="R.F.C." data-idproveedor="0" readonly>
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-shield-check"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="codigopostal" placeholder="Codigo Postal">
-                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                <i class="icon-mailbox"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="nombreempresa" placeholder="Nombre Fiscal de la empresa" onkeyup="mayus(this);">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="nombreempresa" placeholder="Nombre de la empresa" readonly>
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-office"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="domicilioempresa" placeholder="Domicilio Fiscal">
-                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                <i class="icon-pin-alt"></i>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="telefono" placeholder="Teléfonos">
-                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                <i class="icon-phone"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="correo" placeholder="E-Mail">
-                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                <i class="icon-envelop"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </fieldset>
                         </div>
                         <div class="col-md-6">
                             <fieldset>
-                            <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DEL DOCUMENTO</legend>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DEL DOCUMENTO <button type="button" class="btn btn-sm rounded-round alpha-success text-success-800 legitRipple btn-icon ml-1" title="Nuevo Documento" onclick="finishDocument2()"><i class="icon-plus3"></i></button></legend>
+                            <form action="" id="form_documento">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 pickadate-accessibility" id="fechaemision" placeholder="Fecha de Emisión">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 pickadate-accessibility" data-value="2015/04/20" id="add_fecha_emision" placeholder="Fecha de Emisión">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-calendar22"></i>
                                             </div>
@@ -149,7 +119,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="seriefolio" placeholder="Serie - Folio">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="add_serie_folio" placeholder="Serie - Folio">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-price-tag2"></i>
                                             </div>
@@ -159,7 +129,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="lugaremision" placeholder="Lugar de Emisión">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="add_lugar_emision" placeholder="Lugar de Emisión" onkeyup="mayus(this);">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-stamp"></i>
                                             </div>
@@ -169,7 +139,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="uuid" placeholder="U.U.I.D.">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="add_uuid" placeholder="U.U.I.D.">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-embed"></i>
                                             </div>
@@ -182,16 +152,17 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label text-danger-800 font-weight-bold">TOTAL:</label>
                                             <div class="col-lg-9">
-                                                <input type="text" class="form-control text-right font-weight-bold" id="total" value="0" readonly>
+                                                <input type="text" class="form-control text-right font-weight-bold" id="total" placeholder="0" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </fieldset>
                         </div>
                         <div class="col-md-12">
                             <fieldset>
-                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> AGREGAR ARTICULO <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple btn-icon ml-1" title="Nuevo articulo" data-toggle="modal" data-target="#article_new"><i class="icon-pencil5"></i></button></legend>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> AGREGAR ARTICULO <button type="button" class="btn btn-sm rounded-round alpha-success text-success-800 legitRipple btn-icon ml-1" title="Nuevo articulo" data-toggle="modal" data-target="#article_new"><i class="icon-plus3"></i></button></legend>
                             <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
@@ -202,13 +173,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <div class="form-group">
+                                        <div class="form-group form-group-feedback form-group-feedback-right">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_codigoinventario" placeholder="Codigo de Inventario">
+                                            <div class="form-control-feedback form-control-feedback-lg">
+                                                <i class="icon-square-up-right text-pink-800" data-toggle="modal" data-target="#busca_articulo" style="cursor: pointer"></i>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_descripcion" placeholder="Descripción">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_descripcion" readonly placeholder="Descripción">
                                         </div>
                                     </div>
                                     <div class="col-md-1">
@@ -223,7 +197,8 @@
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-group text-right">
-                                            <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon ml-1" onclick="addElementToTable()" title="Agregar"><i class="icon-add-to-list"></i></button>
+                                            <button type="button" class="btn btn-primary legitRipple btn-icon ml-1" onclick="addElementToTable()" title="Agregar"><i class="icon-add-to-list"></i></button>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -231,19 +206,19 @@
                         </div>
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-xs" id="table_inventarioitems">
+                                <table class="table table-xs" id="table_inventarioitems" style="width: 100%">
                                     <col width="15%">
-                                    <col width="40%">
+                                    <col width="50%">
                                     <col width="15%">
-                                    <col width="15%">
-                                    <col width="15%">
+                                    <col width="10%">
+                                    <col width="10%">
                                     <thead>
                                         <tr>
                                             <th>Codigo</th>
                                             <th>Description</th>
                                             <th>Cantidad</th>
-                                            <th>Precio/Unidad ( $ )</th>
-                                            <th>Total ( $ )</th>
+                                            <th>Precio/Unidad</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -252,12 +227,12 @@
                             </div>
                         </div>
                     </div>
-                    </form>
+                    
                 </div>
                 <div class="card-footer bg-transparent text-right">
                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="clearDatatable()" title="Limpiar tabla"><i class="icon-eraser2"></i></button>
                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="hide_showNewInvoice()">Cerrar</button>
-                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon">Guardar</button>
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple btn-icon" onclick="add_documento()">Guardar</button>
                 </div>
                 </div>
                 <!-- Invoice archive -->
@@ -271,123 +246,29 @@
                                         <h6 class="font-weight-semibold mb-0 text-blue-800" ></h6>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" title="Nueva factura" onclick="hide_showNewInvoice()"><i class="icon-plus3"></i></button>
+                                <button type="button" class="btn btn-sm btn-outline bg-primary text-primary-800 rounded-round btn-icon ml-2" title="Nuevo documento de compra" onclick="hide_showNewInvoice()"><i class="icon-plus3"></i></button>
                             </div>
                         </div>
                     </div>
                     <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_invoice_detail">
+                        <col width="5%">
+                        <col width="15%">
+                        <col width="40%">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="10%">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Periodo</th>
                                 <th>Proveedor</th>
-                                <th>Fecha entrega</th>
+                                <th>Fecha emisión</th>
                                 <th>Total</th>
                                 <th class="text-center">Accion</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>#0025</td>
-                                <td>Abril 2015</td>
-                                <td>
-                                    <h6 class="mb-0">
-                                        <a href="#">TAMEX</a>
-                                        <span class="d-block font-size-sm text-muted">DTA9601235Z9</span>
-                                    </h6>
-                                </td>
-                                
-                                <td>
-                                    Abril 18, 2015
-                                </td>
-                                
-                                <td>
-                                    <h6 class="mb-0 font-weight-bold">$17,890</h6>
-                                </td>
-                                <td class="text-center">
-                                    <div class="list-icons list-icons-extended">
-                                        <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a>
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#0024</td>
-                                <td>Abril 2015</td>
-                                <td>
-                                    <h6 class="mb-0">
-                                        <a href="#">MVA ENERGY PRODUCTS S.A. DE C.V.</a>
-                                        <span class="d-block font-size-sm text-muted">MEP180125N99</span>
-                                    </h6>
-                                </td>
-                                
-                                <td>
-                                    Abril 17, 2015
-                                </td>
-                                
-                                <td>
-                                    <h6 class="mb-0 font-weight-bold">$2,769</h6>
-                                </td>
-                                <td class="text-center">
-                                    <div class="list-icons list-icons-extended">
-                                        <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a>
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#0023</td>
-                                <td>Mayo 2015</td>
-                                <td>
-                                    <h6 class="mb-0">
-                                        <a href="#">COEL TABASCO</a>
-                                        <span class="d-block font-size-sm text-muted">COE9510055R6</span>
-                                    </h6>
-                                </td>
-                                
-                                <td>
-                                    Mayo 17, 2015
-                                </td>
-                                
-                                <td>
-                                    <h6 class="mb-0 font-weight-bold">$1,500</h6>
-                                </td>
-                                <td class="text-center">
-                                    <div class="list-icons list-icons-extended">
-                                        <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a>
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
                 <!-- /invoice archive -->
@@ -409,9 +290,10 @@
                                 <div class="mb-4">
                                     <div class="text-sm-right">
                                         <h4 class="text-primary mb-2 mt-md-2">DETALLE FACTURA</h4>
+                                        <span class="text-muted">Archivado: </span><span class="text-muted" id="view_date_insert"></span>
                                         <ul class="list list-unstyled mb-0">
-                                            <li>Fecha Emision: <span class="font-weight-semibold">January 12, 2015</span></li>
-                                            <li>Lugar Emision: <span class="font-weight-semibold">London E1 8BF</span></li>
+                                            <li>Fecha Emision: <span class="font-weight-semibold" id="view_fecha_emision"></span></li>
+                                            <li>Lugar Emision: <span class="font-weight-semibold" id="view_lugar_emision"></span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -421,69 +303,46 @@
                             <div class="mb-4 mb-md-2">
                                 <span class="text-muted">Datos del emisor</span>
                                 <ul class="list list-unstyled mb-0">
-                                    <li><h5 class="my-2">SURTIDO DE PERSIANAS SA DE CV</h5></li>
-                                    <li><span class="font-weight-semibold">SPER78623G9H</span></li>
-                                    <li>3 Goodman Street</li>
-                                    <li>London E1 8BF, United Kingdom</li>
-                                    <li>888-555-2311</li>
-                                    <li><a href="#">rebecca@normandaxis.ltd</a></li>
+                                    <li><h5 class="my-2" id="view_nombre"></h5></li>
+                                    <li><span class="font-weight-semibold" id="view_rfc"></span></li>
+                                    <li id="view_direccion"></li>
+                                    <li id="view_num_telefono"></li>
+                                    <li class="text-blue-800" id="view_email"></li>
+                                    <li class="text-blue-800" id="view_pagina_web"></li>
                                 </ul>
                             </div>
                             <div class="mb-2 ml-auto">
-                                <span class="text-muted">Payment Details:</span>
+                                <span class="text-muted">Detalles del pago:</span>
                                 <div class="d-flex flex-wrap wmin-md-400">
                                     <ul class="list list-unstyled mb-0">
-                                        <li><h5 class="my-2">Total Due:</h5></li>
                                         <li>Numero serie</li>
                                         <li>UUID</li>
                                     </ul>
                                     <ul class="list list-unstyled text-right mb-0 ml-auto">
-                                        <li><h5 class="font-weight-semibold my-2">$8,750</h5></li>
-                                        <li><span class="font-weight-semibold">DFU-4567</span></li>
-                                        <li><span class="font-weight-semibold">4A1B43E2-1183-4AD4-A3DE-C2DA787AE56A</span></li>
+                                        <li><span class="font-weight-semibold" id="view_serie_folio"></span></li>
+                                        <li><span class="font-weight-semibold" id="view_uuid"></span></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-xs">
+                    <table class="table table-xs" id="table_DetailDocumento">
+                        <col width="44%">
+                        <col width="12%">
+                        <col width="12%">
+                        <col width="12%">
+                        <col width="20%">
                         <thead>
                             <tr>
                                 <th>Description</th>
                                 <th>Cantidad</th>
-                                <th>P. Unidad</th>
-                                <th>Total</th>
+                                <th>Unidad</th>
+                                <th>Precio/Unidad</th>
+                                <th class="text-right">Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <h6 class="mb-0 font-weight-semibold">GRAPAS ESTÁNDAR  N.26/6 CAJA CON 500 PZS</h6>
-
-                                </td>
-                                <td>7</td>
-                                <td>$57</td>
-                                <td><span class="font-weight-semibold">$399</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h6 class="mb-0 font-weight-semibold">BOTAS DE HULE T-6</h6>
-
-                                </td>
-                                <td>2</td>
-                                <td>$12</td>
-                                <td><span class="font-weight-semibold">$24</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h6 class="mb-0 font-weight-semibold">LENTES DE PROTEC. OBSCUROS</h6>
-
-                                </td>
-                                <td>70</td>
-                                <td>$200</td>
-                                <td><span class="font-weight-semibold">$1,400</span></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -494,12 +353,12 @@
                                 <table class="table table-xs">
                                     <tbody>
                                         <tr>
-                                            <th>Subtotal:</th>
-                                            <td class="text-right">$7,000.00</td>
+                                            <th></th>
+                                            <td class="text-right"></td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td class="text-right text-primary"><h5 class="font-weight-semibold">$7,000.00</h5></td>
+                                            <td class="text-right text-primary"><h5 class="font-weight-semibold text-blue-800" id="view_total"></h5></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -508,7 +367,7 @@
                     </div>
                 </div>
                 <div class="modal-footer bg-transparent">
-                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="exitDetailFactura()">salir</button>
                 </div>
             </div>
         </div>
@@ -519,7 +378,6 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="card-body">
-                    <form action="#">
                     <div class="row">
                         <div class="col-md-12">
                             <fieldset>
@@ -606,10 +464,9 @@
                             </fieldset>
                         </div>
                     </div>
-                    </form>
                 </div>
                 <div class="modal-footer bg-transparent">
-                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" id="new_agregarusar" onclick="addArticle(true)">GUARDAR Y APLICAR</button>
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="new_agregarusar" onclick="addArticle(true)">GUARDAR Y APLICAR</button>
                     <div class="list-icons text-danger-800">
                         <div class="dropdown">
                             <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" data-toggle="dropdown"><i class="icon-menu5"></i></button>
@@ -622,6 +479,153 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- /modal with invoice -->
+    <!-- Modal with invoice -->
+    <div id="busca_proveedor" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="table-responsive">
+                    <table class="table table-xs table-border-dashed datatable-basic text-nowrap" id="proveedor_tabla_aplica" style="width:100%">
+                        <col width="70%">
+                        <col width="30%">
+                        <col width="10%">
+                        <thead>
+                            <tr>
+                                <th>Proveedor</th>
+                                <th>R.F.C.</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="modal-footer bg-transparent">
+                    <button type="button" class="btn btn-sm alpha-success text-success-800 legitRipple" id="btnmouestranewpro" onclick="hide_showNewProveedor()"><i class="icon-plus3"></i></button>
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewProv()">salir</button>
+                </div>
+                <div class="card-body" id="cardnewprov" style="display: none">
+                    <form action="#" id="formnewprov">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <fieldset>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> Alta de Proveedor</legend>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_nombre" placeholder="Nombre de la empresa">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-office"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_rfc" placeholder="R.F.C.">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-shield-check"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_direccion" placeholder="Dirección *" onkeyup="mayus(this);">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-location4"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_actividad_comercial" placeholder="Actividad comercial">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-info22"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_num_telefono" placeholder="Telefonos">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-phone"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_email" placeholder="E-Mail">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-envelop3"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_pagina_web" placeholder="Pagina web">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-earth"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="hide_showNewProveedor()" title="Cerrar"><i class="icon-cross2"></i></button>
+                                        <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guarda_new_prov()" title="Guardar"><i class="icon-checkmark3"></i></button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger border-0 alert-dismissible" id="msj_alert2" style="display: none;">
+                                            <button type="button" class="close" onclick="close_alert2()"><span>×</span></button>
+                                            <span class="font-weight-semibold">Error! </span> Debe completar el formulario <a href="#" class="alert-link" onclick="close_alert2()">Intentar nuevamente</a>.
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /modal with invoice -->
+    <!-- Modal with invoice -->
+    <div id="busca_articulo" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="table-responsive">
+                    <table class="table table-xs table-border-dashed datatable-basic text-nowrap" id="articulo_tabla_aplica" style="width:100%">
+                        <col width="10%">
+                        <col width="55%">
+                        <col width="30%">
+                        <col width="5%">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Descripción</th>
+                                <th>Categoría</th>
+                                <th>Accion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer bg-transparent">
+                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewArt()">salir</button>
+                </div>
+                
             </div>
         </div>
     </div>

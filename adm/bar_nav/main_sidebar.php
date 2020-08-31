@@ -58,6 +58,7 @@
                         <li class="nav-item"><a class="nav-link" href="almacen.php">Almacen</a></li>
                         <li class="nav-item"><a class="nav-link" href="aprobacion_salida.php">Supervisión</a></li>
                         <li class="nav-item"><a class="nav-link" href="detalle_factura.php">Factura</a></li>
+                        <li class="nav-item"><a class="nav-link" href="inicio_nuevo_rapido.php">Solicitud Rapida</a></li>
                     </ul>
                 </li>
             </ul>

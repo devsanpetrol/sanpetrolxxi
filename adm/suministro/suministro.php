@@ -62,7 +62,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_busqueda_codigosearch($searchTerm){
-        $sql = $this->_db->prepare("SELECT cod_barra, cod_articulo, descripcion FROM adm_view_almacen_detail WHERE cod_barra = :codigo OR cod_articulo = :codigo");
+        $sql = $this->_db->prepare("SELECT cod_barra, cod_articulo, descripcion, tipo_unidad FROM adm_view_almacen_detail WHERE cod_barra = :codigo OR cod_articulo = :codigo");
         $sql->execute(array('codigo' => $searchTerm));
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -127,6 +127,14 @@ class suministro extends conect
         $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function set_solicitud_rapido($fecha_solicitud,$clave_solicita,$nombre_solicita,$puesto_solicita,$sitio_operacion,$id_equipo){
+        $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha,clave_solicita,nombre_solicitante,puesto_solicitante,sitio_operacion,id_equipo) VALUES ('$fecha_solicitud',$clave_solicita,'$nombre_solicita','$puesto_solicita','$sitio_operacion',$id_equipo)");
+        $sql2 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
+        $sql1->execute();
+        $sql2->execute();
+        $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function set_pedido($articulo, $cantidad, $unidad, $justificacion, $destino, $fecha_requerimiento, $cod_articulo, $folio){
         if($cod_articulo == ""){
             $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio)
@@ -134,6 +142,17 @@ class suministro extends conect
         }else{
             $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio)
                                         VALUES ('$articulo', $cantidad, $cantidad,'$unidad', '$justificacion', '$destino','$fecha_requerimiento', '$cod_articulo', $folio)");
+        }
+        $resultado = $sql->execute();
+        return $resultado;
+    }
+    public function set_pedido_rapido($articulo, $cantidad, $unidad, $justificacion, $destino, $cod_articulo, $folio){
+        if($cod_articulo == ""){
+            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, cantidad_plan, cantidad_surtido, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio, status_pedido)
+                                        VALUES ('$articulo', $cantidad, $cantidad, $cantidad, $cantidad,'$unidad', '$justificacion', '$destino', NOW(), NULL, $folio, 1)");
+        }else{
+            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio)
+                                        VALUES ('$articulo', $cantidad, $cantidad,'$unidad', '$justificacion', '$destino',NOW(), '$cod_articulo', $folio)");
         }
         $resultado = $sql->execute();
         return $resultado;
@@ -477,6 +496,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_solicitudes_op($filtro=""){
+        $sql = $this->_db->prepare("SELECT *, sum(cantidad_surtido) as total_surtido, sum(cantidad_plan) as total_plan FROM adm_view_solicitud $filtro");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     function set_update_cantidad_solicitudDetalle($id_pedido,$cantidad,$columna){
         $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET $columna = $cantidad WHERE id_pedido = $id_pedido LIMIT 1");
         return $sql2->execute();
@@ -556,5 +581,71 @@ class suministro extends conect
             $sql2 = $this->_db->prepare("UPDATE adm_pedido SET status_pedido = 4 WHERE id_pedido = $id_pedido LIMIT 1");
             $sql2->execute();
         }
+    }
+    public function get_proveedor($filtro=""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_proveedor $filtro");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    //====================
+    public function get_doctoFactura($filtro=""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_docto_prov $filtro ORDER BY id_factura DESC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_doctoFacturaDetail($filtro=""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_docto_factura_detail $filtro ORDER BY id_factura_detalle DESC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    //====================
+    public function set_new_proveedor($rfc,$nombre,$direccion,$num_telefono,$email,$pagina_web,$actividad_comercial){
+        $almacen = $this->_db->prepare("INSERT INTO adm_proveedor(rfc, nombre, direccion, num_telefono, email, pagina_web, actividad_comercial) VALUES ('$rfc', '$nombre', '$direccion', '$num_telefono', '$email', '$pagina_web', '$actividad_comercial')");
+        $resultado = $almacen->execute();
+        return $resultado;
+    }
+    public function set_add_documento($serie_folio, $fecha_emision, $lugar_emision, $uuid, $total, $id_proveedor){
+        $articulo = $this->_db->prepare("INSERT INTO adm_factura(serie_folio, fecha_emision, lugar_emision, uuid, total, date_insert, id_proveedor) VALUES ('$serie_folio', '$fecha_emision', '$lugar_emision', '$uuid', $total, NOW(),'$id_proveedor')");
+        
+        try {
+            $this ->_db-> beginTransaction();
+            $articulo -> execute();
+            $id_documento = $this ->_db-> lastInsertId();
+            $this ->_db-> commit();
+            return $id_documento;
+        } catch(PDOExecption $e) {
+            $this ->_db-> rollback();
+            return "Error!: " . $e -> getMessage();
+        }
+    }
+    public function set_add_articulo($cantidad, $precio_unidad, $total, $id_factura, $cod_articulo){
+        $almacen = $this->_db->prepare("INSERT INTO adm_factura_detalle(cantidad, precio_unidad, total, procesado, restante, fecha_hora, id_factura, cod_articulo) VALUES ('$cantidad', '$precio_unidad', '$total', 0, '$cantidad', NOW(), '$id_factura', '$cod_articulo')");
+        $almacen2 = $this->_db->prepare("UPDATE adm_almacen SET stock = stock + $cantidad WHERE cod_articulo = '$cod_articulo' LIMIT 1");
+        $resultado = $almacen->execute();
+        $upd_artic = $almacen2->execute();
+        return $resultado;
+    }
+    public function get_articulo_detail($filtro=""){
+        $sql = $this->_db->prepare("SELECT cod_articulo, descripcion, marca, nombre_categoria FROM adm_view_almacen_detail $filtro");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function exe_factura_detalle($cod_articulo){
+        $sql = $this->_db->prepare("SELECT id_factura_detalle, restante FROM adm_factura_detalle WHERE cod_articulo = '$cod_articulo' AND restante > 0 ORDER BY id_factura_detalle ASC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function set_update_almacenArticleSub($id_factura_detalle, $restante){
+        $sql2 = $this->_db->prepare("UPDATE adm_factura_detalle SET restante = $restante WHERE id_factura_detalle = $id_factura_detalle LIMIT 1");
+        return $sql2->execute();
+    }
+    public function reset_update_almacenArticleSub(){
+        $sql2 = $this->_db->prepare("UPDATE adm_factura_detalle SET restante = cantidad");
+        return $sql2->execute();
     }
 }

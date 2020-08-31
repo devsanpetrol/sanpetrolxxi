@@ -3,11 +3,11 @@
     
     $suministro = new suministro();
     $folio_vale = $_POST['folio_vale'];
-    $detalle_folio = $suministro->get_select_query_("SELECT * FROM adm_view_valesalida_solicitud");
+    $detalle_folio = $suministro->get_select_query_("SELECT * FROM adm_view_valesalida_solicitud WHERE folio_vale_salida = $folio_vale");
     $detalle_vobo = $suministro->get_select_query_("SELECT * FROM adm_view_responsable_depto WHERE id_empleado = ".$detalle_folio[0]['firm_planeacion']);
     $detalle_coor = $suministro->get_select_query_("SELECT * FROM adm_view_responsable_depto WHERE id_empleado = ".$detalle_folio[0]['firm_coordinacion']);
     
-    $detalle_folio_lista = $suministro->get_select_query_("SELECT * FROM adm_view_valesalida_detail WHERE folio_vale_salida = $folio_vale");
+    $dfl = $suministro->get_select_query_("SELECT * FROM adm_view_valesalida_detail WHERE folio_vale_salida = $folio_vale");
     $dato = $suministro->get_now();
         
         
@@ -23,7 +23,6 @@
         $nombre_puesto = $detalle_folio[0]['puesto_solicitante'];
         $sitio = $detalle_folio[0]['sitio_operacion'];
         $fecha_actual = $dato[0]['fecha_actual'];
-
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -138,7 +137,7 @@
           </tr>
           <!--INICIA CICLO DE ELEMENTOS SURTIDOS-->
           <?php
-            foreach ($detalle_folio_lista as &$valor) {
+            foreach ($dfl as &$valor) {
                 echo "<tr class='row4'>
                         <td class='style2 x' style='vertical-align:middle;'>".$valor["cantidad_surtida"]."</td>
                         <td class='style2 x' style='vertical-align:middle;'>".$valor["unidad"]."</td>

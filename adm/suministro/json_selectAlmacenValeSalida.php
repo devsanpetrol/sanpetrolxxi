@@ -70,7 +70,7 @@
                 $status = "<span class='badge badge-warning d-block'>Pendiente</span>";
                 break;
             case 1:
-                $status = "<span class='badge badge-primary d-block'>Entregado</span>";
+                $status = "<span class='badge badge-success d-block'>Entregado</span>";
                 break;
          }
         return $status;

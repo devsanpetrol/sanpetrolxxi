@@ -8,8 +8,21 @@
     $codarticulo= $_POST['codarticulo'];
     $cant_surtir= $_POST['cant_surtir'];
     
-    $insert  = $suministro -> set_valesalidaDetail($folio_vale,$id_pedido,$codarticulo,$cant_surtir);
-    $status  = $suministro -> update_status_pedido($id_pedido);
+    $insert = $suministro -> set_valesalidaDetail($folio_vale,$id_pedido,$codarticulo,$cant_surtir);
+    $status = $suministro -> update_status_pedido($id_pedido);
+    $catego = $suministro -> exe_factura_detalle($codarticulo);
+    $factor = 0;
+    
+    foreach ($catego as $valor) {
+        $factor  += $valor['restante'];
+        $restante = $factor - $cant_surtir;
+        if($factor >= $cant_surtir){
+            $catego2 = $suministro->set_update_almacenArticleSub($valor['id_factura_detalle'], $restante);
+            break;
+        }else{
+            $catego2 = $suministro->set_update_almacenArticleSub($valor['id_factura_detalle'], 0);
+        }
+    }
     
     if ($insert){
         $data = array("result" => "ok");

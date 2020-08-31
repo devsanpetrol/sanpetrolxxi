@@ -130,8 +130,13 @@ function getSolicitudDetail(folio){
     });
 }
 function getSolicitudDetail_pedido(folio){
-    var t = $('#tabla_pedidos').DataTable();
     $('#tabla_pedidos').data("folio",folio);
+    rellenaTablaPedidos();
+    
+}
+function rellenaTablaPedidos(){
+    var t = $('#tabla_pedidos').DataTable();
+    var folio = $("#tabla_pedidos").data("folio");
     $.ajax({
         data:{folio:folio},
         url: 'json_selectSolicitudDetail_pedidos_valesalida.php',
@@ -174,41 +179,48 @@ function guarda_valesalida(){
     });
 }
 function guarda_itemsentrega(){
-    var folio_vale_salida = $("#folio_vale").html();
-    var recibe_vale = $("#nombre_recibe").val();
-    var status_vale = 1
-    $(".input-recibidores").each(function(){
-        var idpedidovalesalida = $(this).data("idpedidovalesalida");
-        var recibe = $(this).val();
-        var status  = 1;
-        
-        
-        $.ajax({
-            data:{idpedidovalesalida:idpedidovalesalida,recibe:recibe,status:status},
-            url: 'json_updateValeSalida_status.php',
-            type: 'POST',
-            success:(function(res){
-                if(res[0].result == "exito"){
-                    console.log("Finalizó con exito!: idpedidovalesalida = " + idpedidovalesalida);
-                }else{
-                    console.log("Oh! oh!... ocurrió un error. idpedidovalesalida = " + idpedidovalesalida);
-                }
-            })
+    if (confirm('¿Desea finalizar esta entrega?')) {
+        $("#btn_envia_guarda_valesalida").attr("disabled",true);
+        var folio_vale_salida = $("#folio_vale").html();
+        var recibe_vale = $("#nombre_recibe").val();
+        var status_vale = 1
+        $(".input-recibidores").each(function(){
+            var idpedidovalesalida = $(this).data("idpedidovalesalida");
+            var recibe = $(this).val();
+            var status  = 1;
+
+            $.ajax({
+                data:{idpedidovalesalida:idpedidovalesalida,recibe:recibe,status:status},
+                url: 'json_updateValeSalida_status.php',
+                type: 'POST',
+                success:(function(res){
+                    if(res[0].result == "exito"){
+                        console.log("Finalizó con exito!: idpedidovalesalida = " + idpedidovalesalida);
+                    }else{
+                        console.log("Oh! oh!... ocurrió un error. idpedidovalesalida = " + idpedidovalesalida);
+                    }
+                })
+            });
+         }).promise().done(function () {
+            $.ajax({
+                data:{folio_vale_salida:folio_vale_salida,recibe_vale:recibe_vale,status_vale:status_vale},
+                url: 'json_updateValeSalida_status_vale.php',
+                type: 'POST',
+                success:(function(res){
+                    if(res[0].result == "exito"){
+                        console.log("Finalizó con exito!: folio_vale_salida_vale = " + folio_vale_salida);
+                    }else{
+                        console.log("Oh! oh!... ocurrió un error. folio_vale_salida_vale = " + folio_vale_salida);
+                    }
+                }),
+                complete: (function () {
+                    rellenaTablaPedidos();
+                    alert("Proceso finalizado");
+                })
+            });
         });
-     });
-     $.ajax({
-        data:{folio_vale_salida:folio_vale_salida,recibe_vale:recibe_vale,status_vale:status_vale},
-        url: 'json_updateValeSalida_status_vale.php',
-        type: 'POST',
-        success:(function(res){
-            if(res[0].result == "exito"){
-                console.log("Finalizó con exito!: folio_vale_salida_vale = " + folio_vale_salida);
-            }else{
-                console.log("Oh! oh!... ocurrió un error. folio_vale_salida_vale = " + folio_vale_salida);
-            }
-        })
-    });
-     
+    }
+    
  }
  function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);

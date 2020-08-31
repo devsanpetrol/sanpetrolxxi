@@ -273,16 +273,18 @@
                                         <div class="card" id="tabla_visor_solicitudes">
                                             <div class="table-responsive" id="content_table_pedidos_list" data-scroll="">
                                                 <table class="table table-xs compact display " id="lay_out_solicitudesx" cellspacing="0" width="100%" data-idcoordinacion="1">
-                                                    <col width="15%">
+                                                    <col width="20%">
                                                     <col width="5%">
                                                     <col width="5%">
-                                                    <col width="75%">
+                                                    <col width="50%">
+                                                    <col width="20%">
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center">Fecha</th> <!-- 2 -->
                                                             <th>Coord.</th> <!-- 4 -->
                                                             <th>Planeación</th> <!-- 4 -->
                                                             <th>Materiales solicitados</th> <!-- 3 -->
+                                                            <th>Avance</th> <!-- 3 -->
                                                         </tr>
                                                     </thead>
                                                     <tbody data-link="row" class="rowlink">
