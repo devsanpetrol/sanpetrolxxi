@@ -255,6 +255,7 @@
                                     <div class="row">
                                         <div class="col-md-12 text-right">
                                             <div class="list-icons">
+                                                <input type="text" id="folio_vale">
                                                 <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" style="display: none;" id="btn_del_row_sel" title="Remover item seleccionado"><i class="icon-trash"></i></button>
                                                 <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="btn_send_pedido" onclick="get_folio()" title="Enviar solicitud">Enviar <i class="icon-paperplane ml-2"></i></button>
                                                 <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>

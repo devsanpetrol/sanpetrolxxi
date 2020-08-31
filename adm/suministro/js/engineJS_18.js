@@ -286,7 +286,6 @@ function set_list_resp(id_empleado,nombre,apellidos){
     );
 }
 function get_folio(){
-    setTimeout(function() {
     var table = $('#tabla_pedidos').DataTable();
     var filas = table.rows().count();
     if (filas > 0){
@@ -301,7 +300,7 @@ function get_folio(){
         $.ajax({
             data:{fecha_solicitud:fecha_solicitud,clave_solicita:clave_solicita,nombre_solicita:nombre_solicita,puesto_solicita:puesto_solicita,sitio_operacion:sitio_operacion,id_equipo:id_equipo},
             type: 'post',
-            url: 'json_selecFolio.php',
+            url: 'json_selecFolio_rapido.php',
             dataType: 'json',
             success: function(data){
               $.each(data,function(key, registro){
@@ -310,11 +309,9 @@ function get_folio(){
                 recorreDataTable(registro.folio);
               });
               $('#folioxx').slideDown();
-                alert("Operación exitosa!");
-                setTimeout(function() {
-                    clear_modal();
-                    window.location.reload();
-                }, 500);
+            },
+            complete: function(){
+                guarda_vale_salida_rapido();
             },
             error: function(data) {
                 alert('Error de conexión al enviar');
@@ -323,7 +320,6 @@ function get_folio(){
     }else{
         alert("Solicitud vacia");
     }
-    }, 1000);
 }
 function recorreDataTable(folio){
     var table = $('#tabla_pedidos').DataTable();
@@ -347,11 +343,10 @@ function guardaPedido(cod_articulo,cantidad,unidad,articulo,destino,justificacio
     $.ajax({
         data:{cod_articulo:cod_articulo,cantidad:cantidad,unidad:unidad,articulo:articulo,justificacion:justificacion, destino:destino, folio:folio},
         type: 'post',
-        url: 'json_insertPedido.php',
+        url: 'json_insertPedido_rapido.php',
         dataType: 'json',
         success: function(data){
-            $.each(data,function(key, registro){
-            });
+           json_insert_valesalida_detail_rapido(folio_vale,idpedido,codarticulo,cs)
         },
         error: function(data){
           console.log('error'+data);
@@ -459,4 +454,67 @@ function get_articulo(e){
 }
 function borrar_input_nuevoArticulo(){
     $(".input-newarticle").val("");
+}
+//==========================================VALE SALIDA============
+function guarda_valesalida(){
+    var folio = $("#folioxx").data('folioz');
+    var solic = $("#solicitante").val();
+    if(sumaTotalValida()){
+        $.ajax({
+            data:{folio:folio,recibe:solic},
+            url: 'json_addValesalida_rapido.php',
+            type: 'POST',
+            success:(function(res){
+                if(res.result > 0){
+                    $("#folio_vale").val(res.result);
+                    guarda_itemsentrega(res.result);
+                }else{
+                   alert("Ocurrio un error al guardar la informació"); 
+                }
+            }),
+            complete: (function () {
+                $("#btn_envia_guarda_valesalida").attr("disabled",true);
+            })
+        });
+    }else{
+        alert("No se ha seleccionado ningun elemento.");
+    }
+}
+function guarda_itemsentrega(folio_vale,idpedido){
+    var table = $('#tabla_pedidos').DataTable();
+    var arr = [];
+    var cell;
+    table
+        .column( 0 )
+        .data()
+        .each( function ( value, index ) {
+            arr.push(table
+            .rows( index )
+            .data()
+            .toArray());
+            cell = arr[index][0];
+            //1-cod_articulo, 2-cantidad, 3-unidad, 4-articulo, 5-destino, 6-justificacion, 7-folio
+            guardaPedido(cell[0],cell[1],cell[2],cell[3],sub_a,justi,folio);
+            json_insert_valesalida_detail_rapido(folio_vale,idpedido,cell[0],cell[1]);
+        });
+}
+function json_insert_valesalida_detail_rapido(folio_vale,idpedido,codarticulo,cs){
+    $.ajax({
+        data:{folio_vale:folio_vale,idpedido:idpedido,codarticulo:codarticulo,cant_surtir:cs},
+        url: 'json_insert_valesalida_detail_rapido.php',
+        type: 'POST',
+        success:(function(res){
+            if(res.result == "exito"){
+                $("#"+idpedido).removeClass("text-warning-800").addClass("text-success-300");
+            }else{
+
+            }
+        }),
+        complete: function(){
+
+        }
+    });
+}
+function guarda_vale_salida_rapido(){
+    
 }

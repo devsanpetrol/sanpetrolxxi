@@ -130,6 +130,7 @@ class suministro extends conect
     public function set_solicitud_rapido($fecha_solicitud,$clave_solicita,$nombre_solicita,$puesto_solicita,$sitio_operacion,$id_equipo){
         $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha,clave_solicita,nombre_solicitante,puesto_solicitante,sitio_operacion,id_equipo) VALUES ('$fecha_solicitud',$clave_solicita,'$nombre_solicita','$puesto_solicita','$sitio_operacion',$id_equipo)");
         $sql2 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
+        $sql3 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
         $sql1->execute();
         $sql2->execute();
         $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
@@ -550,6 +551,20 @@ class suministro extends conect
             return "Error!: " . $e -> getMessage();
         }
     }
+    public function set_new_valesalida_rapido($folio,$recibe,$fecha){
+        $articulo = $this->_db->prepare("INSERT INTO adm_almacen_valesalida (solicitud_material_folio,fecha,recibe,status_valesalida) VALUES ($folio, '$fecha', '$recibe',1)");
+        
+        try {
+            $this ->_db-> beginTransaction();
+            $articulo -> execute();
+            $id_articulo = $this ->_db-> lastInsertId();
+            $this ->_db-> commit();
+            return $id_articulo;
+        } catch(PDOExecption $e) {
+            $this ->_db-> rollback();
+            return "Error!: " . $e -> getMessage();
+        }
+    }
     public function set_valesalidaDetail($folio_vale,$id_pedido,$codarticulo,$cant_surtir){
         $almacen = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (folio_vale_salida,cantidad_surtida, fecha, id_pedido, cod_articulo) VALUES ($folio_vale, '$cant_surtir', NOW(), $id_pedido, '$codarticulo')");
         $entrega = $this->_db->prepare("UPDATE adm_pedido SET cantidad_pendiente = cantidad_pendiente - $cant_surtir, cantidad_surtido = cantidad_surtido + $cant_surtir WHERE id_pedido = $id_pedido LIMIT 1");
@@ -647,5 +662,11 @@ class suministro extends conect
     public function reset_update_almacenArticleSub(){
         $sql2 = $this->_db->prepare("UPDATE adm_factura_detalle SET restante = cantidad");
         return $sql2->execute();
+    }
+    public function get_create_vale_salida($folio_valesalida){
+        $sql = $this->_db->prepare("SELECT id_pedido,cantidad,fecha_requerimiento,cod_articulo,folio,nombre_solicitante FROM adm_view_solicitud where folio = $folio_valesalida");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
     }
 }
