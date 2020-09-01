@@ -1,4 +1,5 @@
 $(document).ready( function () {
+    
     get_categoria();
     $('.pickadate-accessibility').pickadate({
         labelMonthNext: 'Go to the next month',
@@ -32,16 +33,18 @@ $(document).ready( function () {
             $('td', row).eq(2).addClass('font-weight-semibold text-right');
             $('td', row).eq(3).addClass('font-weight-semibold text-right');
             $('td', row).eq(4).addClass('font-weight-semibold text-right');
+            $('td', row).eq(4).addClass('font-weight-semibold text-center');
         },
         language: {
             zeroRecords: "Ningun elemento agregado"
         },
         columnDefs: [
             {targets: 0,width: '15%'},
-            {targets: 1,width: '50%'},
+            {targets: 1,width: '45%'},
             {targets: 2,width: '15%'},
             {targets: 3,width: '10%'},
-            {targets: 4,width: '10%'}
+            {targets: 4,width: '10%'},
+            {targets: 5,width: '5%'}
         ],
         footerCallback: function ( row, data, start, end, display ) {
             var api = this.api(), total, pageTotal;
@@ -181,6 +184,15 @@ $(document).ready( function () {
             zeroRecords: "Ningun elemento relaciondo"
         }
     });
+    $('#table_inventarioitems').on('click', 'i.editor_remove', function (e) {
+        e.preventDefault();
+        $(this).closest('tr').remove();
+        /*editor.remove( , {
+            title: 'Delete record',
+            message: 'Are you sure you wish to remove this record?',
+            buttons: 'Delete'
+        } );*/
+    } );
     $("#rfc").on('keyup', function (e){
         var searchTerm = $('#rfc').val();
         if (e.keyCode === 13){
@@ -258,7 +270,8 @@ function addElementToTable(){
             $('#i_descripcion').val(),
             $('#i_cantidad').val(),
             round($('#i_preciounidad').val()),
-            round(totl)
+            round(totl),
+            '<i class="icon-minus-circle2 text-danger editor_remove"></i>'
         ] ).draw( false );
         borrar_input_nuevoArticulo();
         $('#i_codigobarra').focus();

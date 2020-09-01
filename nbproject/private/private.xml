@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_insert_valesalida_detail_rapido.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/almacen_salida.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selecFolio_rapido.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/inicio_nuevo_rapido.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_18.js</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_addValesalida_rapido.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/create_vale_salida.php</file>
+        </group>
     </open-files>
 </project-private>

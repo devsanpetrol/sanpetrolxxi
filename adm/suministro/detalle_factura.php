@@ -208,10 +208,11 @@
                             <div class="table-responsive">
                                 <table class="table table-xs" id="table_inventarioitems" style="width: 100%">
                                     <col width="15%">
-                                    <col width="50%">
+                                    <col width="45%">
                                     <col width="15%">
                                     <col width="10%">
                                     <col width="10%">
+                                    <col width="5%">
                                     <thead>
                                         <tr>
                                             <th>Codigo</th>
@@ -219,6 +220,7 @@
                                             <th>Cantidad</th>
                                             <th>Precio/Unidad</th>
                                             <th>Total</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>

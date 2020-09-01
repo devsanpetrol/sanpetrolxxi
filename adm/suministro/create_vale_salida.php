@@ -2,8 +2,7 @@
 require_once './suministro.php';
 $suministro = new suministro();
 
-$folio_vs = $_POST["folio"];
-
+    $folio_vs = $_POST["folio"];
     $dp = $suministro -> get_create_vale_salida($folio_vs);
 
     //DATOS DEL NUEVO VALE DE SALIDA
@@ -13,7 +12,7 @@ $folio_vs = $_POST["folio"];
             update_temAlmacen($folio_salida,$valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad"]);
         }
     }
-
+    
     function update_temAlmacen($folio_vale,$id_pedido,$codarticulo,$cant_surtir){
         $suministro2 = new suministro();
         $suministro2 -> set_valesalidaDetail_rapido($folio_vale,$id_pedido,$codarticulo,$cant_surtir);

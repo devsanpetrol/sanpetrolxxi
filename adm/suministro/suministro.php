@@ -676,4 +676,10 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function verifi_SumArticulo($cod_articulo){
+        $sql = $this->_db->prepare("SELECT SUM(restante) FROM adm_factura_detalle WHERE restante > 0 && cod_articulo = '$cod_articulo'");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
 }
