@@ -551,8 +551,8 @@ class suministro extends conect
             return "Error!: " . $e -> getMessage();
         }
     }
-    public function set_new_valesalida_rapido($folio,$recibe,$fecha){
-        $articulo = $this->_db->prepare("INSERT INTO adm_almacen_valesalida (solicitud_material_folio,fecha,recibe,status_valesalida) VALUES ($folio, '$fecha', '$recibe',1)");
+    public function set_new_valesalida_rapido($folio,$recibe){
+        $articulo = $this->_db->prepare("INSERT INTO adm_almacen_valesalida (solicitud_material_folio,fecha,recibe,status_valesalida) VALUES ($folio, NOW(), '$recibe',1)");
         
         try {
             $this ->_db-> beginTransaction();
@@ -571,6 +571,13 @@ class suministro extends conect
         $product = $this->_db->prepare("UPDATE adm_almacen SET stock = stock - $cant_surtir WHERE cod_articulo = $codarticulo LIMIT 1");
         $resultado1 = $almacen -> execute();
         $entrega -> execute();
+        $product -> execute();
+        return $resultado1;
+    }
+    public function set_valesalidaDetail_rapido($folio_vale,$id_pedido,$codarticulo,$cant_surtir){
+        $almacen = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (folio_vale_salida,cantidad_surtida, fecha, id_pedido, cod_articulo) VALUES ($folio_vale, '$cant_surtir', NOW(), $id_pedido, '$codarticulo')");
+        $product = $this->_db->prepare("UPDATE adm_almacen SET stock = stock - $cant_surtir WHERE cod_articulo = $codarticulo LIMIT 1");
+        $resultado1 = $almacen -> execute();
         $product -> execute();
         return $resultado1;
     }
@@ -664,7 +671,7 @@ class suministro extends conect
         return $sql2->execute();
     }
     public function get_create_vale_salida($folio_valesalida){
-        $sql = $this->_db->prepare("SELECT id_pedido,cantidad,fecha_requerimiento,cod_articulo,folio,nombre_solicitante FROM adm_view_solicitud where folio = $folio_valesalida");
+        $sql = $this->_db->prepare("SELECT id_pedido,cantidad, fecha_requerimiento,cod_articulo,folio,nombre_solicitante FROM adm_view_solicitud where folio = $folio_valesalida");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

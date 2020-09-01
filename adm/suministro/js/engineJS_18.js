@@ -311,7 +311,7 @@ function get_folio(){
               $('#folioxx').slideDown();
             },
             complete: function(){
-                guarda_vale_salida_rapido();
+                guarda_vale_salida_rapido(folio_num)
             },
             error: function(data) {
                 alert('Error de conexión al enviar');
@@ -345,9 +345,7 @@ function guardaPedido(cod_articulo,cantidad,unidad,articulo,destino,justificacio
         type: 'post',
         url: 'json_insertPedido_rapido.php',
         dataType: 'json',
-        success: function(data){
-           json_insert_valesalida_detail_rapido(folio_vale,idpedido,codarticulo,cs)
-        },
+        success: function(data){},
         error: function(data){
           console.log('error'+data);
         }
@@ -456,65 +454,13 @@ function borrar_input_nuevoArticulo(){
     $(".input-newarticle").val("");
 }
 //==========================================VALE SALIDA============
-function guarda_valesalida(){
-    var folio = $("#folioxx").data('folioz');
-    var solic = $("#solicitante").val();
-    if(sumaTotalValida()){
-        $.ajax({
-            data:{folio:folio,recibe:solic},
-            url: 'json_addValesalida_rapido.php',
-            type: 'POST',
-            success:(function(res){
-                if(res.result > 0){
-                    $("#folio_vale").val(res.result);
-                    guarda_itemsentrega(res.result);
-                }else{
-                   alert("Ocurrio un error al guardar la informació"); 
-                }
-            }),
-            complete: (function () {
-                $("#btn_envia_guarda_valesalida").attr("disabled",true);
-            })
-        });
-    }else{
-        alert("No se ha seleccionado ningun elemento.");
-    }
-}
-function guarda_itemsentrega(folio_vale,idpedido){
-    var table = $('#tabla_pedidos').DataTable();
-    var arr = [];
-    var cell;
-    table
-        .column( 0 )
-        .data()
-        .each( function ( value, index ) {
-            arr.push(table
-            .rows( index )
-            .data()
-            .toArray());
-            cell = arr[index][0];
-            //1-cod_articulo, 2-cantidad, 3-unidad, 4-articulo, 5-destino, 6-justificacion, 7-folio
-            guardaPedido(cell[0],cell[1],cell[2],cell[3],sub_a,justi,folio);
-            json_insert_valesalida_detail_rapido(folio_vale,idpedido,cell[0],cell[1]);
-        });
-}
-function json_insert_valesalida_detail_rapido(folio_vale,idpedido,codarticulo,cs){
+function guarda_vale_salida_rapido(folio_valeSalida){
     $.ajax({
-        data:{folio_vale:folio_vale,idpedido:idpedido,codarticulo:codarticulo,cant_surtir:cs},
-        url: 'json_insert_valesalida_detail_rapido.php',
+        data:{folio:folio_valeSalida},
+        url: 'create_vale_salida.php',
         type: 'POST',
         success:(function(res){
-            if(res.result == "exito"){
-                $("#"+idpedido).removeClass("text-warning-800").addClass("text-success-300");
-            }else{
-
-            }
-        }),
-        complete: function(){
-
-        }
+            
+        })
     });
-}
-function guarda_vale_salida_rapido(){
-    
 }
