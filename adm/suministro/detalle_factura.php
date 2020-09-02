@@ -152,7 +152,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label text-danger-800 font-weight-bold">TOTAL:</label>
                                             <div class="col-lg-9">
-                                                <input type="text" class="form-control text-right font-weight-bold" id="total" placeholder="0" readonly>
+                                                <button type="button" class="btn alpha-blue text-right text-blue-800 font-weight-semibold border-blue-600 legitRipple btn-block" id="total" >0</button>
                                             </div>
                                         </div>
                                     </div>

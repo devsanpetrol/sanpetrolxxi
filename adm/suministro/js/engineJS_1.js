@@ -45,34 +45,7 @@ $(document).ready( function () {
             {targets: 3,width: '10%'},
             {targets: 4,width: '10%'},
             {targets: 5,width: '5%'}
-        ],
-        footerCallback: function ( row, data, start, end, display ) {
-            var api = this.api(), total, pageTotal;
-            // Remove the formatting to get integer data for summation
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
-            // Total over all pages
-            total = api
-                .column( 4 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-            // Total over this page
-            pageTotal = api
-                .column( 4, { page: 'current'} )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-            // Update footer
-            $("#total").val("$ "+ total);
-            //$( api.column( 4 ).footer() ).html('$'+pageTotal +' ( $'+ total +' total)');
-        }
+        ]
     });
     $('#proveedor_tabla_aplica').DataTable({
         bDestroy: true,
@@ -187,11 +160,7 @@ $(document).ready( function () {
     $('#table_inventarioitems').on('click', 'i.editor_remove', function (e) {
         e.preventDefault();
         $(this).closest('tr').remove();
-        /*editor.remove( , {
-            title: 'Delete record',
-            message: 'Are you sure you wish to remove this record?',
-            buttons: 'Delete'
-        } );*/
+        sumCoulumns();
     } );
     $("#rfc").on('keyup', function (e){
         var searchTerm = $('#rfc').val();
@@ -270,10 +239,11 @@ function addElementToTable(){
             $('#i_descripcion').val(),
             $('#i_cantidad').val(),
             round($('#i_preciounidad').val()),
-            round(totl),
+            '<input type="text" class="form-control font-weight-semibold text-danger sub-total-items text-right" value="'+round(totl)+'">',
             '<i class="icon-minus-circle2 text-danger editor_remove"></i>'
         ] ).draw( false );
         borrar_input_nuevoArticulo();
+        sumCoulumns();
         $('#i_codigobarra').focus();
     }    
 }
@@ -628,4 +598,14 @@ function exitDetailFactura(){
     $("#view_total").html("");
     var t = $('#table_DetailDocumento').DataTable();
     t.clear().draw();
+}
+function sumCoulumns(){
+    var sum = 0;
+    $(".sub-total-items").each(function(){
+        sum += +$(this).val();
+    });
+    $("#total").html(FormatCurrency(sum));
+}
+function FormatCurrency (amount){   
+    return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 }
