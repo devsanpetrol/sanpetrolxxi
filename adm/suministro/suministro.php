@@ -128,7 +128,7 @@ class suministro extends conect
         return $resultado;
     }
     public function set_solicitud_rapido($fecha_solicitud,$clave_solicita,$nombre_solicita,$puesto_solicita,$sitio_operacion,$id_equipo){
-        $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha,clave_solicita,nombre_solicitante,puesto_solicitante,sitio_operacion,id_equipo) VALUES ('$fecha_solicitud',$clave_solicita,'$nombre_solicita','$puesto_solicita','$sitio_operacion',$id_equipo)");
+        $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha,clave_solicita,nombre_solicitante,puesto_solicitante,sitio_operacion,id_equipo,solicitud_rapida) VALUES ('$fecha_solicitud',$clave_solicita,'$nombre_solicita','$puesto_solicita','$sitio_operacion',$id_equipo,1)");
         $sql2 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
         $sql3 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
         $sql1->execute();
@@ -152,8 +152,8 @@ class suministro extends conect
             $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, cantidad_plan, cantidad_surtido, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio, status_pedido)
                                         VALUES ('$articulo', $cantidad, $cantidad, $cantidad, $cantidad,'$unidad', '$justificacion', '$destino', NOW(), NULL, $folio, 1)");
         }else{
-            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio)
-                                        VALUES ('$articulo', $cantidad, $cantidad,'$unidad', '$justificacion', '$destino',NOW(), '$cod_articulo', $folio)");
+            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, cantidad_plan,unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio, status_pedido)
+                                        VALUES ('$articulo', $cantidad, $cantidad, $cantidad,'$unidad', '$justificacion', '$destino',NOW(), '$cod_articulo', $folio,1)");
         }
         $resultado = $sql->execute();
         return $resultado;
@@ -647,8 +647,12 @@ class suministro extends conect
         $almacen = $this->_db->prepare("INSERT INTO adm_factura_detalle(cantidad, precio_unidad, total, procesado, restante, fecha_hora, id_factura, cod_articulo) VALUES ('$cantidad', '$precio_unidad', '$total', 0, '$cantidad', NOW(), '$id_factura', '$cod_articulo')");
         $almacen2 = $this->_db->prepare("UPDATE adm_almacen SET stock = stock + $cantidad WHERE cod_articulo = '$cod_articulo' LIMIT 1");
         $resultado = $almacen->execute();
-        $upd_artic = $almacen2->execute();
-        return $resultado;
+        if( $resultado == true){
+            $upd_artic = $almacen2->execute();
+            return $upd_artic;
+        }else{
+            return $resultado;
+        }
     }
     public function get_articulo_detail($filtro=""){
         $sql = $this->_db->prepare("SELECT cod_articulo, descripcion, marca, nombre_categoria FROM adm_view_almacen_detail $filtro");
@@ -677,7 +681,7 @@ class suministro extends conect
         return $resultado;
     }
     public function verifi_SumArticulo($cod_articulo){
-        $sql = $this->_db->prepare("SELECT SUM(restante) FROM adm_factura_detalle WHERE restante > 0 && cod_articulo = '$cod_articulo'");
+        $sql = $this->_db->prepare("SELECT stock FROM adm_almacen WHERE cod_articulo = '$cod_articulo'");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

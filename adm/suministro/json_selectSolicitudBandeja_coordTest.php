@@ -8,7 +8,7 @@
         $filter = "WHERE id_coordinacion = $id_coordinacion GROUP BY folio ORDER BY folio DESC";
     }
     if($id_coordinacion == 4){
-        $filter = "WHERE firm_coordinacion > 0 GROUP BY folio ORDER BY folio DESC";
+        $filter = "WHERE firm_coordinacion > 0 OR solicitud_rapida = 1 GROUP BY folio ORDER BY folio DESC";
     }
     if($id_coordinacion == 0){
         $filter = "WHERE clave_solicita = $user_session_id GROUP BY folio ORDER BY folio DESC";

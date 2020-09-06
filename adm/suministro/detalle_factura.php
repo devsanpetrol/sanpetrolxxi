@@ -152,7 +152,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label text-danger-800 font-weight-bold">TOTAL:</label>
                                             <div class="col-lg-9">
-                                                <button type="button" class="btn alpha-blue text-right text-blue-800 font-weight-semibold border-blue-600 legitRipple btn-block" id="total" >0</button>
+                                                <button type="button" class="btn alpha-blue text-right text-blue-800 font-weight-semibold border-blue-600 legitRipple btn-block" id="total" data-total="0">0</button>
                                             </div>
                                         </div>
                                     </div>
@@ -221,12 +221,16 @@
                                             <th>Precio/Unidad</th>
                                             <th>Total</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="col-md-12 text-right">
+                            <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" title="Eliminar selección" id="delsel"><i class="icon-bin"></i></button>
                         </div>
                     </div>
                     
@@ -252,7 +256,7 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_invoice_detail">
+                    <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_invoice_detail" style="width: 100%">
                         <col width="5%">
                         <col width="15%">
                         <col width="40%">

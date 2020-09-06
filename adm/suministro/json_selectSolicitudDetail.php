@@ -23,7 +23,8 @@
                     "coordinacion" => $solicitud[0]['coordinacion'],
                     "coordinacion_up" => ucwords(mb_strtolower($solicitud[0]['coordinacion'])),
                     "id_coordinacion" => $solicitud[0]['id_coordinacion'],
-                    "folio" => $solicitud[0]['folio']
+                    "folio" => $solicitud[0]['folio'],
+                    "solicitud_rapida" => $solicitud[0]['solicitud_rapida']
                     );
     
     function t_icon_x($st){

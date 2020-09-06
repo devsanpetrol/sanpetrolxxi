@@ -210,7 +210,11 @@ function getSolicitudDetail(folio){
                     .data({idempleado:data.firm_coordinacion,nuevafirma:""})
                     .text("Firmar solicitud");
                 $("#guarda_cambios_solicitud").show();
-                $("#addItemSolicitud").show();
+                if(data.solicitud_rapida == 0){
+                    $("#addItemSolicitud").show();
+                }else{
+                    $("#addItemSolicitud").hide();
+                }
             }else{
                 $("#firm_coordinacion")
                     .removeClass("badge-danger border-primary-300 alpha-primary text-primary-800")

@@ -31,8 +31,8 @@ $(document).ready( function () {
             $(row).addClass('pointer font-weight-semibold text-blue-800');
         },
         columnDefs: [
-            {targets:1,className: "dt-center"},
-            {targets:2,className: "dt-center"},
+            {targets:1,className: "dt-center sub-total"},
+            {targets:2,className: "dt-center"}
         ],
         language: {
             zeroRecords: "Ningun elemento agregado"
@@ -163,7 +163,7 @@ $(document).ready( function () {
         var searchTerm = $('#i_codigobarra').val();
         if(searchTerm !== ""){
             if (e.keyCode === 13){
-                searchTermn(searchTerm);
+                searchTermnBarCode(searchTerm);
             }
         }
     }).bind('keypress', function(event) {
@@ -213,30 +213,7 @@ function resetModal(){
     $('#justificacion').val('');
     $('#fecharequerimiento').val(null);
 }
-function agregar_pedido(){
-    //$("input[name='prefix____suffix']").val()
-    if(valida_pedido()){
-        if(valida_campos(0)){
-            var t = $('#tabla_pedidos').DataTable();
-            t.row.add([
-                $('#i_codigoinventario').val(),
-                $('#i_cantidad').val(),
-                $('#i_unidad').val(),
-                $('#i_descripcion').val()
-            ] ).draw( false );
-            borrar_input_nuevoArticulo();
-            $('#i_codigobarra').focus();
-        }else{
-            alert('Debe completar los campos requeridos');
-        }
-    }else{
-        alert('No se agrego ningun pedido');
-        $("#unidad").val('pza').trigger('change');
-        $('#justificacion').val('');
-        $('#area_aquipo').val('');
-        $('#modal_large').modal('hide');
-    }
-}
+
 function resetModalPedido(){
     reset_select2();
     $('#unidad').prop('selectedIndex',0).trigger('change');
@@ -252,21 +229,6 @@ function valida_pedido(){
         return false;
     }else{
         return true;
-    }
-}
-function valida_campos(x){
-    var total_error = 0;
-    
-    if ($('#i_cantidad').val() == "0"){
-        total_error++;
-    }else{
-        console.log("#cantidad error"+total_error);
-    }
-    //-----------------------------------------------------
-    if(total_error <= 0){
-        return true;
-    }else{
-        return false;
     }
 }
 function mayus(e) {
@@ -291,10 +253,10 @@ function get_folio(){
     if (filas > 0){
         var folio_num;
         var fecha_solicitud = $('#fecha_actual').val();
-        var clave_solicita = $('#user_session_id').data('employeid');
+        var clave_solicita  = $('#user_session_id').data('employeid');
         var nombre_solicita = $("#solicitante").val();
         var puesto_solicita = $("#puesto").val();
-        var id_equipo = $("#area_aquipo").val();
+        var id_equipo       = $("#area_aquipo").val();
         var sitio_operacion = $("#sitio").val();
         
         $.ajax({
@@ -311,7 +273,7 @@ function get_folio(){
               $('#folioxx').slideDown();
             },
             complete: function(){
-                guarda_vale_salida_rapido(folio_num)
+                guarda_vale_salida_rapido(folio_num);
             },
             error: function(data) {
                 alert('Error de conexión al enviar');
@@ -371,7 +333,6 @@ function clear_modal(){
 function setPedidos(folio){
     var result;
     var array_btn_save = [];
-    var notice = new PNotify();
     $.ajax({
         data:{folio:folio},
         url: 'json_list_pedido.php',
@@ -384,7 +345,6 @@ function setPedidos(folio){
                 icon: 'icon-spinner4 spinner',
                 hide: false
             };
-            notice.update(options);
         },
         success: function (obj) {
             result = obj;
@@ -397,10 +357,6 @@ function setPedidos(folio){
             alert(obj.msg);
         }
     });
-}
-function regresar_lista(){
-    var idrow = $("#tools_menu_regresa").data("idrow");
-    $("#"+idrow+"").click();
 }
 function openModalAddItem(){
     var area_aquipo = $('#area_aquipo').find(':selected').val();
@@ -437,6 +393,23 @@ function searchTermn(searchTerm){
         })
     });
 }
+function searchTermnBarCode(searchTerm){
+    $.ajax({
+        url: 'json_codigosearch.php',
+        data:{ searchTerm:searchTerm },
+        type: 'POST',
+        success:(function(res){
+            $('#i_codigobarra').val(res.cod_barra);
+            $('#i_codigoinventario').val(res.cod_articulo);
+            $('#i_descripcion').val(res.descripcion);
+            $('#i_unidad').val(res.unidad);
+            if(res.cod_articulo !== ""){
+                $('#i_cantidad').val(1);
+                agregar_pedido();
+            }
+        })
+    });
+}
 function mybind(event,expReg){
     var regex = new RegExp(expReg);
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
@@ -452,6 +425,7 @@ function get_articulo(e){
 }
 function borrar_input_nuevoArticulo(){
     $(".input-newarticle").val("");
+    $('#i_codigobarra').focus();
 }
 //==========================================VALE SALIDA============
 function guarda_vale_salida_rapido(folio_valeSalida){
@@ -459,8 +433,52 @@ function guarda_vale_salida_rapido(folio_valeSalida){
         data:{folio:folio_valeSalida},
         url: 'create_vale_salida.php',
         type: 'POST',
-        success:(function(res){
-            
-        })
+        success:(function(res){})
     });
+}
+function getSubTotal(){
+    var cod = $("#i_codigoinventario").val();
+    var can = $('#i_cantidad').val();
+    if($('#'+cod).length){
+        var sub = $("#"+cod).find("td:eq(1)").html();
+        var mas = parseFloat(can) + parseFloat(sub);
+        return mas;
+    }else{
+        return can;
+    }
+}
+function agregar_pedido(){
+    var t = $('#tabla_pedidos').DataTable();
+    var cod_articulo = $('#i_codigoinventario').val().trim();
+    var cantidad     = $('#i_cantidad').val();
+    if(valida_pedido()){
+        $.ajax({
+            data:{cod_articulo:$('#i_codigoinventario').val()},
+            type: 'post',url: 'checkStock.php',dataType: 'json',
+            success: function(data){
+                var totalGlobal  = getSubTotal();
+                
+                if( data[0].stock >=  totalGlobal){
+                    if($('#'+cod_articulo).length){
+                        $("#"+cod_articulo).find("td:eq(1)").html(totalGlobal);
+                        t.draw( false );
+                    }else{
+                        t.row.add([
+                        cod_articulo,
+                        cantidad,
+                        $('#i_unidad').val(),
+                        $('#i_descripcion').val()
+                    ] ).node().id = $('#i_codigoinventario').val();
+                    }
+
+                    t.draw( false );
+                    borrar_input_nuevoArticulo();
+                }else{
+                    alert("La cantidad de elementos de salida supera a la cantidad disponible en Almacen.\nNo es posible agregar el articulo actual." );
+                }
+            }
+        });
+    }else{
+        alert('No se agrego ningun pedido');
+    }
 }

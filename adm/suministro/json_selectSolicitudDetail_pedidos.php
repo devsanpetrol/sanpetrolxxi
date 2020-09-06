@@ -14,10 +14,10 @@
                         "unidad" => unidad($valor["unidad"]),
                         "justificacion" => detalle($valor["justificacion"],$valor["nombre_sub_area"]),
                         "destino" => $valor["destino"],
-                        "status_pedido" => status_pedido($valor["status_pedido"],$id_pedido),//$valor["status_pedido"],
+                        "status_pedido" => status_pedido($valor["status_pedido"],$id_pedido,$valor["solicitud_rapida"]),//$valor["status_pedido"],
                         "fecha_requerimiento" => $valor["fecha_requerimiento"],
-                        "cantidad_coord" => cantidad_coord($valor["cantidad_coord"],$valor["cantidad_plan"],$valor["firm_coordinacion"],$valor["firm_planeacion"],$id_pedido),
-                        "cantidad_plan" => cantidad_plan($valor["cantidad_plan"],$valor["firm_planeacion"],$id_pedido),
+                        "cantidad_coord" => cantidad_coord($valor["cantidad_coord"],$valor["cantidad_plan"],$valor["firm_coordinacion"],$valor["firm_planeacion"],$id_pedido,$valor["solicitud_rapida"]),
+                        "cantidad_plan" => cantidad_plan($valor["cantidad_plan"],$valor["firm_planeacion"],$id_pedido,$valor["solicitud_rapida"]),
                         "cantidad_surtido" => $valor["cantidad_surtido"],
                         "cantidad_pendiente" => $valor["cantidad_pendiente"],
                         "cod_articulo" => $valor["cod_articulo"],
@@ -46,32 +46,35 @@
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$destino </h6>
                 <span class='d-block font-size-sm text-blue-800'>$justificacion</span>";
     }
-    function status_pedido($status_pedido,$id_pedido){
+    function status_pedido($status_pedido,$id_pedido,$solicitud_rapida){
         $status = "";
-        switch ($status_pedido) {
-            case 0:
-                $status = "<span class='badge badge-flat border-primary text-primary-600 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Nuevo</span>";
-                break;
-            case 1:
-                $status = "<span class='badge badge-success d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Aprobado</span>";
-                break;
-            case 2:
-                $status = "<span class='badge badge-danger d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Cancelado</span>";
-                break;
-            case 3:
-                $status = "<span class='badge bg-purple-300 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Surtir</span>";
-                break;
-            case 4:
-                $status = "<span class='badge badge-primary d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Completado</span>";
-                break;  
-            case 5:
-                $status = "<span class='badge bg-info-300 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Compra</span>";
-                break;
-            case 6:
-                $status = "<span class='badge badge-danger d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Anulado</span>";
-                break;
-         }
-        
+        if($solicitud_rapida == 0){
+            switch ($status_pedido) {
+                case 0:
+                    $status = "<span class='badge badge-flat border-primary text-primary-600 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Nuevo</span>";
+                    break;
+                case 1:
+                    $status = "<span class='badge badge-success d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Aprobado</span>";
+                    break;
+                case 2:
+                    $status = "<span class='badge badge-danger d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Cancelado</span>";
+                    break;
+                case 3:
+                    $status = "<span class='badge bg-purple-300 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Surtir</span>";
+                    break;
+                case 4:
+                    $status = "<span class='badge badge-primary d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Completado</span>";
+                    break;  
+                case 5:
+                    $status = "<span class='badge bg-info-300 d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Compra</span>";
+                    break;
+                case 6:
+                    $status = "<span class='badge badge-danger d-block' data-idpedido='$id_pedido' onClick='openMiniModalStatus(event)'>Anulado</span>";
+                    break;
+            }
+        }else{
+            $status = "<span class='badge badge-success d-block' data-idpedido='$id_pedido'>Aprobado</span>";
+        }
         return $status;
     }
     function comentario($comentario,$count,$id_pedido){
@@ -141,23 +144,30 @@
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant</h6>";
         }        
     }
-    function cantidad_coord($cant_coord,$cant_plan,$firm_coord,$firm_plan,$id_pedido){
-        if($firm_coord){
+    function cantidad_coord($cant_coord,$cant_plan,$firm_coord,$firm_plan,$id_pedido,$solicitud_rapida){
+        if($solicitud_rapida == 0){
+            if($firm_coord){
+                if($firm_plan){
+                    return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";
+                }else{
+                    return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_coord</h6>";
+                }
+            }else{
+                return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cant_coord'>";
+            }
+        }else{
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";
+        }
+    }
+    function cantidad_plan($cant_plan,$firm_plan,$id_pedido,$solicitud_rapida){
+        if($solicitud_rapida == 0){
             if($firm_plan){
                 return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";
             }else{
-                return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_coord</h6>";
+                return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cant_plan'>";
             }
         }else{
-            return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cant_coord'>";
-            
-        }
-    }
-    function cantidad_plan($cant_plan,$firm_plan,$id_pedido){
-        if($firm_plan){
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";
-        }else{
-            return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' id='cantidad_$id_pedido' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' onkeyup='mayus(this);' value='$cant_plan'>";
         }
     }
     header('Content-Type: application/json');
