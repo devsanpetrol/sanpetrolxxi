@@ -42,7 +42,7 @@ var Buttons = function() {
                         instance.stop();
                         clearInterval(interval);
                     }
-                }, 200);
+                }, 300);
             }
         });
     };
@@ -56,7 +56,7 @@ var Buttons = function() {
             btn.html(loadingText).addClass('disabled');
             setTimeout(function () {
                 btn.html(initialText).removeClass('disabled');
-            }, 3000)
+            }, 3000);
         });
     };
 

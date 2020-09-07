@@ -186,7 +186,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="solicitante" placeholder="Nombre del solicitante" onkeyup="mayus(this);" required>
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="solicitante" placeholder="Nombre del solicitante" onkeyup="mayus(this);" required>
                                                         <div class="form-control-feedback form-control-feedback-sm">
                                                             <i class="icon-man"></i>
                                                         </div>
@@ -194,7 +194,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="puesto" placeholder="Puesto" onkeyup="mayus(this);" required>
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="puesto" placeholder="Puesto" onkeyup="mayus(this);" required>
                                                         <div class="form-control-feedback form-control-feedback-sm">
                                                             <i class="icon-stack3"></i>
                                                         </div>
@@ -202,7 +202,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="justificacion" placeholder="Motivo del requerimiento" onkeyup="mayus(this);" required>
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="justificacion" placeholder="Motivo del requerimiento" onkeyup="mayus(this);" required>
                                                         <div class="form-control-feedback form-control-feedback-sm">
                                                             <i class="icon-question4"></i>
                                                         </div>
@@ -225,7 +225,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="sitio" placeholder="Sitio de operación" onkeyup="mayus(this);">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="sitio" placeholder="Sitio de operación" onkeyup="mayus(this);">
                                                         <div class="form-control-feedback form-control-feedback-sm">
                                                             <i class="icon-pin-alt"></i>
                                                         </div>
@@ -357,7 +357,6 @@
                                 <div class="modal-footer bg-transparent">
                                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewArt()">salir</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>

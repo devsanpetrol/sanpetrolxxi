@@ -152,8 +152,8 @@ class suministro extends conect
             $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, cantidad_plan, cantidad_surtido, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio, status_pedido)
                                         VALUES ('$articulo', $cantidad, $cantidad, $cantidad, $cantidad,'$unidad', '$justificacion', '$destino', NOW(), NULL, $folio, 1)");
         }else{
-            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, cantidad_plan,unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio, status_pedido)
-                                        VALUES ('$articulo', $cantidad, $cantidad, $cantidad,'$unidad', '$justificacion', '$destino',NOW(), '$cod_articulo', $folio,1)");
+            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, cantidad_plan, cantidad_surtido, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio, status_pedido)
+                                        VALUES ('$articulo', $cantidad, $cantidad, $cantidad, $cantidad, '$unidad', '$justificacion', '$destino',NOW(), '$cod_articulo', $folio,1)");
         }
         $resultado = $sql->execute();
         return $resultado;
@@ -576,9 +576,9 @@ class suministro extends conect
     }
     public function set_valesalidaDetail_rapido($folio_vale,$id_pedido,$codarticulo,$cant_surtir){
         $almacen = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (folio_vale_salida,cantidad_surtida, fecha, id_pedido, cod_articulo) VALUES ($folio_vale, '$cant_surtir', NOW(), $id_pedido, '$codarticulo')");
-        $product = $this->_db->prepare("UPDATE adm_almacen SET stock = stock - $cant_surtir WHERE cod_articulo = $codarticulo LIMIT 1");
+        $product = $this->_db->prepare("UPDATE adm_almacen SET stock = stock - $cant_surtir WHERE cod_articulo = '$codarticulo' LIMIT 1");
         $resultado1 = $almacen -> execute();
-        $product -> execute();
+        $resultado2 = $product -> execute();
         return $resultado1;
     }
     public function get_solicitudes_valesalida($filtro=""){
@@ -675,7 +675,7 @@ class suministro extends conect
         return $sql2->execute();
     }
     public function get_create_vale_salida($folio_valesalida){
-        $sql = $this->_db->prepare("SELECT id_pedido,cantidad, fecha_requerimiento,cod_articulo,folio,nombre_solicitante FROM adm_view_solicitud where folio = $folio_valesalida");
+        $sql = $this->_db->prepare("SELECT id_pedido,cantidad, fecha_requerimiento,cod_articulo,folio,nombre_solicitante FROM adm_view_solicitud WHERE folio = $folio_valesalida");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -685,5 +685,26 @@ class suministro extends conect
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
+    }
+    public function get_propArticulo($cod_articulo){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_detail WHERE adm_view_almacen_detail.cod_articulo = :cod_articulo LIMIT 1");
+        $sql->execute(array('cod_articulo' => $cod_articulo));
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function set_update_articulo($cod_articulo,$id_articulo, $cod_barra,$descripcion,$especificacion,$tipo_unidad,$marca,$id_categoria,$stock_min,$stock_max,$ubicacion,$salida_rapida){
+        $sql1 = $this->_db->prepare("UPDATE adm_articulo SET cod_barra='$cod_barra', descripcion='$descripcion', especificacion= '$especificacion', tipo_unidad= '$tipo_unidad', marca= '$marca', id_categoria= $id_categoria WHERE $id_articulo LIMIT 1");
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen SET stock_min=$stock_min,stock_max=$stock_max,ubicacion='$ubicacion', salida_rapida = $salida_rapida WHERE cod_articulo = '$cod_articulo'");
+        $exe1 = $sql2 -> execute();
+        if ($exe1){
+            $exe2 = $sql1 -> execute();
+            if($exe2){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 }

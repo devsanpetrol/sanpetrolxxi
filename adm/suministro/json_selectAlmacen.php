@@ -64,8 +64,12 @@
     }
     function accion($cod_articulo,$no_inventario,$tipo_unidad){
         $inv = "";
+        $prop = "";
         if(empty($no_inventario) && $tipo_unidad != "kgr" && $tipo_unidad != "mtr" && $tipo_unidad != "ltr" ){
             $inv = "<a class='dropdown-item' data-codarticulo='$cod_articulo' onclick='inventarear(event)' id='inv_$cod_articulo'><i class='icon-price-tag2'></i> Inventariar</a>";
+        }
+        if(!empty($cod_articulo)){
+            $prop = "<a class='dropdown-item' id='X$cod_articulo' data-codarticulo='$cod_articulo' onclick='propiedadArticle(event)'><i class='icon-clippy'></i> Propiedades</a>";
         }
     return "<div class='list-icons'>
                 <div class='dropdown'>
@@ -73,7 +77,7 @@
                             <i class='icon-menu7'></i>
                         </a>
                         <div class='dropdown-menu dropdown-menu-right bg-slate-600'>
-                            <a class='dropdown-item'><i class='icon-clippy'></i> Propiedades</a>
+                            $prop
                             $inv
                             <div class='dropdown-divider'></div>
                             <a class='dropdown-item'><i class='icon-gear'></i> One more separated line</a>

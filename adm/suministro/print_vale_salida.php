@@ -10,12 +10,20 @@
     $dfl = $suministro->get_select_query_("SELECT * FROM adm_view_valesalida_detail WHERE folio_vale_salida = $folio_vale");
     $dato = $suministro->get_now();
         
-        
-        $visto_bueno = $detalle_vobo[0]['nombre']." ".$detalle_vobo[0]['apellidos'];
-        $visto_bueno_cargo = $detalle_vobo[0]['cargo'];
-        
-        $coordinador = $detalle_coor[0]['nombre']." ".$detalle_coor[0]['apellidos'];
-        $coordinador_cargo = $detalle_coor[0]['cargo'];
+        if(!empty($detalle_vobo)){
+            $visto_bueno = $detalle_vobo[0]['nombre']." ".$detalle_vobo[0]['apellidos'];
+            $visto_bueno_cargo = $detalle_vobo[0]['cargo'];
+        }else{
+            $visto_bueno = "";
+            $visto_bueno_cargo = "";
+        }
+        if(!empty($detalle_vobo)){
+            $coordinador = $detalle_coor[0]['nombre']." ".$detalle_coor[0]['apellidos'];
+            $coordinador_cargo = $detalle_coor[0]['cargo'];
+        }else{
+            $coordinador = "";
+            $coordinador_cargo = "";
+        }
         
         $nombre_recibe = $detalle_folio[0]['recibe'];
         $nombre_generico = $detalle_folio[0]['nombre_generico'];

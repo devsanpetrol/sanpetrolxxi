@@ -273,7 +273,10 @@ function get_folio(){
               $('#folioxx').slideDown();
             },
             complete: function(){
-                guarda_vale_salida_rapido(folio_num);
+                $("#btn_send_pedido").prop( "disabled", true );
+                setTimeout(function(){
+                    guarda_vale_salida_rapido(folio_num);
+                },5000);
             },
             error: function(data) {
                 alert('Error de conexión al enviar');
@@ -433,7 +436,16 @@ function guarda_vale_salida_rapido(folio_valeSalida){
         data:{folio:folio_valeSalida},
         url: 'create_vale_salida.php',
         type: 'POST',
-        success:(function(res){})
+        success:(function(res){
+            $("#folioxx").text('FOLIO: ').data('folioz',"");
+            var table = $('#tabla_pedidos').DataTable();
+            table.clear().draw();
+            $(".new-solicitud-form").val("");
+            $('#area_aquipo').val(null).trigger('change');
+            $('#sub_area_aquipo').val(null).trigger('change');
+            $("#btn_send_pedido").prop( "disabled", false );
+            alert("Proceso finalizado!");
+        })
     });
 }
 function getSubTotal(){
@@ -457,10 +469,10 @@ function agregar_pedido(){
             type: 'post',url: 'checkStock.php',dataType: 'json',
             success: function(data){
                 var totalGlobal  = getSubTotal();
-                
-                if( data[0].stock >=  totalGlobal){
+                var stock = parseFloat(data[0].stock);
+                if( stock >=  totalGlobal){
                     if($('#'+cod_articulo).length){
-                        $("#"+cod_articulo).find("td:eq(1)").html(totalGlobal);
+                        t.row('#'+cod_articulo).cell(':eq(1)').data(totalGlobal);
                         t.draw( false );
                     }else{
                         t.row.add([

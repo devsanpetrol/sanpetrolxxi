@@ -1,12 +1,10 @@
 <?php
 require_once './suministro.php';
 $suministro = new suministro();
-
-    $folio_vs = $_POST["folio"];
-    $dp = $suministro -> get_create_vale_salida($folio_vs);
-
+    
     //DATOS DEL NUEVO VALE DE SALIDA
-    if(!empty($dp)){
+    if(!empty($_POST["folio"])){
+        $dp = $suministro -> get_create_vale_salida($_POST["folio"]);
         $folio_salida = $suministro -> set_new_valesalida_rapido($dp[0]["folio"],$dp[0]["nombre_solicitante"]);
         foreach ($dp as $valor){
             update_temAlmacen($folio_salida,$valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad"]);
@@ -32,5 +30,5 @@ $suministro = new suministro();
     }
 
     header('Content-Type: application/json');
-    echo json_encode($folio_salida);
+    echo json_encode($dp);
 

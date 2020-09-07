@@ -1,4 +1,6 @@
 $(document).ready( function () {
+    get_categoria();
+    $('.form-control-select2').select2();
     $("body").addClass("sidebar-xs");
     $(".almacen").addClass("active");
     $(".almacen i").addClass("text-orange-800");
@@ -119,4 +121,92 @@ function salir(){
     $("#modal_inventario").modal("hide");
     var table = $('#dt_for_inventario').DataTable();
     table.clear().draw();
+}
+function propiedadArticle(e){
+    var id = e.target.id;
+    var cod_articulo = $("#"+id).data("codarticulo");
+    $.post('json_propArticulo.php',{ cod_articulo: cod_articulo },function(res){
+        //res[0].status,
+        $("#new_codigobarra").val(res.cod_barra);
+        $("#new_cod_inventario").val(res.cod_articulo);
+        $('#new_tipounidad option[value='+res.tipo_unidad+']').prop('selected', 'selected').change();
+        $('#select_categoria option[value='+res.id_categoria+']').prop('selected', 'selected').change();
+        $("#new_descripcion").val(res.descripcion);
+        $("#new_especificacion").val(res.especificacion);
+        $("#new_marca").val(res.marca);
+        $("#new_stock").val(res.stock);
+        $("#new_min").val(res.stock_min);
+        $("#new_max").val(res.stock_max);
+        $("#new_ubicacion").val(res.ubicacion);
+        $("#new_idarticulo").val(res.id_articulo);
+        
+        if(res.salida_rapida == 1){
+            $("#new_salida_rapida").prop("checked", true);
+        }else{
+            $("#new_salida_rapida").prop("checked", false);
+        }
+    }).done(function() {
+        $("#article_new").modal("show");
+    });
+}
+function cerrarArticle(){
+    $("#article_new").modal("hide");
+}
+function updArticle(){
+    var cod_barra     = $("#new_codigobarra").val(),
+        cod_articulo  = $("#new_cod_inventario").val(),
+        tipo_unidad   = $('#new_tipounidad').val(),
+        id_categoria  = $('#select_categoria').val(),
+        descripcion   = $("#new_descripcion").val(),
+        especificacion= $("#new_especificacion").val(),
+        marca         = $("#new_marca").val(),
+        stock_min     = $("#new_min").val(),
+        stock_max     = $("#new_max").val(),
+        ubicacion     = $("#new_ubicacion").val(),
+        id_articulo   = $("#new_idarticulo").val(),
+        salida_rapida;
+        if($("#new_salida_rapida").is(':checked')) {  
+            salida_rapida = 1;
+        } else {  
+            salida_rapida = 0;
+        } 
+    
+    $.post('json_update_propArticulo.php',{
+        cod_articulo:cod_articulo,
+        id_articulo:id_articulo,
+        cod_barra:cod_barra,
+        descripcion:descripcion,
+        especificacion:especificacion,
+        tipo_unidad:tipo_unidad,
+        marca:marca,
+        id_categoria:id_categoria,
+        stock_min:stock_min,
+        stock_max:stock_max,
+        ubicacion:ubicacion,
+        salida_rapida:salida_rapida
+    },function(result){
+        if(result[0].result == "exito"){
+            alert("Se guardo correctamente!");
+        }else{
+            alert("Ocurrio un problema al guardar la información");
+        }
+        
+    }).done(function() {
+        $("#article_new").modal("hide");
+    });
+}
+function get_categoria(){
+    $.ajax({
+    type: "GET",
+    url: 'json_selectCategoria.php', 
+    dataType: "json",
+    success: function(data){
+        $.each(data,function(key, registro) {
+            $("#select_categoria").append("<option value='"+registro.id_categoria+"'>"+registro.categoria+"</option>");
+        });
+    },
+    error: function(data){
+      alert('error');
+    }
+  });
 }

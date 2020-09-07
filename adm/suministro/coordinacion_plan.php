@@ -127,7 +127,7 @@
                                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                                         <li class="nav-item-header">Folders</li>
                                         <li class="nav-item">
-                                            <a href="coordinacion_test.php" class="nav-link active">
+                                            <a href="coordinacion_plan.php" class="nav-link active">
                                                 <i class="icon-folder-open2"></i>
                                                 Solicitudes
                                                 <span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado">0</span>

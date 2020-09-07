@@ -9,7 +9,7 @@
     foreach ($pedidos as $valor){
         $id_pedido = $valor["id_pedido"];
         $data[] = array("id_pedido" => $id_pedido,
-                        "articulo" => articulo($valor["articulo"],$id_pedido,$valor["unidad"],$valor["cod_articulo"],$valor["justificacion"],$valor["cantidad"]),
+                        "articulo" => articulo($valor["articulo"],$id_pedido,$valor["unidad"],$valor["cod_articulo"],$valor["justificacion"],$valor["cantidad"],$valor["solicitud_rapida"]),
                         "cantidad" => cantidad_user($valor["cantidad"],$valor["cantidad_coord"],$valor["cantidad_plan"],$valor["firm_coordinacion"],$valor["firm_planeacion"]),
                         "unidad" => unidad($valor["unidad"]),
                         "justificacion" => detalle($valor["justificacion"],$valor["nombre_sub_area"]),
@@ -36,8 +36,13 @@
     function destino($destino){
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-700'>$destino</h6>";
     }
-    function articulo($articulo,$id_pedido,$unidad,$cod_articulo,$justificacion,$cantidad){
-        return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$articulo <i class='icon-pencil mr-3 text-blue-600' data-articulo='$articulo' data-idpedido='$id_pedido' data-unidad='$unidad' data-codarticulo='$cod_articulo' data-justificacion='$justificacion' data-cantidad='$cantidad' onclick='openModalEditArticle(event)'></i></h6>";
+    function articulo($articulo,$id_pedido,$unidad,$cod_articulo,$justificacion,$cantidad,$solicitud_rapida){
+        if($solicitud_rapida == 0){
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$articulo <i class='icon-pencil mr-3 text-blue-600' data-articulo='$articulo' data-idpedido='$id_pedido' data-unidad='$unidad' data-codarticulo='$cod_articulo' data-justificacion='$justificacion' data-cantidad='$cantidad' onclick='openModalEditArticle(event)'></i></h6>";
+        }else{
+            return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$articulo</h6>";
+        }
+        
     }
     function justificacion($justificacion){
         return "<h6 class='mb-0 font-size-sm text-slate-700'>$justificacion</h6>";

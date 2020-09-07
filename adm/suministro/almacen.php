@@ -59,6 +59,7 @@
     <script src="../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/styling/switch.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+    <script src="../../global_assets/js/demo_pages/form_actions.js"></script>
     
     <!-- /theme JS files -->
 </head>
@@ -165,6 +166,150 @@
                         </div>
                     </div>
                     <!-- /large modal -->
+                    <!-- Modal new invoice -->
+                    <div id="article_new" class="modal fade">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-menu7 mr-2"></i> PROPIEDADES DEL ARTICULO</legend>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_codigobarra" placeholder="Codigo de barra">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-barcode2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_cod_inventario" readonly placeholder="SKU.">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-price-tag2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-bold text-blue-800" id="new_descripcion" placeholder="Descripción *" onkeyup="mayus(this);">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-file-text"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="form-group">
+                                                            <select data-placeholder="Categoria *" class="form-control form-control-select2 border-danger text-right" id="select_categoria" data-fouc>
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <select data-placeholder="Tipo de unidad *" class="form-control form-control-select2 text-right" id="new_tipounidad">
+                                                                <option></option>
+                                                                <option value="pza">Pieza</option>
+                                                                <option value="kgr">Kilogramo</option>
+                                                                <option value="mtr">Metro</option>
+                                                                <option value="pqt">Paquete</option>
+                                                                <option value="cja">Caja</option>
+                                                                <option value="ltr">Litro</option>
+                                                                <option value="lte">Lote</option>
+                                                                <option value="kit">Kit</option>
+                                                                <option value="par">Par</option> 
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_especificacion" placeholder="Especificación">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-design"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_marca" placeholder="Marca *">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-stamp"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="alert alert-danger border-0 alert-dismissible" id="msj_alert1" style="display: none;">
+                                                            <button type="button" class="close" onclick="close_alert()"><span>×</span></button>
+                                                            <span class="font-weight-semibold">Error! </span> Debe completar el formulario <a href="#" class="alert-link" onclick="close_alert()">Intentar nuevamente</a>.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-bookmark mr-2"></i> ALMACÉN</legend>
+                                                <input type="hidden" id="new_idarticulo" value="">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_stock" readonly placeholder="Stock" title="Stock disponible en Almacén">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-book2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_min" placeholder="Min." title="Cantidad Mínima">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-chevron-down text-danger-600"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_max" placeholder="Max." title="Cantidad Máxima">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-chevron-up text-blue-700"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_ubicacion" placeholder="Ubicación en el almacen" title="Ubicación fisica del articulo en el Almacén">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-target2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-transparent">
+                                    <label><input type="checkbox" value="" id="new_salida_rapida"> Salida Rapida</label>
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="cerrarArticle()">CERRAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updArticle()">GUARDAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
                     <!-- Footer -->
                     <?php include "../bar_nav/footer_navbar.php"; ?>
                     <!-- /footer -->
