@@ -2,7 +2,7 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_almacen("WHERE no_inventario != ''");
+    $categorias = $suministro->get_activofijo("");
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -10,14 +10,13 @@
                         "no_inventario" => serie_inventario($valor['no_serie'],$valor['no_inventario']),
                         "descripcion" => articulo_marca($valor['descripcion'],$valor['marca']),
                         "tipo_unidad" => $valor['tipo_unidad'],
-                        "stock" => status_disponible($valor['stock']),
-                        "stock_min" => stock_min_max($valor['stock_min']),
-                        "stock_max" => stock_min_max($valor['stock_max']),
+                        "status" => status_disponible("Activo","Inactivo",$valor['status'],"success","slate-300"),
+                        "disponible" => status_disponible("Disponible","Ocupado",$valor['disponible'],"primary","slate-300"),
+                        "operable" => status_disponible("Operable","No Operable",$valor['operable'],"success","danger"),
                         "marca" => $valor['marca'],
                         "costo" => costo($valor['costo']),
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
-                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario']),
-                        "stock2" => $valor['stock']
+                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario'])
                         );
         
     }
@@ -64,20 +63,25 @@
     }
     function accion($cod_articulo,$no_inventario){
         $inv = "";
+        $prop = "";
         if(empty($no_inventario)){
             $inv = "<a class='dropdown-item' data-codarticulo='$cod_articulo' onclick='inventarear(event)' id='inv_$cod_articulo'><i class='icon-price-tag2'></i> Inventariar</a>";
         }
+        if(!empty($cod_articulo)){
+            $prop = "<a class='dropdown-item' id='X$cod_articulo' data-codarticulo='$cod_articulo' onclick='propiedadArticle(event)'><i class='icon-clippy'></i> Propiedades</a>";
+        }
     return "<div class='list-icons'>
                 <div class='dropdown'>
-                        <a href='#' class='list-icons-item' data-toggle='dropdown'>
-                            <i class='icon-menu7'></i>
-                        </a>
-                        <div class='dropdown-menu dropdown-menu-right bg-slate-600'>
-                            <a class='dropdown-item'><i class='icon-clippy'></i> Propiedades</a>
-                            $inv
-                        </div>
+                    <a href='#' class='list-icons-item' data-toggle='dropdown'>
+                        <i class='icon-menu7'></i>
+                    </a>
+                    <div class='dropdown-menu dropdown-menu-right bg-slate-600'>
+                        $prop
+                        $inv
+                        <a class='dropdown-item' id='Y$cod_articulo' data-codarticulo='$cod_articulo' onclick='openTrazabilidad(event)'><i class='icon-search4'></i> Trazabilidad</a>
+                    </div>
                 </div>
-        </div>";
+            </div>";
     }
     function costo($costo){
         if(!empty($costo)){
@@ -90,11 +94,11 @@
     function nombre_categoria($nombre_categoria){
         return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>$nombre_categoria</h6>";
     }
-    function status_disponible($stock){
-        if($stock == 1){
-            return "<span class='badge bg-success align-self-start ml-3'>Disponible</span>";
+    function status_disponible($text1,$text2,$status,$color1,$color2){
+        if($status == 1){
+            return "<span class='badge bg-$color1 align-self-start ml-3'>$text1</span>";
         }else{
-            return "<span class='badge bg-slate-300 align-self-start ml-3'>Disponible</span>";
+            return "<span class='badge bg-$color2 align-self-start ml-3'>$text2</span>";
         }
     }
     header('Content-Type: application/json');

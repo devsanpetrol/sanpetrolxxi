@@ -11,7 +11,7 @@
         $no_inventario = $_POST['no_inventario'];
         $no_serie      = $_POST['no_serie'];
         $costo         = $_POST['costo'];
-        $exist         = $suministro->set_select_cout_inventario($no_inventario);
+        $exist         = $suministro -> set_select_cout_inventario($no_inventario);
         if (!$exist){
             if($inventariado == 'no'){
                 $result = $suministro->set_insert_new_articulo($cod_articulo,$cod_articulo_new,$no_inventario,$no_serie,$costo);

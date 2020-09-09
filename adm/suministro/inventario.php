@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+    <title>SANPETROL XXI - Activo Fijo</title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -15,6 +15,7 @@
     <link href="../../assets/css/layout.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/components.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/colors.min.css" rel="stylesheet" type="text/css">
+    <link href="../../global_assets/js/plugins/tables/datatables/datatables/datatables.css" rel="stylesheet" type="text/css">
     <link href="css/css_custom.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
 
@@ -48,9 +49,8 @@
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
     <script src="js/engineJS_8.js"></script>
-    <script src="js/ini_menu_almacen.js"></script>
+    <!--<script src="js/ini_menu_almacen.js"></script>-->
 
-    <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
     <script src="../../global_assets/js/plugins/notifications/pnotify.min.js"></script>
     <script src="../../global_assets/js/demo_pages/extra_fab.js"></script>
@@ -58,7 +58,6 @@
     <script src="../../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/styling/switch.min.js"></script>
-    <script src="../../global_assets/js/plugins/forms/inputs/touchspin.min.js"></script>
     
     <!-- /theme JS files -->
 </head>
@@ -106,12 +105,22 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table datatable-basic text-nowrap" id="almacen_tabla" style="width:100%">
+                                        <col width="10%">
+                                        <col width="10%">
+                                        <col width="55%">
+                                        <col width="5%">
+                                        <col width="5%">
+                                        <col width="5%">
+                                        <col width="5%">
+                                        <col width="5%">
                                         <thead>
                                             <tr>
                                                 <th>Codigo</th>
                                                 <th>No. Inventario</th>
                                                 <th>Articulo</th>
+                                                <th>Activo</th>
                                                 <th>Disponible</th>
+                                                <th>Operable</th>
                                                 <th>Costo</th>
                                                 <th>Acción</th>
                                             </tr>
@@ -124,6 +133,290 @@
                         </div>
                     </div>
                     <!-- /content area -->
+                    <!-- Modal new invoice -->
+                    <div id="article_new" class="modal fade">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-menu7 mr-2"></i> PROPIEDADES DEL ARTICULO</legend>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_codigobarra" placeholder="Codigo de barra">
+                                                            <span class="form-text text-muted text-right">Codigo de barra</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-barcode2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_cod_inventario" readonly placeholder="SKU.">
+                                                            <span class="form-text text-muted text-right">S.K.U.</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-price-tag2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-bold text-blue-800" id="new_descripcion" placeholder="Descripción *" onkeyup="mayus(this);">
+                                                            <span class="form-text text-muted text-right">Nombre</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-file-text"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="form-group">
+                                                            <select data-placeholder="Categoria *" class="form-control form-control-select2 border-danger text-right" id="select_categoria" data-fouc>
+                                                                <option></option>
+                                                            </select>
+                                                            <span class="form-text text-muted text-right">Categoria</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <select data-placeholder="Tipo de unidad *" class="form-control form-control-select2 text-right" id="new_tipounidad">
+                                                                <option></option>
+                                                                <option value="pza">Pieza</option>
+                                                                <option value="kgr">Kilogramo</option>
+                                                                <option value="mtr">Metro</option>
+                                                                <option value="pqt">Paquete</option>
+                                                                <option value="cja">Caja</option>
+                                                                <option value="ltr">Litro</option>
+                                                                <option value="lte">Lote</option>
+                                                                <option value="kit">Kit</option>
+                                                                <option value="par">Par</option> 
+                                                            </select>
+                                                            <span class="form-text text-muted text-right">Tipo de unidad</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_especificacion" placeholder="Especificación">
+                                                            <span class="form-text text-muted text-right">Caracteristica ó Espesificación</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-design"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_marca" placeholder="Marca *">
+                                                            <span class="form-text text-muted text-right">Marca</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-stamp"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="alert alert-danger border-0 alert-dismissible" id="msj_alert1" style="display: none;">
+                                                            <button type="button" class="close" onclick="close_alert()"><span>×</span></button>
+                                                            <span class="font-weight-semibold">Error! </span> Debe completar el formulario <a href="#" class="alert-link" onclick="close_alert()">Intentar nuevamente</a>.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            </div>
+                                            <div class="col-md-6">
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-bookmark mr-2"></i> DATOS DEL ACTIVO</legend>
+                                                <input type="hidden" id="new_idarticulo" value="">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_noinventario" title="No. de Inventario">
+                                                            <span class="form-text text-muted text-right">NO. Inventario</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-books"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_noserie" title="No. de Serie">
+                                                            <span class="form-text text-muted text-right">NO. Serie</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-list-numbered"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="date" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_fecha_adquisicion" title="Fecha de adquisición">
+                                                            <span class="form-text text-muted text-right">Fecha de aquisición</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-chevron-up text-blue-600"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="date" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_fecha_baja" title="Fecha de baja">
+                                                            <span class="form-text text-muted text-right">Fecha de baja</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-chevron-down text-danger-600"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="number" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_tiempo_utilidad" title="Vida util del equipo">
+                                                            <span class="form-text text-muted text-right">Años</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-watch2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="number" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_costo" title="Costo de adquisición del articulo">
+                                                            <span class="form-text text-muted text-right">Costo</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-coin-dollar"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1"></div>
+                                                    <div class="col-md-5">
+                                                        <div class="list-feed border-warning-400">
+                                                            <div class="list-feed-item border-warning-400">
+                                                                <label><input type="checkbox" value="" id="new_status" title="Status del Activo"> Activo</label>
+                                                            </div>
+                                                            <div class="list-feed-item border-warning-400">
+                                                                <label><input type="checkbox" value="" id="new_disponible" title="Disponibilidad"> Disponible</label>
+                                                            </div>
+                                                            <div class="list-feed-item border-warning-400">
+                                                                <label><input type="checkbox" value="" id="new_operable" title="Operabilidad"> Operable</label>
+                                                            </div>
+                                                            <div class="list-feed-item border-warning-400">
+                                                                <label><input type="checkbox" value="" id="new_salida_rapida"> Salida Rapida</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-transparent">
+                                    
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="cerrarArticle()">CERRAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updArticle()">GUARDAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
+                    <!-- Modal with invoice -->
+                    <div id="modal_trazabilidad" class="modal fade" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="table-responsive">
+                                    <table class="table datatable-basic text-nowrap" id="movimiento_tabla_aplica" style="width:100%">
+                                        <col width="10%">
+                                        <col width="10%">
+                                        <col width="40%">
+                                        <col width="40%">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Fecha</th>
+                                                <th>Responsable</th>
+                                                <th>Condición</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer bg-transparent">
+                                    <button type="button" class="btn btn-sm alpha-success text-success-800 legitRipple" id="btnmouestranewpro" onclick="hide_showNewMovimiento()"><i class="icon-plus3"></i></button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewProv()">salir</button>
+                                </div>
+                                <div class="card-body" id="cardnewtraza" style="display: none">
+                                    <form action="#" id="formnewtraza">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> Agregar Movimiento del Activo</legend>
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_responsable" title="Nombre del responsable" placeholder="Nombre del responsable">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-user"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_motivo" placeholder="Motivo o justificación del movimiento">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-question4"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_ubicacion" placeholder="Dirección *" onkeyup="mayus(this);">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-location4"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_condicion" placeholder="Estado o condición del movimiento">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-file-check"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 text-right">
+                                                        <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="hide_showNewMovimiento()" title="Cerrar"><i class="icon-cross2"></i></button>
+                                                        <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="guarda_new_prov()" title="Guardar"><i class="icon-checkmark3"></i></button>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="alert alert-danger border-0 alert-dismissible" id="msj_alert2" style="display: none;">
+                                                            <button type="button" class="close" onclick="close_alert2()"><span>×</span></button>
+                                                            <span class="font-weight-semibold">Error! </span> Debe completar el formulario <a href="#" class="alert-link" onclick="close_alert2()">Intentar nuevamente</a>.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
                     <!-- Footer -->
                     <?php include "../bar_nav/footer_navbar.php"; ?>
                     <!-- /footer -->

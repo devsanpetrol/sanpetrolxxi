@@ -56,7 +56,7 @@ $(document).ready( function () {
      var t = $('#dt_for_inventario').DataTable();
      $.post('json_inventariar.php',{ cod_articulo: cod_articulo },function(res){
          $.each(res, function (index, value) {
-                t.row.add( [
+                t.row.add([
                     value.status,
                     value.cod_articulo,
                     value.unidad,
@@ -82,12 +82,13 @@ $(document).ready( function () {
     });
  }
  function guarda_inventario(e){
-    var cod_articulo_new = $("#"+e.target.id).data("numercodarticulo");
-    var cod_articulo = $("#old_cod_articulo").val();
-    var no_serie = $("#ser_"+cod_articulo_new).val();
-    var no_inventario = ($('#inv_'+cod_articulo_new).val()).trim();
-    var costo = $('#cos_'+cod_articulo_new).val();
-    var inventariado = $('#'+e.target.id).data('inventariado');
+    var cod_articulo_new= $("#"+e.target.id).data("numercodarticulo");
+    var cod_articulo    = $("#old_cod_articulo").val();
+    var no_serie        = $("#ser_"+cod_articulo_new).val();
+    var no_inventario   = ($('#inv_'+cod_articulo_new).val()).trim();
+    var costo           = $('#cos_'+cod_articulo_new).val();
+    var inventariado    = $('#'+e.target.id).data('inventariado');
+    
     if(no_inventario == "" && inventariado == 'no'){
         console.log('Formulario vacio. No se guardo cambios');
     }else{

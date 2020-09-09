@@ -420,34 +420,47 @@ class suministro extends conect
         return $resultado1;
     }
     function set_select_cout_inventario($no_inventario){
-        $sql = $this->_db->prepare("SELECT COUNT(*) AS count FROM adm_almacen WHERE no_inventario = '$no_inventario' LIMIT 1");
+        $sql = $this->_db->prepare("SELECT COUNT(*) AS count FROM adm_activo WHERE no_inventario = '$no_inventario' LIMIT 1");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado[0]["count"];
     }
     //===========MODIFICACIÓN DE INVENTARIO=================================================================================================================================
     function set_insert_new_articulo($cod_articulo,$cod_articulo_new,$no_inventario,$no_serie,$costo){
-        $sql2 = $this->_db->prepare("INSERT INTO adm_almacen (id_articulo,no_inventario, no_serie, stock, stock_min, stock_max, importancia, ubicacion, salida,costo, activo, cod_articulo)
-                                     SELECT id_articulo, '$no_inventario' AS no_inventario, '$no_serie' AS no_serie, '0' AS stock, '0' AS stock_min, '0' AS stock_max, importancia, ubicacion, salida,'$costo' AS costo, '1' AS activo, '$cod_articulo_new' AS cod_articulo FROM adm_almacen WHERE cod_articulo = '$cod_articulo'");
-        $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock - 1) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
-        $resultado2 = $sql2->execute();
-        $resultado3 = $sql3->execute();
-        return $resultado2*$resultado3;
-    }
-    function set_update_new_articulo($cod_articulo_new,$no_inventario,$no_serie,$costo){
-        $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.no_inventario = '$no_inventario', adm_almacen.no_serie = '$no_serie',adm_almacen.costo = '$costo' WHERE adm_almacen.cod_articulo = '$cod_articulo_new' LIMIT 1");
-        $resultado3 = $sql3->execute();
+        $sql1 = $this->_db->prepare("INSERT INTO adm_almacen (id_articulo,stock, stock_min, stock_max, importancia, ubicacion, salida, activo, cod_articulo)
+                                     SELECT id_articulo, '0' AS stock, '0' AS stock_min, '0' AS stock_max, importancia, ubicacion, salida,'1' AS activo, '$cod_articulo_new' AS cod_articulo FROM adm_almacen WHERE cod_articulo = '$cod_articulo'");
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock - 1) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
+        $sql3 = $this->_db->prepare("INSERT INTO adm_activo (no_inventario, no_serie,costo, status, cod_articulo, fecha_alta,tiempo_utilidad) VALUES ('$no_inventario','$no_serie','$costo',1,'$cod_articulo_new', NOW(),0)");
+        
+        $resultado3 = 0;
+        
+        $resultado1 = $sql1->execute();
+        if(($resultado1) == 1){
+            $resultado2 = $sql2->execute();
+            if(($resultado2) == 1){
+                $resultado3 = $sql3->execute();
+            }
+        }
         return $resultado3;
     }
+    function set_update_new_articulo($cod_articulo_new,$no_inventario,$no_serie,$costo){
+        $sql1 = $this->_db->prepare("UPDATE adm_activo SET adm_almacen.no_inventario = '$no_inventario', adm_almacen.no_serie = '$no_serie',adm_almacen.costo = '$costo' WHERE adm_almacen.cod_articulo = '$cod_articulo_new' LIMIT 1");
+        $resultado1 = $sql1->execute();
+        return $resultado1;
+    }
     function set_delete_new_articulo($cod_articulo, $cod_articulo_new){
+        $sql1 = $this->_db->prepare("DELETE FROM adm_activo WHERE adm_activo.cod_articulo = '$cod_articulo_new' LIMIT 1");
         $sql2 = $this->_db->prepare("DELETE FROM adm_almacen WHERE adm_almacen.cod_articulo = '$cod_articulo_new' LIMIT 1");
         $sql3 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock + 1) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
         
-        $resultado2 = $sql2->execute();
         $resultado3 = 0;
         
-        if(($resultado2) == 1){
-            $resultado3 = $sql3->execute();
+        $resultado1 = $sql1->execute();
+        if(($resultado1) == 1){
+            $resultado2 = $sql2->execute();
+            if(($resultado2) == 1){
+                $resultado3 = $sql3->execute();
+            }
         }
         
         return $resultado3;
@@ -486,7 +499,7 @@ class suministro extends conect
         }
     }
     public function set_new_articulo_almacen($cod_articulo,$id_articulo){
-        $almacen = $this->_db->prepare("INSERT INTO adm_almacen (cod_articulo,no_inventario,no_serie,stock,stock_min,stock_max,importancia,ubicacion,salida,activo,costo,id_articulo) VALUES ('$cod_articulo','','',0,1,1,3,NULL,0,0,NULL,$id_articulo)");
+        $almacen = $this->_db->prepare("INSERT INTO adm_almacen (cod_articulo,stock,stock_min,stock_max,importancia,ubicacion,salida,id_articulo) VALUES ('$cod_articulo','','',0,1,1,3,NULL,0,0,NULL,$id_articulo)");
         $resultado = $almacen->execute();
         return $resultado;
     }
@@ -692,6 +705,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_propArticuloInv($cod_articulo){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_activos_fijos WHERE adm_view_almacen_activos_fijos.cod_articulo = :cod_articulo LIMIT 1");
+        $sql->execute(array('cod_articulo' => $cod_articulo));
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function set_update_articulo($cod_articulo,$id_articulo, $cod_barra,$descripcion,$especificacion,$tipo_unidad,$marca,$id_categoria,$stock_min,$stock_max,$ubicacion,$salida_rapida){
         $sql1 = $this->_db->prepare("UPDATE adm_articulo SET cod_barra='$cod_barra', descripcion='$descripcion', especificacion= '$especificacion', tipo_unidad= '$tipo_unidad', marca= '$marca', id_categoria= $id_categoria WHERE $id_articulo LIMIT 1");
         $sql2 = $this->_db->prepare("UPDATE adm_almacen SET stock_min=$stock_min,stock_max=$stock_max,ubicacion='$ubicacion', salida_rapida = $salida_rapida WHERE cod_articulo = '$cod_articulo'");
@@ -706,5 +725,39 @@ class suministro extends conect
         }else{
             return false;
         }
+    }
+    public function set_update_activo($cod_articulo,$id_articulo, $cod_barra,$descripcion,$especificacion,$tipo_unidad,$marca,$id_categoria,$fecha_adquisicion, $tiempo_utilidad, $fecha_baja,$costo, $no_inventario, $no_serie,$status,$disponible,$operable,$salida_rapida){
+        $sql1 = $this->_db->prepare("UPDATE adm_articulo SET cod_barra='$cod_barra', descripcion='$descripcion', especificacion= '$especificacion', tipo_unidad= '$tipo_unidad', marca= '$marca', id_categoria= $id_categoria WHERE $id_articulo LIMIT 1");
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen SET salida_rapida = $salida_rapida WHERE cod_articulo = '$cod_articulo'");
+        $sql3 = $this->_db->prepare("UPDATE adm_activo SET tiempo_utilidad=$tiempo_utilidad, fecha_alta='$fecha_adquisicion', fecha_baja='$fecha_baja', costo = $costo, no_inventario = '$no_inventario', no_serie = '$no_serie', disponible=$disponible, operable = $operable, status = $status WHERE cod_articulo = '$cod_articulo' LIMIT 1");
+        
+        $exe1 = $sql1 -> execute();
+        if ($exe1){
+            $exe2 = $sql2 -> execute();
+            if($exe2){
+                $exe3 = $sql3 -> execute();
+                if($exe3){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    public function get_activofijo($filtro = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_activos_fijos $filtro ORDER BY id_categoria ASC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+     public function get_movimiento($filtro=""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_trazabilidad $filtro");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
     }
 }

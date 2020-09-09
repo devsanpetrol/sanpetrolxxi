@@ -2,21 +2,19 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_almacen("WHERE no_inventario = ''");
+    $categorias = $suministro->get_almacen("");
     $data = array();
     
     foreach ($categorias as $valor) {
         $data[] = array("cod_articulo" => $valor['cod_articulo'],
-                        "no_inventario" => serie_inventario($valor['no_serie'],$valor['no_inventario']),
                         "descripcion" => articulo_marca($valor['descripcion'],$valor['marca']),
                         "tipo_unidad" => $valor['tipo_unidad'],
                         "stock" => cantidad_unidad($valor['stock'],$valor['tipo_unidad']),
                         "stock_min" => stock_min_max($valor['stock_min']),
                         "stock_max" => stock_min_max($valor['stock_max']),
                         "marca" => $valor['marca'],
-                        "costo" => costo($valor['costo']),
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
-                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario'],$valor['tipo_unidad'])
+                        "accion" => accion($valor['cod_articulo'],$valor['tipo_unidad'])
                         );
         
     }
@@ -62,10 +60,10 @@
     function stock_min_max($cantidad){
         return "<h6 class='mb-0'>$cantidad</h6>";
     }
-    function accion($cod_articulo,$no_inventario,$tipo_unidad){
+    function accion($cod_articulo,$tipo_unidad){
         $inv = "";
         $prop = "";
-        if(empty($no_inventario) && $tipo_unidad != "kgr" && $tipo_unidad != "mtr" && $tipo_unidad != "ltr" ){
+        if( $tipo_unidad != "kgr" && $tipo_unidad != "mtr" && $tipo_unidad != "ltr" ){
             $inv = "<a class='dropdown-item' data-codarticulo='$cod_articulo' onclick='inventarear(event)' id='inv_$cod_articulo'><i class='icon-price-tag2'></i> Inventariar</a>";
         }
         if(!empty($cod_articulo)){
