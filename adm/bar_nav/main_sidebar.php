@@ -55,6 +55,7 @@
                         <li class="nav-item"><a class="nav-link" href="coordinacion_test.php">Coordinación Testing</a></li>
                         <li class="nav-item"><a class="nav-link" href="coordinacion_swab.php">Coordinación Swabing</a></li>
                         <li class="nav-item"><a class="nav-link" href="coordinacion_plan.php">Planeación de Proyecto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="personal.php">Catálogos</a></li>
                         <li class="nav-item"><a class="nav-link" href="almacen.php">Almacen</a></li>
                         <li class="nav-item"><a class="nav-link" href="aprobacion_salida.php">Supervisión</a></li>
                         <li class="nav-item"><a class="nav-link" href="detalle_factura.php">Factura</a></li>

@@ -194,33 +194,31 @@ function hide_showNewMovimiento(){
     close_alert2();
 }
 function hide_showModalNewProv(){
-    $("#cardnewtraza" ).modal("hide");
+    $("#modal_trazabilidad" ).modal("hide");
     $("#btnmouestranewpro" ).show();
     $("#formnewtraza")[0].reset();
     close_alert2();
 }
 function guarda_new_prov(){
     if (confirm('¿Guardar los cambios realizado al Nuevo Proveedor?')) {
-        var rfc = $("#new_rfc").val();
-        var nombre = $("#new_nombre").val();
-        var direccion = $("#new_direccion").val();
-        var num_telefono = $("#new_num_telefono").val();
-        var email = $("#new_email").val();
-        var pagina_web = $("#new_pagina_web").val();
-        var actividad_comercial = $("#new_actividad_comercial").val();
+        var cod_articulo = $("#mov_codarticulo").val();
+        var fecha_movimiento = $("#mov_fecha_movimiento").val();
+        var motivo = $("#mov_motivo").val();
+        var responsable = $("#mov_responsable").val();
+        var ubicacion = $("#mov_ubicacion").val();
+        var condicion = $("#mov_condicion").val();
 
         $.ajax({
-            data:{rfc:rfc,nombre:nombre,direccion:direccion,num_telefono:num_telefono,email:email,pagina_web:pagina_web,actividad_comercial:actividad_comercial},
-            url: 'json_set_newprov.php',
+            data:{fecha_movimiento:fecha_movimiento,motivo:motivo,responsable:responsable,ubicacion:ubicacion,condicion:condicion,cod_articulo:cod_articulo},
+            url: 'json_set_newTrazabilidad.php',
             type: 'POST',
             success:(function(res){
                 if(res[0].result == "vacio"){
                     $('#msj_alert2').show(200);
                 }else if(res[0].result == true){
                     alert("Se guardo exitosamente");
-                    var table = $('#proveedor_tabla_aplica').DataTable();
-                    table.ajax.reload();
-                    hide_showNewProveedor();
+                    openTrazabilidadLoad(cod_articulo);
+                    hide_showNewMovimiento();
                 }else if(res[0].result == false){
                     alert("Error al guardar");
                 }
@@ -232,6 +230,10 @@ function guarda_new_prov(){
 function openTrazabilidad(e){
     var id = e.target.id;
     var cod_articulo = $("#"+id).data("codarticulo");
+    openTrazabilidadLoad(cod_articulo);
+    $("#modal_trazabilidad").modal("show");
+}
+function openTrazabilidadLoad(cod_articulo){
     var t = $('#movimiento_tabla_aplica').DataTable();
     $.ajax({
         data:{cod_articulo:cod_articulo},
@@ -252,7 +254,7 @@ function openTrazabilidad(e){
             });
         },
         complete: (function () {
-            $("#modal_trazabilidad").modal("show");
+            $("#mov_codarticulo").val(cod_articulo);
         })
     });
 }

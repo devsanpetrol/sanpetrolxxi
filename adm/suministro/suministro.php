@@ -760,4 +760,15 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function set_new_trazabilidad($fecha_movimiento,$motivo,$responsable,$ubicacion,$condicion,$cod_articulo){
+        $almacen = $this->_db->prepare("INSERT INTO adm_trazabilidad(fecha_registro,fecha_movimiento,motivo,responsable,ubicacion,condicion,cod_articulo) VALUES (NOW(),'$fecha_movimiento','$motivo','$responsable','$ubicacion','$condicion','$cod_articulo')");
+        $resultado = $almacen->execute();
+        return $resultado;
+    }
+    public function get_personal($filtro = "",$limit = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_empleado $filtro order by departamento, nombre asc $limit");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
 }
