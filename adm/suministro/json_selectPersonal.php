@@ -12,6 +12,7 @@
                         "especialista" => $valor['especialista'],
                         "email" => $valor['email'],
                         "depto" => $valor['departamento'],
+                        "departamento" => departamento($valor['departamento']),
                         "accion" => accion($valor['id_empleado'])
                         );
         
@@ -85,8 +86,8 @@
             return "";
         }
     }
-    function nombre_categoria($nombre_categoria){
-        return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>$nombre_categoria</h6>";
+    function departamento($departamento){
+        return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>$departamento</h6>";
     }
     header('Content-Type: application/json');
     echo json_encode($data);

@@ -6,6 +6,7 @@ $(document).ready( function () {
     $(".almacen i").addClass("text-orange-800");
     $('#personal_tabla').DataTable({
         bDestroy: true,
+        ordering: false,
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         ajax: {
             url: "json_selectPersonal.php",
@@ -13,7 +14,6 @@ $(document).ready( function () {
                 return json;
             }
         },
-        order: [[ 3, "desc" ]],
         columns: [
             {data : 'nombre'},
             {data : 'apellidos'},
@@ -24,7 +24,7 @@ $(document).ready( function () {
             {data : 'accion'}
         ],
         rowGroup: {
-            dataSrc: 'depto'
+            dataSrc: 'departamento'
         },
         columnDefs: [
             {targets: 6, className:'text-center text-primary-800'}
