@@ -6,13 +6,11 @@
     $data = array();
     
     foreach ($categorias as $valor) {
-        $data[] = array("nombre" => $valor['nombre'],
-                        "apellidos" => $valor['apellidos'],
-                        "cargo" => $valor['cargo'],
-                        "especialista" => $valor['especialista'],
-                        "email" => $valor['email'],
-                        "depto" => $valor['departamento'],
-                        "departamento" => departamento($valor['departamento']),
+        $data[] = array("nombre" => text_nobold($valor['nombre']),
+                        "apellidos" => text_nobold($valor['apellidos']),
+                        "cargo" => cargo_email($valor['cargo'],$valor['email']),
+                        "departamento" => cargo_email($valor['departamento'],$valor['especialista']),
+                        "ambito" => departamento($valor['ambito']),
                         "accion" => accion($valor['id_empleado'])
                         );
         
@@ -21,37 +19,24 @@
         return "<h6 class='mb-0'>$cantidad</h6>
                 <div class='font-size-sm text-muted line-height-1'>$unidad</div>";
     }
-    function articulo_marca($articulo,$marca){
-        $articulo_ = mb_strtoupper($articulo);
-        $marca_ = mb_strtoupper($marca);
-        if(!empty($marca_)){
-            return "<div class='d-flex align-items-center'>
-                        <div>
-                            <a class='text-default font-weight-semibold letter-icon-title'>$articulo_</a>
-                            <div class='text-muted font-size-sm'><span class='badge badge-mark border-blue mr-1'></span> $marca_</div>
-                        </div>
-                    </div>";
-        }else{
-            return "<div class='d-flex align-items-center'>
-                        <div>
-                            <a class='text-default font-weight-semibold letter-icon-title'>$articulo_</a>
-                            <div class='text-muted font-size-sm'><span class='badge badge-mark border-slate-300 mr-1'></span> $marca_</div>
-                        </div>
-                    </div>";
-        }
+    function text($text){
+        return "<h6 class='mb-0 font-size-sm font-weight-semibold'>$text</h6>";
     }
-    function serie_inventario($no_serie,$no_inventario){
-        if(!empty($no_serie)){
+    function text_nobold($text){
+        return "<h6 class='mb-0 font-size-sm font-weight-bold'>$text</h6>";
+    }
+    function cargo_email($cargo,$email){
+        if(!empty($email)){
             return "<div class='d-flex align-items-center'>
                         <div>
-                            <a class='text-default font-weight-semibold letter-icon-title'>$no_inventario</a>
-                            <div class='text-muted font-size-sm'><span class='badge badge-mark border-blue mr-1'></span> $no_serie</div>
+                            <a class='text-default font-weight-semibold letter-icon-title'>$cargo</a>
+                            <div class='text-muted font-size-sm'><span class='badge badge-mark border-blue mr-1'></span> $email</div>
                         </div>
                     </div>";
         }else{
             return "<div class='d-flex align-items-center'>
                         <div>
-                            <a class='text-default font-weight-semibold letter-icon-title'>$no_inventario</a>
+                            <a class='text-default font-weight-semibold letter-icon-title'>$cargo</a>
                         </div>
                     </div>";
         }

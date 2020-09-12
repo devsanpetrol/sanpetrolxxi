@@ -766,7 +766,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_personal($filtro = "",$limit = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_empleado $filtro order by departamento, nombre asc $limit");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_empleado $filtro order by ambito, nombre asc $limit");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

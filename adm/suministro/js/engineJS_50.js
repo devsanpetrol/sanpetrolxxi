@@ -18,16 +18,14 @@ $(document).ready( function () {
             {data : 'nombre'},
             {data : 'apellidos'},
             {data : 'cargo'},
-            {data : 'especialista'},
-            {data : 'depto'},
-            {data : 'email'},
+            {data : 'departamento'},
             {data : 'accion'}
         ],
         rowGroup: {
-            dataSrc: 'departamento'
+            dataSrc: 'ambito'
         },
         columnDefs: [
-            {targets: 6, className:'text-center text-primary-800'}
+            {targets: -1, className:'text-center text-primary-800'}
         ],
         language: {
             search: '<span>Filtro:</span> _INPUT_',

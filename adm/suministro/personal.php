@@ -48,6 +48,7 @@
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
     <script src="js/engineJS_50.js"></script>
+    <script src="js/ini_menu_almacen.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
@@ -105,15 +106,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table datatable-basic text-nowrap" id="personal_tabla" style="width:100%">
+                                    <table class="table datatable-basic" id="personal_tabla" style="width:100%">
+                                        <col width="20%">
+                                        <col width="20%">
+                                        <col width="30%">
+                                        <col width="25%">
+                                        <col width="5%">
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
                                                 <th>Apellidos</th>
                                                 <th>Cargo</th>
-                                                <th>Especialista</th>
                                                 <th>Depto.</th>
-                                                <th>E-Mail</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
