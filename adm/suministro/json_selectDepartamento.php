@@ -2,11 +2,11 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_categoria_articulo();
+    $categorias = $suministro->get_departamento();
     $data = array();
     
     foreach ($categorias as $valor) {
-        $data[] = array("id_categoria"=>$valor['id_categoria'], "categoria"=>$valor['categoria']);
+        $data[] = array("id_departamento"=>$valor['id_departamento'], "departamento"=>$valor['departamento']);
     }
     
     header('Content-Type: application/json');

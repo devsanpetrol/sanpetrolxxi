@@ -1,5 +1,7 @@
 $(document).ready( function () {
-    //get_categoria();
+    get_ambito();
+    get_departamento();
+    get_puesto();
     $('.form-control-select2').select2();
     $("body").addClass("sidebar-xs");
     $(".almacen").addClass("active");
@@ -204,6 +206,57 @@ function get_categoria(){
     success: function(data){
         $.each(data,function(key, registro) {
             $("#select_categoria").append("<option value='"+registro.id_categoria+"'>"+registro.categoria+"</option>");
+        });
+    },
+    error: function(data){
+      alert('error');
+    }
+  });
+}
+function propiedadPersonal(e){
+    $("#new_employe").modal('show');
+}
+function close_propiedadPersonal(){
+    $("#new_employe").modal('hide');
+}
+function get_ambito(){
+    $.ajax({
+    type: "GET",
+    url: 'json_selectAmbito.php',
+    dataType: "json",
+    success: function(data){
+        $.each(data,function(key, registro) {
+            $("#new_ambito").append("<option value='"+registro.id_ambito+"'>"+registro.ambito+"</option>");
+        });
+    },
+    error: function(data){
+      alert('error');
+    }
+  });
+}
+function get_departamento(){
+    $.ajax({
+    type: "GET",
+    url: 'json_selectDepartamento.php', 
+    dataType: "json",
+    success: function(data){
+        $.each(data,function(key, registro) {
+            $("#new_departamento").append("<option value='"+registro.id_departamento+"'>"+registro.departamento+"</option>");
+        });
+    },
+    error: function(data){
+      alert('error');
+    }
+  });
+}
+function get_puesto(){
+    $.ajax({
+    type: "GET",
+    url: 'json_selectPuesto.php', 
+    dataType: "json",
+    success: function(data){
+        $.each(data,function(key, registro) {
+            $("#new_puesto").append("<option value='"+registro.id_puesto+"'>"+registro.puesto+"</option>");
         });
     },
     error: function(data){

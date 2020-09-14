@@ -103,6 +103,23 @@
                     </div>
                     <!-- Content area -->
                     <div class="content">
+                        <!-- Bottom right menu -->
+				<ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="click">
+                                    <li>
+                                        <a class="fab-menu-btn btn bg-success-400 btn-float rounded-round btn-icon">
+                                            <i class="fab-icon-open icon-paragraph-justify3"></i>
+                                            <i class="fab-icon-close icon-cross2"></i>
+                                        </a>
+                                        <ul class="fab-menu-inner">
+                                            <li>
+                                                <div data-fab-label="Nuevo Articulo o Material">
+                                                    <button type="button" class="btn btn-outline bg-primary rounded-round btn-icon btn-sm btn-float" onclick="article_new()"><i class="icon-pencil"></i></button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+				</ul>
+				<!-- /bottom right menu -->
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -305,6 +322,115 @@
                                     <label><input type="checkbox" value="" id="new_salida_rapida"> Salida Rapida</label>
                                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="cerrarArticle()">CERRAR</button>
                                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updArticle()">GUARDAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
+                    <!-- Modal new invoice -->
+                    <div id="add_article" class="modal fade">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> NUEVO ARTICULO</legend>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 add-new-art" id="add_codigobarra" placeholder="Codigo de barra">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-barcode2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 add-new-art" id="add_cod_inventario" readonly placeholder="Codigo Inv.">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-price-tag2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="form-group">
+                                                            <select data-placeholder="Categoria *" class="form-control form-control-select2 border-danger text-right select-new-article" id="select_categoria_2" data-fouc>
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <select data-placeholder="Tipo de unidad *" class="form-control form-control-select2 text-right select-new-article" id="add_tipounidad">
+                                                                <option></option>
+                                                                <option value="pza">Pieza</option>
+                                                                <option value="kgr">Kilogramo</option>
+                                                                <option value="mtr">Metro</option>
+                                                                <option value="pqt">Paquete</option>
+                                                                <option value="cja">Caja</option>
+                                                                <option value="ltr">Litro</option>
+                                                                <option value="lte">Lote</option>
+                                                                <option value="kit">Kit</option>
+                                                                <option value="par">Par</option> 
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 add-new-art" id="add_descripcion" placeholder="Descripción *" onkeyup="mayus(this);">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-file-text"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 add-new-art" id="add_especificacion" placeholder="Especificación">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-design"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 add-new-art" id="add_marca" placeholder="Marca *">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-stamp"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="alert alert-danger border-0 alert-dismissible" id="msj_alert3" style="display: none;">
+                                                            <button type="button" class="close" onclick="close_alert()"><span>×</span></button>
+                                                            <span class="font-weight-semibold">Error! </span> Debe completar el formulario <a href="#" class="alert-link" onclick="close_alert()">Intentar nuevamente</a>.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-transparent">
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="new_agregarusar" onclick="addArticle(true)">GUARDAR Y APLICAR</button>
+                                    <div class="list-icons text-danger-800">
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" data-toggle="dropdown"><i class="icon-menu5"></i></button>
+                                            <div class="dropdown-menu dropdown-menu-right bg-slate-600">
+                                                <a class="dropdown-item" onclick="limpiar_form()"><i class="icon-eraser2"></i> LIMPIAR FORMULARIO</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" onclick="salir_sin_guardar()"><i class="icon-cross2"></i> SALIR SIN GUARDAR</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

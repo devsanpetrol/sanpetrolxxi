@@ -99,10 +99,8 @@ class suministro extends conect
         return $resultado;
     }
     public function get_categoria_articulo(){
-        $sql = $this->_db->prepare("SELECT adm_categoria_consumibles.id_categoria,adm_categoria_consumibles.categoria,adm_categoria_consumibles.id_empleado_resp, adm_persona.nombre,adm_persona.apellidos
-                                    FROM adm_categoria_consumibles
-                                    INNER JOIN adm_empleado ON adm_categoria_consumibles.id_empleado_resp = adm_empleado.id_empleado
-                                    INNER JOIN adm_persona ON adm_empleado.id_persona = adm_persona.id_persona");
+        $sql = $this->_db->prepare("SELECT id_categoria,categoria
+                                    FROM adm_categoria_consumibles");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -767,6 +765,24 @@ class suministro extends conect
     }
     public function get_personal($filtro = "",$limit = ""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_empleado $filtro order by ambito, nombre asc $limit");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_ambito(){
+        $sql = $this->_db->prepare("SELECT * FROM adm_ambito");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_departamento(){
+        $sql = $this->_db->prepare("SELECT * FROM adm_departamento");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_puesto(){
+        $sql = $this->_db->prepare("SELECT * FROM adm_nivel_org");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

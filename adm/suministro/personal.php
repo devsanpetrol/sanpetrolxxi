@@ -171,26 +171,26 @@
                     </div>
                     <!-- /large modal -->
                     <!-- Modal new invoice -->
-                    <div id="article_new" class="modal fade">
+                    <div id="new_employe" class="modal fade">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <fieldset>
-                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-menu7 mr-2"></i> PROPIEDADES DEL ARTICULO</legend>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-menu7 mr-2"></i> DATOS PERSONALES</legend>
                                                 <div class="row">
-                                                    <div class="col-md-7">
+                                                    <div class="col-md-6">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_codigobarra" placeholder="Codigo de barra">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_nombre">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-barcode2"></i>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-6">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_cod_inventario" readonly placeholder="SKU.">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_apellidos">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-price-tag2"></i>
                                                             </div>
@@ -198,57 +198,138 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-bold text-blue-800" id="new_descripcion" placeholder="Descripción *" onkeyup="mayus(this);">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_email_personal">
                                                             <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-file-text"></i>
+                                                                <i class="icon-barcode2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_telefono_personal">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-price-tag2"></i>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-7">
-                                                        <div class="form-group">
-                                                            <select data-placeholder="Categoria *" class="form-control form-control-select2 border-danger text-right" id="select_categoria" data-fouc>
-                                                                <option></option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <div class="form-group">
-                                                            <select data-placeholder="Tipo de unidad *" class="form-control form-control-select2 text-right" id="new_tipounidad">
-                                                                <option></option>
-                                                                <option value="pza">Pieza</option>
-                                                                <option value="kgr">Kilogramo</option>
-                                                                <option value="mtr">Metro</option>
-                                                                <option value="pqt">Paquete</option>
-                                                                <option value="cja">Caja</option>
-                                                                <option value="ltr">Litro</option>
-                                                                <option value="lte">Lote</option>
-                                                                <option value="kit">Kit</option>
-                                                                <option value="par">Par</option> 
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_especificacion" placeholder="Especificación">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_direccion">
                                                             <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-design"></i>
+                                                                <i class="icon-barcode2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_ciudad">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-price-tag2"></i>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_marca" placeholder="Marca *">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_estado_prov">
                                                             <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-stamp"></i>
+                                                                <i class="icon-barcode2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_cp">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-price-tag2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_genero">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-barcode2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_curp">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-price-tag2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-menu7 mr-2"></i> DATOS DEL EMPLEADO</legend>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <select class="form-control form-control-select2 border-danger text-right" id="new_ambito" data-fouc>
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <select class="form-control form-control-select2 border-danger text-right" id="new_departamento" data-fouc>
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <select class="form-control form-control-select2 border-danger text-right" id="new_puesto" data-fouc>
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_cargo">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-barcode2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_especialista">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-price-tag2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_email">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-barcode2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_telefono">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-price-tag2"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -262,53 +343,13 @@
                                                     </div>
                                                 </div>
                                             </fieldset>
-                                            <fieldset>
-                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-bookmark mr-2"></i> ALMACÉN</legend>
-                                                <input type="hidden" id="new_idarticulo" value="">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_stock" readonly placeholder="Stock" title="Stock disponible en Almacén">
-                                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-book2"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_min" placeholder="Min." title="Cantidad Mínima">
-                                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-chevron-down text-danger-600"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_max" placeholder="Max." title="Cantidad Máxima">
-                                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-chevron-up text-blue-700"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_ubicacion" placeholder="Ubicación en el almacen" title="Ubicación fisica del articulo en el Almacén">
-                                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-target2"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer bg-transparent">
-                                    <label><input type="checkbox" value="" id="new_salida_rapida"> Salida Rapida</label>
-                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="cerrarArticle()">CERRAR</button>
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updArticle()">GUARDAR</button>
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="close_propiedadPersonal()">CERRAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="">GUARDAR</button>
                                 </div>
                             </div>
                         </div>

@@ -50,6 +50,17 @@ $(document).ready( function () {
             info: "Mostrando _TOTAL_ registros"
         }
     });
+    $('#select_categoria_2').change(function(){
+        var id_categoria = $(this).val();
+        $.ajax({
+            url: 'json_inventariar_cat.php',
+            data:{ id_categoria:id_categoria },
+            type: 'POST',
+            success:(function(res){
+                $('#add_cod_inventario').val(res.cod_articulo);
+            })
+        });
+    });
 } );
  function inventarear(e){
      var cod_articulo = $("#"+e.target.id).data("codarticulo");
@@ -204,10 +215,56 @@ function get_categoria(){
     success: function(data){
         $.each(data,function(key, registro) {
             $("#select_categoria").append("<option value='"+registro.id_categoria+"'>"+registro.categoria+"</option>");
+            $("#select_categoria_2").append("<option value='"+registro.id_categoria+"'>"+registro.categoria+"</option>");
         });
     },
     error: function(data){
       alert('error');
     }
   });
+}
+function article_new(){
+    $("#add_article").modal("show");
+}
+function addArticle(){
+    var cod_barra = $("#add_codigobarra").val();
+    var cod_articulo = $("#add_cod_inventario").val();
+    var descripcion = $("#add_descripcion").val();
+    var especificacion = $("#add_especificacion").val();
+    var tipo_unidad = $("#add_tipounidad").val();
+    var marca = $("#add_marca").val();
+    var id_categoria = $("#select_categoria_2").val();
+    
+    if(validar_newArticulo() === true){
+        $.ajax({
+            url: 'json_addArticle.php',
+            data:{ cod_articulo:cod_articulo, cod_barra:cod_barra, descripcion:descripcion, especificacion:especificacion, tipo_unidad:tipo_unidad, marca:marca, id_categoria:id_categoria },
+            type:'POST',
+            success:(function(res){
+                salir_sin_guardar();
+            })
+        });
+    }
+}
+function limpiar_form(){
+    $('.select-new-article').val(null).trigger('change');
+    $(".add-new-art").val("");
+    $('#msj_alert3').hide();
+}
+function salir_sin_guardar(){
+    $('#add_article').modal('hide');
+    $('#msj_alert3').hide();
+    limpiar_form();
+}
+function validar_newArticulo(){
+    if($('#add_tipounidad').val() != null && $('#select_categoria_2').val() != null && $('#add_descripcion').val() != '' && $("#add_marca").val() != ''){
+        $('#msj_alert3').hide();
+        return true;
+    }else{
+        $('#msj_alert3').show(200);
+        return false;
+    }
+}
+function close_alert(){
+    $('#msj_alert3').hide();
 }
