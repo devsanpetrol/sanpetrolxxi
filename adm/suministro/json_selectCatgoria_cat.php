@@ -58,7 +58,7 @@
                         <div class='dropdown-menu dropdown-menu-right bg-slate-600'>
                             $prop
                             <div class='dropdown-divider'></div>
-                            <a class='dropdown-item'><i class='icon-user-cancel'></i> Registrar Baja</a>
+                            <a class='dropdown-item'><i class='icon-gear'></i> One more separated line</a>
                         </div>
                 </div>
         </div>";

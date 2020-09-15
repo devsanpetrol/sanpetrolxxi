@@ -787,4 +787,10 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_personalDetail($id_personal){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_empleado WHERE id_empleado = $id_personal LIMIT 1");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
 }

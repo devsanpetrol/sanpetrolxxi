@@ -214,9 +214,33 @@ function get_categoria(){
   });
 }
 function propiedadPersonal(e){
+    var obj = e.target;
+    var idempleado = $(obj).data('idempleado');
+    
+    $.ajax({
+        data:{idempleado:idempleado},
+        url: 'json_propPersonal.php',
+        type: 'POST',
+        beforeSend: function (xhr){
+            
+        },
+        success: function (obj) {
+            $("#new_nombre").val(obj.nombre);
+            $("#new_apellidos").val(obj.apellidos);
+            $("#new_email_personal").val(obj.email_personal);
+            $("#new_direccion").val(obj.direccion);
+            $("#new_ciudad").val(obj.ciudad);
+            $("#new_edo_prov").val(obj.edo_prov);
+            $("#new_cod_postal").val(obj.cod_postal);
+        },
+        complete: (function () {
+            
+        })
+    });
     $("#new_employe").modal('show');
 }
 function close_propiedadPersonal(){
+    $(".form-update-employ").val("");
     $("#new_employe").modal('hide');
 }
 function get_ambito(){
