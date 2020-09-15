@@ -222,9 +222,11 @@ function propiedadPersonal(e){
         url: 'json_propPersonal.php',
         type: 'POST',
         beforeSend: function (xhr){
-            
+            $("#bg-m").removeClass("bg-blue");
+            $("#bg-f").removeClass("bg-pink");
         },
         success: function (obj) {
+            $("#id_persona").data({idpersona:obj.id_persona, idempleado:obj.id_empleado});
             $("#new_nombre").val(obj.nombre);
             $("#new_apellidos").val(obj.apellidos);
             $("#new_email_personal").val(obj.email_personal);
@@ -232,12 +234,87 @@ function propiedadPersonal(e){
             $("#new_ciudad").val(obj.ciudad);
             $("#new_edo_prov").val(obj.edo_prov);
             $("#new_cod_postal").val(obj.cod_postal);
+            
+            if(obj.sexo == "M"){
+                $("#new_genero_1").prop({checked:true,disabled:true});
+                $("#bg-m").addClass("badge-blue");
+            }else if(obj.sexo == "F"){
+                $("#new_genero_2").prop({checked:true,disabled:true});
+                $("#bg-f").addClass("badge-pink");
+            }
+            
+            $('#new_ambito option[value='+obj.idambito+']').prop('selected', 'selected').change();
+            $('#new_departamento option[value='+obj.id_departamento+']').prop('selected', 'selected').change();
+            $('#new_puesto option[value='+obj.id_puesto+']').prop('selected', 'selected').change();
+            
+            $("#new_cargo").val(obj.cargo);
+            if(obj.fecha_alta != null){
+                $("#new_fecha_alta").val(obj.fecha_alta).prop({disabled:false,readonly:true});
+            }else{
+                $("#new_fecha_alta").val(null).prop({disabled:true,readonly:true});
+            }
+            if(obj.fecha_baja != null){
+                $("#new_fecha_baja").val(obj.fecha_baja).prop({disabled:false,readonly:true});;
+            }else{
+                $("#new_fecha_baja").val(null).prop({disabled:true,readonly:true});;
+            }
+            
+            $("#new_especialista").val(obj.especialista);
+            $("#new_email").val(obj.email);
+            $("#new_telefono").val(obj.telefono_empleo);
         },
         complete: (function () {
             
         })
     });
     $("#new_employe").modal('show');
+}
+function updPersonal(){
+    var id_empleado = $("#id_persona").data("idempleado"),
+        id_persona = $("#id_persona").data("idpersona"),
+        email_personal = $("#new_email_personal").val(),
+        direccion = $("#new_direccion").val(),
+        ciudad = $("#new_ciudad").val(),
+        telefono_personal = $("#new_telefono_personal").val(),
+        edo_prov = $("#new_edo_prov").val(),
+        cod_postal = $("#new_cod_postal").val(),
+        curp = $("#new_curp").val(),
+        ambito = $("#new_ambito").val(),
+        departamento = $("#new_departamento").val(),
+        puesto = $("#new_puesto").val(),
+        cargo = $("#new_cargo").val(),
+        especialista = $("#new_especialista").val(),
+        email = $("#new_email").val(),
+        telefono_empleo = $("#new_telefono_empleo").val();
+          
+    $.post('json_update_propPersonal.php',{
+        id_empleado:id_empleado,
+        id_persona:id_persona,
+        email_personal:email_personal,
+        direccion:direccion,
+        ciudad:ciudad,
+        edo_prov:edo_prov,
+        cod_postal:cod_postal,
+        curp:curp,
+        telefono:telefono_personal,
+        ambito:ambito,
+        departamento:departamento,
+        puesto:puesto,
+        cargo:cargo,
+        especialista:especialista,
+        email:email,
+        telefono_empleo:telefono_empleo
+        
+    },function(result){
+        if(result[0].result == "exito"){
+            alert("Se guardo correctamente!");
+        }else{
+            alert("Ocurrio un problema al guardar la información");
+        }
+        
+    }).done(function() {
+        $("#article_new").modal("hide");
+    });
 }
 function close_propiedadPersonal(){
     $(".form-update-employ").val("");

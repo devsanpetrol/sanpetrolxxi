@@ -724,6 +724,21 @@ class suministro extends conect
             return false;
         }
     }
+    public function set_update_personal($id_empleado,$id_persona,$cargo,$especialista,$email,$telefono_empleo,$id_departamento,$idambito,$id_puesto,$email_personal,$direccion,$ciudad,$edo_prov,$cod_postal,$telefono,$curp){
+        $sql1 = $this->_db->prepare("UPDATE adm_empleado SET cargo='$cargo',especialista='$especialista',email='$email',telefono_empleo='$telefono_empleo', id_departamento=$id_departamento, idambito=$idambito, id_puesto=$id_puesto WHERE id_empleado = $id_empleado LIMIT 1");
+        $sql2 = $this->_db->prepare("UPDATE adm_persona SET email_personal='$email_personal',direccion='$direccion',ciudad='$ciudad',edo_prov='$edo_prov',cod_postal='$cod_postal',telefono='$telefono',curp='$curp' WHERE id_persona = $id_persona");
+        $exe1 = $sql1 -> execute();
+        if ($exe1){
+            $exe2 = $sql2 -> execute();
+            if($exe2){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
     public function set_update_activo($cod_articulo,$id_articulo, $cod_barra,$descripcion,$especificacion,$tipo_unidad,$marca,$id_categoria,$fecha_adquisicion, $tiempo_utilidad, $fecha_baja,$costo, $no_inventario, $no_serie,$status,$disponible,$operable,$salida_rapida){
         $sql1 = $this->_db->prepare("UPDATE adm_articulo SET cod_barra='$cod_barra', descripcion='$descripcion', especificacion= '$especificacion', tipo_unidad= '$tipo_unidad', marca= '$marca', id_categoria= $id_categoria WHERE $id_articulo LIMIT 1");
         $sql2 = $this->_db->prepare("UPDATE adm_almacen SET salida_rapida = $salida_rapida WHERE cod_articulo = '$cod_articulo'");

@@ -178,7 +178,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <fieldset>
-                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-menu7 mr-2"></i> DATOS PERSONALES</legend>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-menu7 mr-2"></i> DATOS PERSONALES</legend><input type="hidden" id="id_persona" data-idpersona="" data-idempleado="">
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
@@ -224,7 +224,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_cp" placeholder="Codigo Postal"> 
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_cod_postal" placeholder="Codigo Postal"> 
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-mailbox"></i>
                                                             </div>
@@ -252,14 +252,14 @@
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                                             <div class="form-check form-check-inline form-check-right">
                                                                 <label class="form-check-label">
-                                                                    Masculino
-                                                                    <input type="radio" class="form-check-input" name="radio-unstyled-inline-right" checked>
+                                                                    <span class="badge" id="bg-f">Masculino</span>
+                                                                    <input type="radio" class="form-check-input" name="radio-unstyled-inline-right" id="new_genero_1">
                                                                 </label>
                                                             </div>
                                                             <div class="form-check form-check-inline form-check-right">
                                                                 <label class="form-check-label">
-                                                                    Femenino
-                                                                    <input type="radio" class="form-check-input" name="radio-unstyled-inline-right">
+                                                                    <span class="badge" id="bg-f">Femenino</span>
+                                                                    <input type="radio" class="form-check-input" name="radio-unstyled-inline-right" id="new_genero_2">
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -300,13 +300,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="date" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" required>
-                                                            
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_email" placeholder="E-Mail">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-envelop3"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800  form-update-employ" id="new_cargo" placeholder="Cargo">
                                                             <div class="form-control-feedback form-control-feedback-sm">
@@ -314,7 +316,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_especialista" placeholder="Especialista">
                                                             <div class="form-control-feedback form-control-feedback-sm">
@@ -324,17 +326,21 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_email" placeholder="E-Mail">
-                                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-envelop3"></i>
-                                                            </div>
+                                                            <input type="date" class="form-control font-weight-semibold text-blue-800" id="new_fecha_alta">
+                                                            <span class="form-text text-muted text-center">Fecha de Ingreso</span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_telefono" placeholder="Telefono">
+                                                            <input type="date" class="form-control font-weight-semibold text-blue-800" id="new_fecha_baja">
+                                                            <span class="form-text text-muted text-center">Fecha de Baja</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_telefono_empleo" placeholder="Telefono">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-phone-plus"></i>
                                                             </div>
@@ -355,7 +361,7 @@
                                 </div>
                                 <div class="modal-footer bg-transparent">
                                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="close_propiedadPersonal()">CERRAR</button>
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="">GUARDAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updPersonal()">GUARDAR</button>
                                 </div>
                             </div>
                         </div>

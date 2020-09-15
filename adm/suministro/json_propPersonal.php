@@ -62,6 +62,7 @@ if(!empty($_POST['idempleado'])){
             'ambito' => $dato[0]['ambito'],
             'nivel' => $dato[0]['nivel'],
             'puesto' => $dato[0]['puesto'],
+            'id_puesto' => $dato[0]['id_puesto'],
             'fecha_baja' => $dato[0]['fecha_baja']
         );
     }

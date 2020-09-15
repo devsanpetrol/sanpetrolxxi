@@ -10,7 +10,7 @@ class log extends conect
     public function get_access_login($user,$pass){
         $sql = $this->_db->prepare("SELECT
                                     adm_login.id_usuario, adm_login.usuario, adm_login.estado, adm_login.avatar, adm_login.tipo,
-                                    adm_empleado.cargo, adm_empleado.email,adm_empleado.especialista, adm_empleado.telefono,adm_empleado.id_empleado,
+                                    adm_empleado.cargo, adm_empleado.email,adm_empleado.especialista, adm_empleado.telefono_empleo,adm_empleado.id_empleado,
                                     adm_departamento.departamento,
                                     adm_persona.nombre,adm_persona.apellidos
                                     FROM adm_login
