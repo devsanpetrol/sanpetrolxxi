@@ -11,6 +11,7 @@
                         "cargo" => cargo_email($valor['cargo'],$valor['email']),
                         "departamento" => cargo_email($valor['departamento'],$valor['especialista']),
                         "ambito" => departamento($valor['ambito']),
+                        "status" => status($valor['status']),
                         "accion" => accion($valor['id_empleado'])
                         );
         
@@ -41,14 +42,20 @@
                     </div>";
         }
     }
-    function stock_min_max($cantidad){
-        return "<h6 class='mb-0'>$cantidad</h6>";
+    function status($status){
+        if($status == 1){
+            return "<span class='badge badge-success'>Activo</span>";
+        }else{
+            return "<span class='badge badge-danger'>Baja</span>";
+        }
+        
     }
     function accion($id_empleado){
         $prop = "";
         
         if(!empty($id_empleado)){
             $prop = "<a class='dropdown-item' id='X$id_empleado' data-idempleado='$id_empleado' onclick='propiedadPersonal(event)'><i class='icon-clippy'></i> Propiedades</a>";
+            $baja = "<a class='dropdown-item' id='Z$id_empleado' data-idempleado='$id_empleado' onclick='propiedadPersonalBaja(event)'><i class='icon-user-cancel'></i> Registrar Baja</a>";
         }
     return "<div class='list-icons'>
                 <div class='dropdown'>
@@ -58,7 +65,7 @@
                         <div class='dropdown-menu dropdown-menu-right bg-slate-600'>
                             $prop
                             <div class='dropdown-divider'></div>
-                            <a class='dropdown-item'><i class='icon-user-cancel'></i> Registrar Baja</a>
+                            $baja
                         </div>
                 </div>
         </div>";

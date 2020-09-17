@@ -103,12 +103,30 @@
                     </div>
                     <!-- Content area -->
                     <div class="content">
+                        <!-- Bottom right menu -->
+                        <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="click">
+                            <li>
+                                <a class="fab-menu-btn btn bg-success-400 btn-float rounded-round btn-icon">
+                                    <i class="fab-icon-open icon-paragraph-justify3"></i>
+                                    <i class="fab-icon-close icon-cross2"></i>
+                                </a>
+                                <ul class="fab-menu-inner">
+                                    <li>
+                                        <div data-fab-label="Alta nuevo personal">
+                                            <button type="button" class="btn btn-outline bg-primary rounded-round btn-icon btn-sm btn-float" onclick="openModalNewEmployed()"><i class="icon-user-plus"></i></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- /bottom right menu -->
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table datatable-basic" id="personal_tabla" style="width:100%">
+                                        <col width="15%">
                                         <col width="20%">
-                                        <col width="20%">
+                                        <col width="5%">
                                         <col width="30%">
                                         <col width="25%">
                                         <col width="5%">
@@ -116,6 +134,7 @@
                                             <tr>
                                                 <th>Nombre</th>
                                                 <th>Apellidos</th>
+                                                <th></th>
                                                 <th>Cargo</th>
                                                 <th>Depto.</th>
                                                 <th></th>
@@ -183,7 +202,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_nombre" placeholder="Nombre">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="new_nombre" placeholder="Nombre">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-user-tie"></i>
                                                             </div>
@@ -191,7 +210,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_apellidos" placeholder="Apellidos">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="new_apellidos" placeholder="Apellidos">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 
                                                             </div>
@@ -199,7 +218,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_email_personal" placeholder="E-Mail Personal">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-lowercase" id="new_email_personal" placeholder="E-Mail Personal">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-envelop3"></i>
                                                             </div>
@@ -253,21 +272,21 @@
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                                             <div class="form-check form-check-inline form-check-right">
                                                                 <label class="form-check-label">
-                                                                    <span class="badge" id="bg-f">Masculino</span>
-                                                                    <input type="radio" class="form-check-input" name="radio-unstyled-inline-right" id="new_genero_1">
+                                                                    <span class="badge" id="bg-m">Masculino</span>
+                                                                    <input type="radio" class="form-check-input" name="radio-unstyled-inline-right" id="new_genero_1" value="M">
                                                                 </label>
                                                             </div>
                                                             <div class="form-check form-check-inline form-check-right">
                                                                 <label class="form-check-label">
                                                                     <span class="badge" id="bg-f">Femenino</span>
-                                                                    <input type="radio" class="form-check-input" name="radio-unstyled-inline-right" id="new_genero_2">
+                                                                    <input type="radio" class="form-check-input" name="radio-unstyled-inline-right" id="new_genero_2" value="F">
                                                                 </label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_curp" placeholder="C.U.R.P.">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800  text-uppercase" id="new_curp" placeholder="C.U.R.P.">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-vcard"></i>
                                                             </div>
@@ -303,7 +322,7 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_email" placeholder="E-Mail">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-lowercase" id="new_email" placeholder="E-Mail">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-envelop3"></i>
                                                             </div>
@@ -311,7 +330,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_cargo" placeholder="Cargo">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="new_cargo" placeholder="Cargo">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-collaboration"></i>
                                                             </div>
@@ -319,7 +338,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_especialista" placeholder="Especialista">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="new_especialista" placeholder="Especialista">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-design"></i>
                                                             </div>
@@ -349,6 +368,26 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_comentario_baja" placeholder="Comentario">
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-phone-plus2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="alert alert-danger border-0 alert-dismissible" id="msj_alert1" style="display: none;">
                                                             <button type="button" class="close" onclick="close_alert()"><span>×</span></button>
@@ -364,8 +403,9 @@
                                 <div class="modal-footer bg-transparent">
                                     <button type="button" class="btn btn-sm alpha-warning text-warning-800 legitRipple" onclick="reset_form_personal()" id="form_btn_reset">RESET</button>
                                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple"   onclick="close_propiedadPersonal()">CERRAR</button>
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updPersonal()" id="form_btn_update">GUARDAR</button>
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updPersonal()" id="form_btn_insert">GUARDAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="delPersonal()" id="form_btn_delete">BAJA</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updPersonal()" id="form_btn_update">ACTUALIZAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="setPersonal()" id="form_btn_insert">CREAR</button>
                                 </div>
                             </div>
                         </div>

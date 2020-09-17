@@ -739,7 +739,7 @@ class suministro extends conect
             return false;
         }
     }
-    public function set_insert_personal($fecha_alta,$cargo,$especialista,$email,$telefono_empleo,$id_departamento,$idambito,$id_puesto,$nombre,$apellidos,$email_personal,$direccion,$ciudad,$edo_prov,$cod_postal,$telefono,$sexo,$curp){
+    public function set_insert_persona($nombre,$apellidos,$email_personal,$direccion,$ciudad,$edo_prov,$cod_postal,$telefono,$sexo,$curp){
         $sql1 = $this->_db->prepare("INSERT INTO adm_persona(nombre, apellidos, email_personal, direccion, ciudad, edo_prov, cod_postal, telefono, sexo, curp) VALUES ('$nombre', '$apellidos', '$email_personal', '$direccion', '$ciudad', '$edo_prov', '$cod_postal', '$telefono','$sexo', '$curp')");
         
         try {
@@ -747,10 +747,22 @@ class suministro extends conect
             $sql1 -> execute();
             $id_persona = $this ->_db-> lastInsertId();
             $this ->_db-> commit();
-            $sql2 = $this->_db->prepare("INSERT INTO adm_empleado(id_persona, cargo, especialista, fecha_alta, email, telefono_empleo, status, id_departamento, idambito, id_puesto) VALUES ($id_persona,'$cargo','$especialista','$fecha_alta','$email','$telefono_empleo',$id_departamento,$idambito,$id_puesto)");
-            $exe2 = $sql2 -> execute();
-            return $exe2 ? true : false;
-        } catch(PDOExecption $e) {
+            return $id_persona;
+        } catch(PDOExecption $e){
+            $this ->_db-> rollback();
+            return "Error!: " . $e -> getMessage();
+        }
+    }
+    public function set_insert_empleado($id_persona,$fecha_alta,$cargo,$especialista,$email,$telefono_empleo,$id_departamento,$idambito,$id_puesto){
+        $sql1 = $this->_db->prepare("INSERT INTO adm_empleado(id_persona, cargo, especialista, fecha_alta, email, telefono_empleo, id_departamento, idambito, id_puesto) VALUES ($id_persona,'$cargo','$especialista','$fecha_alta','$email','$telefono_empleo',$id_departamento,$idambito,$id_puesto)");
+        
+        try {
+            $this ->_db-> beginTransaction();
+            $sql1 -> execute();
+            $id_empleado = $this ->_db-> lastInsertId();
+            $this ->_db-> commit();
+            return $id_empleado;
+        } catch(PDOExecption $e){
             $this ->_db-> rollback();
             return "Error!: " . $e -> getMessage();
         }

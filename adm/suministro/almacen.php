@@ -104,22 +104,22 @@
                     <!-- Content area -->
                     <div class="content">
                         <!-- Bottom right menu -->
-				<ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="click">
+                        <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="click">
+                            <li>
+                                <a class="fab-menu-btn btn bg-success-400 btn-float rounded-round btn-icon">
+                                    <i class="fab-icon-open icon-paragraph-justify3"></i>
+                                    <i class="fab-icon-close icon-cross2"></i>
+                                </a>
+                                <ul class="fab-menu-inner">
                                     <li>
-                                        <a class="fab-menu-btn btn bg-success-400 btn-float rounded-round btn-icon">
-                                            <i class="fab-icon-open icon-paragraph-justify3"></i>
-                                            <i class="fab-icon-close icon-cross2"></i>
-                                        </a>
-                                        <ul class="fab-menu-inner">
-                                            <li>
-                                                <div data-fab-label="Nuevo Articulo o Material">
-                                                    <button type="button" class="btn btn-outline bg-primary rounded-round btn-icon btn-sm btn-float" onclick="article_new()"><i class="icon-pencil"></i></button>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                        <div data-fab-label="Nuevo Articulo o Material">
+                                            <button type="button" class="btn btn-outline bg-primary rounded-round btn-icon btn-sm btn-float" onclick="article_new()"><i class="icon-pencil"></i></button>
+                                        </div>
                                     </li>
-				</ul>
-				<!-- /bottom right menu -->
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- /bottom right menu -->
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
