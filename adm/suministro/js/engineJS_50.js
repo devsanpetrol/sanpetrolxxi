@@ -234,7 +234,9 @@ function propiedadPersonal(e){
             $("#new_ciudad").val(obj.ciudad);
             $("#new_edo_prov").val(obj.edo_prov);
             $("#new_cod_postal").val(obj.cod_postal);
-            
+            $("#new_telefono_personal").val(obj.telefono);
+            $("#new_curp").val(obj.curp);
+                    
             if(obj.sexo == "M"){
                 $("#new_genero_1").prop({checked:true,disabled:true});
                 $("#bg-m").addClass("badge-blue");
@@ -261,7 +263,7 @@ function propiedadPersonal(e){
             
             $("#new_especialista").val(obj.especialista);
             $("#new_email").val(obj.email);
-            $("#new_telefono").val(obj.telefono_empleo);
+            $("#new_telefono_empleo").val(obj.telefono_empleo);
         },
         complete: (function () {
             
@@ -317,7 +319,7 @@ function updPersonal(){
     });
 }
 function close_propiedadPersonal(){
-    $(".form-update-employ").val("");
+    reset_form_personal();
     $("#new_employe").modal('hide');
 }
 function get_ambito(){
@@ -364,4 +366,64 @@ function get_puesto(){
       alert('error');
     }
   });
+}
+function reset_form_personal(){
+    $("#id_persona").data({idpersona:'', idempleado:''});
+    $('.form-select-input-personal').val(null).trigger('change');
+    $('#form_personal')[0].reset();
+}
+function setPersonal(){
+    var nombre = $("#new_nombre").val(),
+        apellidos = $("#new_apellidos").val(),
+        email_personal = $("#new_email_personal").val(),
+        direccion = $("#new_direccion").val(),
+        ciudad = $("#new_ciudad").val(),
+        telefono_personal = $("#new_telefono_personal").val(),
+        edo_prov = $("#new_edo_prov").val(),
+        cod_postal = $("#new_cod_postal").val(),
+        genero = $("input[name='radio-unstyled-inline-right']:checked").val(),
+        curp = $("#new_curp").val(),
+        fecha_alta = $("#new_fecha_alta").val(),
+        ambito = $("#new_ambito").val(),
+        departamento = $("#new_departamento").val(),
+        puesto = $("#new_puesto").val(),
+        cargo = $("#new_cargo").val(),
+        especialista = $("#new_especialista").val(),
+        email = $("#new_email").val(),
+        telefono_empleo = $("#new_telefono_empleo").val();
+          
+    $.post('json_insert_propPersonal.php',{
+        nombre:nombre,
+        apellidos:apellidos,
+        email_personal:email_personal,
+        direccion:direccion,
+        ciudad:ciudad,
+        edo_prov:edo_prov,
+        cod_postal:cod_postal,
+        genero:genero,
+        curp:curp,
+        telefono:telefono_personal,
+        fecha_alta:fecha_alta,
+        ambito:ambito,
+        departamento:departamento,
+        puesto:puesto,
+        cargo:cargo,
+        especialista:especialista,
+        email:email,
+        telefono_empleo:telefono_empleo
+        
+    },function(result){
+        if(result[0].result == "exito"){
+            alert("Se guardo correctamente!");
+        }else{
+            alert("Ocurrio un problema al guardar la información");
+        }
+        
+    }).done(function() {
+        $("#article_new").modal("hide");
+    });
+}
+function openModalNewEmployed(){
+    reset_form_personal();
+    $("#new_employe").modal('show');
 }

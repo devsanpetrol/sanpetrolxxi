@@ -175,6 +175,7 @@
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="card-body">
+                                    <form id="form_personal">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <fieldset>
@@ -182,7 +183,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_nombre" placeholder="Nombre">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_nombre" placeholder="Nombre">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-user-tie"></i>
                                                             </div>
@@ -190,15 +191,15 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_apellidos" placeholder="Apellidos">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_apellidos" placeholder="Apellidos">
                                                             <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-price-tag2"></i>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_email_personal" placeholder="E-Mail Personal">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_email_personal" placeholder="E-Mail Personal">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-envelop3"></i>
                                                             </div>
@@ -206,9 +207,9 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_telefono_personal" placeholder="Tel. personal">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_telefono_personal" placeholder="Tel. personal">
                                                             <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-phone-plus"></i>
+                                                                <i class="icon-phone-plus2"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -216,7 +217,7 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_direccion" placeholder="Dirección">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_direccion" placeholder="Dirección">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-direction"></i>
                                                             </div>
@@ -224,7 +225,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_cod_postal" placeholder="Codigo Postal"> 
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_cod_postal" placeholder="Codigo Postal"> 
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-mailbox"></i>
                                                             </div>
@@ -232,7 +233,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_ciudad" placeholder="Ciudad">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_ciudad" placeholder="Ciudad">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-city"></i>
                                                             </div>
@@ -240,7 +241,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_edo_prov" placeholder="Estado o Provincia">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_edo_prov" placeholder="Estado o Provincia">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-map5"></i>
                                                             </div>
@@ -266,7 +267,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800  form-update-employ" id="new_curp" placeholder="C.U.R.P.">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_curp" placeholder="C.U.R.P.">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-vcard"></i>
                                                             </div>
@@ -279,21 +280,21 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <select data-placeholder="Ambito" class="form-control form-control-select2 text-right form-control-sm" id="new_ambito" data-fouc>
+                                                            <select data-placeholder="Ambito" class="form-control form-control-select2 text-right form-control-sm form-select-input-personal" id="new_ambito" data-fouc>
                                                                 <option></option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <select data-placeholder="Departamento" class="form-control form-control-select2 text-right form-control-sm" id="new_departamento" data-fouc>
+                                                            <select data-placeholder="Departamento" class="form-control form-control-select2 text-right form-control-sm form-select-input-personal" id="new_departamento" data-fouc>
                                                                 <option></option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <select data-placeholder="Puesto" class="form-control form-control-select2 text-right form-control-sm" id="new_puesto" data-fouc >
+                                                            <select data-placeholder="Puesto" class="form-control form-control-select2 text-right form-control-sm form-select-input-personal" id="new_puesto" data-fouc >
                                                                 <option></option>
                                                             </select>
                                                         </div>
@@ -302,7 +303,7 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_email" placeholder="E-Mail">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_email" placeholder="E-Mail">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-envelop3"></i>
                                                             </div>
@@ -310,7 +311,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800  form-update-employ" id="new_cargo" placeholder="Cargo">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_cargo" placeholder="Cargo">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-collaboration"></i>
                                                             </div>
@@ -318,7 +319,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_especialista" placeholder="Especialista">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_especialista" placeholder="Especialista">
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-design"></i>
                                                             </div>
@@ -340,9 +341,9 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 form-update-employ" id="new_telefono_empleo" placeholder="Telefono">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_telefono_empleo" placeholder="Telefono">
                                                             <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-phone-plus"></i>
+                                                                <i class="icon-phone-plus2"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -358,10 +359,13 @@
                                             </fieldset>
                                         </div>
                                     </div>
+                                </form>
                                 </div>
                                 <div class="modal-footer bg-transparent">
-                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="close_propiedadPersonal()">CERRAR</button>
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updPersonal()">GUARDAR</button>
+                                    <button type="button" class="btn btn-sm alpha-warning text-warning-800 legitRipple" onclick="reset_form_personal()" id="form_btn_reset">RESET</button>
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple"   onclick="close_propiedadPersonal()">CERRAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updPersonal()" id="form_btn_update">GUARDAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updPersonal()" id="form_btn_insert">GUARDAR</button>
                                 </div>
                             </div>
                         </div>

@@ -739,6 +739,22 @@ class suministro extends conect
             return false;
         }
     }
+    public function set_insert_personal($fecha_alta,$cargo,$especialista,$email,$telefono_empleo,$id_departamento,$idambito,$id_puesto,$nombre,$apellidos,$email_personal,$direccion,$ciudad,$edo_prov,$cod_postal,$telefono,$sexo,$curp){
+        $sql1 = $this->_db->prepare("INSERT INTO adm_persona(nombre, apellidos, email_personal, direccion, ciudad, edo_prov, cod_postal, telefono, sexo, curp) VALUES ('$nombre', '$apellidos', '$email_personal', '$direccion', '$ciudad', '$edo_prov', '$cod_postal', '$telefono','$sexo', '$curp')");
+        
+        try {
+            $this ->_db-> beginTransaction();
+            $sql1 -> execute();
+            $id_persona = $this ->_db-> lastInsertId();
+            $this ->_db-> commit();
+            $sql2 = $this->_db->prepare("INSERT INTO adm_empleado(id_persona, cargo, especialista, fecha_alta, email, telefono_empleo, status, id_departamento, idambito, id_puesto) VALUES ($id_persona,'$cargo','$especialista','$fecha_alta','$email','$telefono_empleo',$id_departamento,$idambito,$id_puesto)");
+            $exe2 = $sql2 -> execute();
+            return $exe2 ? true : false;
+        } catch(PDOExecption $e) {
+            $this ->_db-> rollback();
+            return "Error!: " . $e -> getMessage();
+        }
+    }
     public function set_update_activo($cod_articulo,$id_articulo, $cod_barra,$descripcion,$especificacion,$tipo_unidad,$marca,$id_categoria,$fecha_adquisicion, $tiempo_utilidad, $fecha_baja,$costo, $no_inventario, $no_serie,$status,$disponible,$operable,$salida_rapida){
         $sql1 = $this->_db->prepare("UPDATE adm_articulo SET cod_barra='$cod_barra', descripcion='$descripcion', especificacion= '$especificacion', tipo_unidad= '$tipo_unidad', marca= '$marca', id_categoria= $id_categoria WHERE $id_articulo LIMIT 1");
         $sql2 = $this->_db->prepare("UPDATE adm_almacen SET salida_rapida = $salida_rapida WHERE cod_articulo = '$cod_articulo'");
