@@ -1,6 +1,4 @@
 $(document).ready( function () {
-    
-    reset_form_personal();
     $('.form-control-select2').select2();
     $("body").addClass("sidebar-xs");
     $(".almacen").addClass("active");
@@ -228,10 +226,13 @@ function get_propPersonal(idempleado){
         data:{idempleado:idempleado},
         url: 'json_propPersonal.php',
         type: 'POST',
+        beforeSend: function (xhr){
+            reset_form_personal_upd();//===========ABRE MODAL UPDATE EMPLEADO
+        },
         success: function (obj) {
             $("#id_persona").data({idpersona:obj.id_persona, idempleado:obj.id_empleado});
-            $("#new_nombre").val(obj.nombre).prop({disabled:true});
-            $("#new_apellidos").val(obj.apellidos).prop({disabled:true});
+            $("#new_nombre").val(obj.nombre);
+            $("#new_apellidos").val(obj.apellidos);
             $("#new_email_personal").val(obj.email_personal);
             $("#new_direccion").val(obj.direccion);
             $("#new_ciudad").val(obj.ciudad);
@@ -241,12 +242,12 @@ function get_propPersonal(idempleado){
             $("#new_curp").val(obj.curp);
                     
             if(obj.sexo == "M"){
-                $("#new_genero_1").prop({checked:true,disabled:true});
-                $("#new_genero_2").prop({checked:false,disabled:true});
+                $("#new_genero_1").prop({checked:true});
+                $("#new_genero_2").prop({checked:false});
                 $("#bg-m").addClass("badge-success");
             }else if(obj.sexo == "F"){
-                $("#new_genero_2").prop({checked:true,disabled:true});
-                $("#new_genero_1").prop({checked:false,disabled:true});
+                $("#new_genero_2").prop({checked:true});
+                $("#new_genero_1").prop({checked:false});
                 $("#bg-f").addClass("badge-success");
             }
             
@@ -254,26 +255,24 @@ function get_propPersonal(idempleado){
             $('#new_departamento option[value='+obj.id_departamento+']').prop('selected', 'selected').change();
             $('#new_puesto option[value='+obj.id_puesto+']').prop('selected', 'selected').change();
             
-            $("#new_cargo").val(obj.cargo);
+            
             if(obj.fecha_alta != null){
-                $("#new_fecha_alta").val(obj.fecha_alta).prop({disabled:false,readonly:true});
+                $("#new_fecha_alta").val(obj.fecha_alta);
             }else{
-                $("#new_fecha_alta").val(null).prop({disabled:true,readonly:true});
+                $("#new_fecha_alta").val(null);
             }
             if(obj.fecha_baja != null){
-                $("#new_fecha_baja").val(obj.fecha_baja).prop({disabled:false,readonly:true});
+                $("#new_fecha_baja").val(obj.fecha_baja);
             }else{
-                $("#new_fecha_baja").val(null).prop({disabled:true,readonly:true});
+                $("#new_fecha_baja").val(null);
             }
             
+            $("#new_cargo").val(obj.cargo);
             $("#new_especialista").val(obj.especialista);
             $("#new_email").val(obj.email);
             $("#new_telefono_empleo").val(obj.telefono_empleo);
         },
         complete: (function () {
-            $("#form_btn_insert").hide();
-            $("#form_btn_update").show();
-            $("#form_btn_reset").hide();
             $("#new_employe").modal('show');
         })
     });
@@ -326,10 +325,6 @@ function updPersonal(){
     });
 }
 function close_propiedadPersonal(){
-    reset_form_personal();
-    $("#form_btn_delete").hide();
-    $("#form_btn_insert").hide();
-    $("#form_btn_update").hide();
     $("#new_employe").modal('hide');
 }
 function get_ambito(){
@@ -386,19 +381,54 @@ function get_puesto(){
     }
   });
 }
-function reset_form_personal(){
+
+function reset_form_personal_new(){
     $("#form_personal :input").prop({disabled:false});
+    $("#new_comentario_baja").hide();
     $("#bg-m").removeClass("badge-success");
     $("#bg-f").removeClass("badge-success");
-    $("#new_nombre").prop({disabled:false});
-    $("#new_apellidos").prop({disabled:false});
-    $("#new_fecha_alta").val(null).prop({disabled:true,readonly:true});
     $("#new_fecha_baja").val(null).prop({disabled:true,readonly:true});
-    $("#new_genero_1").prop({checked:false,disabled:false});
-    $("#new_genero_2").prop({checked:false,disabled:false});
+    $("#new_genero_1").prop({checked:false});
+    $("#new_genero_2").prop({checked:false});
+    $("#id_persona").data({idpersona:'', idempleado:''});
+    $('.form-select-input-personal').val(null).trigger('change');
+    $("#form_btn_delete").hide();
+    $("#form_btn_insert").show();
+    $("#form_btn_update").hide();
+    $("#form_btn_reset").show();
+    $('#form_personal')[0].reset();
+}
+function reset_form_personal_upd(){
+    $("#form_personal :input").prop({disabled:false});
+    $("#new_comentario_baja").hide();
+    $("#bg-m").removeClass("badge-success");
+    $("#bg-f").removeClass("badge-success");
+    $("#new_nombre").prop({disabled:true});
+    $("#new_apellidos").prop({disabled:true});
+    $("#new_fecha_baja").val(null).prop({disabled:true,readonly:true});
+    $("#new_genero_1").prop({checked:false,disabled:true});
+    $("#new_genero_2").prop({checked:false,disabled:true});
     $("#id_persona").data({idpersona:'', idempleado:''});
     $('.form-select-input-personal').val(null).trigger('change');
     $('#form_personal')[0].reset();
+    $("#form_btn_delete").hide();
+    $("#form_btn_insert").hide();
+    $("#form_btn_update").show();
+    $("#form_btn_reset").hide();
+}
+function reset_form_personal_del(){
+    $("#form_personal :input").prop({disabled:true});
+    $("#new_comentario_baja").show().prop({disabled:false});
+    $("#bg-m").removeClass("badge-success");
+    $("#bg-f").removeClass("badge-success");
+    $("#new_fecha_baja").val(null).prop({disabled:false,readonly:false});
+    $("#id_persona").data({idpersona:'', idempleado:''});
+    $('.form-select-input-personal').val(null).trigger('change');
+    $('#form_personal')[0].reset();
+    $("#form_btn_delete").show();
+    $("#form_btn_insert").hide();
+    $("#form_btn_update").hide();
+    $("#form_btn_reset").hide();
 }
 function setPersonal(){
     var nombre = $("#new_nombre").val(),
@@ -452,16 +482,11 @@ function setPersonal(){
         $("#article_new").modal("hide");
     });
 }
-function openModalNewEmployed(){
+function openModalNewEmployed(){ //===========ABRE MODAL NUEVO EMPLEADO
     get_ambito();
     get_departamento();
     get_puesto();
-    reset_form_personal();
-    $("#new_fecha_alta").prop({disabled:false,readonly:false});
-    $("#form_btn_delete").hide();
-    $("#form_btn_insert").show();
-    $("#form_btn_update").hide();
-    $("#form_btn_reset").show();
+    reset_form_personal_new();
     $("#new_employe").modal('show');
 }
 function propiedadPersonalBaja(e){
@@ -478,6 +503,9 @@ function get_propPersonalBaja(idempleado){
         data:{idempleado:idempleado},
         url: 'json_propPersonal.php',
         type: 'POST',
+        beforeSend: function (xhr){
+            reset_form_personal_del();//===========ABRE MODAL DELETE EMPLEADO
+        },
         success: function (obj) {
             $("#id_persona").data({idpersona:obj.id_persona, idempleado:obj.id_empleado});
             $("#new_nombre").val(obj.nombre);
@@ -521,36 +549,28 @@ function get_propPersonalBaja(idempleado){
             $("#new_telefono_empleo").val(obj.telefono_empleo);
         },
         complete: (function () {
-            $("#form_personal :input").prop({disabled:true});
-            $("#new_fecha_baja").val(null).prop({disabled:false,readonly:false});
-            $("#new_comentario_baja").val(null).prop({disabled:false,readonly:false});
-            $("#form_btn_delete").show();
-            $("#form_btn_insert").hide();
-            $("#form_btn_update").hide();
-            $("#form_btn_reset").hide();
             $("#new_employe").modal('show');
         })
     });
 }
 function delPersonal(){
-    var fecha_baja = $("#new_fecha_alta").val(),
-        comentario = $("#new_ambito").val(),
-        id_empleado = $("#new_departamento").val();
+    var fecha_baja = $("#new_fecha_baja").val(),
+        comentario = $("#new_comentario_baja").val(),
+        id_empleado = $("#id_persona").data("id_empleado");
           
     $.post('json_delete_propPersonal.php',{
         id_empleado:id_empleado,
         comentario:comentario,
         fecha_baja:fecha_baja
-        
     },function(result){
         if(result[0].result == "exito"){
-            alert("Se eliminó correctamente!");
+            alert("Se dió de baja correctamente!");
             get_propPersonal(result[0].id_empleado);
         }else{
-            alert("Ocurrio un problema al guardar la información");
+            alert("Ocurrio un problema al actualizar la información");
         }
-        
     }).done(function() {
         $("#article_new").modal("hide");
+        reset_form_personal();
     });
 }

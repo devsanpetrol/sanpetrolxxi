@@ -739,6 +739,15 @@ class suministro extends conect
             return false;
         }
     }
+    public function set_delete_personal($id_empleado, $fecha_baja, $comentario_baja){
+        $sql1 = $this->_db->prepare("UPDATE adm_empleado SET fecha_baja='$fecha_baja',comentario_baja='$comentario_baja', status = 0 WHERE id_empleado = $id_empleado LIMIT 1");
+        $exe1 = $sql1 -> execute();
+        if ($exe1){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public function set_insert_persona($nombre,$apellidos,$email_personal,$direccion,$ciudad,$edo_prov,$cod_postal,$telefono,$sexo,$curp){
         $sql1 = $this->_db->prepare("INSERT INTO adm_persona(nombre, apellidos, email_personal, direccion, ciudad, edo_prov, cod_postal, telefono, sexo, curp) VALUES ('$nombre', '$apellidos', '$email_personal', '$direccion', '$ciudad', '$edo_prov', '$cod_postal', '$telefono','$sexo', '$curp')");
         
