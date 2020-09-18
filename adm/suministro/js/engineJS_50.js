@@ -255,7 +255,6 @@ function get_propPersonal(idempleado){
             $('#new_departamento option[value='+obj.id_departamento+']').prop('selected', 'selected').change();
             $('#new_puesto option[value='+obj.id_puesto+']').prop('selected', 'selected').change();
             
-            
             if(obj.fecha_alta != null){
                 $("#new_fecha_alta").val(obj.fecha_alta);
             }else{
@@ -267,10 +266,16 @@ function get_propPersonal(idempleado){
                 $("#new_fecha_baja").val(null);
             }
             
+            $("#new_comentario_baja").val(obj.comentario_baja);
             $("#new_cargo").val(obj.cargo);
             $("#new_especialista").val(obj.especialista);
             $("#new_email").val(obj.email);
             $("#new_telefono_empleo").val(obj.telefono_empleo);
+            if(obj.status == 0){
+                $("#form_personal :input").prop({disabled:true});
+                $("#form_btn_update").hide();
+                $("#new_comentario_baja").show();
+            }
         },
         complete: (function () {
             $("#new_employe").modal('show');
@@ -312,7 +317,6 @@ function updPersonal(){
         especialista:especialista,
         email:email,
         telefono_empleo:telefono_empleo
-        
     },function(result){
         if(result[0].result == "exito"){
             alert("Se guardo correctamente!");

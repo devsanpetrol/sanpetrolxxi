@@ -373,17 +373,11 @@
                                                            
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-8">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_comentario_baja" placeholder="Comentario">
-                                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                                <i class="icon-phone-plus2"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_comentario_baja" placeholder="Comentario adicional">
+                                                            <span class="form-text text-muted text-right">Movito de la baja</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm"></div>
                                                         </div>
                                                     </div>
                                                 </div>

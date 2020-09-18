@@ -14,6 +14,7 @@ $datos = array(
             'sexo' => '',
             'curp' => '',
             'id_empleado' => '',
+            'comentario_baja' => '',
             'cargo' => '',
             'especialista' => '',
             'fecha_alta' => '',
@@ -47,6 +48,7 @@ if(!empty($_POST['idempleado'])){
             'sexo' => $dato[0]['sexo'], //OK
             'curp' => $dato[0]['curp'],
             'id_empleado' => $dato[0]['id_empleado'],
+            'comentario_baja' => $dato[0]['comentario_baja'],
             'cargo' => $dato[0]['cargo'],
             'especialista' => $dato[0]['especialista'],
             'fecha_alta' => $dato[0]['fecha_alta'],

@@ -8,10 +8,7 @@ class suministro extends conect
         parent::__construct();
     }
     public function get_almacen_categoria(){
-        $sql = $this->_db->prepare('SELECT adm_articulo.id_articulo,adm_articulo.descripcion,adm_categoria_consumibles.categoria,adm_articulo.marca,adm_almacen.cod_articulo,adm_almacen.stock_min,adm_almacen.stock_max,adm_almacen.stock
-        FROM adm_articulo
-	INNER JOIN adm_almacen ON adm_articulo.id_articulo = adm_almacen.id_articulo
-	INNER JOIN adm_categoria_consumibles ON adm_articulo.id_categoria = adm_categoria_consumibles.id_categoria');//nombre = :Nombre'
+        $sql = $this->_db->prepare('SELECT id_articulo, descripcion, nombre_categoria as categoria, marca, cod_articulo, stock_min, stock_max, stock FROM adm_view_almacen_detail ORDER BY cod_articulo');//nombre = :Nombre'
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -42,15 +39,13 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_busqueda_5(){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_list_articulo
-                                    LIMIT 0");//nombre = :Nombre'
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_list_articulo LIMIT 0");//nombre = :Nombre'
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
     public function get_almacen_busqueda_1($searchTerm){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_list_articulo
-                                    WHERE adm_view_list_articulo.cod_articulo = :codigo");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_list_articulo WHERE adm_view_list_articulo.cod_articulo = :codigo");
         $sql->execute(array('codigo' => $searchTerm));
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -68,8 +63,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_destino($searchTerm){
-        $sql = $this->_db->prepare("SELECT * FROM ope_equipo_area
-                                    WHERE ope_equipo_area.nombre_generico");//nombre = :Nombre'
+        $sql = $this->_db->prepare("SELECT * FROM ope_equipo_area WHERE ope_equipo_area.nombre_generico");//nombre = :Nombre'
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -99,8 +93,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_categoria_articulo(){
-        $sql = $this->_db->prepare("SELECT id_categoria,categoria
-                                    FROM adm_categoria_consumibles");
+        $sql = $this->_db->prepare("SELECT id_categoria,categoria FROM adm_categoria_consumibles WHERE tipo_cat = 1");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -157,18 +150,6 @@ class suministro extends conect
         return $resultado;
     }
     //==========================================================================
-    public function get_solicitudes($filtro=""){
-        $sql = $this->_db->prepare("SELECT adm_solicitud_material.folio, adm_solicitud_material.fecha_solicitud, adm_solicitud_material.clave_solicita,adm_persona.nombre,adm_persona.apellidos,adm_solicitud_material.leido
-                                    FROM adm_solicitud_material
-                                    INNER JOIN adm_empleado ON adm_solicitud_material.clave_solicita = adm_empleado.id_empleado
-                                    INNER JOIN adm_persona ON adm_empleado.id_persona = adm_persona.id_persona
-                                    WHERE status_solicitud = 0 $filtro ORDER BY adm_solicitud_material.folio DESC");
-        $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
-    
-    
     public function get_pedidos($folio,$filtro=""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_pedido_detail WHERE folio = $folio $filtro");
         $sql->execute();
