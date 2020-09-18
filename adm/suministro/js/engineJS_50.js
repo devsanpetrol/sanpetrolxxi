@@ -316,12 +316,16 @@ function updPersonal(){
     },function(result){
         if(result[0].result == "exito"){
             alert("Se guardo correctamente!");
+        }else if(result[0].result == "sin dato"){
+            alert("Debe completar los campos requeridos");
         }else{
-            alert("Ocurrio un problema al guardar la información");
+            alert("Ocurrió un error al procesar la información");
+            console.log(result[0].result);
         }
         
     }).done(function() {
         $("#article_new").modal("hide");
+        reloadTablePersonal();
     });
 }
 function close_propiedadPersonal(){
@@ -333,7 +337,7 @@ function get_ambito(){
     url: 'json_selectAmbito.php',
     dataType: "json",
     beforeSend: function (xhr){
-        $("#new_ambito").append("");
+        $("#new_ambito").empty();
     },
     success: function(data){
         $.each(data,function(key, registro) {
@@ -351,7 +355,7 @@ function get_departamento(){
     url: 'json_selectDepartamento.php', 
     dataType: "json",
     beforeSend: function (xhr){
-        $("#new_departamento").append("");
+        $("#new_departamento").empty();
     },
     success: function(data){
         $.each(data,function(key, registro) {
@@ -369,7 +373,7 @@ function get_puesto(){
     url: 'json_selectPuesto.php', 
     dataType: "json",
     beforeSend: function (xhr){
-        $("#new_puesto").append("");
+        $("#new_puesto").empty();
     },
     success: function(data){
         $.each(data,function(key, registro) {
@@ -474,12 +478,16 @@ function setPersonal(){
         if(result[0].result == "exito"){
             alert("Se guardo correctamente!");
             get_propPersonal(result[0].id_empleado);
+        }else if(result[0].result == "sin dato"){
+            alert("Debe completar los campos requeridos");
         }else{
-            alert("Ocurrio un problema al guardar la información");
+            alert("Ocurrió un error al procesar la información");
+            console.log(result[0].result);
         }
         
     }).done(function() {
         $("#article_new").modal("hide");
+        reloadTablePersonal();
     });
 }
 function openModalNewEmployed(){ //===========ABRE MODAL NUEVO EMPLEADO
@@ -556,11 +564,11 @@ function get_propPersonalBaja(idempleado){
 function delPersonal(){
     var fecha_baja = $("#new_fecha_baja").val(),
         comentario = $("#new_comentario_baja").val(),
-        id_empleado = $("#id_persona").data("id_empleado");
+        id_empleado = $("#id_persona").data("idempleado");
           
     $.post('json_delete_propPersonal.php',{
         id_empleado:id_empleado,
-        comentario:comentario,
+        comentario_baja:comentario,
         fecha_baja:fecha_baja
     },function(result){
         if(result[0].result == "exito"){
@@ -570,7 +578,11 @@ function delPersonal(){
             alert("Ocurrio un problema al actualizar la información");
         }
     }).done(function() {
+        reloadTablePersonal();
         $("#article_new").modal("hide");
-        reset_form_personal();
     });
+}
+function reloadTablePersonal(){
+    var table = $('#personal_tabla').DataTable();
+        table.ajax.reload();
 }

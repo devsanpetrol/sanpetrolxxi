@@ -8,7 +8,7 @@
         $fecha_baja = $_POST['fecha_baja'];
         $comentario_baja = $_POST['comentario_baja'];
                 
-        $elimina = $suministro->set_delete_personal($id_empleado, $fecha_baja, $cargo, $comentario_baja);
+        $elimina = $suministro->set_delete_personal($id_empleado, $fecha_baja, $comentario_baja);
         
         if ($elimina == true){
             $data[] = array("result"=>'exito');

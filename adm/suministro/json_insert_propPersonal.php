@@ -3,7 +3,7 @@
     $suministro = new suministro();
     $data = array();
    
-    if(!empty($_POST['nombre']) && !empty($_POST['apellidos'])){
+    if(!empty($_POST['nombre']) && !empty($_POST['apellidos']) && !empty($_POST['genero']) && !empty($_POST['ambito']) && !empty($_POST['departamento']) && !empty($_POST['puesto'])){
         $nombre = mb_strtoupper($_POST['nombre']);
         $apellidos = mb_strtoupper($_POST['apellidos']);
         $sexo = $_POST['genero'];

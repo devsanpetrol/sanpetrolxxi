@@ -3,7 +3,7 @@
     $suministro = new suministro();
     $data = array();
    
-    if(!empty($_POST['id_empleado']) && !empty($_POST['id_persona'])){
+    if(!empty($_POST['id_empleado']) && !empty($_POST['id_persona']) && !empty($_POST['ambito']) && !empty($_POST['departamento']) && !empty($_POST['puesto'])){
         $id_empleado = $_POST['id_empleado'];
         $id_persona = $_POST['id_persona'];
         $email_personal = $_POST['email_personal'];
