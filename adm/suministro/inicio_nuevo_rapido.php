@@ -185,10 +185,10 @@
                                             <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DEL SOLICITANTE</legend>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <div class="form-group form-group-feedback form-group-feedback-right">
                                                         <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="solicitante" placeholder="Nombre del solicitante" onkeyup="mayus(this);" required>
-                                                        <div class="form-control-feedback form-control-feedback-sm">
-                                                            <i class="icon-man"></i>
+                                                        <div class="form-control-feedback form-control-feedback-lg">
+                                                            <i class="icon-user-plus text-pink-800" data-toggle="modal" data-target="#busca_empleado" style="cursor: pointer"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -356,6 +356,33 @@
                                 </div>
                                 <div class="modal-footer bg-transparent">
                                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewArt()">salir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
+                    <!-- Modal with invoice -->
+                    <div id="busca_empleado" class="modal fade" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="table-responsive">
+                                    <table class="table table-xs table-border-dashed datatable-basic text-nowrap" id="empleado_tabla_aplica" style="width:100%">
+                                        <col width="10%">
+                                        <col width="55%">
+                                        <col width="5%">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Puesto</th>
+                                                <th>Accion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer bg-transparent">
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewEmp()">salir</button>
                                 </div>
                             </div>
                         </div>

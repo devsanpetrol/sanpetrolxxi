@@ -57,7 +57,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_busqueda_codigosearch($searchTerm){
-        $sql = $this->_db->prepare("SELECT cod_barra, cod_articulo, descripcion, tipo_unidad FROM adm_view_almacen_detail WHERE cod_barra = :codigo OR cod_articulo = :codigo");
+        $sql = $this->_db->prepare("SELECT cod_barra, cod_articulo, descripcion, tipo_unidad,config, salida_rapida FROM adm_view_almacen_detail WHERE cod_barra = :codigo OR cod_articulo = :codigo");
         $sql->execute(array('codigo' => $searchTerm));
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

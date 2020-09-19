@@ -10,14 +10,18 @@ if(!empty($_POST['searchTerm'])){
             'cod_barra' => $dato[0]['cod_barra'],
             'cod_articulo' => $dato[0]['cod_articulo'],
             'descripcion' => $dato[0]['descripcion'],
-            'unidad' => $dato[0]['tipo_unidad']
+            'unidad' => $dato[0]['tipo_unidad'],
+            'config' => $dato[0]['config'],
+            'salida_rapida' => $dato[0]['salida_rapida']
         );
     }else{
         $datos = array(
             'cod_barra' => '',
             'cod_articulo' => '',
             'descripcion' => '',
-            'unidad' => ''
+            'unidad' => '',
+            'config' => '',
+            'salida_rapida' => ''
         );
     }
 }else{
@@ -25,7 +29,9 @@ if(!empty($_POST['searchTerm'])){
         'cod_barra' => '',
         'cod_articulo' => '',
         'descripcion' => '',
-        'unidad' => ''
+        'unidad' => '',
+        'config' => '',
+        'salida_rapida' => ''
     );
 }
 header('Content-Type: application/json');

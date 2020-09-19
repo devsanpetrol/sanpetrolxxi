@@ -312,7 +312,7 @@ function guardaPedido(cod_articulo,cantidad,unidad,articulo,destino,justificacio
         dataType: 'json',
         success: function(data){},
         error: function(data){
-          console.log('error'+data);
+          console.log('error '+data);
         }
     });
 }
@@ -386,12 +386,16 @@ function searchTermn(searchTerm){
         data:{ searchTerm:searchTerm },
         type: 'POST',
         success:(function(res){
-            $('#i_codigobarra').val(res.cod_barra);
-            $('#i_codigoinventario').val(res.cod_articulo);
-            $('#i_descripcion').val(res.descripcion);
-            $('#i_unidad').val(res.unidad);
-            if(res.cod_articulo !== ""){
-                $('#i_cantidad').focus();
+            if(res.config == 1 && res.salida_rapida == 1){
+                $('#i_codigobarra').val(res.cod_barra);
+                $('#i_codigoinventario').val(res.cod_articulo);
+                $('#i_descripcion').val(res.descripcion);
+                $('#i_unidad').val(res.unidad);
+                if(res.cod_articulo !== ""){
+                    $('#i_cantidad').focus();
+                }
+            }else{
+                alert("El articulo no esta disponible para salida rapida ó  no esta en el catalogo de articulos disponibles.")
             }
         })
     });
@@ -402,13 +406,17 @@ function searchTermnBarCode(searchTerm){
         data:{ searchTerm:searchTerm },
         type: 'POST',
         success:(function(res){
-            $('#i_codigobarra').val(res.cod_barra);
-            $('#i_codigoinventario').val(res.cod_articulo);
-            $('#i_descripcion').val(res.descripcion);
-            $('#i_unidad').val(res.unidad);
-            if(res.cod_articulo !== ""){
-                $('#i_cantidad').val(1);
-                agregar_pedido();
+            if(res.config == 1 && res.salida_rapida == 1){
+                $('#i_codigobarra').val(res.cod_barra);
+                $('#i_codigoinventario').val(res.cod_articulo);
+                $('#i_descripcion').val(res.descripcion);
+                $('#i_unidad').val(res.unidad);
+                if(res.cod_articulo !== ""){
+                    $('#i_cantidad').val(1);
+                    agregar_pedido();
+                }
+            }else{
+                alert("El articulo no esta disponible para salida rapida ó  no esta en el catalogo de articulos disponibles.")
             }
         })
     });
