@@ -7,7 +7,7 @@
     </div>
     <div class="navbar-collapse collapse" id="navbar-footer">
         <span class="navbar-text">
-            &copy; 2019. <a href="#"><b>SANPETROL XXI</b></a>
+            &copy; 2020. <a href="#"><b>SANPETROL XXI</b></a>
         </span>
     </div>
 </div>

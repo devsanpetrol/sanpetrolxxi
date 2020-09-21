@@ -34,13 +34,13 @@
                                 <span class="d-block text-muted">Ingrese sus credenciales</span>
                             </div>
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                <input type="text" class="form-control" placeholder="Usuario" id="user" name="user" value="gerardo" autocomplete="off">
+                                <input type="text" class="form-control" placeholder="Usuario" id="user" name="user" autocomplete="off">
                                 <div class="form-control-feedback">
                                     <i class="icon-user text-muted"></i>
                                 </div>
                             </div>
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                <input type="password" class="form-control" placeholder="Contraseña" id="password" name="password" value="123" autocomplete="off">
+                                <input type="password" class="form-control" placeholder="Contraseña" id="password" name="password" autocomplete="off">
                                 <div class="form-control-feedback">
                                     <i class="icon-lock2 text-muted"></i>
                                 </div>
