@@ -186,7 +186,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group form-group-feedback form-group-feedback-right">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="solicitante" placeholder="Nombre del solicitante" onkeyup="mayus(this);" required>
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="solicitante" data-idempleado="" placeholder="Nombre del solicitante" readonly onkeyup="mayus(this);" required>
                                                         <div class="form-control-feedback form-control-feedback-lg">
                                                             <i class="icon-user-plus text-pink-800" data-toggle="modal" data-target="#busca_empleado" style="cursor: pointer"></i>
                                                         </div>
@@ -194,7 +194,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="puesto" placeholder="Puesto" onkeyup="mayus(this);" required>
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="puesto" placeholder="Puesto" readonly onkeyup="mayus(this);" required>
                                                         <div class="form-control-feedback form-control-feedback-sm">
                                                             <i class="icon-stack3"></i>
                                                         </div>

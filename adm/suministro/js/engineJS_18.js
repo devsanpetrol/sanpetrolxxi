@@ -66,6 +66,33 @@ $(document).ready( function () {
             info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
         }
     });
+    $('#empleado_tabla_aplica').DataTable({
+        bDestroy: true,
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        lengthMenu: [[5, 10], [5, 10]],//-1 = all
+        ajax: {
+            url: "json_empleado_aplica.php",
+            dataSrc:function ( json ) {
+                return json;
+            }
+        },
+        columns: [
+            {data : 'nombre'},
+            {data : 'puesto'},
+            {data : 'accion'}
+        ],
+        rowGroup: {
+            //dataSrc: 'grupo'
+        },
+        columnDefs: [
+            //{targets:0, visible:false}
+        ],
+        language: {
+            search: '<span>Filtro:</span> _INPUT_',
+            searchPlaceholder: 'Buscar proveedor...',
+            info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
+        }
+    });
     $('#select_article').select2({
         dropdownParent: $('#modal_large'),
         ajax:{
@@ -254,13 +281,14 @@ function get_folio(){
         var folio_num;
         var fecha_solicitud = $('#fecha_actual').val();
         var clave_solicita  = $('#user_session_id').data('employeid');
+        var id_solicita     = $("#solicitante").data('idempleado');
         var nombre_solicita = $("#solicitante").val();
         var puesto_solicita = $("#puesto").val();
         var id_equipo       = $("#area_aquipo").val();
         var sitio_operacion = $("#sitio").val();
         
         $.ajax({
-            data:{fecha_solicitud:fecha_solicitud,clave_solicita:clave_solicita,nombre_solicita:nombre_solicita,puesto_solicita:puesto_solicita,sitio_operacion:sitio_operacion,id_equipo:id_equipo},
+            data:{fecha_solicitud:fecha_solicitud,clave_solicita:clave_solicita,nombre_solicita:nombre_solicita,puesto_solicita:puesto_solicita,sitio_operacion:sitio_operacion,id_equipo:id_equipo,id_solicita:id_solicita},
             type: 'post',
             url: 'json_selecFolio_rapido.php',
             dataType: 'json',
@@ -431,8 +459,12 @@ function mybind(event,expReg){
 }
 function get_articulo(e){
     var obj = e.target;
-    var i_codigoinventario = $(obj).data('nombre');
-    $("#i_codigoinventario").val(i_codigoinventario);
+    var i_nombre = $(obj).data('nombre'),
+        i_puesto = $(obj).data('puesto'),
+        i_idempleado = $(obj).data('idempleado');
+
+    $("#solicitante").val(i_nombre).data('idempleado',i_idempleado);
+    $("#puesto").val(i_puesto);
 }
 function borrar_input_nuevoArticulo(){
     $(".input-newarticle").val("");
@@ -501,4 +533,7 @@ function agregar_pedido(){
     }else{
         alert('No se agrego ningun pedido');
     }
+}
+function hide_showModalNewEmp(){
+    $("#busca_empleado" ).modal("hide");
 }

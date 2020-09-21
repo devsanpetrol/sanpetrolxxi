@@ -118,8 +118,8 @@ class suministro extends conect
         $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    public function set_solicitud_rapido($fecha_solicitud,$clave_solicita,$nombre_solicita,$puesto_solicita,$sitio_operacion,$id_equipo){
-        $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha,clave_solicita,nombre_solicitante,puesto_solicitante,sitio_operacion,id_equipo,solicitud_rapida) VALUES ('$fecha_solicitud',$clave_solicita,'$nombre_solicita','$puesto_solicita','$sitio_operacion',$id_equipo,1)");
+    public function set_solicitud_rapido($fecha_solicitud,$clave_solicita,$nombre_solicita,$puesto_solicita,$sitio_operacion,$id_equipo,$id_solicita){
+        $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha,clave_solicita,nombre_solicitante,puesto_solicitante,sitio_operacion,id_equipo,solicitud_rapida,id_solicita) VALUES ('$fecha_solicitud',$clave_solicita,'$nombre_solicita','$puesto_solicita','$sitio_operacion',$id_equipo,1,'$id_solicita')");
         $sql2 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
         $sql3 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
         $sql1->execute();
@@ -648,6 +648,12 @@ class suministro extends conect
     }
     public function get_articulo_detail($filtro=""){
         $sql = $this->_db->prepare("SELECT cod_articulo, descripcion, marca, nombre_categoria FROM adm_view_almacen_detail $filtro");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_empleado_detail($filtro=""){
+        $sql = $this->_db->prepare("SELECT id_empleado, nombre, apellidos, puesto FROM adm_view_empleado $filtro");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
