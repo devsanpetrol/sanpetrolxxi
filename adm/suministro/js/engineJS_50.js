@@ -578,12 +578,14 @@ function delPersonal(){
         if(result[0].result == "exito"){
             alert("Se dió de baja correctamente!");
             get_propPersonal(result[0].id_empleado);
+            reset_form_personal_del();
+            $("#new_employe").modal("hide");
         }else{
             alert("Ocurrio un problema al actualizar la información");
         }
     }).done(function() {
         reloadTablePersonal();
-        $("#article_new").modal("hide");
+        $("#new_employe").modal("hide");
     });
 }
 function reloadTablePersonal(){

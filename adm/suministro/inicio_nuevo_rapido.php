@@ -91,46 +91,7 @@
 			</div>
 			<!-- /sidebar mobile toggler -->
 			<!-- Sidebar content -->
-			<div class="sidebar-content">
-                            <!-- Actions -->
-                            <div class="card">
-                                <div class="card-header bg-transparent header-elements-inline">
-                                    <span class="text-uppercase font-size-sm font-weight-semibold">Nueva</span>
-                                    <div class="header-elements">
-                                        <div class="list-icons">
-                                            <a class="list-icons-item" data-action="collapse"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <a onclick="fecha_actual()" class="btn bg-teal btn-block">Solicitud</a>
-                                </div>
-                            </div>
-                            <!-- /actions -->
-                            <!-- Sub navigation -->
-                            <div class="card">
-                                <div class="card-header bg-transparent header-elements-inline">
-                                    <span class="text-uppercase font-size-sm font-weight-semibold">Menú</span>
-                                    <div class="header-elements">
-                                        <div class="list-icons">
-                                            <a class="list-icons-item" data-action="collapse"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body p-0">
-                                    <ul class="nav nav-sidebar" data-nav-type="accordion">
-                                        <li class="nav-item-header">Folders</li>
-                                        <li class="nav-item">
-                                            <a href="inicio.php" class="nav-link">
-                                                <i class="icon-folder5"></i>
-                                                Mis solicitudes
-                                                <span class="badge bg-success badge-pill ml-auto" id="total_pedidos_mostrado" style="display: none;">0</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-			</div>
+                        <?php include "./sidebar_almacen.php"; ?>
 			<!-- /sidebar content -->
 		</div>
 		<!-- Main content -->
@@ -139,7 +100,7 @@
                     <div class="page-header page-header-light">
                         <div class="page-header-content header-elements-md-inline">
                             <div class="page-title d-flex">
-                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">Solicitudes</span></h4>
+                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">Solicitud Rápida</span></h4>
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
                             <div class="header-elements d-none">

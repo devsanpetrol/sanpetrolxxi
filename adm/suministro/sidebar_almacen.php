@@ -20,11 +20,19 @@
                 </li>
                 <li class="nav-item-header">SURTIDO DE MATERIAL</li>
                 <li class="nav-item">
-                    <a href="almacen_salida.php" class="nav-link almacen_salida"><i class="icon-clipboard3"></i> Generar surtido de material </a>
+                    <a href="inicio_nuevo_rapido.php" class="nav-link inicio_nuevo_rapido"><i class="icon-power2"></i> Solicitud Rápida </a>
                 </li>
                 <li class="nav-item">
-                    <a href="almacen_salida_aprobada.php" class="nav-link almacen_salida_aprobada"><i class="icon-clipboard2"></i> Entrega de materiales</a>
+                    <a href="almacen_salida.php" class="nav-link almacen_salida"><i class="icon-box"></i> Generar surtido de material </a>
                 </li>
+                <li class="nav-item">
+                    <a href="almacen_salida_aprobada.php" class="nav-link almacen_salida_aprobada"><i class="icon-checkbox-checked2"></i> Entrega de materiales</a>
+                </li>
+                <li class="nav-item-header">CONTABILIDAD</li>
+                <li class="nav-item">
+                    <a href="detalle_factura.php" class="nav-link detalle_factura"><i class="icon-certificate"></i> Facturas </a>
+                </li>
+                <!--
                 <li class="nav-item-header">LISTA DE COMPRA</li>
                 <li class="nav-item">
                     <a href="almacen_salida_compra.php" class="nav-link almacen_salida_compra"><i class="icon-cart-add"></i> Generar lista de compra </a>
@@ -35,6 +43,7 @@
                 <li class="nav-item text-orange-800">
                     <a href="almacen_pendiente_surtido.php" class="nav-link almacen_pendiente_surtido"><i class="icon-flag7"></i> Pendientes por surtir </a>
                 </li>
+                -->
             </ul>
         </div>
     </div>

@@ -12,8 +12,8 @@
                         );
     }
     function accion2($nombre,$puesto,$id_empleado){
-        return "<button type='button' class='btn btn-outline btn-sm bg-pink-400 text-pink-800 btn-icon rounded-round legitRipple' title='Aplicar' data-nombre='$nombre' data-puesto='$puesto' data-idempleado='$id_empleado' onclick='get_articulo(event)'>
-                    <i class='icon-square-down-right' data-nombre='$nombre' data-puesto='$puesto' data-idempleado='$id_empleado' onclick='get_articulo(event)'></i>
+        return "<button type='button' class='btn btn-outline btn-sm bg-pink-400 text-pink-800 btn-icon rounded-round legitRipple' title='Aplicar' data-nombre='$nombre' data-puesto='$puesto' data-idempleado='$id_empleado' onclick='get_empleado(event)'>
+                    <i class='icon-square-down-right' data-nombre='$nombre' data-puesto='$puesto' data-idempleado='$id_empleado' onclick='get_empleado(event)'></i>
                 </button>";
     }
     function nombre($nombre,$apellidos){

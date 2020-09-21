@@ -1,1 +1,1 @@
-<?php echo 'SANPETROL XXI';
+<?php echo 'Sistema de Administración y Control';

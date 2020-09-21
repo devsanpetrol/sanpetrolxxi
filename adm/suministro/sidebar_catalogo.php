@@ -13,7 +13,7 @@
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 <li class="nav-item-header">CATÁLOGO</li>
                 <li class="nav-item">
-                    <a href="almacen.php" class="nav-link almacen"><i class="icon-user-tie"></i> Empleados </a>
+                    <a href="personal.php" class="nav-link almacen"><i class="icon-user-tie"></i> Empleados </a>
                 </li>
             </ul>
         </div>

@@ -58,8 +58,6 @@
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/personal.php">Catálogo</a></li>
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/almacen.php">Almacen</a></li>
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/aprobacion_salida.php">Supervisión</a></li>
-                        <li class="nav-item"><a class="nav-link" href="adm/suministro/detalle_factura.php">Factura</a></li>
-                        <li class="nav-item"><a class="nav-link" href="adm/suministro/almacen.php">Catálogos</a></li>
                     </ul>
                 </li>
             </ul>

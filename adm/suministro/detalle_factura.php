@@ -51,6 +51,26 @@
     <div class="page-content">
         <!-- Main sidebar -->
         <?php include '../bar_nav/main_sidebar.php'; ?>
+            <!-- Secondary sidebar -->
+            <div class="sidebar sidebar-light sidebar-secondary sidebar-expand-md">
+
+                    <!-- Sidebar mobile toggler -->
+                    <div class="sidebar-mobile-toggler text-center">
+                        <a href="#" class="sidebar-mobile-secondary-toggle">
+                            <i class="icon-arrow-left8"></i>
+                        </a>
+                        <span class="font-weight-semibold">Secondary sidebar</span>
+                        <a href="#" class="sidebar-mobile-expand">
+                            <i class="icon-screen-full"></i>
+                            <i class="icon-screen-normal"></i>
+                        </a>
+                    </div>
+                    <!-- /sidebar mobile toggler -->
+                    <!-- Sidebar content -->
+                    <?php include "./sidebar_almacen.php"; ?>
+                    <!-- /sidebar content -->
+            </div>
+            <!-- Main content -->
         <!-- Main content -->
         <div class="content-wrapper">
             <!-- Page header -->

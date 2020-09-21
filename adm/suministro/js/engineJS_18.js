@@ -1,5 +1,7 @@
 $(document).ready( function () {
     $('.form-control-select2').select2();
+    $(".inicio_nuevo_rapido").addClass("active");
+    $(".inicio_nuevo_rapido i").addClass("text-orange-800");
     get_area_equipo();
     fecha_actual();
     $('.pickadate-accessibility').pickadate({
@@ -458,6 +460,11 @@ function mybind(event,expReg){
     }
 }
 function get_articulo(e){
+    var obj = e.target;
+    var i_codigoinventario = $(obj).data('nombre');
+        $("#i_codigoinventario").val(i_codigoinventario);
+}
+function get_empleado(e){
     var obj = e.target;
     var i_nombre = $(obj).data('nombre'),
         i_puesto = $(obj).data('puesto'),

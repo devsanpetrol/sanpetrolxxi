@@ -1,6 +1,9 @@
 $(document).ready( function () {
     
     get_categoria();
+    $(".detalle_factura").addClass("active");
+    $(".detalle_factura i").addClass("text-orange-800");
+    $("body").addClass("sidebar-xs");
     $('.pickadate-accessibility').pickadate({
         labelMonthNext: 'Go to the next month',
         labelMonthPrev: 'Go to the previous month',
