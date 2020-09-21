@@ -1,1 +1,1 @@
-<?php echo 'Sistema de Administración y Control';
+<?php echo 'Sistema de Control de Almacén';
