@@ -7,9 +7,14 @@
     
     if( count($sql) > 0 ){
         $resume_name = $suministro->get_categoria_resume_name($id_categoria)[0]["resume_name"];
-        $last_cod = $suministro->get_last_codarticulo($resume_name)[0]["cod_articulo"];
+        $last_cod = $suministro->get_last_codarticulo($resume_name);
+        if($last_cod != null){
+            $cod_cero = $last_cod[0]["cod_articulo"];
+        }else{
+            $cod_cero = 0;
+        }
         
-        $serial = get_numbercod($last_cod)+1;
+        $serial = get_numbercod($cod_cero)+1;
         $numer_cod_articulo = get_newcodarticulo($resume_name,$serial);
         $data = array("cod_articulo" => $numer_cod_articulo);
     }else{

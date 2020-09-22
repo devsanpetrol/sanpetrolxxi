@@ -92,8 +92,8 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    public function get_categoria_articulo(){
-        $sql = $this->_db->prepare("SELECT id_categoria,categoria FROM adm_categoria_consumibles WHERE tipo_cat = 1");
+    public function get_categoria_articulo($tipo = 1){
+        $sql = $this->_db->prepare("SELECT id_categoria,categoria FROM adm_categoria_consumibles WHERE tipo = $tipo");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -762,6 +762,31 @@ class suministro extends conect
             $this ->_db-> rollback();
             return "Error!: " . $e -> getMessage();
         }
+    }
+    public function set_insert_articulo($cod_barra,$descripcion,$especificacion,$tipo_unidad,$marca,$id_categoria){
+        $sql1 = $this->_db->prepare("INSERT INTO adm_articulo(cod_barra,descripcion,especificacion,tipo_unidad,marca,id_categoria) VALUES ('$cod_barra','$descripcion','$especificacion','$tipo_unidad','$marca',$id_categoria)");
+        
+        try {
+            $this ->_db-> beginTransaction();
+            $sql1 -> execute();
+            $id_articulo = $this ->_db-> lastInsertId();
+            $this ->_db-> commit();
+            return $id_articulo;
+        } catch(PDOExecption $e){
+            $this ->_db-> rollback();
+            //return "Error!: " . $e -> getMessage();
+            return 0;
+        }
+    }
+    public function set_insert_almacen($cod_articulo,$id_articulo){
+        $almacen = $this->_db->prepare("INSERT INTO adm_almacen (cod_articulo,id_articulo, stock) VALUES ('$cod_articulo','$id_articulo',0)");
+        $resultado = $almacen->execute();
+        return $resultado;
+    }
+    public function set_insert_activo($tiempo_utilidad,$fecha_alta,$costo,$no_inventario,$no_serie,$status,$operable,$disponible,$cod_articulo){
+        $almacen = $this->_db->prepare("INSERT INTO adm_activo (tiempo_utilidad,fecha_alta,costo,no_inventario,no_serie,status,operable,disponible,cod_articulo) VALUES ('$tiempo_utilidad','$fecha_alta','$costo','$no_inventario','$no_serie',$status,$operable,$disponible,'$cod_articulo')");
+        $resultado = $almacen->execute();
+        return $resultado;
     }
     public function set_update_activo($cod_articulo,$id_articulo, $cod_barra,$descripcion,$especificacion,$tipo_unidad,$marca,$id_categoria,$fecha_adquisicion, $tiempo_utilidad, $fecha_baja,$costo, $no_inventario, $no_serie,$status,$disponible,$operable,$salida_rapida){
         $sql1 = $this->_db->prepare("UPDATE adm_articulo SET cod_barra='$cod_barra', descripcion='$descripcion', especificacion= '$especificacion', tipo_unidad= '$tipo_unidad', marca= '$marca', id_categoria= $id_categoria WHERE $id_articulo LIMIT 1");

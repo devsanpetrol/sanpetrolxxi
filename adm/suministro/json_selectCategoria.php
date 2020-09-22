@@ -2,7 +2,8 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_categoria_articulo();
+    $tipo = $_POST['tipo'];
+    $categorias = $suministro->get_categoria_articulo($tipo);
     $data = array();
     
     foreach ($categorias as $valor) {

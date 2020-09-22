@@ -1,5 +1,6 @@
 $(document).ready( function () {
     get_categoria();
+    
     $('.form-control-select2').select2();
     $("body").addClass("sidebar-xs");
     $(".inventario").addClass("active");
@@ -51,6 +52,17 @@ $(document).ready( function () {
             info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
         }
     });
+    $('#select_categoria').change(function(){
+        var id_categoria = $(this).val();
+        $.ajax({
+            url: 'json_inventariar_cat.php',
+            data:{ id_categoria:id_categoria },
+            type: 'POST',
+            success:(function(res){
+                $('#new_cod_inventario').val(res.cod_articulo);
+            })
+        });
+    });
 } );
  function  fecha_actual(){
     $.post('json_now.php',function(res){$('#num_folio_vale_salida').text(getFolio(res.fecha_actual));});
@@ -99,6 +111,7 @@ function propiedadArticle(e){
         else{$("#new_salida_rapida").prop("checked", false);}
         
     }).done(function() {
+        reset_upd_article();
         $("#article_new").modal("show");
     });
 }
@@ -171,8 +184,9 @@ function updArticle(){
 }
 function get_categoria(){
     $.ajax({
-    type: "GET",
-    url: 'json_selectCategoria.php', 
+    type: "POST",
+    url: 'json_selectCategoria.php',
+    data:{ tipo:2 },
     dataType: "json",
     success: function(data){
         $.each(data,function(key, registro) {
@@ -256,5 +270,77 @@ function openTrazabilidadLoad(cod_articulo){
         complete: (function () {
             $("#mov_codarticulo").val(cod_articulo);
         })
+    });
+}
+function inventario_new(){
+    reset_new_article();
+    $("#article_new").modal("show");
+}
+function reset_new_article(){
+    $('#set_activo').show();
+    $('#upd_activo').hide();
+}
+function reset_upd_article(){
+    $('#set_activo').hide();
+    $('#upd_activo').show();
+}
+function setArticle(){
+    var cod_barra     = $("#new_codigobarra").val(),
+        cod_articulo  = $("#new_cod_inventario").val(),
+        tipo_unidad   = $('#new_tipounidad').val(),
+        id_categoria  = $('#select_categoria').val(),
+        descripcion   = $("#new_descripcion").val(),
+        especificacion= $("#new_especificacion").val(),
+        marca         = $("#new_marca").val(),
+        fecha_adquisicion = $("#new_fecha_adquisicion").val(),
+        tiempo_utilidad   = $("#new_tiempo_utilidad").val(),
+        costo         = $("#new_costo").val(),
+        no_inventario = $("#new_noinventario").val(),
+        no_serie      = $("#new_noserie").val(),
+        salida_rapida,
+        disponible,
+        operable,
+        status;
+
+        if($("#new_salida_rapida").is(':checked')) { salida_rapida = 1; 
+        } else { salida_rapida = 0; }
+        
+        if($("#new_disponible").is(':checked')) { disponible = 1; 
+        } else { disponible = 0; }
+        
+        if($("#new_operable").is(':checked')) { operable = 1; 
+        } else { operable = 0; }
+        
+        if($("#new_status").is(':checked')) { status = 1;
+        } else { status = 0; } 
+    
+    $.post('json_insert_propActivo.php',{
+        cod_articulo:cod_articulo,
+        cod_barra:cod_barra,
+        descripcion:descripcion,
+        especificacion:especificacion,
+        tipo_unidad:tipo_unidad,
+        marca:marca,
+        id_categoria:id_categoria,
+        fecha_adquisicion:fecha_adquisicion,
+        tiempo_utilidad:tiempo_utilidad,
+        costo:costo,
+        no_inventario:no_inventario,
+        no_serie:no_serie,
+        status:status,
+        disponible:disponible,
+        operable:operable,
+        salida_rapida:salida_rapida
+    },function(result){
+        if(result[0].result == "exito"){
+            var table = $("#almacen_tabla").DataTable();
+            table.ajax.reload();
+            alert("Se guardo correctamente!");
+        }else{
+            alert("Ocurrio un problema al guardar la información");
+        }
+        
+    }).done(function() {
+        $("#article_new").modal("hide");
     });
 }

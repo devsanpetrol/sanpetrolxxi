@@ -209,8 +209,9 @@ function updArticle(){
 }
 function get_categoria(){
     $.ajax({
-    type: "GET",
-    url: 'json_selectCategoria.php', 
+    type: "POST",
+    url: 'json_selectCategoria.php',
+    data:{ tipo:1 },
     dataType: "json",
     success: function(data){
         $.each(data,function(key, registro) {

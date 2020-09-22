@@ -101,6 +101,23 @@
                     </div>
                     <!-- Content area -->
                     <div class="content">
+                        <!-- Bottom right menu -->
+                        <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="click">
+                            <li>
+                                <a class="fab-menu-btn btn bg-success-400 btn-float rounded-round btn-icon">
+                                    <i class="fab-icon-open icon-paragraph-justify3"></i>
+                                    <i class="fab-icon-close icon-cross2"></i>
+                                </a>
+                                <ul class="fab-menu-inner">
+                                    <li>
+                                        <div data-fab-label="Nuevo Activo">
+                                            <button type="button" class="btn btn-outline bg-primary rounded-round btn-icon btn-sm btn-float" onclick="inventario_new()"><i class="icon-pencil"></i></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- /bottom right menu -->
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -141,7 +158,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <fieldset>
-                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-menu7 mr-2"></i> PROPIEDADES DEL ARTICULO</legend>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-menu7 mr-2"></i> PROPIEDADES DEL ACTIVO</legend>
                                                 <div class="row">
                                                     <div class="col-md-7">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
@@ -219,14 +236,6 @@
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-stamp"></i>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="alert alert-danger border-0 alert-dismissible" id="msj_alert1" style="display: none;">
-                                                            <button type="button" class="close" onclick="close_alert()"><span>×</span></button>
-                                                            <span class="font-weight-semibold">Error! </span> Debe completar el formulario <a href="#" class="alert-link" onclick="close_alert()">Intentar nuevamente</a>.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -318,9 +327,9 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer bg-transparent">
-                                    
                                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="cerrarArticle()">CERRAR</button>
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="updArticle()">GUARDAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="set_activo" onclick="setArticle()">GUARDAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="upd_activo" onclick="updArticle()">ACTUALIZAR</button>
                                 </div>
                             </div>
                         </div>
