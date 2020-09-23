@@ -79,75 +79,69 @@ function propiedadArticle(e){
     var id = e.target.id;
     var cod_articulo = $("#"+id).data("codarticulo");
     $.post('json_propInventario.php',{ cod_articulo: cod_articulo },function(res){
-        //res[0].status,
-        $("#new_codigobarra").val(res.cod_barra);
-        $("#new_cod_inventario").val(res.cod_articulo);
-        $('#new_tipounidad option[value='+res.tipo_unidad+']').prop('selected', 'selected').change();
-        $('#select_categoria option[value='+res.id_categoria+']').prop('selected', 'selected').change();
-        $("#new_descripcion").val(res.descripcion);
-        $("#new_especificacion").val(res.especificacion);
-        $("#new_marca").val(res.marca);
-        $("#new_fecha_adquisicion").val(res.fecha_alta);
-        $("#new_fecha_baja").val(res.fecha_baja);
-        $("#new_tiempo_utilidad").val(res.tiempo_utilidad);
-        $("#new_costo").val(res.costo);
-        $("#new_noinventario").val(res.no_inventario);
-        $("#new_noserie").val(res.no_serie);
-        $("#new_idarticulo").val(res.id_articulo);
+        $("#upd_codigobarra").val(res.cod_barra);
+        $('#upd_tipounidad').val(res.tipo_unidad);
+        $('#upd_categoria').val(res.nombre_categoria);
+        $("#upd_cod_inventario").val(res.cod_articulo);
+        $("#upd_descripcion").val(res.descripcion);
+        $("#upd_especificacion").val(res.especificacion);
+        $("#upd_marca").val(res.marca);
+        $("#upd_fecha_adquisicion").val(res.fecha_alta);
+        $("#upd_fecha_baja").val(res.fecha_baja);
+        $("#upd_tiempo_utilidad").val(res.tiempo_utilidad);
+        $("#upd_costo").val(res.costo);
+        $("#upd_noinventario").val(res.no_inventario);
+        $("#upd_noserie").val(res.no_serie);
+        $("#upd_idarticulo").val(res.id_articulo);
         
         if(res.status == 1){
-            $("#new_status").prop("checked", true);
-            $("#new_fecha_baja").val('000-00-00').prop('disabled','disabled');
+            $("#upd_status").prop("checked", true);
+            $("#upd_fecha_baja").val('0000-00-00').prop('disabled',true);
         }
         else{
-            $("#new_status").prop("checked", false);
-            $("#new_fecha_baja").val(res.fecha_baja).prop('disabled',false);
+            $("#upd_status").prop("checked", false);
+            $("#upd_fecha_baja").val(res.fecha_baja).prop('disabled',false);
         }
-        if(res.disponible == 1){$("#new_disponible").prop("checked", true);}
-        else{$("#new_disponible").prop("checked", false);}
-        if(res.operable == 1){$("#new_operable").prop("checked", true);}
-        else{$("#new_operable").prop("checked", false);}
-        if(res.salida_rapida == 1){$("#new_salida_rapida").prop("checked", true);}
-        else{$("#new_salida_rapida").prop("checked", false);}
-        
+        if(res.disponible == 1){$("#upd_disponible").prop("checked", true);}
+        else{$("#upd_disponible").prop("checked", false);}
+        if(res.operable == 1){$("#upd_operable").prop("checked", true);}
+        else{$("#upd_operable").prop("checked", false);}
+        if(res.salida_rapida == 1){$("#upd_salida_rapida").prop("checked", true);}
+        else{$("#upd_salida_rapida").prop("checked", false);}
+                
     }).done(function() {
         reset_upd_article();
-        $("#article_new").modal("show");
+        $("#article_upd").modal("show");
     });
 }
-function cerrarArticle(){
-    $("#article_new").modal("hide");
-}
 function updArticle(){
-    var cod_barra     = $("#new_codigobarra").val(),
-        cod_articulo  = $("#new_cod_inventario").val(),
-        id_articulo   = $("#new_idarticulo").val(),
-        tipo_unidad   = $('#new_tipounidad').val(),
-        id_categoria  = $('#select_categoria').val(),
-        descripcion   = $("#new_descripcion").val(),
-        especificacion= $("#new_especificacion").val(),
-        marca         = $("#new_marca").val(),
-        fecha_adquisicion = $("#new_fecha_adquisicion").val(),
-        tiempo_utilidad   = $("#new_tiempo_utilidad").val(),
-        fecha_baja    = $("#new_fecha_baja").val(),
-        costo         = $("#new_costo").val(),
-        no_inventario = $("#new_noinventario").val(),
-        no_serie      = $("#new_noserie").val(),
+    var cod_barra     = $("#upd_codigobarra").val(),
+        cod_articulo  = $("#upd_cod_inventario").val(),
+        id_articulo   = $("#upd_idarticulo").val(),
+        descripcion   = $("#upd_descripcion").val(),
+        especificacion= $("#upd_especificacion").val(),
+        marca         = $("#upd_marca").val(),
+        fecha_adquisicion = $("#upd_fecha_adquisicion").val(),
+        tiempo_utilidad   = $("#upd_tiempo_utilidad").val(),
+        fecha_baja    = $("#upd_fecha_baja").val(),
+        costo         = $("#upd_costo").val(),
+        no_inventario = $("#upd_noinventario").val(),
+        no_serie      = $("#upd_noserie").val(),
         salida_rapida,
         disponible,
         operable,
         status;
 
-        if($("#new_salida_rapida").is(':checked')) { salida_rapida = 1; 
+        if($("#upd_salida_rapida").is(':checked')) { salida_rapida = 1; 
         } else { salida_rapida = 0; }
         
-        if($("#new_disponible").is(':checked')) { disponible = 1; 
+        if($("#upd_disponible").is(':checked')) { disponible = 1; 
         } else { disponible = 0; }
         
-        if($("#new_operable").is(':checked')) { operable = 1; 
+        if($("#upd_operable").is(':checked')) { operable = 1; 
         } else { operable = 0; }
         
-        if($("#new_status").is(':checked')) { status = 1;
+        if($("#upd_status").is(':checked')) { status = 1;
         } else { status = 0; } 
     
     $.post('json_update_propActivo.php',{
@@ -156,9 +150,7 @@ function updArticle(){
         cod_barra:cod_barra,
         descripcion:descripcion,
         especificacion:especificacion,
-        tipo_unidad:tipo_unidad,
         marca:marca,
-        id_categoria:id_categoria,
         fecha_adquisicion:fecha_adquisicion,
         tiempo_utilidad:tiempo_utilidad,
         fecha_baja:fecha_baja,
@@ -179,8 +171,17 @@ function updArticle(){
         }
         
     }).done(function() {
-        $("#article_new").modal("hide");
+        $("#form_activo_upd")[0].reset();
+        $("#article_upd").modal("hide");
     });
+}
+function cerrarArticle(){
+    $("#form_activo")[0].reset();
+    $("#article_new").modal("hide");
+}
+function cerrarArticle_upd(){
+    $("#form_activo_upd")[0].reset();
+    $("#article_upd").modal("hide");
 }
 function get_categoria(){
     $.ajax({
@@ -277,10 +278,13 @@ function inventario_new(){
     $("#article_new").modal("show");
 }
 function reset_new_article(){
+    $("#select_categoria").prop("disabled",false);
+    $("#form_activo")[0].reset();
     $('#set_activo').show();
     $('#upd_activo').hide();
 }
 function reset_upd_article(){
+    $("#select_categoria").prop("disabled",true);
     $('#set_activo').hide();
     $('#upd_activo').show();
 }
@@ -341,6 +345,7 @@ function setArticle(){
         }
         
     }).done(function() {
+        $("#form_activo")[0].reset();
         $("#article_new").modal("hide");
     });
 }

@@ -144,20 +144,37 @@
                     <!-- /content area -->
                     <!-- Area modal -->
                     <div id="modal_inventario" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-lg">
+                        <div class="modal-dialog modal-xl">
                             <div class="modal-content">
                                 <div class="modal-body">
                                     <div class="form-group row">
-                                        <div class="col-sm-4 form-group form-group-feedback-right text-center">
+                                        <div class="col-sm-4 form-group text-center">
                                             <label class="font-weight-bold">Codigo</label>
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-center" id="old_cod_articulo" readonly>
                                         </div>
-                                        <div class="col-sm-8 form-group form-group-feedback-right text-center">
+                                        <div class="col-sm-4 form-group text-center">
                                             <label class="font-weight-bold">Articulo</label>
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-center" id="descripcion" readonly>
                                         </div>
+                                        <div class="col-sm-4 form-group text-center">
+                                            <label class="font-weight-bold">Categoría</label>
+                                            <select data-placeholder="Categoria *" class="form-control form-control-sm form-control-select2 border-danger text-right" id="select_categoria3" data-fouc>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="row_table_inv">
                                         <div class="col-sm-12 form-group form-group-feedback-right text-center">
-                                            <table class="table datatable-basic text-nowrap table-xs" id="dt_for_inventario" width="100%">
+    <!--   dt_for_inventario    -->         <table class="table datatable-basic text-nowrap table-xs" id="dt_for_inventario" width="100%">
+                                                <col width="5%">
+                                                <col width="5%">
+                                                <col width="5%">
+                                                <col width="20%">
+                                                <col width="20%">
+                                                <col width="30%">
+                                                <col width="0%">
+                                                <col width="5%">
+                                                <col width="5%">
                                                 <thead>
                                                     <tr>
                                                         <th></th>
@@ -165,6 +182,8 @@
                                                         <th>Unidad</th>
                                                         <th>No. Serie</th>
                                                         <th>No. Inventario</th>
+                                                        <th>Especificación Técnica</th>
+                                                        <th>Costo</th>
                                                         <th>Costo</th>
                                                         <th>Acción</th>
                                                     </tr>
@@ -176,8 +195,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline bg-danger-300 rounded-round btn-icon ml-2 btn-sm" onclick="salir()"><i class="icon-exit2"></i> Salir</button>
-                                    <button type="button" class="btn btn-outline bg-slate rounded-round btn-icon ml-2 btn-sm"><i class="icon-download4"></i> Añadir</button>
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="salir()">Cerrar</button>
                                 </div>
                             </div>
                         </div>
@@ -246,7 +264,7 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <div class="row">
+                                                <div class="row" style="display: none;">
                                                     <div class="col-md-12">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_especificacion" placeholder="Especificación">
@@ -388,7 +406,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-12" style="display: none;">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 add-new-art" id="add_especificacion" placeholder="Especificación">
                                                             <div class="form-control-feedback form-control-feedback-sm">

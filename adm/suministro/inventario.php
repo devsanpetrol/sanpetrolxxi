@@ -155,6 +155,7 @@
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="card-body">
+                                    <form id="form_activo">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <fieldset>
@@ -162,7 +163,7 @@
                                                 <div class="row">
                                                     <div class="col-md-7">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_codigobarra" placeholder="Codigo de barra">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="new_codigobarra" placeholder="Codigo de barra">
                                                             <span class="form-text text-muted text-right">Codigo de barra</span>
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-barcode2"></i>
@@ -182,7 +183,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-bold text-blue-800" id="new_descripcion" placeholder="Descripción *" onkeyup="mayus(this);">
+                                                            <input type="text" class="form-control form-control-sm font-weight-bold text-blue-800 text-uppercase" id="new_descripcion" placeholder="Descripción *" onkeyup="mayus(this);">
                                                             <span class="form-text text-muted text-right">Nombre</span>
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-file-text"></i>
@@ -231,7 +232,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_marca" placeholder="Marca *">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="new_marca" placeholder="Marca *">
                                                             <span class="form-text text-muted text-right">Marca</span>
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-stamp"></i>
@@ -248,7 +249,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_noinventario" title="No. de Inventario">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="new_noinventario" title="No. de Inventario">
                                                             <span class="form-text text-muted text-right">NO. Inventario</span>
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-books"></i>
@@ -257,7 +258,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group form-group-feedback form-group-feedback-left">
-                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_noserie" title="No. de Serie">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="new_noserie" title="No. de Serie">
                                                             <span class="form-text text-muted text-right">NO. Serie</span>
                                                             <div class="form-control-feedback form-control-feedback-sm">
                                                                 <i class="icon-list-numbered"></i>
@@ -325,10 +326,184 @@
                                             </fieldset>
                                         </div>
                                     </div>
+                                    </form>
                                 </div>
                                 <div class="modal-footer bg-transparent">
                                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="cerrarArticle()">CERRAR</button>
                                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="set_activo" onclick="setArticle()">GUARDAR</button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="upd_activo" onclick="updArticle()">ACTUALIZAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
+                    <!-- Modal new invoice -->
+                    <div id="article_upd" class="modal fade">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="card-body">
+                                    <form id="form_activo_upd">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-menu7 mr-2"></i> PROPIEDADES DEL ACTIVO</legend>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="upd_codigobarra" placeholder="Codigo de barra">
+                                                            <span class="form-text text-muted text-right">Codigo de barra</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-barcode2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="upd_cod_inventario" readonly placeholder="SKU.">
+                                                            <span class="form-text text-muted text-right">S.K.U.</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-price-tag2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-bold text-blue-800 text-uppercase" id="upd_descripcion" placeholder="Descripción *" onkeyup="mayus(this);">
+                                                            <span class="form-text text-muted text-right">Nombre</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-file-text"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control form-control-sm font-weight-bold text-blue-800 text-uppercase" disabled id="upd_categoria">
+                                                            <span class="form-text text-muted text-right">Categoria</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control form-control-sm font-weight-bold text-blue-800 text-uppercase" disabled id="upd_tipounidad">
+                                                            <span class="form-text text-muted text-right">Tipo Unidad</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="upd_especificacion" placeholder="Especificación">
+                                                            <span class="form-text text-muted text-right">Caracteristica ó Especificación</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-design"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="upd_marca" placeholder="Marca *">
+                                                            <span class="form-text text-muted text-right">Marca</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-stamp"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            </div>
+                                            <div class="col-md-6">
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-bookmark mr-2"></i> DATOS DEL ACTIVO</legend>
+                                                <input type="hidden" id="upd_idarticulo" value="">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="upd_noinventario" title="No. de Inventario">
+                                                            <span class="form-text text-muted text-right">NO. Inventario</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-books"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="upd_noserie" title="No. de Serie">
+                                                            <span class="form-text text-muted text-right">NO. Serie</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-list-numbered"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="date" class="form-control form-control-sm font-weight-semibold text-blue-800" id="upd_fecha_adquisicion" title="Fecha de adquisición">
+                                                            <span class="form-text text-muted text-right">Fecha de aquisición</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-chevron-up text-blue-600"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="date" class="form-control form-control-sm font-weight-semibold text-blue-800" id="upd_fecha_baja" title="Fecha de baja">
+                                                            <span class="form-text text-muted text-right">Fecha de baja</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-chevron-down text-danger-600"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="number" class="form-control form-control-sm font-weight-semibold text-blue-800" id="upd_tiempo_utilidad" title="Vida util del equipo">
+                                                            <span class="form-text text-muted text-right">Años</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-watch2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <input type="number" class="form-control form-control-sm font-weight-semibold text-blue-800" id="upd_costo" title="Costo de adquisición del articulo">
+                                                            <span class="form-text text-muted text-right">Costo</span>
+                                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                                <i class="icon-coin-dollar"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1"></div>
+                                                    <div class="col-md-5">
+                                                        <div class="list-feed border-warning-400">
+                                                            <div class="list-feed-item border-warning-400">
+                                                                <label><input type="checkbox" value="" id="upd_status" title="Status del Activo"> Activo</label>
+                                                            </div>
+                                                            <div class="list-feed-item border-warning-400">
+                                                                <label><input type="checkbox" value="" id="upd_disponible" title="Disponibilidad"> Disponible</label>
+                                                            </div>
+                                                            <div class="list-feed-item border-warning-400">
+                                                                <label><input type="checkbox" value="" id="upd_operable" title="Operabilidad"> Operable</label>
+                                                            </div>
+                                                            <div class="list-feed-item border-warning-400">
+                                                                <label><input type="checkbox" value="" id="upd_salida_rapida"> Salida Rapida</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer bg-transparent">
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="cerrarArticle_upd()">CERRAR</button>
                                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" id="upd_activo" onclick="updArticle()">ACTUALIZAR</button>
                                 </div>
                             </div>

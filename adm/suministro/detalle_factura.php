@@ -460,7 +460,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" style="display: none;">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_especificacion" placeholder="Especificación">
                                             <div class="form-control-feedback form-control-feedback-sm">

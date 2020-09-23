@@ -1,5 +1,7 @@
 $(document).ready( function () {
     get_categoria();
+    get_categoria2();
+    $("#row_table_inv").hide();
     $('.form-control-select2').select2();
     $("body").addClass("sidebar-xs");
     $(".almacen").addClass("active");
@@ -41,10 +43,12 @@ $(document).ready( function () {
         dom: '<"datatable-footer"><"datatable-scroll-wrap"t>',
         createdRow: function ( row, data, index ) {
             $('td', row).eq(1).addClass('font-weight-semibold text-pink');
+            $('td', row).eq(6).addClass('font-weight-semibold text-pink');
         },
         columnDefs: [
             {targets: 0, className:'text-right'},
-            {targets: 2, className:'text-center'}
+            {targets: 2, className:'text-center'},
+            {targets: 6, visible: false,searchable: true}
         ],
         language: {
             info: "Mostrando _TOTAL_ registros"
@@ -63,60 +67,81 @@ $(document).ready( function () {
     });
 } );
  function inventarear(e){
-     var cod_articulo = $("#"+e.target.id).data("codarticulo");
-     var t = $('#dt_for_inventario').DataTable();
-     $.post('json_inventariar.php',{ cod_articulo: cod_articulo },function(res){
-         $.each(res, function (index, value) {
-                t.row.add([
-                    value.status,
-                    value.cod_articulo,
-                    value.unidad,
-                    value.no_serie,
-                    value.no_inventario,
-                    value.costo,
-                    value.accion
-                ] ).draw( false );
-                $("#descripcion").val(value.descripcion);
-            });
-     }).done(function() {
-        $('#old_cod_articulo').val(cod_articulo);
-        $('#modal_inventario').modal('show');
-        $('.touchspin-prefix').TouchSpin({
-            min: 0,
-            max: 100000000,
-            step: 0.1,
-            decimals: 2,
-            prefix: '$'
-        });
-        $('.bootstrap-touchspin-up').addClass('btn-sm alpha-primary text-primary-800 legitRipple font-weight-bold').removeClass('btn-light');
-        $('.bootstrap-touchspin-down').addClass('btn-sm alpha-primary text-primary-800 legitRipple font-weight-bold').removeClass('btn-light');
+    var cod_articulo = $("#"+e.target.id).data("codarticulo"),
+        descripcion  = $("#"+e.target.id).data("descripcion");
+    var t = $('#dt_for_inventario').DataTable();
+    
+    $('#old_cod_articulo').val(cod_articulo);
+    $('#descripcion').val(descripcion);
+    
+    $('#modal_inventario').modal('show');
+    $('#select_categoria3').change(function(){
+        t.clear().draw();
+        var id_categoria = $('#select_categoria3').val();
+        if(id_categoria.length >= 3){
+            proccessInventario(cod_articulo,id_categoria);
+        }
+    });
+ }
+ function proccessInventario(cod_articulo,categoria){
+    var t = $('#dt_for_inventario').DataTable();
+    
+     $.ajax({
+        data:{ cod_articulo:cod_articulo,categoria:categoria },
+        url: 'json_inventariar.php',
+        type: 'POST',
+        beforeSend: function (xhr){
+            $("#row_table_inv").slideUp();
+            t.clear().draw();
+        },
+        success: function (res) {
+            $.each(res, function (index, value) {
+               t.row.add([
+                   value.status,
+                   value.cod_articulo,
+                   value.unidad,
+                   value.no_serie,
+                   value.no_inventario,
+                   value.especificacion,
+                   value.costo,
+                   value.costo_display,
+                   value.accion
+               ] ).draw( false );
+               $("#descripcion").val(value.descripcion);
+           });
+        },
+        complete: (function () {
+            setTimeout(function(){ $("#row_table_inv").slideDown(); }, 500);
+        })
     });
  }
  function guarda_inventario(e){
-    var cod_articulo_new= $("#"+e.target.id).data("numercodarticulo");
+    var cod_articulo_new   = $("#"+e.target.id).data("numercodarticulo");
+    var id_factura_detalle = $("#"+e.target.id).data("idfacturadetalle");
     var cod_articulo    = $("#old_cod_articulo").val();
     var no_serie        = $("#ser_"+cod_articulo_new).val();
-    var no_inventario   = ($('#inv_'+cod_articulo_new).val()).trim();
+    var no_inventario   = $('#inv_'+cod_articulo_new).val();
+    var especificacion  = $("#esp_"+cod_articulo_new).val();
     var costo           = $('#cos_'+cod_articulo_new).val();
     var inventariado    = $('#'+e.target.id).data('inventariado');
     
-    if(no_inventario == "" && inventariado == 'no'){
-        console.log('Formulario vacio. No se guardo cambios');
-    }else{
-        $.post('json_set_inventario.php',{ cod_articulo: cod_articulo, cod_articulo_new: cod_articulo_new, no_serie:no_serie, no_inventario:no_inventario,costo:costo,inventariado:inventariado},function(res){
-            if((res[0].type == 'update' || res[0].type == 'insert') && res[0].result == '1'){
-                $("#ico_"+cod_articulo_new).removeClass('icon-price-tag3 text-slate-300').addClass('icon-price-tag2 text-pink');
-                $('#'+e.target.id).data('inventariado','si');
-            }else if(res[0].type == 'delete' && res[0].result == '1'){
-                $("#ico_"+cod_articulo_new).addClass('icon-price-tag3 text-slate-300').removeClass('icon-price-tag2 text-pink');
-                $("#"+e.target.id).data('inventariado','no');
-                clear_form_inv(cod_articulo_new);
-            }else if(res[0].type == 'check' && res[0].result == 'exist'){
-                alert("El numero de inventario asignado ya existe.");
-            }
+    $.post('json_set_inventario.php',{ cod_articulo: cod_articulo, cod_articulo_new: cod_articulo_new, no_serie:no_serie, no_inventario:no_inventario,especificacion:especificacion,costo:costo,inventariado:inventariado,id_factura_detalle:id_factura_detalle},function(res){
+
+        if((res[0].type == 'update' || res[0].type == 'insert') && res[0].result == '1'){
+            $("#ico_"+cod_articulo_new).removeClass('icon-price-tag3 text-slate-300').addClass('icon-price-tag2 text-pink');
+            $('#'+e.target.id).data('inventariado','si');
+        }else if(res[0].type == 'delete' && res[0].result == '1'){
+            $("#ico_"+cod_articulo_new).addClass('icon-price-tag3 text-slate-300').removeClass('icon-price-tag2 text-pink');
+            $("#"+e.target.id).data('inventariado','no');
+            clear_form_inv(cod_articulo_new);
+        }else if(res[0].type == 'check' && res[0].result == 'exist'){
+            alert("El numero de inventario asignado ya existe.");
+        }else{
+            alert("Ocurrió un error inesperado durando el procesamiento: " +res[0].result);
             console.log('type:'+res[0].type+', result:'+res[0].result);
-        });
-    }
+        }
+
+    });
  }
  function clear_form_inv(cod_articulo_new){
     $("#ser_"+cod_articulo_new).val("");
@@ -130,6 +155,8 @@ $(document).ready( function () {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
 }
 function salir(){
+    $("#row_table_inv").hide();
+    $('#select_categoria3').prop('selectedIndex',0).trigger('change');
     $("#modal_inventario").modal("hide");
     var table = $('#dt_for_inventario').DataTable();
     table.clear().draw();
@@ -206,6 +233,7 @@ function updArticle(){
     }).done(function() {
         $("#article_new").modal("hide");
     });
+    
 }
 function get_categoria(){
     $.ajax({
@@ -217,6 +245,22 @@ function get_categoria(){
         $.each(data,function(key, registro) {
             $("#select_categoria").append("<option value='"+registro.id_categoria+"'>"+registro.categoria+"</option>");
             $("#select_categoria_2").append("<option value='"+registro.id_categoria+"'>"+registro.categoria+"</option>");
+        });
+    },
+    error: function(data){
+      alert('error');
+    }
+  });
+}
+function get_categoria2(){
+    $.ajax({
+    type: "POST",
+    url: 'json_selectCategoria_inv.php',
+    data:{ tipo:2 },
+    dataType: "json",
+    success: function(data){
+        $.each(data,function(key, registro) {
+            $("#select_categoria3").append("<option value='"+registro.resume_name+"'>"+registro.categoria+"</option>");
         });
     },
     error: function(data){

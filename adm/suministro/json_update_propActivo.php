@@ -9,10 +9,7 @@
         $cod_barra = $_POST['cod_barra'];
         $descripcion = $_POST['descripcion'];
         $especificacion = $_POST['especificacion'];
-        $tipo_unidad = $_POST['tipo_unidad'];
         $marca = $_POST['marca'];
-        $id_categoria = $_POST['id_categoria'];
-        
         $fecha_adquisicion = $_POST['fecha_adquisicion'];
         $tiempo_utilidad = $_POST['tiempo_utilidad'];
         $fecha_baja = $_POST['fecha_baja'];
@@ -24,7 +21,7 @@
         $disponible = $_POST['disponible'];
         $operable = $_POST['operable'];
         
-        $guarda = $suministro->set_update_activo($cod_articulo, $id_articulo, $cod_barra, $descripcion, $especificacion, $tipo_unidad, $marca, $id_categoria, $fecha_adquisicion, $tiempo_utilidad, $fecha_baja,$costo, $no_inventario, $no_serie,$status,$disponible,$operable, $salida_rapida);
+        $guarda = $suministro->set_update_activo($cod_articulo, $id_articulo, $cod_barra, $descripcion, $especificacion, $marca, $fecha_adquisicion, $tiempo_utilidad, $fecha_baja,$costo, $no_inventario, $no_serie,$status,$disponible,$operable, $salida_rapida);
         
         if ($guarda === true){
             $data[] = array("result"=>'exito');

@@ -2,7 +2,7 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_almacen("");
+    $categorias = $suministro->get_almacen("WHERE activo = 0");
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -14,7 +14,7 @@
                         "stock_max" => stock_min_max($valor['stock_max']),
                         "marca" => $valor['marca'],
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
-                        "accion" => accion($valor['cod_articulo'],$valor['tipo_unidad'])
+                        "accion" => accion($valor['cod_articulo'],$valor['tipo_unidad'],$valor['descripcion'])
                         );
         
     }
@@ -60,11 +60,11 @@
     function stock_min_max($cantidad){
         return "<h6 class='mb-0'>$cantidad</h6>";
     }
-    function accion($cod_articulo,$tipo_unidad){
+    function accion($cod_articulo,$tipo_unidad,$descripcion){
         $inv = "";
         $prop = "";
         if( $tipo_unidad != "kgr" && $tipo_unidad != "mtr" && $tipo_unidad != "ltr" ){
-            $inv = "<a class='dropdown-item' data-codarticulo='$cod_articulo' onclick='inventarear(event)' id='inv_$cod_articulo'><i class='icon-price-tag2'></i> Inventariar</a>";
+            $inv = "<a class='dropdown-item' data-codarticulo='$cod_articulo' data-descripcion='$descripcion' onclick='inventarear(event)' id='inv_$cod_articulo'><i class='icon-price-tag2'></i> Inventariar</a>";
         }
         if(!empty($cod_articulo)){
             $prop = "<a class='dropdown-item' id='X$cod_articulo' data-codarticulo='$cod_articulo' onclick='propiedadArticle(event)'><i class='icon-clippy'></i> Propiedades</a>";
@@ -77,8 +77,6 @@
                         <div class='dropdown-menu dropdown-menu-right bg-slate-600'>
                             $prop
                             $inv
-                            <div class='dropdown-divider'></div>
-                            <a class='dropdown-item'><i class='icon-gear'></i> One more separated line</a>
                         </div>
                 </div>
         </div>";
@@ -96,3 +94,6 @@
     }
     header('Content-Type: application/json');
     echo json_encode($data);
+    
+    //<div class='dropdown-divider'></div>
+        //<a class='dropdown-item'><i class='icon-gear'></i> One more separated line</a>
