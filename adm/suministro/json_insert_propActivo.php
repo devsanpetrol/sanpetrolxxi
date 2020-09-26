@@ -25,7 +25,7 @@
         if($id_articulo == TRUE){
             $insert_almacen = $suministro -> set_insert_almacen($cod_articulo,$id_articulo,$salida_rapida);
             if($insert_almacen == TRUE){
-                $insert_activo = $suministro ->set_insert_activo($tiempo_utilidad, $fecha_alta, $costo, $no_inventario, $no_serie, $status, $operable, $disponible, $cod_articulo);
+                $insert_activo = $suministro ->set_insert_activo($tiempo_utilidad, $fecha_alta, $costo, $no_inventario, $no_serie, $status, $operable, $disponible, $cod_articulo,$id_categoria);
             }
         }
                 

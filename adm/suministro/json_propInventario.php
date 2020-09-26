@@ -36,7 +36,7 @@ if(!empty($_POST['cod_articulo'])){
             'especificacion' => $dato[0]['especificacion'], //OK
             'tipo_unidad' => $dato[0]['tipo_unidad'], //OK
             'marca' => $dato[0]['marca'], //OK
-            'id_categoria' => $dato[0]['id_categoria'], //OK
+            'id_categoria' => $dato[0]['id_categoria_activo'], //OK
             'nombre_categoria' => $dato[0]['nombre_categoria'],
             'id_articulo' => $dato[0]['id_articulo'],
             'cod_barra' => $dato[0]['cod_barra'], //OK

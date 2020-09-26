@@ -4,10 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_inventariar.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/almacen.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_7.js</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectViewSolicitud.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_8.js</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_insert_propActivo.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_propInventario.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/inventario.php</file>
         </group>
     </open-files>
 </project-private>

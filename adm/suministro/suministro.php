@@ -38,6 +38,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_categoria_resume_name_2($searchTerm){
+        $sql = $this->_db->prepare("SELECT id_categoria FROM adm_categoria_consumibles WHERE resume_name = '$searchTerm' LIMIT 1");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado[0]['id_categoria'];
+    }
     public function get_almacen_busqueda_5(){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_list_articulo LIMIT 0");//nombre = :Nombre'
         $sql->execute();//$sql->execute(array('Nombre' => $nombre)); pasar parametros
@@ -404,12 +410,18 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado[0]["count"];
     }
+    function set_select_cout_sku($cod_articulo_new){
+        $sql = $this->_db->prepare("SELECT COUNT(*) AS count FROM adm_almacen WHERE cod_articulo = '$cod_articulo_new' LIMIT 1");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado[0]["count"];
+    }
     //===========MODIFICACIÓN DE INVENTARIO=================================================================================================================================
-    function set_insert_new_articulo($cod_articulo,$cod_articulo_new,$no_inventario,$no_serie,$costo,$especifica,$id_factura_detalle){
+    function set_insert_new_articulo($cod_articulo,$cod_articulo_new,$no_inventario,$no_serie,$costo,$especifica,$id_factura_detalle,$id_factura,$id_categoria){
         $sql1 = $this->_db->prepare("INSERT INTO adm_almacen (id_articulo,stock, stock_min, stock_max, importancia, ubicacion, salida, activo, cod_articulo)
                                      SELECT id_articulo, '0' AS stock, '0' AS stock_min, '0' AS stock_max, importancia, ubicacion, salida,'1' AS activo, '$cod_articulo_new' AS cod_articulo FROM adm_almacen WHERE cod_articulo = '$cod_articulo'");
         $sql2 = $this->_db->prepare("UPDATE adm_almacen SET adm_almacen.stock = (adm_almacen.stock - 1) WHERE adm_almacen.cod_articulo = '$cod_articulo' LIMIT 1");
-        $sql3 = $this->_db->prepare("INSERT INTO adm_activo (no_inventario, no_serie,especificacion_tec,costo, status, cod_articulo, fecha_alta,tiempo_utilidad) VALUES ('$no_inventario','$no_serie','$especifica','$costo',1,'$cod_articulo_new', NOW(),0)");
+        $sql3 = $this->_db->prepare("INSERT INTO adm_activo (no_inventario, no_serie,especificacion_tec,costo, status, cod_articulo, fecha_alta,tiempo_utilidad,id_factura,id_categoria_activo) VALUES ('$no_inventario','$no_serie','$especifica','$costo',1,'$cod_articulo_new', NOW(),0,$id_factura,$id_categoria)");
         $sql4 = $this->_db->prepare("UPDATE adm_factura_detalle SET restante = (restante - 1) WHERE id_factura_detalle = $id_factura_detalle LIMIT 1");
         
         $resultado4 = 0;
@@ -427,7 +439,8 @@ class suministro extends conect
         return $resultado4;
     }
     function set_update_new_articulo($cod_articulo_new,$no_inventario,$no_serie,$costo,$especifica){
-        $sql1 = $this->_db->prepare("UPDATE adm_activo SET adm_almacen.no_inventario = '$no_inventario', adm_almacen.no_serie = '$no_serie',adm_almacen.especificacion_tec = '$especifica',adm_almacen.costo = '$costo' WHERE adm_almacen.cod_articulo = '$cod_articulo_new' LIMIT 1");
+        $sql = "UPDATE adm_activo SET no_inventario = '$no_inventario', no_serie = '$no_serie',especificacion_tec = '$especifica',costo = '$costo' WHERE cod_articulo = '$cod_articulo_new' LIMIT 1";
+        $sql1 = $this->_db->prepare($sql);
         $resultado1 = $sql1->execute();
         return $resultado1;
     }
@@ -465,7 +478,7 @@ class suministro extends conect
         return $result;
     }
     function get_detailAvailableFactura($cod_articulo){
-        $sql = $this->_db->prepare("SELECT descripcion,tipo_unidad, restante,precio_unidad,id_factura_detalle FROM adm_view_docto_factura_detail WHERE restante > 0 AND cod_articulo = '$cod_articulo'");
+        $sql = $this->_db->prepare("SELECT descripcion,tipo_unidad, restante,precio_unidad,id_factura_detalle,id_factura FROM adm_view_docto_factura_detail WHERE restante > 0 AND cod_articulo = '$cod_articulo'");
         $sql->execute();
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -809,8 +822,8 @@ class suministro extends conect
         $resultado = $almacen->execute();
         return $resultado;
     }
-    public function set_insert_activo($tiempo_utilidad,$fecha_alta,$costo,$no_inventario,$no_serie,$status,$operable,$disponible,$cod_articulo){
-        $activo = $this->_db->prepare("INSERT INTO adm_activo (tiempo_utilidad,fecha_alta,costo,no_inventario,no_serie,status,operable,disponible,cod_articulo) VALUES ('$tiempo_utilidad','$fecha_alta','$costo','$no_inventario','$no_serie',$status,$operable,$disponible,'$cod_articulo')");
+    public function set_insert_activo($tiempo_utilidad,$fecha_alta,$costo,$no_inventario,$no_serie,$status,$operable,$disponible,$cod_articulo,$id_categoria){
+        $activo = $this->_db->prepare("INSERT INTO adm_activo (tiempo_utilidad,fecha_alta,costo,no_inventario,no_serie,status,operable,disponible,cod_articulo,id_categoria_activo) VALUES ('$tiempo_utilidad','$fecha_alta','$costo','$no_inventario','$no_serie',$status,$operable,$disponible,'$cod_articulo',$id_categoria)");
         $resultado = $activo->execute();
         return $resultado;
     }
@@ -837,7 +850,7 @@ class suministro extends conect
         }
     }
     public function get_activofijo($filtro = ""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_activos_fijos $filtro ORDER BY id_categoria ASC");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_activos_fijos $filtro ORDER BY id_categoria_activo ASC");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

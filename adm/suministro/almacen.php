@@ -10,6 +10,7 @@
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     <link href="../../global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+    <link href="../../global_assets/css/icons/material/styles.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/layout.min.css" rel="stylesheet" type="text/css">
@@ -144,7 +145,7 @@
                     <!-- /content area -->
                     <!-- Area modal -->
                     <div id="modal_inventario" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-xl">
+                        <div class="modal-dialog modal-full">
                             <div class="modal-content">
                                 <div class="modal-body">
                                     <div class="form-group row">
@@ -158,7 +159,7 @@
                                         </div>
                                         <div class="col-sm-4 form-group text-center">
                                             <label class="font-weight-bold">Categoría</label>
-                                            <select data-placeholder="Categoria *" class="form-control form-control-sm form-control-select2 border-danger text-right" id="select_categoria3" data-fouc>
+                                            <select data-placeholder="Categoria *" class="form-control form-control-select2 border-danger text-right" id="select_categoria3" data-fouc>
                                                 <option></option>
                                             </select>
                                         </div>
@@ -169,10 +170,9 @@
                                                 <col width="5%">
                                                 <col width="5%">
                                                 <col width="5%">
-                                                <col width="20%">
-                                                <col width="20%">
-                                                <col width="30%">
-                                                <col width="0%">
+                                                <col width="15%">
+                                                <col width="15%">
+                                                <col width="40%">
                                                 <col width="5%">
                                                 <col width="5%">
                                                 <thead>
@@ -184,7 +184,6 @@
                                                         <th>No. Inventario</th>
                                                         <th>Especificación Técnica</th>
                                                         <th>Costo</th>
-                                                        <th>Costo</th>
                                                         <th>Acción</th>
                                                     </tr>
                                                 </thead>
@@ -195,6 +194,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="proccessInventario()">Generar</button>
                                     <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" onclick="salir()">Cerrar</button>
                                 </div>
                             </div>
