@@ -16,7 +16,7 @@
                         "marca" => $valor['marca'],
                         "costo" => costo($valor['costo']),
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
-                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario'])
+                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario'],$valor['id_factura'])
                         );
         
     }
@@ -61,7 +61,7 @@
     function stock_min_max($cantidad){
         return "<h6 class='mb-0'>$cantidad</h6>";
     }
-    function accion($cod_articulo,$no_inventario){
+    function accion($cod_articulo,$no_inventario,$id_factura){
         $inv = "";
         $prop = "";
         if(empty($no_inventario)){
@@ -69,6 +69,9 @@
         }
         if(!empty($cod_articulo)){
             $prop = "<a class='dropdown-item' id='X$cod_articulo' data-codarticulo='$cod_articulo' onclick='propiedadArticle(event)'><i class='icon-clippy'></i> Propiedades</a>";
+        }
+        if(!empty($id_factura)){
+            $fact = "<a class='dropdown-item' id='Z$cod_articulo' data-codarticulo='$cod_articulo' data-idfactura='$id_factura' onclick='openModalFacturaDetail(event)'><i class='icon-certificate'></i> Ver Factura</a>";
         }
     return "<div class='list-icons'>
                 <div class='dropdown'>
@@ -78,6 +81,7 @@
                     <div class='dropdown-menu dropdown-menu-right bg-slate-600'>
                         $prop
                         $inv
+                        $fact
                         <a class='dropdown-item' id='Y$cod_articulo' data-codarticulo='$cod_articulo' onclick='openTrazabilidad(event)'><i class='icon-search4'></i> Trazabilidad</a>
                     </div>
                 </div>

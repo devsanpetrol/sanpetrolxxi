@@ -607,6 +607,101 @@
                         </div>
                     </div>
                     <!-- /modal with invoice -->
+                    <!-- Modal with invoice -->
+                    <div id="invoice" class="modal fade">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="mb-4">
+                                                    <div class="text-sm-right">
+                                                        <h4 class="text-primary mb-2 mt-md-2">DETALLE FACTURA</h4>
+                                                        <span class="text-muted">Archivado: </span><span class="text-muted" id="view_date_insert"></span>
+                                                        <ul class="list list-unstyled mb-0">
+                                                            <li>Fecha Emision: <span class="font-weight-semibold" id="view_fecha_emision"></span></li>
+                                                            <li>Lugar Emision: <span class="font-weight-semibold" id="view_lugar_emision"></span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-md-flex flex-md-wrap">
+                                            <div class="mb-4 mb-md-2">
+                                                <span class="text-muted">Datos del emisor</span>
+                                                <ul class="list list-unstyled mb-0">
+                                                    <li><h5 class="my-2" id="view_nombre"></h5></li>
+                                                    <li><span class="font-weight-semibold" id="view_rfc"></span></li>
+                                                    <li id="view_direccion"></li>
+                                                    <li id="view_num_telefono"></li>
+                                                    <li class="text-blue-800" id="view_email"></li>
+                                                    <li class="text-blue-800" id="view_pagina_web"></li>
+                                                </ul>
+                                            </div>
+                                            <div class="mb-2 ml-auto">
+                                                <span class="text-muted">Detalles del pago:</span>
+                                                <div class="d-flex flex-wrap wmin-md-400">
+                                                    <ul class="list list-unstyled mb-0">
+                                                        <li>Numero serie</li>
+                                                        <li>UUID</li>
+                                                    </ul>
+                                                    <ul class="list list-unstyled text-right mb-0 ml-auto">
+                                                        <li><span class="font-weight-semibold" id="view_serie_folio"></span></li>
+                                                        <li><span class="font-weight-semibold" id="view_uuid"></span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-xs" id="table_DetailDocumento">
+                                        <col width="44%">
+                                        <col width="12%">
+                                        <col width="12%">
+                                        <col width="12%">
+                                        <col width="20%">
+                                        <thead>
+                                            <tr>
+                                                <th>Description</th>
+                                                <th>Cantidad</th>
+                                                <th>Unidad</th>
+                                                <th>Precio/Unidad</th>
+                                                <th class="text-right">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-md-flex flex-md-wrap">
+                                        <div class="pt-2 mb-3 wmin-md-400 ml-auto">
+                                            <div class="table-responsive">
+                                                <table class="table table-xs">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th></th>
+                                                            <td class="text-right"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Total:</th>
+                                                            <td class="text-right text-primary"><h5 class="font-weight-semibold text-blue-800" id="view_total"></h5></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-transparent">
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="exitDetailFactura()">salir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
                     <!-- Footer -->
                     <?php include "../bar_nav/footer_navbar.php"; ?>
                     <!-- /footer -->

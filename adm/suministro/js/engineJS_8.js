@@ -52,6 +52,26 @@ $(document).ready( function () {
             info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
         }
     });
+    $('#table_DetailDocumento').DataTable({
+        paging: false,
+        searching: false,
+        ordering: false,
+        bDestroy: true,
+        info: false,        
+        createdRow: function ( row, data, index ){
+            $('td', row).eq(3).addClass('text-right');
+            $('td', row).eq(4).addClass('text-right');
+            $(row).addClass('pointer font-weight-semibold text-grey');
+        },
+        columnDefs: [
+            {targets:0,className: "dt-left"},
+            {targets:1,className: "dt-center"},
+            {targets:2,className: "dt-center"}
+        ],
+        language: {
+            zeroRecords: "Ningun elemento relaciondo"
+        }
+    });
     $('#select_categoria').change(function(){
         var id_categoria = $(this).val();
         $.ajax({
@@ -347,5 +367,132 @@ function setArticle(){
     }).done(function() {
         $("#form_activo")[0].reset();
         $("#article_new").modal("hide");
+    });
+}
+function openModalFacturaDetail(e){
+    var obj = e.target;
+    var id_factura = $(obj).data('idfactura');
+    getFacturaDetail(id_factura);
+    getFacturaDetail_list(id_factura);   
+}
+function getFacturaDetail(id_factura){
+    $.ajax({
+        data:{id_factura:id_factura},
+        url: 'json_selectFacturaInf.php',
+        type: 'POST',
+        beforeSend: function (xhr){
+            console.log("Actualizando..." + id_factura);
+        },
+        success: function (obj) {
+            var data = obj[0];
+            
+            $("#view_date_insert").html(data.date_insert);
+            $("#view_fecha_emision").html(data.fecha_emision);
+            $("#view_lugar_emision").html(data.lugar_emision);
+            $("#view_nombre").html(data.nombre);
+            $("#view_rfc").html(data.rfc);
+            $("#view_direccion").html(data.direccion);
+            $("#view_num_telefono").html(data.num_telefono);
+            $("#view_email").html(data.email);
+            $("#view_pagina_web").html(data.pagina_web);
+            $("#view_serie_folio").html(data.serie_folio);
+            $("#view_uuid").html(data.uuid);
+            $("#view_total").html(data.total);
+        },
+        error: function (obj) {
+            console.log(obj.msg);
+        }
+    });
+}
+function getFacturaDetail_list(id_factura){
+    var t = $('#table_DetailDocumento').DataTable();
+    $.ajax({
+        data:{id_factura:id_factura},
+        url: 'json_selectFacturaInfDetail.php',
+        type: 'POST',
+        beforeSend: function (xhr){
+            t.clear().draw();
+        },
+        success: function (obj) {
+            $.each(obj, function (index, value) {
+                t.row.add([
+                    value.articulo,
+                    value.cantidad,
+                    value.unidad,
+                    value.precio_unidad,
+                    value.total
+                ]);
+                t.draw( false );
+                console.log("Agrego: "+index);
+            });
+        },
+        complete: (function () {
+            $('#invoice').modal('show');
+        })
+    });
+}
+function exitDetailFactura(){
+    $('#invoice').modal('hide');
+    $("#view_date_insert").html("");
+    $("#view_fecha_emision").html("");
+    $("#view_lugar_emision").html("");
+    $("#view_nombre").html("");
+    $("#view_rfc").html("");
+    $("#view_direccion").html("");
+    $("#view_num_telefono").html("");
+    $("#view_email").html("");
+    $("#view_pagina_web").html("");
+    $("#view_serie_folio").html("");
+    $("#view_uuid").html("");
+    $("#view_total").html("");
+    var t = $('#table_DetailDocumento').DataTable();
+    t.clear().draw();
+}
+function add_documento(){
+    if (confirm('¿Guardar los cambios realizados?')) {
+        
+        var serie_folio = $("#add_serie_folio").val();
+        var fecha_emision = $("#add_fecha_emision").val();
+        var lugar_emision = $("#add_lugar_emision").val();
+        var uuid = $("#add_uuid").val();
+        var total = $("#total").data("total");
+        var id_proveedor = $("#rfc").data("idproveedor");
+        
+        $.ajax({
+            data:{serie_folio:serie_folio,fecha_emision:fecha_emision,lugar_emision:lugar_emision,uuid:uuid,total:total,id_proveedor:id_proveedor},
+            url: 'json_addDocumento.php',
+            type: 'POST',
+            success:(function(res){
+                if(res.stat == "ok"){
+                    console.log("ok:" + res.result);
+                    recorreDataTable(res.result);
+                }else if(res.stat == "fail"){
+                    console.log("Pr:" + $("#rfc").data("idproveedor"));
+                    console.log("fail");
+                }
+            })
+        });
+    } else {
+        alert('NO confirmado');
+    }
+}
+function guardaPedido(cod_articulo, cantidad,precio_unidad,total,id_factura){
+    $.ajax({
+        data:{cantidad:cantidad, precio_unidad:precio_unidad, total:total, id_factura:id_factura, cod_articulo:cod_articulo},
+        type: 'post',
+        url: 'json_addDocumento_detail.php',
+        dataType: 'json',
+        success: function(data){
+            //$.each(data,function(key, registro){
+            //});
+            if(data.stat == "ok"){
+                console.log('add:' + cod_articulo + ', OK');
+            }else{
+                console.log('Fail add:' + cod_articulo + ', ERROR');
+            }
+        },
+        error: function(data){
+          console.log('error'+data);
+        }
     });
 }
