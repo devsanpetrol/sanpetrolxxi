@@ -72,6 +72,33 @@ $(document).ready( function () {
             zeroRecords: "Ningun elemento relaciondo"
         }
     });
+    $('#proveedor_tabla_aplica').DataTable({
+        bDestroy: true,
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        lengthMenu: [[5, 10], [5, 10]],//-1 = all
+        ajax: {
+            url: "json_proveedor_aplica.php",
+            dataSrc:function ( json ) {
+                return json;
+            }
+        },
+        columns: [
+            {data : 'nombre'},
+            {data : 'rfc'},
+            {data : 'accion'}
+        ],
+        rowGroup: {
+            //dataSrc: 'grupo'
+        },
+        columnDefs: [
+            //{targets:0, visible:false}
+        ],
+        language: {
+            search: '<span>Filtro:</span> _INPUT_',
+            searchPlaceholder: 'Buscar proveedor...',
+            info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
+        }
+    });
     $('#select_categoria').change(function(){
         var id_categoria = $(this).val();
         $.ajax({
@@ -495,4 +522,13 @@ function guardaPedido(cod_articulo, cantidad,precio_unidad,total,id_factura){
           console.log('error'+data);
         }
     });
+}
+function get_proveedor(e){
+    var obj = e.target;
+    var id = $(obj).data('id');
+    var nombre = $(obj).data('nombre');
+    var rfc = $(obj).data('rfc');
+    $("#rfc").val(rfc);
+    $("#rfc").data("idproveedor",id);
+    $("#nombreempresa").val(nombre);
 }

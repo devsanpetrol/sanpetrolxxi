@@ -613,8 +613,7 @@
                             <div class="modal-content">
                                 <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6">
-                                            </div>
+                                            <div class="col-sm-6"></div>
                                             <div class="col-sm-6">
                                                 <div class="mb-4">
                                                     <div class="text-sm-right">
@@ -654,49 +653,37 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                <div class="modal-footer bg-transparent">
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="exitDetailFactura()">salir</button>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
+                    <!-- Modal with invoice -->
+                    <div id="busca_proveedor" class="modal fade" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
                                 <div class="table-responsive">
-                                    <table class="table table-xs" id="table_DetailDocumento">
-                                        <col width="44%">
-                                        <col width="12%">
-                                        <col width="12%">
-                                        <col width="12%">
-                                        <col width="20%">
+                                    <table class="table table-xs table-border-dashed datatable-basic text-nowrap" id="proveedor_tabla_aplica" style="width:100%">
+                                        <col width="70%">
+                                        <col width="30%">
+                                        <col width="10%">
                                         <thead>
                                             <tr>
-                                                <th>Description</th>
-                                                <th>Cantidad</th>
-                                                <th>Unidad</th>
-                                                <th>Precio/Unidad</th>
-                                                <th class="text-right">Total</th>
+                                                <th>Proveedor</th>
+                                                <th>R.F.C.</th>
+                                                <th>Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="card-body">
-                                    <div class="d-md-flex flex-md-wrap">
-                                        <div class="pt-2 mb-3 wmin-md-400 ml-auto">
-                                            <div class="table-responsive">
-                                                <table class="table table-xs">
-                                                    <tbody>
-                                                        <tr>
-                                                            <th></th>
-                                                            <td class="text-right"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Total:</th>
-                                                            <td class="text-right text-primary"><h5 class="font-weight-semibold text-blue-800" id="view_total"></h5></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="modal-footer bg-transparent">
-                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="exitDetailFactura()">salir</button>
+                                    <button type="button" class="btn btn-sm alpha-success text-success-800 legitRipple" id="btnmouestranewpro" onclick="hide_showNewProveedor()"><i class="icon-plus3"></i></button>
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewProv()">salir</button>
                                 </div>
                             </div>
                         </div>
