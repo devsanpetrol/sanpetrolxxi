@@ -54,7 +54,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <script src="js/engineJS_18.js"></script>
+    <script src="js/engineJS_19.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
     <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
@@ -100,14 +100,14 @@
                     <div class="page-header page-header-light">
                         <div class="page-header-content header-elements-md-inline">
                             <div class="page-title d-flex">
-                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">SOLICITUD RÁPIDA</span></h4>
+                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">SOLICITUD DE EQUIPOS DE PROTECCIÓN PERSONAL</span></h4>
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
                             <div class="header-elements d-none">
                                 <form action="#">
                                     <div class="form-group form-group-feedback form-group-feedback-right">
                                         <a href="#" class="btn bg-transparent text-danger btn-icon mr-3 legitRipple">
-                                            <i class="icon-power2 icon-2x"></i>
+                                            <i class="icon-shield2 icon-2x"></i>
 					</a>
                                     </div>
                                 </form>
@@ -177,10 +177,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" readonly required>
-                                                        <div class="form-control-feedback form-control-feedback-sm">
-                                                            <i class="icon-calendar22"></i>
-                                                        </div>
+                                                        <input type="date" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">

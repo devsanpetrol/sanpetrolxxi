@@ -1,10 +1,10 @@
 <?php
-    require_once './suministro.php'; 
+    require_once './suministro.php';
     
     $suministro = new suministro();
     $user_session_id = $_POST["user_session_id"];
     $id_coordinacion = $_POST["id_coordinacion"];
-    if($id_coordinacion == 1 || $id_coordinacion == 2){
+    if($id_coordinacion == 1 || $id_coordinacion == 2 || $id_coordinacion == 7){
         $filter = "WHERE id_coordinacion = $id_coordinacion GROUP BY folio ORDER BY folio DESC";
     }
     if($id_coordinacion == 4){
@@ -71,7 +71,7 @@
         }
     }
     function cantidad_user($cant, $cant_coord,$cant_plan, $id_coordinacion){
-        if( $id_coordinacion == 1 || $id_coordinacion == 2 ){
+        if( $id_coordinacion == 1 || $id_coordinacion == 2 || $id_coordinacion == 7){
             return $cant_coord;
         }else if( $id_coordinacion == 4 ){
             return $cant_plan;

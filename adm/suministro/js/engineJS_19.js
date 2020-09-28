@@ -1,7 +1,7 @@
 $(document).ready( function () {
     $('.form-control-select2').select2();
-    $(".inicio_nuevo_rapido").addClass("active");
-    $(".inicio_nuevo_rapido i").addClass("text-orange-800");
+    $(".inicio_nuevo_epp").addClass("active");
+    $(".inicio_nuevo_epp i").addClass("text-orange-800");
     get_area_equipo();
     fecha_actual();
     $('.pickadate-accessibility').pickadate({
@@ -47,7 +47,7 @@ $(document).ready( function () {
         ajax: {
             url: "json_articulo_aplica.php",
             type:"post",
-            data:({filter:'WHERE config = 1 AND salida_rapida = 1'}),
+            data:({filter:'WHERE config = 1 AND salida_rapida = 1 AND id_categoria = 3'}),
             dataSrc:function ( json ) {
                 return json;
             }
@@ -202,9 +202,12 @@ $(document).ready( function () {
     });
 } );
 function get_area_equipo(){
+    var filter = "WHERE id_coordinacion = 7";
     $.ajax({
     url: 'json_destinoSuministro.php',
     dataType: "json",
+    type:"post",
+    data:({filter:filter}),
     success: function(data){
         $.each(data,function(key, registro) {
             $("#area_aquipo").append("<option data-idcoordinacion='"+registro.id_coordinacion+"' value='"+registro.id_equipo+"'>"+registro.nombre_generico+"</option>");
@@ -294,7 +297,7 @@ function get_folio(){
         $.ajax({
             data:{fecha_solicitud:fecha_solicitud,clave_solicita:clave_solicita,nombre_solicita:nombre_solicita,puesto_solicita:puesto_solicita,sitio_operacion:sitio_operacion,id_equipo:id_equipo,id_solicita:id_solicita},
             type: 'post',
-            url: 'json_selecFolio_rapido.php',
+            url: 'json_selecFolio_epp.php',
             dataType: 'json',
             success: function(data){
               $.each(data,function(key, registro){
@@ -337,10 +340,12 @@ function recorreDataTable(folio){
         });
 }
 function guardaPedido(cod_articulo,cantidad,unidad,articulo,destino,justificacion,folio){
+    var fecha_requerimiento = $("#fecha_actual").val();
+    
     $.ajax({
-        data:{cod_articulo:cod_articulo,cantidad:cantidad,unidad:unidad,articulo:articulo,justificacion:justificacion, destino:destino, folio:folio},
+        data:{cod_articulo:cod_articulo,cantidad:cantidad,unidad:unidad,articulo:articulo,justificacion:justificacion, destino:destino, folio:folio,fecha_requerimiento:fecha_requerimiento},
         type: 'post',
-        url: 'json_insertPedido_rapido.php',
+        url: 'json_insertPedido.php',
         dataType: 'json',
         success: function(data){},
         error: function(data){

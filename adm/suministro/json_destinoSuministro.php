@@ -2,7 +2,11 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_destinoSuministro();
+    if(empty($_POST["filter"])){
+        $categorias = $suministro->get_destinoSuministro();
+    }else{
+        $categorias = $suministro->get_destinoSuministro($_POST["filter"]);
+    }
     $data = array();
     
     foreach ($categorias as $valor) {

@@ -54,10 +54,11 @@
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/inicio.php">Adquisición de Material</a></li>
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/coordinacion_test.php">Coordinación Testing</a></li>
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/coordinacion_swab.php">Coordinación Swabing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="adm/suministro/coordinacion_ssac.php">Coordinación SSAC</a></li>
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/coordinacion_plan.php">Planeación de Proyecto</a></li>
-                        <li class="nav-item"><a class="nav-link" href="adm/suministro/personal.php">Catálogo</a></li>
                         <li class="nav-item"><a class="nav-link" href="adm/suministro/almacen.php">Almacen</a></li>
-                        <li class="nav-item"><a class="nav-link" href="adm/suministro/aprobacion_salida.php">Supervisión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="adm/suministro/personal.php">Catálogo</a></li>
+                        <!--<li class="nav-item"><a class="nav-link" href="adm/suministro/aprobacion_salida.php">Supervisión</a></li>-->
                     </ul>
                 </li>
             </ul>

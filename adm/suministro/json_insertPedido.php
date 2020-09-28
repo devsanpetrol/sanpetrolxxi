@@ -24,12 +24,6 @@
     }else{
             $data[] = array("result"=>'falla');
     }
-    function status($clave_solicita, $id_categoria){
-        $suministro = new suministro(); $status = 0;
-        $articulos  = $suministro->get_responsable_categoria($id_categoria);
-        if ($clave_solicita == $articulos) : $status = 1; endif;
-        return $status;
-    }
     
     header('Content-Type: application/json');
     echo json_encode($data);

@@ -62,8 +62,9 @@
         return "<h6 class='mb-0'>$cantidad</h6>";
     }
     function accion($cod_articulo,$no_inventario,$id_factura){
-        $inv = "";
+        $inv  = "";
         $prop = "";
+        $fact = "";
         if(empty($no_inventario)){
             $inv = "<a class='dropdown-item' data-codarticulo='$cod_articulo' onclick='inventarear(event)' id='inv_$cod_articulo'><i class='icon-price-tag2'></i> Inventariar</a>";
         }
@@ -71,8 +72,6 @@
             $prop = "<a class='dropdown-item' id='X$cod_articulo' data-codarticulo='$cod_articulo' onclick='propiedadArticle(event)'><i class='icon-clippy'></i> Propiedades</a>";
         }
         if(!empty($id_factura)){
-            $fact = "<a class='dropdown-item' id='Z$cod_articulo' data-codarticulo='$cod_articulo' data-idfactura='$id_factura' onclick='openModalFacturaDetail(event)'><i class='icon-certificate'></i> Ver Factura</a>";
-        }else{
             $fact = "<a class='dropdown-item' id='Z$cod_articulo' data-codarticulo='$cod_articulo' data-idfactura='$id_factura' onclick='openModalFacturaDetail(event)'><i class='icon-certificate'></i> Ver Factura</a>";
         }
     return "<div class='list-icons'>

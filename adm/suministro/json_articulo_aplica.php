@@ -2,7 +2,11 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_articulo_detail("WHERE config = 1 AND salida_rapida = 1");
+    if(empty($_POST["filter"])){
+        $categorias = $suministro->get_articulo_detail();
+    }else{
+        $categorias = $suministro->get_articulo_detail($_POST["filter"]);
+    }
     $data = array();
     
     foreach ($categorias as $valor) {
