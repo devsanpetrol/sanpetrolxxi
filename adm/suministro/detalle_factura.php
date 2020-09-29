@@ -399,7 +399,7 @@
         </div>
     </div>
     <!-- /modal with invoice -->
-    <!-- Modal new invoice -->
+    <!-- Modal new article_new -->
     <div id="article_new" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -509,7 +509,7 @@
         </div>
     </div>
     <!-- /modal with invoice -->
-    <!-- Modal with invoice -->
+    <!-- Modal with busca_proveedor -->
     <div id="busca_proveedor" class="modal fade" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -626,7 +626,7 @@
         </div>
     </div>
     <!-- /modal with invoice -->
-    <!-- Modal with invoice -->
+    <!-- Modal with busca_articulo -->
     <div id="busca_articulo" class="modal fade" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

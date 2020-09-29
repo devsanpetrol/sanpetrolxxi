@@ -294,29 +294,34 @@ function get_folio(){
         var id_equipo       = $("#area_aquipo").val();
         var sitio_operacion = $("#sitio").val();
         
-        $.ajax({
-            data:{fecha_solicitud:fecha_solicitud,clave_solicita:clave_solicita,nombre_solicita:nombre_solicita,puesto_solicita:puesto_solicita,sitio_operacion:sitio_operacion,id_equipo:id_equipo,id_solicita:id_solicita},
-            type: 'post',
-            url: 'json_selecFolio_epp.php',
-            dataType: 'json',
-            success: function(data){
-              $.each(data,function(key, registro){
-                $("#folioxx").text('FOLIO: '+registro.folio).data('folioz',registro.folio);
-                folio_num = registro.folio;
-                recorreDataTable(registro.folio);
-              });
-              $('#folioxx').slideDown();
-            },
-            complete: function(){
-                $("#btn_send_pedido").prop( "disabled", true );
-                setTimeout(function(){
-                    guarda_vale_salida_rapido(folio_num);
-                },5000);
-            },
-            error: function(data) {
-                alert('Error de conexión al enviar');
-            }
-        });
+        if(id_solicita != "" && nombre_solicita != "" && id_equipo != "" && sitio_operacion != "" && fecha_solicitud != ""){
+            $.ajax({
+                data:{fecha_solicitud:fecha_solicitud,clave_solicita:clave_solicita,nombre_solicita:nombre_solicita,puesto_solicita:puesto_solicita,sitio_operacion:sitio_operacion,id_equipo:id_equipo,id_solicita:id_solicita},
+                type: 'post',
+                url: 'json_selecFolio_epp.php',
+                dataType: 'json',
+                success: function(data){
+                  $.each(data,function(key, registro){
+                    $("#folioxx").text('FOLIO: '+registro.folio).data('folioz',registro.folio);
+                    folio_num = registro.folio;
+                    recorreDataTable(registro.folio);
+                  });
+                  $('#folioxx').slideDown();
+                },
+                complete: function(){
+                    $("#btn_send_pedido").prop( "disabled", true );
+                    setTimeout(function(){
+                        alert("Proceso finalizado!");
+                        //guarda_vale_salida_rapido(folio_num);
+                    },5000);
+                },
+                error: function(data) {
+                    alert('Error de conexión al enviar');
+                }
+            });
+        }else{
+            alert("Es necesario rellenar completamente el formulario");
+        }
     }else{
         alert("Solicitud vacia");
     }

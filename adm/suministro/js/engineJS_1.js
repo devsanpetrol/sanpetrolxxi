@@ -253,13 +253,13 @@ function addElementToTable(){
         var t = $('#table_inventarioitems').DataTable();
         
         t.row.add( [
-            $('#i_codigoinventario').val(),
-            $('#i_descripcion').val(),
-            $('#i_cantidad').val(),
-            round($('#i_preciounidad').val()),
+            $('#i_codigoinventario').val(), //0
+            $('#i_descripcion').val(),      //1
+            $('#i_cantidad').val(),         //2
+            round($('#i_preciounidad').val()),//3
             '<input type="text" class="form-control font-weight-semibold text-danger sub-total-items text-right" readonly value="'+FormatCurrency(round(totl))+'" data-subtotal="'+round(totl)+'">',
-            '',
-            round(totl)
+            '',//5
+            round(totl)//6
         ] ).draw( false );
         borrar_input_nuevoArticulo();
         sumCoulumns();
@@ -485,15 +485,17 @@ function recorreDataTable(id_doc){
             .data()
             .toArray());
             cell = arr[index][0];
-            //console.log('cell[0]:'+cell[0]+', cell[2]:'+cell[2]+', cell[3]:'+cell[3]+', cell[6]:'+cell[6]);
+            console.log('cell[0]:'+cell[0]+', cell[2]:'+cell[2]+', cell[3]:'+cell[3]+', cell[6]:'+cell[6]);
             guardaPedido(cell[0],cell[2],cell[3],cell[6],id_doc);
+            
             var total = index + 1;
             console.log("Completado: "+total+" de:" + cont);
-            if (cont >= index+1){
+            if (cont == (index+1)){
                 finishDocument();
             }else{
                 console.log(total + " Procesando");
             }
+            
         });
 }
 function guardaPedido(cod_articulo, cantidad,precio_unidad,total,id_factura){

@@ -284,7 +284,7 @@
                                                             <th>Coord.</th> <!-- 4 -->
                                                             <th>Planeación</th> <!-- 4 -->
                                                             <th>Materiales solicitados</th> <!-- 3 -->
-                                                            <th>Avance</th> <!-- 3 -->
+                                                            <th>Avance de Entrega</th> <!-- 3 -->
                                                         </tr>
                                                     </thead>
                                                     <tbody data-link="row" class="rowlink">

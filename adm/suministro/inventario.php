@@ -654,6 +654,46 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-xs" id="table_DetailDocumento">
+                                            <col width="44%">
+                                            <col width="12%">
+                                            <col width="12%">
+                                            <col width="12%">
+                                            <col width="20%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Description</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Unidad</th>
+                                                    <th>Precio/Unidad</th>
+                                                    <th class="text-right">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-md-flex flex-md-wrap">
+                                            <div class="pt-2 mb-3 wmin-md-400 ml-auto">
+                                                <div class="table-responsive">
+                                                    <table class="table table-xs">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th></th>
+                                                                <td class="text-right"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Total:</th>
+                                                                <td class="text-right text-primary"><h5 class="font-weight-semibold text-blue-800" id="view_total"></h5></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <div class="modal-footer bg-transparent">
                                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="exitDetailFactura()">salir</button>
                                 </div>

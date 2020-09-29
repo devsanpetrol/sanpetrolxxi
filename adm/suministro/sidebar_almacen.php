@@ -32,6 +32,9 @@
                 <li class="nav-item">
                     <a href="inicio_nuevo_epp.php" class="nav-link inicio_nuevo_epp"><i class="icon-shield2"></i> Solicitud EPP </a>
                 </li>
+                <li class="nav-item">
+                    <a href="inicio_nuevo_epp_control.php" class="nav-link inicio_nuevo_epp_control"><i class="icon-notebook"></i> Control EPP </a>
+                </li>
                 <li class="nav-item-header">CONTABILIDAD</li>
                 <li class="nav-item">
                     <a href="detalle_factura.php" class="nav-link detalle_factura"><i class="icon-certificate"></i> Facturas </a>
