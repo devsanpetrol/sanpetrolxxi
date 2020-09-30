@@ -145,14 +145,17 @@
                             </div>
                             <div class="card shadow-0">
                                 <div class="card-body">
+                                    <h4 class="font-weight-semibold mb-1 text-center text-blue-700" id="nombre_empleado"></h4>
                                     <div class="table-responsive">
                                         <table class="table datatable-basic" id="solicitudes_tabla" style="width:100%">
-                                            <col width="75%">
-                                            <col width="25%">
+                                            <col width="60%">
+                                            <col width="10%">
+                                            <col width="30%">
                                             <thead>
                                                 <tr>
-                                                    <th>Material</th>
-                                                    <th>Fecha</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>

@@ -537,6 +537,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_vale_salida_($filtro=""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_valesalida_detail $filtro");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function get_solicitudes_op($filtro=""){
         $sql = $this->_db->prepare("SELECT *, sum(cantidad_surtido) as total_surtido, sum(cantidad_plan) as total_plan FROM adm_view_solicitud $filtro");
         $sql->execute();

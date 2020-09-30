@@ -17,7 +17,7 @@
                         "departamento" => cargo_email($valor['departamento'],$valor['especialista']),
                         "ambito" => departamento($valor['ambito']),
                         "status" => status($valor['status'],$valor['fecha_baja']),
-                        "accion" => accion($valor['id_empleado'],$valor['status'])
+                        "accion" => accion($valor['id_empleado'],$valor['status'],$valor['nombre']." ".$valor['apellidos'])
                         );
         
     }
@@ -62,8 +62,8 @@
             return "<span class='badge d-block badge-danger' title='Fecha de baja: $fecha_baja'>Baja</span>";
         }
     }
-    function accion($id_empleado,$status){
-        return "<i class='icon-books' id='Y$id_empleado' data-idempleado='$id_empleado' onclick='buscar_historico(event)'></i>";
+    function accion($id_empleado,$status,$nombre){
+        return "<i class='icon-books' id='Y$id_empleado' data-idempleado='$id_empleado' data-nombre='$nombre' onclick='buscar_historico(event)' style='cursor: pointer'></i>";
     }
     function costo($costo){
         if(!empty($costo)){

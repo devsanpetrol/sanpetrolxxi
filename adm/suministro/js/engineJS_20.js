@@ -21,6 +21,9 @@ $(document).ready( function () {
         ],
         language: {
             info: "Mostrando _TOTAL_ registros"
+        },
+        drawCallback: function() {
+            $(this.api().table().header()).hide();
         }
     });
     $('#solicitudes_tabla').DataTable({
@@ -33,6 +36,9 @@ $(document).ready( function () {
         ],
         language: {
             info: "Mostrando _TOTAL_ registros"
+        },
+        drawCallback: function() {
+            $(this.api().table().header()).hide();
         }
     });
 } );
@@ -50,23 +56,28 @@ function buscar_empleado(){
                 ] ).draw( false );
             });
      }).done(function() {
-        
-    });
+         
+     });
  }
  function buscar_historico(e){
-    var obj = e.target;
-    var id_empleado = $(obj).data('idempleado');
+    var obj = e.target,
+        id_empleado = $(obj).data('idempleado'),
+        nm_empleado = $(obj).data('nombre');
     var t = $('#solicitudes_tabla').DataTable();
-    alert(id_empleado);
     t.clear().draw();
     $.post('json_selectPersonal_epp_view.php',{ id_empleado: id_empleado },function(res){
          $.each(res, function (index, value) {
-                t.row.add([
-                    value.articulo,
-                    value.fecha
-                ] ).draw( false );
-            });
+            t.row.add([
+                value.articulo,
+                value.status,
+                value.fecha
+            ] ).draw( false );
+        });
+        $("#nombre_empleado").html(nm_empleado);
      }).done(function() {
-        
+        var filas = t.rows().count();
+        if(filas <= 0){
+            alert("No se encontró registros para mostrar.");
+        }
     });
  }
