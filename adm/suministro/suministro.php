@@ -538,7 +538,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_vale_salida_($filtro=""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_valesalida_detail $filtro");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_solicitud_entregado $filtro");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;

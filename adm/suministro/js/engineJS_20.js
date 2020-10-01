@@ -30,7 +30,8 @@ $(document).ready( function () {
         ordering: false,
         bDestroy: true,
         paging: false,
-        dom: '<"datatable-footer"><"datatable-scroll-wrap"t>',
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        lengthMenu: [[5, 10], [5, 10]],//-1 = all
         columnDefs: [
             //{targets: -1, className:'text-center text-primary-800'}
         ],
