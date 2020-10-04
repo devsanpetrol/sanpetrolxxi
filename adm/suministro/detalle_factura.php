@@ -78,6 +78,37 @@
 
             <!-- Content area -->
             <div class="content">
+                <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="hover" data-fab-state="close">
+                        <li>
+                            <a class="fab-menu-btn btn bg-success btn-float rounded-round btn-icon legitRipple">
+                                <i class="fab-icon-open icon-paragraph-justify3"></i>
+                                <i class="fab-icon-close icon-cross2"></i>
+                            </a>
+                            <ul class="fab-menu-inner">
+                                <li>
+                                    <div data-fab-label="Nuevo Articulo">
+                                        <a href="#" class="btn bg-primary rounded-round btn-icon btn-float legitRipple" data-toggle="modal" data-target="#article_new">
+                                            <i class="icon-pen-plus"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div data-fab-label="Buscar Proveedor">
+                                        <a href="#" data-toggle="modal" data-target="#busca_proveedor" class="btn bg-primary rounded-round btn-icon btn-float legitRipple">
+                                            <i class="icon-truck"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div data-fab-label="Nuevo Documento">
+                                        <a href="#" class="btn bg-primary rounded-round btn-icon btn-float legitRipple" onclick="finishDocument2()">
+                                            <i class="icon-file-plus"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                </ul>
                 <!-- New Invoice -->
                 <div class="card card-new-invoice" style="display: none">
                     <!--<div class="card-header bg-transparent header-elements-inline">style="display: none"
@@ -98,7 +129,7 @@
                     <div class="row">
                         <div class="col-md-6">
                                 <fieldset>
-                                <legend class="font-weight-semibold text-danger-800"><i class="icon-truck mr-2"></i> DATOS DE PROVEEDOR <button type="button" class="btn btn-sm rounded-round alpha-success text-success-800 legitRipple btn-icon ml-1" title="Agregar referencia del proveedor" data-toggle="modal" data-target="#busca_proveedor"><i class="icon-plus3"></i></button></legend>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-truck mr-2"></i> DATOS DE PROVEEDOR </legend>
                                 <form action="" id="form_proveedor">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -126,7 +157,7 @@
                         </div>
                         <div class="col-md-6">
                             <fieldset>
-                                <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DEL DOCUMENTO <button type="button" class="btn btn-sm rounded-round alpha-success text-success-800 legitRipple btn-icon ml-1" title="Nuevo Documento" onclick="finishDocument2()"><i class="icon-plus3"></i></button></legend>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DEL DOCUMENTO </legend>
                             <form action="" id="form_documento">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -182,7 +213,7 @@
                         </div>
                         <div class="col-md-12">
                             <fieldset>
-                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> AGREGAR ARTICULO <button type="button" class="btn btn-sm rounded-round alpha-success text-success-800 legitRipple btn-icon ml-1" title="Nuevo articulo" data-toggle="modal" data-target="#article_new"><i class="icon-plus3"></i></button></legend>
+                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> AGREGAR ARTICULO </legend>
                             <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group form-group-feedback form-group-feedback-left">

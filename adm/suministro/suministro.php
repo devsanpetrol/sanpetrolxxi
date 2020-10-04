@@ -613,8 +613,8 @@ class suministro extends conect
     }
     public function set_valesalidaDetail($folio_vale,$id_pedido,$codarticulo,$cant_surtir){
         $almacen = $this->_db->prepare("INSERT INTO adm_almacen_valesalida_detail (folio_vale_salida,cantidad_surtida, fecha, id_pedido, cod_articulo) VALUES ($folio_vale, '$cant_surtir', NOW(), $id_pedido, '$codarticulo')");
-        $entrega = $this->_db->prepare("UPDATE adm_pedido SET cantidad_pendiente = cantidad_pendiente - $cant_surtir, cantidad_surtido = cantidad_surtido + $cant_surtir WHERE id_pedido = $id_pedido LIMIT 1");
-        $product = $this->_db->prepare("UPDATE adm_almacen SET stock = stock - $cant_surtir WHERE cod_articulo = $codarticulo LIMIT 1");
+        $entrega = $this->_db->prepare("UPDATE adm_pedido SET cantidad_pendiente = (cantidad_pendiente - $cant_surtir), cantidad_surtido = (cantidad_surtido + $cant_surtir) WHERE id_pedido = $id_pedido LIMIT 1");
+        $product = $this->_db->prepare("UPDATE adm_almacen SET stock = (stock - $cant_surtir) WHERE cod_articulo = '$codarticulo' LIMIT 1");
         $resultado1 = $almacen -> execute();
         $entrega -> execute();
         $product -> execute();

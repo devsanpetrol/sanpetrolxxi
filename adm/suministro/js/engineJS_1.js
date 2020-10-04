@@ -1,5 +1,5 @@
 $(document).ready( function () {
-    
+    $(".fab-menu-bottom-right").hide();
     get_categoria();
     $(".detalle_factura").addClass("active");
     $(".detalle_factura i").addClass("text-orange-800");
@@ -333,6 +333,12 @@ function get_categoria(){
   });
 }
 function hide_showNewInvoice(){
+    var visible = $( ".card-new-invoice" ).is(":visible");
+    if(visible){
+      $(".fab-menu-bottom-right").slideUp("slow");
+    }else{
+        $(".fab-menu-bottom-right").slideDown("slow");
+    }
     $( ".card-new-invoice" ).toggle("slow","swing");
 }
 function hide_showNewProveedor(){

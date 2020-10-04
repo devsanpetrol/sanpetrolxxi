@@ -347,20 +347,20 @@ function getAlmacenSearch(){
     });
 }
 function guarda_cantidad_coord(id_pedido,cantidad){
-    var columna = "cantidad_plan";
-    var columna2 = "cantidad_pendiente";
-    var firma_plan = $("#firm_planeacion").data("idempleado");
+    var cant_plan = "cantidad_plan";
+    var cant_pend = "cantidad_pendiente";
+    var firma_plan = parseInt($("#firm_planeacion").data("idempleado"));
     
-    if (firma_plan == "0"){
-        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:columna }).done(function( data ) {
-            console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
+    if (firma_plan == 0){
+        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:cant_plan }).done(function( data ) {
+            //console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
         });
     }else{
-        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:columna }).done(function( data ) {
-            console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
+        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:cant_plan }).done(function( data ) {
+            //console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
         });
-        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:columna2 }).done(function( data ) {
-            console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna2 + " data:" + data);
+        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:cant_pend }).done(function( data ) {
+            //console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna2 + " data:" + data);
         });
     }
 }
