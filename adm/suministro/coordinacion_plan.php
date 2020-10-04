@@ -480,15 +480,9 @@
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
                                         <button type="button" class="btn bg-danger-400 btn-labeled btn-labeled-left legitRipple w-100" data-status="2" data-statustxt="CANCELADO" onclick="saveStatusItems(event)"><b><i class="icon-cancel-circle2"></i></b> CANCELAR </button>
                                     </div>
-                                    <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                        <button type="button" class="btn bg-primary btn-labeled btn-labeled-left legitRipple w-100" data-status="4" data-statustxt="COMPLETADO" onclick="saveStatusItems(event)"><b><i class="icon-checkmark4"></i></b> COMPLETADO </button>
-                                    </div>
-                                    <div class="form-group form-group-feedback form-group-feedback-left text-center">
-                                        <button type="button" class="btn bg-purple-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="3" data-statustxt="LISTO PARA SURTIR" onclick="saveStatusItems(event)"><b><i class="icon-power2"></i></b> SURTIR </button>
-                                    </div>
-                                    <div class="form-group form-group-feedback form-group-feedback-left text-center">
+                                <!--<div class="form-group form-group-feedback form-group-feedback-left text-center">
                                         <button type="button" class="btn bg-info-300 btn-labeled btn-labeled-left legitRipple w-100" data-status="5" data-statustxt="ENVIADO A COMPRA" onclick="saveStatusItems(event)"><b><i class="icon-cart2"></i></b> COMPRA </button>
-                                    </div>
+                                    </div>-->
                                     <div class="form-group form-group-feedback form-group-feedback-left text-center">
                                         <button type="button" class="btn btn-link legitRipple text-danger-800" data-dismiss="modal"><i class="icon-cross2"></i></button>
                                     </div>

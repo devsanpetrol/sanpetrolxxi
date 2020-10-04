@@ -553,9 +553,23 @@ class suministro extends conect
         $sql2 = $this->_db->prepare("UPDATE adm_pedido  SET $columna = $cantidad WHERE id_pedido = $id_pedido LIMIT 1");
         return $sql2->execute();
     }
+    function set_update_cantidad_plan($id_pedido,$cantidad){
+        if($cantidad > 0){
+            $sql2 = $this->_db->prepare("UPDATE adm_pedido SET cantidad_plan = $cantidad, status_pedido = 1 WHERE id_pedido = $id_pedido LIMIT 1");
+        }else{
+            $sql2 = $this->_db->prepare("UPDATE adm_pedido SET cantidad_plan = $cantidad, status_pedido = 2 WHERE id_pedido = $id_pedido LIMIT 1");
+        }
+        return $sql2->execute();
+    }
     function set_update_firma($firm,$folio,$columna_firm, $columna_fecha){
         $sql2 = $this->_db->prepare("UPDATE adm_solicitud_material SET $columna_firm = $firm, $columna_fecha = NOW() WHERE folio = $folio LIMIT 1");
         $sql3 = $this->_db->prepare("UPDATE adm_pedido SET cantidad_plan = cantidad_coord WHERE folio = $folio");
+        $sql3 -> execute();
+        return $sql2 -> execute();
+    }
+    function set_update_firma_plan($firm,$folio){
+        $sql2 = $this->_db->prepare("UPDATE adm_solicitud_material SET firm_planeacion = $firm, fecha_firm_planeacion = NOW() WHERE folio = $folio LIMIT 1");
+        $sql3 = $this->_db->prepare("UPDATE adm_pedido SET cantidad_pendiente = cantidad_plan WHERE folio = $folio");
         $sql3 -> execute();
         return $sql2 -> execute();
     }

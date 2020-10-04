@@ -229,15 +229,22 @@ function closeModalSolicitudDetail(){
     $("#div_seach_article").hide();
 }
 function guardarCambios(){
+    var items = $('.input-cantidad-coord').length;
+    var inici = 0;
     $('.input-cantidad-coord').each( function () {
+        inici++;
         var cantidad = $(this).val();
         var idpedido = $(this).data("idpedido");
         guarda_cantidad_coord(idpedido,cantidad);
+        console.log("items: "+items+"; step: "+inici);
+        if(inici === items){
+            var folio = $('#tabla_pedidos').data("folio");
+            
+            getSolicitudDetail_pedido(folio);
+            $('#lay_out_solicitudesx').DataTable().ajax.reload();
+        }
     });
-    var folio = $('#tabla_pedidos').data("folio");
-    getSolicitudDetail_pedido(folio);
-    set_firma_coord();
-    $('#lay_out_solicitudesx').DataTable().ajax.reload();
+    
 }
 function getSolicitudDetail(folio){
     $.ajax({
@@ -307,7 +314,7 @@ function getSolicitudDetail_pedido(folio){
                     value.justificacion,
                     value.comentarios
                 ]).node().id = value.id_pedido;
-                t.draw( false );
+                t.draw(false);
             });
         },
         complete: (function () {
@@ -347,22 +354,9 @@ function getAlmacenSearch(){
     });
 }
 function guarda_cantidad_coord(id_pedido,cantidad){
-    var cant_plan = "cantidad_plan";
-    var cant_pend = "cantidad_pendiente";
-    var firma_plan = parseInt($("#firm_planeacion").data("idempleado"));
-    
-    if (firma_plan == 0){
-        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:cant_plan }).done(function( data ) {
-            //console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
-        });
-    }else{
-        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:cant_plan }).done(function( data ) {
-            //console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna + " data:" + data);
-        });
-        $.post( "json_update_cantidad.php",{ id_pedido:id_pedido, cantidad:cantidad, columna:cant_pend }).done(function( data ) {
-            //console.log("Guardo exitoso: id_pedido:" + id_pedido + " , cantidad:" + cantidad + " , columna:" + columna2 + " data:" + data);
-        });
-    }
+    $.post( "json_update_cantidad_plan.php",{ id_pedido:id_pedido, cantidad:cantidad}).done(function( data ) {
+            console.log("Detalle Guardado :" + data.toString());
+    });
 }
 function firma_solicitud(){
     if($("#firm_planeacion").data("idempleado") == 0){
@@ -385,6 +379,7 @@ function log_autentic(){
                 $("#msj_alert").html("<span class='font-weight-semibold'>¡Acceso denegado!</span>").show(200);
             }else if(res.result == "aprobado"){
                 aplica_firma(res.id_empleado);
+                set_firma_coord();
                 $("#mod_log_acces").modal("hide");
             }
         })
@@ -401,10 +396,8 @@ function set_firma_coord(){
     if($('#firm_planeacion').data('nuevafirma') == 'new'){
         var firma       = $('#firm_planeacion').data('idempleado');
         var folio       = $('#tabla_pedidos').data('folio');
-        var column_firm = 'firm_planeacion';
-        var column_date = 'fecha_firm_planeacion';
         
-        $.post('json_update_firma_coord.php',{firma:firma,folio:folio,column_firm:column_firm,column_date:column_date}).done(function( data ) {
+        $.post('json_update_firma_plan.php',{firma:firma,folio:folio}).done(function( data ) {
             if(data.result = "exito"){
                 alert("La solicitud fue actualizada correctamente!");
                 $('#firm_planeacion')

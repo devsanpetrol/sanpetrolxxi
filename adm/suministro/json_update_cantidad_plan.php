@@ -6,14 +6,13 @@
     if(!empty($_POST['id_pedido'])){
         $id_pedido = $_POST['id_pedido'];
         $cantidad = $_POST['cantidad'];
-        $columna = $_POST['columna'];
         
-        $guarda_cantidad = $suministro->set_update_cantidad_solicitudDetalle($id_pedido, $cantidad, $columna);
+        $guarda_cantidad = $suministro->set_update_cantidad_plan($id_pedido, $cantidad);
         
         if ($guarda_cantidad == true){
             $data[] = array("result"=>'exito');
         }else{
-            $data[] = array("result"=>'no guardo');
+            $data[] = array("result"=> $guarda_cantidad);
         }
     }else{
             $data[] = array("result"=>'sin dato');
