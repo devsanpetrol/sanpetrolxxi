@@ -217,6 +217,7 @@ function openModalSolicitudDetail(folio){
     $("#div_seach_article").show();
 }
 function closeModalSolicitudDetail(){
+    $('#lay_out_solicitudesx').DataTable().ajax.reload();
     var table_pedido = $('#tabla_pedidos').DataTable();
     table_pedido.column(5).visible(true);
     table_pedido.clear().draw();
@@ -237,14 +238,24 @@ function guardarCambios(){
         var idpedido = $(this).data("idpedido");
         guarda_cantidad_coord(idpedido,cantidad);
         console.log("items: "+items+"; step: "+inici);
+        
         if(inici === items){
             var folio = $('#tabla_pedidos').data("folio");
-            
-            getSolicitudDetail_pedido(folio);
-            $('#lay_out_solicitudesx').DataTable().ajax.reload();
+            if (window.confirm("Los datos se guardaron correctamente. Los datos de la tabla se refresacaran.")) { 
+                getSolicitudDetail_pedido(folio);
+            }else{
+                getSolicitudDetail_pedido(folio);
+            }            
         }
     });
-    
+}
+function updinput(e){
+    var inp = e.target;
+    var cantidad = $(inp).val();
+    $(inp).prop("value",cantidad);
+    console.log("update: " + cantidad);
+    console.log("prop: "+$(inp).prop("value"));
+    console.log("val: "+$(inp).val());
 }
 function getSolicitudDetail(folio){
     $.ajax({
@@ -302,7 +313,7 @@ function getSolicitudDetail_pedido(folio){
         url: 'json_selectSolicitudDetail_pedidos.php',
         type: 'POST',
         beforeSend: function (xhr){
-            t.clear().draw(false);
+            t.clear().draw();
         },
         success: function (obj) {
             $.each(obj, function (index, value) {
@@ -355,7 +366,7 @@ function getAlmacenSearch(){
 }
 function guarda_cantidad_coord(id_pedido,cantidad){
     $.post( "json_update_cantidad_plan.php",{ id_pedido:id_pedido, cantidad:cantidad}).done(function( data ) {
-            console.log("Detalle Guardado :" + data.toString());
+        console.log("Detalle Guardado :" + data.toString());
     });
 }
 function firma_solicitud(){

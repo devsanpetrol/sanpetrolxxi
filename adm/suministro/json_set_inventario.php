@@ -6,9 +6,9 @@
     $cod_articulo      = $_POST['cod_articulo'];
     $cod_articulo_new  = $_POST['cod_articulo_new'];
     $inventariado      = $_POST['inventariado'];
-    $id_factura_detalle        = $_POST['id_factura_detalle'];
+    $id_factura_detalle= $_POST['id_factura_detalle'];
     $id_factura        = $_POST['id_factura'];
-    $id_categoria        = $_POST['id_categoria'];
+    $id_categoria      = $_POST['id_categoria'];
     
     $no_inventario = mb_strtoupper ($_POST['no_inventario']);
     $no_serie      = mb_strtoupper ($_POST['no_serie']);

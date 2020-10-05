@@ -160,6 +160,7 @@ function openModalSolicitudDetail(folio){
     $("#expand_menu_lateral").click();
 }
 function closeModalSolicitudDetail(){
+    $('#lay_out_solicitudesx').DataTable().ajax.reload();
     var table_pedido = $('#tabla_pedidos').DataTable();
     table_pedido.column(5).visible(true);
     table_pedido.clear().draw();
@@ -177,15 +178,23 @@ function closeModalSolicitudDetail_user(){
     $("#card_solicitud_detail").toggle(400);
 }
 function guardarCambios(){
+    var items = $('.input-cantidad-coord').length;
+    var inici = 0;
     $('.input-cantidad-coord').each( function () {
+        inici++;
         var cantidad = $(this).val();
         var idpedido = $(this).data("idpedido");
         guarda_cantidad_coord(idpedido,cantidad);
+        
+        if(inici === items){
+            var folio = $('#tabla_pedidos').data("folio");
+            if (window.confirm("Los datos se guardaron correctamente. Los datos de la tabla se refresacaran.")) { 
+                getSolicitudDetail_pedido(folio);
+            }else{
+                getSolicitudDetail_pedido(folio);
+            }            
+        }
     });
-    var folio = $('#tabla_pedidos').data("folio");
-    getSolicitudDetail_pedido(folio);
-    set_firma_coord();
-    $('#lay_out_solicitudesx').DataTable().ajax.reload();
 }
 function getSolicitudDetail(folio){
     $.ajax({
@@ -304,6 +313,7 @@ function firma_solicitud(){
                 $("#msj_alert").html("<span class='font-weight-semibold'>¡Acceso denegado!</span>").show(200);
             }else if(res.result == "aprobado"){
                 aplica_firma(res.id_empleado);
+                set_firma_coord();
                 $("#mod_log_acces").modal("hide");
             }
         })

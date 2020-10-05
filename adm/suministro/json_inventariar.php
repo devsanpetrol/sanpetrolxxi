@@ -57,7 +57,7 @@
         return preg_replace('/\d/', '', $cod_articulo );
     }
     function accion($numer_cod_articulo,$id_factura_detalle,$id_factura,$new_cod_inventario,$id_categoria){
-        return "<button type='button' class='btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm' data-numercodarticulo='$new_cod_inventario' data-inventariado='no' id='$numer_cod_articulo' data-idfacturadetalle='$id_factura_detalle' data-idfactura='$id_factura' data-idcategoria='$id_categoria' onclick='guarda_inventario(event)'>Ok</button>";
+        return "<button type='button' class='btn alpha-primary text-primary-800 btn-icon ml-2 legitRipple btn-sm' data-numercodarticulo='$new_cod_inventario' data-inventariado='no' id='id_$new_cod_inventario' data-idfacturadetalle='$id_factura_detalle' data-idfactura='$id_factura' data-idcategoria='$id_categoria' onclick='guarda_inventario(event)'>Ok</button>";
     }
     function status($numer_cod_articulo){
         return "<i class='icon-price-tag3 text-slate-300' id='ico_$numer_cod_articulo'></i>";

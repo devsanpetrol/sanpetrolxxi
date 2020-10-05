@@ -169,7 +169,7 @@
             if($firm_plan){
                 return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";
             }else{
-                return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' value='$cant_plan'>";
+                return "<input type='text' class='form-control font-weight-semibold text-danger-800 text-center input-cantidad-coord' data-idpedido='$id_pedido' placeholder='0' onkeypress='mybind(event)' value='$cant_plan' onchange='updinput(event)'>";
             }
         }else{
             return "<h6 class='mb-0 font-size-sm font-weight-bold text-slate-600'>$cant_plan</h6>";

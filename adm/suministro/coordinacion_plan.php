@@ -82,7 +82,7 @@
 		<?php include "../bar_nav/main_sidebar.php"; ?>
 		<!-- /main sidebar -->
 		<!-- Secondary sidebar -->
-		<div class="sidebar sidebar-light sidebar-secondary sidebar-expand-md">
+                <div class="sidebar sidebar-light sidebar-secondary sidebar-expand-md">
 
 			<!-- Sidebar mobile toggler -->
 			<div class="sidebar-mobile-toggler text-center">
