@@ -531,6 +531,12 @@ class suministro extends conect
         return $resultado;
     }
     //===========================NUEVAS CONSULTAS===============================
+    public function get_asignacion_($filtro=""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_asignacion_detail $filtro");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function get_solicitudes_($filtro=""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_solicitud $filtro");
         $sql->execute();
