@@ -98,6 +98,23 @@
 		<div class="content-wrapper">
                     <!-- Content area -->
                     <div class="content">
+                    <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="hover" data-fab-state="close">
+                        <li>
+                            <a class="fab-menu-btn btn bg-success btn-float rounded-round btn-icon legitRipple">
+                                <i class="fab-icon-open icon-paragraph-justify3"></i>
+                                <i class="fab-icon-close icon-cross2"></i>
+                            </a>
+                            <ul class="fab-menu-inner">
+                                <li>
+                                    <div data-fab-label="Nueva asignación">
+                                        <a href="#" class="btn bg-violet rounded-round btn-icon btn-float legitRipple" onclick="openCardNewAsignacion()">
+                                            <i class="icon-pen-plus"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                     <!-- Search field -->
                         <div class="card">
                             <div class="card-body">
@@ -121,6 +138,104 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- /bottom right menu -->
+                    <div class="card" id="card_addAsignacion">
+                        <div class="card-body" id="mod_pedido">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <fieldset>
+                                    <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DEL EMPLEADO</legend>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group form-group-feedback form-group-feedback-right">
+                                                <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="solicitante" data-idempleado="" placeholder="Nombre del solicitante" readonly onkeyup="mayus(this);" required>
+                                                <div class="form-control-feedback form-control-feedback-lg">
+                                                    <i class="icon-user-plus text-pink-800" data-toggle="modal" data-target="#busca_empleado" style="cursor: pointer"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                                <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="puesto" placeholder="Puesto" readonly onkeyup="mayus(this);" required>
+                                                <div class="form-control-feedback form-control-feedback-sm">
+                                                    <i class="icon-stack3"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                                <input type="date" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <div class="list-icons">
+                                        <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" style="display: none;" id="btn_del_row_sel" title="Remover item seleccionado"><i class="icon-trash"></i></button>
+                                        <button type="button" class="btn btn-sm alpha-success text-success-800 legitRipple" id="btn_send_pedido" onclick="get_folio()" title="Enviar solicitud">Enviar <i class="icon-paperplane ml-2"></i></button>
+                                        <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> AGREGAR ARTICULO </legend>
+                                    <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_codigobarra" placeholder="Codigo de Barra">
+                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                        <i class="icon-barcode2"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group form-group-feedback form-group-feedback-right">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_codigoinventario" readonly placeholder="Codigo de Inventario">
+                                                    <div class="form-control-feedback form-control-feedback-lg">
+                                                        <i class="icon-square-up-right text-pink-800" data-toggle="modal" data-target="#busca_articulo" style="cursor: pointer"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_descripcion" readonly placeholder="Descripción">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-1">
+                                                <div class="form-group text-right">
+                                                    <button type="button" class="btn btn-primary btn-icon ml-1" onclick="agregar_pedido()" title="Agregar"><i class="icon-add-to-list"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table id="tabla_pedidos" class="table datatable-selection-single" cellspacing="0" width="100%">
+                                        <col width="10%">
+                                        <col width="45%">
+                                        <col width="45%">
+                                        <thead>
+                                          <tr>
+                                            <th>Clave</th> <!-- 0 -->
+                                            <th>Articulo</th> <!-- 3 -->
+                                            <th>Especificación Técnica</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /dashboard content -->
                         <!-- /search field -->
                         <div class="card-group mb-sm-2">
                             <div class="card shadow-0">
@@ -145,7 +260,7 @@
                             </div>
                             <div class="card shadow-0">
                                 <div class="card-body">
-                                    <h4 class="font-weight-semibold mb-1 text-center text-blue-700" id="nombre_empleado"></h4>
+                                    <h4 class="font-weight-semibold mb-1 text-center text-primary-800" id="nombre_empleado"></h4>
                                     <div class="table-responsive">
                                         <table class="table datatable-basic" id="solicitudes_tabla" style="width:100%">
                                             <col width="60%">
@@ -167,6 +282,62 @@
                     </div>
                     <!-- /dashboard content -->
                     </div>
+                    <!-- Modal with invoice -->
+                    <div id="busca_empleado" class="modal fade" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="table-responsive">
+                                    <table class="table table-xs table-border-dashed datatable-basic text-nowrap" id="empleado_tabla_aplica" style="width:100%">
+                                        <col width="10%">
+                                        <col width="55%">
+                                        <col width="5%">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Puesto</th>
+                                                <th>Accion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer bg-transparent">
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewEmp()">salir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
+                    <!-- Modal with invoice -->
+                    <div id="busca_articulo" class="modal fade" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="table-responsive">
+                                    <table class="table table-xs table-border-dashed datatable-basic text-nowrap" id="articulo_tabla_aplica" style="width:100%">
+                                        <col width="10%">
+                                        <col width="55%">
+                                        <col width="30%">
+                                        <col width="5%">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Descripción</th>
+                                                <th>Categoría</th>
+                                                <th>Accion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer bg-transparent">
+                                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewArt()">salir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
                     <!-- /content area -->
                     <!-- Footer -->
                     <?php include "../bar_nav/footer_navbar.php"; ?>

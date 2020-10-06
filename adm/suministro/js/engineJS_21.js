@@ -1,7 +1,7 @@
 $(document).ready( function () {
     $(".inicio_nuevo_asignacion_control").addClass("active");
     $(".inicio_nuevo_asignacion_control i").addClass("text-orange-800");
-    
+    $("#card_addAsignacion").hide();
     var user_session_id = $('#user_session_id').data("employeid");
     
     $("#search_personal").bind('keypress', function(event) {
@@ -24,6 +24,63 @@ $(document).ready( function () {
         },
         drawCallback: function() {
             $(this.api().table().header()).hide();
+        }
+    });
+    $('#empleado_tabla_aplica').DataTable({
+        bDestroy: true,
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        lengthMenu: [[5, 10], [5, 10]],//-1 = all
+        ajax: {
+            url: "json_empleado_aplica.php",
+            dataSrc:function ( json ) {
+                return json;
+            }
+        },
+        columns: [
+            {data : 'nombre'},
+            {data : 'puesto'},
+            {data : 'accion'}
+        ],
+        rowGroup: {
+            //dataSrc: 'grupo'
+        },
+        columnDefs: [
+            //{targets:0, visible:false}
+        ],
+        language: {
+            search: '<span>Filtro:</span> _INPUT_',
+            searchPlaceholder: 'Buscar proveedor...',
+            info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
+        }
+    });
+    $('#articulo_tabla_aplica').DataTable({
+        bDestroy: true,
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        lengthMenu: [[5, 10], [5, 10]],//-1 = all
+        ajax: {
+            url: "json_activo_aplica.php",
+            type:"post",
+            data:({filter:'WHERE config = 1 AND salida_rapida = 1'}),
+            dataSrc:function ( json ) {
+                return json;
+            }
+        },
+        columns: [
+            {data : 'cod_articulo'},
+            {data : 'descripcion'},
+            {data : 'categoria'},
+            {data : 'accion'}
+        ],
+        rowGroup: {
+            //dataSrc: 'grupo'
+        },
+        columnDefs: [
+            //{targets:0, visible:false}
+        ],
+        language: {
+            search: '<span>Filtro:</span> _INPUT_',
+            searchPlaceholder: 'Buscar proveedor...',
+            info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
         }
     });
     $('#solicitudes_tabla').DataTable({
@@ -79,3 +136,21 @@ function buscar_empleado(){
         }
     });
  }
+ function openCardNewAsignacion(){
+    $("#card_addAsignacion").toggle("fast");
+ }
+ function hide_showModalNewEmp(){
+    $("#busca_empleado" ).modal("hide");
+}
+function hide_showModalNewArt(){
+    $("#busca_articulo" ).modal("hide");
+}
+function get_empleado(e){
+    var obj = e.target;
+    var i_nombre = $(obj).data('nombre'),
+        i_puesto = $(obj).data('puesto'),
+        i_idempleado = $(obj).data('idempleado');
+
+    $("#solicitante").val(i_nombre).data('idempleado',i_idempleado);
+    $("#puesto").val(i_puesto);
+}
