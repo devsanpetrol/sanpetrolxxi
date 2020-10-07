@@ -4,11 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_activo_aplica.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_21.js</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectPersonal_epp.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/inicio_nuevo_asignacion_control.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectPersonal_asignacion_view.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/sidebar_almacen.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/inicio_nuevo_rapido.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_18.js</file>
         </group>
     </open-files>
 </project-private>

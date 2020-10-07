@@ -771,7 +771,7 @@ class suministro extends conect
         return $resultado;
     }
     public function set_update_articulo($cod_articulo,$id_articulo, $cod_barra,$descripcion,$especificacion,$tipo_unidad,$marca,$id_categoria,$stock_min,$stock_max,$ubicacion,$salida_rapida){
-        $sql1 = $this->_db->prepare("UPDATE adm_articulo SET cod_barra='$cod_barra', descripcion='$descripcion', especificacion= '$especificacion', tipo_unidad= '$tipo_unidad', marca= '$marca', id_categoria= $id_categoria WHERE $id_articulo LIMIT 1");
+        $sql1 = $this->_db->prepare("UPDATE adm_articulo SET cod_barra='$cod_barra', descripcion='$descripcion', especificacion= '$especificacion', tipo_unidad= '$tipo_unidad', marca= '$marca', id_categoria= $id_categoria WHERE id_articulo = $id_articulo LIMIT 1");
         $sql2 = $this->_db->prepare("UPDATE adm_almacen SET stock_min=$stock_min,stock_max=$stock_max,ubicacion='$ubicacion', salida_rapida = $salida_rapida WHERE cod_articulo = '$cod_articulo'");
         $exe1 = $sql2 -> execute();
         if ($exe1){

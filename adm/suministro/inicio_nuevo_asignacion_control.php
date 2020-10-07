@@ -119,7 +119,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="text-center mb-3 py-2">
-                                    <h4 class="font-weight-semibold mb-1">Control de Asignaciones de Herramienta y Material de Trabajo 
+                                    <h4 class="font-weight-semibold mb-1">Control de Asignación de Herramienta y Material de Trabajo 
                                         <a href="#" class="btn bg-transparent text-violet btn-icon mr-3 legitRipple">
                                             <i class="icon-design icon-2x"></i>
 					</a>
@@ -170,12 +170,12 @@
                                     </div>
                                 </fieldset>
                                 </div>
-                                
                             </div>
                             <div class="row">
                                 <div class="col-md-12 text-right">
                                     <div class="list-icons">
                                         <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" style="display: none;" id="btn_del_row_sel" title="Remover item seleccionado"><i class="icon-trash"></i></button>
+                                        <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" id="btn_send_pedido" onclick="cerrarNewAsignacion()" title="Enviar solicitud">Cerrar <i class="icon-cross2 ml-2"></i></button>
                                         <button type="button" class="btn btn-sm alpha-success text-success-800 legitRipple" id="btn_send_pedido" onclick="get_folio()" title="Enviar solicitud">Enviar <i class="icon-paperplane ml-2"></i></button>
                                         <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
                                     </div>
@@ -186,7 +186,7 @@
                                     <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_codigobarra" placeholder="Codigo de Barra">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_noserie" readonly placeholder="S.N.">
                                                     <div class="form-control-feedback form-control-feedback-sm">
                                                         <i class="icon-barcode2"></i>
                                                     </div>
@@ -200,15 +200,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_descripcion" readonly placeholder="Descripción">
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-md-1">
+                                            <div class="col-md-2">
                                                 <div class="form-group text-right">
-                                                    <button type="button" class="btn btn-primary btn-icon ml-1" onclick="agregar_pedido()" title="Agregar"><i class="icon-add-to-list"></i></button>
+                                                    <button type="button" class="btn btn-primary btn-icon ml-1" onclick="addElementToTable()" title="Agregar">Agregar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,13 +218,13 @@
                                 <div class="table-responsive">
                                     <table id="tabla_pedidos" class="table datatable-selection-single" cellspacing="0" width="100%">
                                         <col width="10%">
-                                        <col width="45%">
-                                        <col width="45%">
+                                        <col width="10%">
+                                        <col width="80%">
                                         <thead>
                                           <tr>
-                                            <th>Clave</th> <!-- 0 -->
-                                            <th>Articulo</th> <!-- 3 -->
-                                            <th>Especificación Técnica</th>
+                                            <th>S.N.</th> <!-- 0 -->
+                                            <th>S.K.U</th> <!-- 3 -->
+                                            <th>Material</th>
                                           </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -316,9 +316,9 @@
                                 <div class="table-responsive">
                                     <table class="table table-xs table-border-dashed datatable-basic text-nowrap" id="articulo_tabla_aplica" style="width:100%">
                                         <col width="10%">
-                                        <col width="55%">
+                                        <col width="50%">
                                         <col width="30%">
-                                        <col width="5%">
+                                        <col width="10%">
                                         <thead>
                                             <tr>
                                                 <th>Codigo</th>

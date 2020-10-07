@@ -96,11 +96,29 @@ $(document).ready( function () {
             $(this.api().table().header()).hide();
         }
     });
+    $('#tabla_pedidos').DataTable({
+        paging: false,
+        searching: false,
+        ordering: false,
+        bDestroy: true,
+        createdRow: function ( row, data, index ) {
+            $('td', row).eq(0).addClass('font-weight-semibold text-blue-800');
+            $('td', row).eq(1).addClass('font-weight-semibold text-blue-800');
+            $('td', row).eq(2).addClass('font-weight-semibold');
+        },
+        language: {
+            zeroRecords: "Ningun elemento agregado"
+        }
+    });
 } );
 function get_articulo(e){
     var obj = e.target;
     var i_codigoinventario = $(obj).data('nombre');
+    var i_descripcion = $(obj).data('descripcion');
+    var i_noserie = $(obj).data('noserie');
         $("#i_codigoinventario").val(i_codigoinventario);
+        $("#i_descripcion").val(i_descripcion);//
+        $("#i_noserie").val(i_noserie);
 }
 function buscar_empleado(){
      var nombre = $("#search_personal").val();
@@ -157,4 +175,23 @@ function get_empleado(e){
 
     $("#solicitante").val(i_nombre).data('idempleado',i_idempleado);
     $("#puesto").val(i_puesto);
+}
+function cerrarNewAsignacion(){
+    $("#card_addAsignacion").toggle("fast");
+}
+function addElementToTable(){
+    if($('#i_noserie').val() != "" && $('#i_codigoinventario').val() != "" && $('#i_descripcion').val() != ""){
+        var sn = $('#i_noserie').val();
+        var cod_inv = $('#i_codigoinventario').val();
+        var desc = $('#i_descripcion').val();
+        
+        var t = $('#tabla_pedidos').DataTable();
+        
+        t.row.add( [
+            sn, //0
+            cod_inv,      //1
+            desc
+        ] ).draw( false );
+        $(".input-newarticle").val("");
+    }    
 }
