@@ -3,16 +3,16 @@
     
     $suministro = new suministro();
     if(empty($_POST["filter"])){
-        $categorias = $suministro->get_articulo_detail();
+        $categorias = $suministro->get_activofijo_detail();
     }else{
-        $categorias = $suministro->get_articulo_detail($_POST["filter"]);
+        $categorias = $suministro->get_activofijo_detail($_POST["filter"]);
     }
     $data = array();
     
     foreach ($categorias as $valor) {
         $data[] = array("descripcion" => nombre($valor['descripcion'],$valor['marca']),
                         "cod_articulo" => rfc($valor['cod_articulo']),
-                        "categoria" => rfc($valor['nombre_categoria']),
+                        "especificacion" => rfc($valor['especificacion_tec']),
                         "accion" => accion2($valor['cod_articulo'])
                         );
     }

@@ -890,6 +890,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_activofijo_detail($filtro = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_activos_fijos $filtro");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
      public function get_movimiento($filtro=""){
         $sql = $this->_db->prepare("SELECT * FROM adm_trazabilidad $filtro");
         $sql->execute();

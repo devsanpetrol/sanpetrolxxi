@@ -60,7 +60,7 @@ $(document).ready( function () {
         ajax: {
             url: "json_activo_aplica.php",
             type:"post",
-            data:({filter:'WHERE config = 1 AND salida_rapida = 1'}),
+            data:({filter:'WHERE status = 1'}),
             dataSrc:function ( json ) {
                 return json;
             }
@@ -68,7 +68,7 @@ $(document).ready( function () {
         columns: [
             {data : 'cod_articulo'},
             {data : 'descripcion'},
-            {data : 'categoria'},
+            {data : 'especificacion'},
             {data : 'accion'}
         ],
         rowGroup: {
@@ -97,7 +97,11 @@ $(document).ready( function () {
         }
     });
 } );
-
+function get_articulo(e){
+    var obj = e.target;
+    var i_codigoinventario = $(obj).data('nombre');
+        $("#i_codigoinventario").val(i_codigoinventario);
+}
 function buscar_empleado(){
      var nombre = $("#search_personal").val();
      var t = $('#personal_tabla').DataTable();
