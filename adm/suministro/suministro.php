@@ -532,7 +532,7 @@ class suministro extends conect
     }
     //===========================NUEVAS CONSULTAS===============================
     public function get_asignacion_($filtro=""){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_asignacion_detail $filtro");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_asignacion_detail $filtro order by fecha_recibe desc");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -942,5 +942,13 @@ class suministro extends conect
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
+    }
+    //=========================ASIGNACIONES=========================
+    public function set_asignacion($cod_articulo,$id_empleado,$fecha){
+        $asignacion = $this->_db->prepare("INSERT INTO adm_asignacion (cod_articulo,id_empleado, fecha_recibe) VALUES ('$cod_articulo',$id_empleado,'$fecha')");
+        $sql2 = $this->_db->prepare("UPDATE adm_activo SET asignado = $id_empleado WHERE cod_articulo = '$cod_articulo'");
+        $resultado = $asignacion->execute();
+        $resultado2 = $sql2->execute();
+        return $resultado*$resultado2;
     }
 }

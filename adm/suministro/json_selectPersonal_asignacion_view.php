@@ -10,7 +10,7 @@
         
         foreach ($solicitud as $valor) {
         $data[] = array("articulo" => articulo($valor['descripcion'],$valor['cod_articulo']),
-                        "fecha_recibe" => text($valor['fecha_recibe']),
+                        "fecha_recibe" => fecha($valor['fecha_recibe']),
                         "status" => status_asig($valor['fecha_entrega'], $valor['status'])
                         );
         }
@@ -29,6 +29,43 @@
                         <div class='text-muted font-size-sm'><span class='badge badge-mark border-blue mr-1'></span> $cod_articulo</div>
                     </div>
                 </div>";
+    }
+    function fecha($text){
+        $cadena = $text;
+        $timestamp = strtotime($cadena);
+        $fecha =  date('d F', $timestamp);
+        
+        //printf('%d años, %d meses, %d días', $fecha3->y, $fecha3->m, $fecha3->d);
+        return "<h6 class='mb-0 font-size-sm font-weight-semibold'>$fecha</h6>".antiguedad($text);
+    }
+    function antiguedad($text){//return "<span>Ant.: $fecha3->y años, $fecha3->m meses, $fecha3->d días</span>";
+        $fecha1 = new DateTime($text);
+        $fecha2 = new DateTime(date("Y-m-d H:i:s"));
+        $fecha3 = $fecha1->diff($fecha2);
+        
+        $año = $fecha3 -> y;
+        $mes = $fecha3 -> m;
+        $dia = $fecha3 -> d;
+        if($año > 0){
+            if($año > 1 && $mes > 1){
+                return "<span>Ant.: $año años y $mes meses";
+            }else if($año > 1 && $mes <= 1){
+                return "<span>Ant.: $año años";
+            }
+        }else if($año = 0 && $mes > 0){
+            if($mes > 1 && $dia > 1){
+                return "<span>Ant.: $mes meses y $dia dias";
+            }else if($mes > 1 && $dia <= 1){
+                return "<span>Ant.: $mes meses";
+            }
+        }else if($año = 0 && $mes = 0){
+            if($dia > 1 ){
+                return "<span>Ant.: $dia dias";
+            }else if($dia = 0){
+                return "<span>Ant.: 1 dia";
+            }
+        }
+        
     }
     function text($text){
         return "<h6 class='mb-0 font-size-sm font-weight-semibold'>$text</h6>";

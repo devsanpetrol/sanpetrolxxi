@@ -3,7 +3,7 @@ $(document).ready( function () {
     $(".inicio_nuevo_asignacion_control i").addClass("text-orange-800");
     $("#card_addAsignacion").hide();
     var user_session_id = $('#user_session_id').data("employeid");
-    
+    $('#fecha_actual').val(moment().format('YYYY-MM-DD'));
     $("#search_personal").bind('keypress', function(event) {
         //mybind(event,"^[0-9 ]|[\.]+$");
     }).on('keyup', function (e){
@@ -15,12 +15,14 @@ $(document).ready( function () {
         ordering: false,
         bDestroy: true,
         paging: false,
-        dom: '<"datatable-footer"><"datatable-scroll-wrap"t>',
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        lengthMenu: [[5, 10], [5, 10]],//-1 = all
         columnDefs: [
             {targets: -1, className:'text-center text-primary-800'}
         ],
         language: {
-            info: "Mostrando _TOTAL_ registros"
+            info: "Mostrando _TOTAL_ registros",
+            emptyTable: "Ningun resultado mostrado"
         },
         drawCallback: function() {
             $(this.api().table().header()).hide();
@@ -90,7 +92,8 @@ $(document).ready( function () {
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         lengthMenu: [[5, 10], [5, 10]],//-1 = all
         language: {
-            info: "Mostrando _TOTAL_ registros"
+            info: "Mostrando _TOTAL_ registros",
+            emptyTable: "Ningun resultado mostrado"
         },
         drawCallback: function() {
             $(this.api().table().header()).hide();
@@ -111,6 +114,7 @@ $(document).ready( function () {
         }
     });
 } );
+
 function get_articulo(e){
     var obj = e.target;
     var i_codigoinventario = $(obj).data('nombre');
@@ -140,22 +144,35 @@ function buscar_empleado(){
     var obj = e.target,
         id_empleado = $(obj).data('idempleado'),
         nm_empleado = $(obj).data('nombre');
+        
+    $("#nombre_empleado").html(nm_empleado);
+    $("#nombre_empleado").data("idempleado",id_empleado);
+    ajax_detailAsignacion(id_empleado);
+ }
+ function ajax_detailAsignacion(id_empleado){
     var t = $('#solicitudes_tabla').DataTable();
-    t.clear().draw();
-    $.post('json_selectPersonal_asignacion_view.php',{ id_empleado: id_empleado },function(res){
-         $.each(res, function (index, value) {
-            t.row.add([
-                value.articulo,
-                value.status,
-                value.fecha_recibe
-            ] ).draw( false );
-        });
-        $("#nombre_empleado").html(nm_empleado);
-     }).done(function() {
-        var filas = t.rows().count();
-        if(filas <= 0){
-            alert("No se encontró registros para mostrar.");
-        }
+    $.ajax({
+        data:{id_empleado: id_empleado},
+        url: 'json_selectPersonal_asignacion_view.php',
+        type: 'POST',
+        beforeSend: function (xhr){
+            t.clear().draw();
+        },
+        success: function (obj) {
+            $.each(obj, function (index, value) {
+                t.row.add([
+                    value.articulo,
+                    value.status,
+                    value.fecha_recibe
+                ] ).draw( false );
+            });
+        },
+        complete: (function () {
+            var filas = t.rows().count();
+            if(filas <= 0){
+                alert("No se encontró registros para mostrar.");
+            }
+        })
     });
  }
  function openCardNewAsignacion(){
@@ -184,14 +201,67 @@ function addElementToTable(){
         var sn = $('#i_noserie').val();
         var cod_inv = $('#i_codigoinventario').val();
         var desc = $('#i_descripcion').val();
-        
+        var fecha = $('#fecha_actual').val();
         var t = $('#tabla_pedidos').DataTable();
         
         t.row.add( [
             sn, //0
-            cod_inv,      //1
+            cod_inv,//1
+            fecha,
             desc
         ] ).draw( false );
         $(".input-newarticle").val("");
     }    
+}
+function recorreDataTable(){
+    var table = $('#tabla_pedidos').DataTable();
+    var id_empleado = $("#solicitante").data("idempleado");
+    var cont = table.rows().count();
+    var arr = [];
+    var cell;
+    table
+        .column( 0 )
+        .data()
+        .each( function ( value, index ) {
+            arr.push(table.rows( index ).data().toArray());
+            cell = arr[index][0];
+            guardaAsignacion(cell[1],cell[2],id_empleado);
+            
+            var total = index + 1;
+            console.log("SKU: "+cell[1]+"; Fecha:" + cell[2] + "; id empleado: " + id_empleado);
+            if (cont == (index + 1)){
+                finishDocument();
+                if (!confirm('¿Continuar con otra nueva asignación?')) {
+                    $("#card_addAsignacion").toggle("fast");
+                }
+            }else{
+                console.log(total + " Procesando");
+            }
+        });
+}
+function finishDocument(){
+    console.log("Finalizó la nueva asignación.");
+    var table = $('#tabla_pedidos').DataTable(),
+        id_empleado = $("#nombre_empleado").data("idempleado");
+    table.clear().draw();
+    $(".new-solicitud-form").val("");
+    $("#solicitante").data("idempleado",0);
+    $('#fecha_actual').val(moment().format('YYYY-MM-DD'));
+    ajax_detailAsignacion(id_empleado);
+}
+function guardaAsignacion(cod_articulo,fecha,id_empleado){
+    $.ajax({
+        data:{cod_articulo:cod_articulo,fecha:fecha,id_empleado:id_empleado},
+        url: 'json_insertAsignacion.php',
+        type: 'POST',
+        success:(function(res){
+            if(res.stat == "exito"){
+                console.log("exito:" + res.result);
+                alert("La asignación se generó correctamente!");
+            }else if(res.stat == "no guardo"){
+                console.log("no guardo");
+                alert("Ocurrio un error al guardar la información. Revise que el formulario sea llenado correctamente.");
+            }
+        })
+    });
 }

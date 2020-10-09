@@ -77,7 +77,6 @@
 		<!-- /main sidebar -->
 		<!-- Secondary sidebar -->
 		<div class="sidebar sidebar-light sidebar-secondary sidebar-expand-md">
-
 			<!-- Sidebar mobile toggler -->
 			<div class="sidebar-mobile-toggler text-center">
                             <a href="#" class="sidebar-mobile-secondary-toggle">
@@ -139,10 +138,10 @@
                             </div>
                         </div>
                         <!-- /bottom right menu -->
-                    <div class="card" id="card_addAsignacion">
+                    <div class="card border-y-3 border-top-success border-bottom-success rounded-0" id="card_addAsignacion">
                         <div class="card-body" id="mod_pedido">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <fieldset>
                                     <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DEL EMPLEADO</legend>
                                     <div class="row">
@@ -170,43 +169,32 @@
                                     </div>
                                 </fieldset>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 text-right">
-                                    <div class="list-icons">
-                                        <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" style="display: none;" id="btn_del_row_sel" title="Remover item seleccionado"><i class="icon-trash"></i></button>
-                                        <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" id="btn_send_pedido" onclick="cerrarNewAsignacion()" title="Enviar solicitud">Cerrar <i class="icon-cross2 ml-2"></i></button>
-                                        <button type="button" class="btn btn-sm alpha-success text-success-800 legitRipple" id="btn_send_pedido" onclick="get_folio()" title="Enviar solicitud">Enviar <i class="icon-paperplane ml-2"></i></button>
-                                        <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <fieldset>
-                                        <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> AGREGAR ARTICULO </legend>
-                                    <div class="row">
-                                            <div class="col-md-2">
+                                        <legend class="font-weight-semibold text-danger-800"><i class="icon-pen-plus mr-2"></i> BUSCAR MATERIAL A ASIGNAR </legend>
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_noserie" readonly placeholder="S.N.">
+                                                    <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="i_noserie" readonly placeholder="S.N.">
                                                     <div class="form-control-feedback form-control-feedback-sm">
                                                         <i class="icon-barcode2"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-6">
                                                 <div class="form-group form-group-feedback form-group-feedback-right">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_codigoinventario" readonly placeholder="Codigo de Inventario">
+                                                    <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="i_codigoinventario" readonly placeholder="Codigo de Inventario">
                                                     <div class="form-control-feedback form-control-feedback-lg">
                                                         <i class="icon-square-up-right text-pink-800" data-toggle="modal" data-target="#busca_articulo" style="cursor: pointer"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 input-newarticle" id="i_descripcion" readonly placeholder="Descripción">
+                                                    <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="i_descripcion" readonly placeholder="Descripción">
                                                 </div>
                                             </div>
-                                            
-                                            <div class="col-md-2">
+                                            <div class="col-md-12">
                                                 <div class="form-group text-right">
                                                     <button type="button" class="btn btn-primary btn-icon ml-1" onclick="addElementToTable()" title="Agregar">Agregar</button>
                                                 </div>
@@ -214,25 +202,36 @@
                                         </div>
                                     </fieldset>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table id="tabla_pedidos" class="table datatable-selection-single" cellspacing="0" width="100%">
-                                        <col width="10%">
-                                        <col width="10%">
-                                        <col width="80%">
-                                        <thead>
-                                          <tr>
-                                            <th>S.N.</th> <!-- 0 -->
-                                            <th>S.K.U</th> <!-- 3 -->
-                                            <th>Material</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table id="tabla_pedidos" class="table datatable-selection-single" cellspacing="0" width="100%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="20%">
+                                            <col width="60%">
+                                            <thead>
+                                              <tr>
+                                                <th>S.N.</th> <!-- 0 -->
+                                                <th>S.K.U</th> <!-- 3 -->
+                                                <th>Fecha Entrega</th> <!-- 3 -->
+                                                <th>Material</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="card-footer bg-white text-right">
+                            <div class="list-icons">
+                                <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" style="display: none;" id="btn_del_row_sel" title="Remover item seleccionado"><i class="icon-trash"></i></button>
+                                <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" id="btn_send_pedido" onclick="cerrarNewAsignacion()" title="Enviar solicitud">Cerrar <i class="icon-cross2 ml-2"></i></button>
+                                <button type="button" class="btn btn-sm alpha-success text-success-800 legitRipple" id="btn_send_pedido" onclick="recorreDataTable()" title="Enviar solicitud">Enviar <i class="icon-paperplane ml-2"></i></button>
+                                <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
                             </div>
-
                         </div>
                     </div>
                     <!-- /dashboard content -->
@@ -260,7 +259,7 @@
                             </div>
                             <div class="card shadow-0">
                                 <div class="card-body">
-                                    <h4 class="font-weight-semibold mb-1 text-center text-primary-800" id="nombre_empleado"></h4>
+                                    <h4 class="font-weight-semibold mb-1 text-center text-primary-800" id="nombre_empleado" data-idempleado=""></h4>
                                     <div class="table-responsive">
                                         <table class="table datatable-basic" id="solicitudes_tabla" style="width:100%">
                                             <col width="60%">
