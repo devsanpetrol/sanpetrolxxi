@@ -44,7 +44,7 @@
             return "<div class='d-flex align-items-center'>
                         <div>
                             <a class='text-default font-weight-semibold letter-icon-title'>$cargo</a>
-                            <div class='text-muted font-size-sm'><span class='badge badge-mark border-blue mr-1'></span> $email</div>
+                            <div class='text-muted font-size-sm'>$email</div>
                         </div>
                     </div>";
         }else{

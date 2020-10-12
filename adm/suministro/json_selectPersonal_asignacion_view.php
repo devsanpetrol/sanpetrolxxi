@@ -11,9 +11,24 @@
         foreach ($solicitud as $valor) {
         $data[] = array("articulo" => articulo($valor['descripcion'],$valor['cod_articulo']),
                         "fecha_recibe" => fecha($valor['fecha_recibe']),
-                        "status" => status_asig($valor['fecha_entrega'], $valor['status'])
+                        "status" => status_asig($valor['fecha_entrega'], $valor['status']),
+                        "accion" => accion($valor['id_asignacion'])
                         );
         }
+    }
+    
+    function accion($id_asignacion){
+        return "<div class='list-icons'>
+                <div class='dropdown'>
+                        <a href='#' class='list-icons-item' data-toggle='dropdown'>
+                            <i class='icon-menu7'></i>
+                        </a>
+                        <div class='dropdown-menu dropdown-menu-right bg-primary-600'>
+                            <a class='dropdown-item' onclick='openModalDetail($id_asignacion)'><i class='icon-clippy'></i> Detalles</a>
+                            <a class='dropdown-item' onclick='openModalDetail($id_asignacion)'><i class='icon-enter5'></i> Devolución de Material</a>
+                        </div>
+                </div>
+        </div>";
     }
     function status_asig($fecha_entrega,$status){
         if($fecha_entrega == null && $status == 1){

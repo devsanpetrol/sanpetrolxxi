@@ -163,7 +163,8 @@ function buscar_empleado(){
                 t.row.add([
                     value.articulo,
                     value.status,
-                    value.fecha_recibe
+                    value.fecha_recibe,
+                    value.accion
                 ] ).draw( false );
             });
         },

@@ -149,7 +149,7 @@
                                             <div class="form-group form-group-feedback form-group-feedback-right">
                                                 <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="solicitante" data-idempleado="" placeholder="Nombre del solicitante" readonly onkeyup="mayus(this);" required>
                                                 <div class="form-control-feedback form-control-feedback-lg">
-                                                    <i class="icon-user-plus text-pink-800" data-toggle="modal" data-target="#busca_empleado" style="cursor: pointer"></i>
+                                                    <i class="icon-plus-circle2 text-pink-800" data-toggle="modal" data-target="#busca_empleado" style="cursor: pointer"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,7 +185,7 @@
                                                 <div class="form-group form-group-feedback form-group-feedback-right">
                                                     <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="i_codigoinventario" readonly placeholder="Codigo de Inventario">
                                                     <div class="form-control-feedback form-control-feedback-lg">
-                                                        <i class="icon-square-up-right text-pink-800" data-toggle="modal" data-target="#busca_articulo" style="cursor: pointer"></i>
+                                                        <i class="icon-plus-circle2 text-pink-800" data-toggle="modal" data-target="#busca_articulo" style="cursor: pointer"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -262,11 +262,13 @@
                                     <h4 class="font-weight-semibold mb-1 text-center text-primary-800" id="nombre_empleado" data-idempleado=""></h4>
                                     <div class="table-responsive">
                                         <table class="table datatable-basic" id="solicitudes_tabla" style="width:100%">
-                                            <col width="60%">
+                                            <col width="55%">
                                             <col width="10%">
                                             <col width="30%">
+                                            <col width="5%">
                                             <thead>
                                                 <tr>
+                                                    <th></th>
                                                     <th></th>
                                                     <th></th>
                                                     <th></th>
