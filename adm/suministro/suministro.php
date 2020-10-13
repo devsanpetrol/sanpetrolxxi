@@ -526,7 +526,7 @@ class suministro extends conect
         }
     }
     public function set_new_articulo_almacen($cod_articulo,$id_articulo){
-        $almacen = $this->_db->prepare("INSERT INTO adm_almacen (cod_articulo,stock,stock_min,stock_max,importancia,ubicacion,salida,id_articulo) VALUES ('$cod_articulo','','',0,1,1,3,NULL,0,0,NULL,$id_articulo)");
+        $almacen = $this->_db->prepare("INSERT INTO adm_almacen (cod_articulo,id_articulo) VALUES ('$cod_articulo',$id_articulo)");
         $resultado = $almacen->execute();
         return $resultado;
     }
