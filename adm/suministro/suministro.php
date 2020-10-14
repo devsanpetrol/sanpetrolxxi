@@ -291,6 +291,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_grupos(){
+        $sql = $this->_db->prepare("SELECT * FROM adm_grupo_activo");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function set_vale_salida($folio_vale, $encargado_almacen, $visto_bueno, $observacion){
         if($visto_bueno == ""){
             $sql = $this->_db->prepare("INSERT INTO adm_almacen_valesalida (folio_vale,encargado_almacen,fecha_firma_encargado, observacion)
