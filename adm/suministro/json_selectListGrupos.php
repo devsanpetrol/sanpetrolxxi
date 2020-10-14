@@ -13,7 +13,7 @@
     function css_grupos($grupos,$id_grupo){
         return "<a href='#' class='list-group-item list-group-item-action legitRipple' data-idgrupo='$id_grupo' onclick='selectItems(event)'>
                     <span class='font-weight-semibold'><i class='icon-bookmark2 mr-2'></i>$grupos</span>
-                    <span class='badge bg-pink-400 badge-icon ml-auto'><i class='icon-square-right'></i></span>
+                    <span class='badge bg-pink-400 badge-icon ml-auto'></span>
                 </a>";
     }
     header('Content-Type: application/json');

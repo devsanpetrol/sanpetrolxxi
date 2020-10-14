@@ -9,12 +9,12 @@
         $solicitud = $catalogo -> get_solicitudes_("WHERE id_solicita = $search AND id_equipo = 19 AND status_pedido <> 4");
         $surtido   = $catalogo -> get_vale_salida_("WHERE id_solicita = $search AND id_equipo = 19");
         
-        foreach ($solicitud as $valor) {
+        /*foreach ($solicitud as $valor) {
         $data[] = array("articulo" => articulo($valor['articulo'],$valor['cod_articulo']),
                         "fecha" => text($valor['fecha_requerimiento']),
                         "status" => status_epp($valor['cantidad_surtido'], $valor['cantidad_pendiente'], $valor['cantidad_plan'], $valor['status_pedido'])
                         );
-        }
+        }*/
         foreach ($surtido as $valor) {
         $data[] = array("articulo" => articulo($valor['articulo'],$valor['cod_articulo']),
                         "fecha" => text($valor['fecha']),
