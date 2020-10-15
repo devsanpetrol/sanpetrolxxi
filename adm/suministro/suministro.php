@@ -154,13 +154,8 @@ class suministro extends conect
         return $resultado;
     }
     public function set_pedido_rapido($articulo, $cantidad, $unidad, $justificacion, $destino, $cod_articulo, $folio){
-        if($cod_articulo == ""){
-            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, cantidad_plan, cantidad_surtido, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio, status_pedido)
-                                        VALUES ('$articulo', $cantidad, $cantidad, $cantidad, $cantidad,'$unidad', '$justificacion', '$destino', NOW(), NULL, $folio, 1)");
-        }else{
-            $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, cantidad_plan, cantidad_surtido, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio, status_pedido)
+        $sql = $this->_db->prepare("INSERT INTO adm_pedido (articulo, cantidad, cantidad_coord, cantidad_plan, cantidad_surtido, unidad, justificacion, destino, fecha_requerimiento, cod_articulo, folio, status_pedido)
                                         VALUES ('$articulo', $cantidad, $cantidad, $cantidad, $cantidad, '$unidad', '$justificacion', '$destino',NOW(), '$cod_articulo', $folio,1)");
-        }
         $resultado = $sql->execute();
         return $resultado;
     }
