@@ -3,37 +3,7 @@ $(document).ready( function () {
     $("body").addClass("sidebar-xs");
     $(".inicio_grupos").addClass("active");
     $(".inicio_grupos i").addClass("text-orange-800");
-    $('#almacen_tabla').DataTable({
-        bDestroy: true,
-        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
-        ajax: {
-            url: "json_selectInventario.php",
-            dataSrc:function ( json ) {
-                return json;
-            }
-        },
-        columnDefs: [
-            //{targets:5,className: "text-center"}
-        ],
-        columns: [
-            {data : 'cod_articulo'},
-            {data : 'no_inventario'},
-            {data : 'descripcion'},
-            {data : 'status'},
-            {data : 'disponible'},
-            {data : 'operable'},
-            {data : 'costo'},
-            {data : 'accion'}
-        ],
-        rowGroup: {
-            dataSrc: 'nombre_categoria'
-        },
-        language: {
-            search: '<span>Filtro:</span> _INPUT_',
-            searchPlaceholder: 'Busqueda...',
-            info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
-        }
-    });
+    
     $('#movimiento_tabla_aplica').DataTable({
         bDestroy: true,
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
@@ -298,5 +268,41 @@ function buscar_empleado(){
             });
     }).done(function() {
          
+    });
+ }
+ function get_group(grupo){
+     
+     $('#almacen_tabla').DataTable({
+        bDestroy: true,
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        ajax: {
+            url: "json_selectInventario_grupo.php",
+            type: 'POST',
+            data:{grupo:grupo},
+            dataSrc:function ( json ) {
+                return json;
+            }
+        },
+        columnDefs: [
+            //{targets:5,className: "text-center"}
+        ],
+        columns: [
+            {data : 'cod_articulo'},
+            {data : 'no_inventario'},
+            {data : 'descripcion'},
+            {data : 'status'},
+            {data : 'disponible'},
+            {data : 'operable'},
+            {data : 'costo'},
+            {data : 'accion'}
+        ],
+        rowGroup: {
+            dataSrc: 'nombre_categoria'
+        },
+        language: {
+            search: '<span>Filtro:</span> _INPUT_',
+            searchPlaceholder: 'Busqueda...',
+            info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
+        }
     });
  }
