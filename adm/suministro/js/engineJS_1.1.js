@@ -1,4 +1,8 @@
 $(document).ready( function () {
+    var milisegundos = 120 *1000;
+    setInterval(function(){
+        fetch("./session_ref.php");
+    },milisegundos);
     $(".fab-menu-bottom-right").hide();
     get_categoria();
     $(".detalle_factura").addClass("active");

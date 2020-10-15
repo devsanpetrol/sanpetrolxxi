@@ -1,4 +1,9 @@
 $(document).ready( function () {
+    var milisegundos = 120 *1000;
+    setInterval(function(){
+        fetch("./session_ref.php");
+    },milisegundos);
+    
     $('.form-control-select2').select2();
     $(".inicio_nuevo_rapido").addClass("active");
     $(".inicio_nuevo_rapido i").addClass("text-orange-800");
