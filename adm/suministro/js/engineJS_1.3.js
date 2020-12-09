@@ -455,7 +455,7 @@ function guarda_new_prov(){
 }
 function add_documento(){
     if (confirm('¿Guardar los cambios realizados?')) {
-        
+        if($("#nombreempresa").val() != ""){
         var serie_folio = $("#add_serie_folio").val();
         var fecha_emision = $("#add_fecha_emision").val();
         var lugar_emision = $("#add_lugar_emision").val();
@@ -477,6 +477,9 @@ function add_documento(){
                 }
             })
         });
+        }else{
+            alert('Falta especificar datos del Proveedor. asignelo por favor.');
+        }
     } else {
         alert('NO confirmado');
     }

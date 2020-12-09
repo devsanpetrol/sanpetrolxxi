@@ -8,7 +8,8 @@ $(document).ready( function () {
     $(".almacen i").addClass("text-orange-800");
     $('#almacen_tabla').DataTable({
         bDestroy: true,
-        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        dom: 'Bfrtip',
+        buttons:['excelHtml5'],
         ajax: {
             url: "json_selectAlmacen.php",
             dataSrc:function ( json ) {
