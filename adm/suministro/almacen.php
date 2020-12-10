@@ -48,7 +48,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <script src="js/engineJS_7.2.js"></script>
+    <script src="js/engineJS_7.4.js"></script>
     <script src="js/ini_menu_almacen.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
@@ -130,6 +130,7 @@
                                                 <th>Codigo</th>
                                                 <th>Articulo</th>
                                                 <th>Stock</th>
+                                                <th>unidad</th>
                                                 <th>Min</th>
                                                 <th>Max</th>
                                                 <th></th>

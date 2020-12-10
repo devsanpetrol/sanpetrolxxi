@@ -20,6 +20,7 @@ $(document).ready( function () {
             {data : 'cod_articulo'},
             {data : 'descripcion'},
             {data : 'stock'},
+            {data : 'tipo_unidad'},
             {data : 'stock_min'},
             {data : 'stock_max'},
             {data : 'accion'}
@@ -28,7 +29,7 @@ $(document).ready( function () {
             dataSrc: 'nombre_categoria'
         },
         columnDefs: [
-            {targets: 5, className:'text-center text-primary-800'}
+            {targets: 6, className:'text-center text-primary-800'}
         ],
         language: {
             search: '<span>Filtro:</span> _INPUT_',

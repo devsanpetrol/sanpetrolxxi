@@ -19,8 +19,7 @@
         
     }
     function cantidad_unidad($cantidad,$unidad){
-        return "<h6 class='mb-0'>$cantidad</h6>
-                <div class='font-size-sm text-muted line-height-1'>$unidad</div>";
+        return "<h6 class='mb-0'>$cantidad</h6>";
     }
     function articulo_marca($articulo,$marca){
         $articulo_ = mb_strtoupper($articulo);

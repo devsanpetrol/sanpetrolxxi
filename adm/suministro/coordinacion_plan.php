@@ -110,6 +110,7 @@
                                 </div>
                                 <div class="card-body">
                                     <a onclick="OpenHistoric()" class="btn bg-teal btn-block"><i class="icon-table2"></i> Historico</a>
+                                    <a class="btn bg-teal btn-block" href="ajustexauditoria_asxe.php"><i class="icon-balance"></i> Ajuste Auditoria</a>
                                 </div>
                             </div>
                             <!-- /actions -->
