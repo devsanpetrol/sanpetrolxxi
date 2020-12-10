@@ -574,6 +574,18 @@ class suministro extends conect
         $sql3 -> execute();
         return $sql2 -> execute();
     }
+    function set_update_EntradaAjuste($cod_articulo,$cantidad){
+        $sql1 = $this->_db->prepare("DROP TEMPORARY TABLE tmp;");
+        $sql2 = $this->_db->prepare("CREATE TEMPORARY TABLE tmp SELECT id_factura_detalle, cantidad,precio_unidad,total,procesado,restante,fecha_hora,id_factura,cod_articulo FROM adm_factura_detalle WHERE cod_articulo = '$cod_articulo' LIMIT 1");
+        $sql3 = $this->_db->prepare("UPDATE tmp SET cantidad = $cantidad, total = (precio_unidad * $cantidad), restante = $cantidad, fecha_hora = NOW(), id_factura_detalle = null WHERE cod_articulo = '$cod_articulo' limit 1");
+        $sql4 = $this->_db->prepare("INSERT INTO adm_factura_detalle SELECT * FROM tmp WHERE cod_articulo = '$cod_articulo' limit 1");
+        
+        $sql1 -> execute();
+        $sql2 -> execute();
+        $sql3 -> execute();
+        
+        return $sql4 -> execute();
+    }
     function set_update_firma_plan($firm,$folio){
         $sql2 = $this->_db->prepare("UPDATE adm_solicitud_material SET firm_planeacion = $firm, fecha_firm_planeacion = NOW() WHERE folio = $folio LIMIT 1");
         $sql3 = $this->_db->prepare("UPDATE adm_pedido SET cantidad_pendiente = cantidad_plan WHERE folio = $folio");
@@ -585,6 +597,12 @@ class suministro extends conect
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
+    }
+    public function getcountfactura($cod_articulo){
+        $sql = $this->_db->prepare("SELECT * FROM adm_factura_detalle WHERE cod_articulo = '$cod_articulo'");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return count($resultado);
     }
     function set_update_pedidoDetail($id_pedido,$cod_articulo, $articulo,$unidad,$justifi,$cantidad,$user){
         if(trim($cod_articulo) == ""){
@@ -648,6 +666,16 @@ class suministro extends conect
         $resultado2 = $product -> execute();
         return $resultado1;
     }
+    public function set_valesalidaDetail_Ajuste($codarticulo,$cant_surtir){
+        $product = $this->_db->prepare("UPDATE adm_almacen SET stock = stock - $cant_surtir WHERE cod_articulo = '$codarticulo' LIMIT 1");
+        $r2 = $product -> execute();
+        return $r2;
+    }
+    public function set_valesalidaDetail_Ajuste_add($codarticulo,$cant_surtir){
+        $product = $this->_db->prepare("UPDATE adm_almacen SET stock = stock + $cant_surtir WHERE cod_articulo = '$codarticulo' LIMIT 1");
+        $r2 = $product -> execute();
+        return $r2;
+    }
     public function get_solicitudes_valesalida($filtro=""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_valesalida_solicitud $filtro");
         $sql->execute();
@@ -696,6 +724,11 @@ class suministro extends conect
         $resultado = $almacen->execute();
         return $resultado;
     }
+    public function set_ajusteAuditoria($cod_articulo,$cantidad,$comentario){
+        $almacen = $this->_db->prepare("INSERT INTO adm_ajusteauditoria(cod_articulo, cantidad, comentario) VALUES ('$cod_articulo', '$cantidad', '$comentario')");
+        $resultado = $almacen->execute();
+        return $resultado;
+    }
     public function set_add_documento($serie_folio, $fecha_emision, $lugar_emision, $uuid, $total, $id_proveedor){
         $articulo = $this->_db->prepare("INSERT INTO adm_factura(serie_folio, fecha_emision, lugar_emision, uuid, total, date_insert, id_proveedor) VALUES ('$serie_folio', '$fecha_emision', '$lugar_emision', '$uuid', $total, NOW(),'$id_proveedor')");
         
@@ -739,10 +772,23 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function busca_idproveedor($nombre="Ajuste de inventario"){
+        $sql = $this->_db->prepare("SELECT id_proveedor WHERE nombre = '$nombre'");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function busca_ultimoCosto($cod_articulo){
+        $sql = $this->_db->prepare("SELECT precio_unidad FROM adm_factura_detalle WHERE cod_articulo = '$cod_articulo' ORDER BY fecha_hora DESC LIMIT 1");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function set_update_almacenArticleSub($id_factura_detalle, $restante){
         $sql2 = $this->_db->prepare("UPDATE adm_factura_detalle SET restante = $restante WHERE id_factura_detalle = $id_factura_detalle LIMIT 1");
         return $sql2->execute();
     }
+    
     public function reset_update_almacenArticleSub(){
         $sql2 = $this->_db->prepare("UPDATE adm_factura_detalle SET restante = cantidad");
         return $sql2->execute();
@@ -910,6 +956,12 @@ class suministro extends conect
     }
     public function get_personal($filtro = "",$limit = ""){
         $sql = $this->_db->prepare("SELECT * FROM adm_view_empleado $filtro ORDER BY ambito, nombre ASC $limit");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_tableAlmacen($filtro = "",$limit = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_almacen_detail $filtro $limit");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
