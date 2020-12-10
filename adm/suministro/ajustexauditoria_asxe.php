@@ -35,12 +35,12 @@
             </tr>
             <tr>
               <td style="text-align: right">Comentario / Justificación</td>
-              <td colspan="2"><textarea name="comentario" rows="10" cols="50"></textarea></td>
+              <td colspan="2"><textarea name="comentario" id="comentario" rows="10" cols="50"></textarea></td>
             </tr>
             <tr>
               <td></td>
               <td></td>
-              <td style="text-align: right"><button type="button" id="limpiar">Limpiar</button> &nbsp; &nbsp;<button type="button" id="aceptar" onclick="ajustaAlmacen()">Aceptar</button></td>
+              <td style="text-align: right"><button type="button" id="limpiar" onclick="limpia()">Limpiar</button> &nbsp; &nbsp;<button type="button" id="aceptar" onclick="ajustaAlmacen()">Aceptar</button></td>
             </tr>
         </table>
     </body>

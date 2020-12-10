@@ -36,3 +36,10 @@ function buscar_empleado(){
          
      });
  }
+ 
+ function limpia(){
+    $("#cod_articulo").val("");
+    $("#cantidad").val("");
+    $("#comentario").val("");
+    $("#descripcion").html("-");
+ }
