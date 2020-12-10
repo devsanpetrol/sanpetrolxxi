@@ -10,14 +10,14 @@
         if($cantidad < 0){
             $cantidad = ($cantidad) * (-1);
             update_temAlmacen($cod_articulo,$cantidad);
-            ajuste($codarticulo,$cantidad,$comentario);
+            ajuste($cod_articulo,$cantidad,$comentario);
             $data[] = array("resultado" => 1,"msj"=>"ok" ); //1 - ok en operacion restar
         }else if ($cantidad > 0){
             if(countfactura($cod_articulo) > 0){
                 $result = insertNewArticle($cod_articulo,$cantidad);
                 if($result){
                     $data[] = array("resultado" => 2,"msj"=>"ok" ); //2 - ok en operacion sumar
-                    ajuste($codarticulo,$cantidad,$comentario);
+                    ajuste($cod_articulo,$cantidad,$comentario);
                 }else{
                     $data[] = array("resultado" => 2,"msj"=>"fail" ); //2 - ok en operacion sumar
                 }
