@@ -4,10 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_AjusteAlmacen.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/ajustexauditoria_asxe.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_AjusteBuscaCodigo.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineAjuste.js</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_26.js</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectFacturaEdita.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/factura_edita.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_updateFacturaCostoUnidad.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectFacturaDetailEdita.php</file>
         </group>
     </open-files>
 </project-private>

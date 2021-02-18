@@ -1,8 +1,9 @@
 $(document).ready( function () {
+    var user_session_id = $('#user_session_id').data("employeid");
+    
     $(".inicio_nuevo_asignacion_control").addClass("active");
     $(".inicio_nuevo_asignacion_control i").addClass("text-orange-800");
     $("#card_addAsignacion").hide();
-    var user_session_id = $('#user_session_id').data("employeid");
     $('#fecha_actual').val(moment().format('YYYY-MM-DD'));
     $("#search_personal").bind('keypress', function(event) {
         //mybind(event,"^[0-9 ]|[\.]+$");
@@ -263,6 +264,88 @@ function guardaAsignacion(cod_articulo,fecha,id_empleado){
                 console.log("no guardo");
                 alert("Ocurrio un error al guardar la información. Revise que el formulario sea llenado correctamente.");
             }
+        })
+    });
+}
+
+function openModalDetail(id_asignacion){
+    $("#modal_devolucion").modal("show");
+    $("#modal_devolucion").data("idasignacion",id_asignacion);
+    devolucion_detalle(id_asignacion);
+}
+function delvolver_material(){
+    var id_asignacion = $("#modal_devolucion").data("idasignacion");
+    var cod_articulo = $("#a_cod_articulo").html();
+    var responsable = $("#a_responsable").html();
+    var id_empleado = $("#a_responsable").data("idempleado");
+    var d = new Date($("#a_fecha").val());
+    var nd = new Date();
+    nd.setDate(d.getDate()+1);
+    var fecha = moment(nd).format('YYYY-MM-DD');
+    var comentario = $("#a_comentario").val();
+    var r = confirm("Se realizará la devolución del material asignado.\n\n¿Desea continuar con esta operación?");
+    
+    if (r) {
+        if( $("#a_fecha").val() != ""){
+            devolucion_json(cod_articulo,id_asignacion,id_empleado,fecha,responsable,comentario);
+        }else{
+            alert("Debe especificar la fecha de devolución.");
+            $("#a_fecha").focus();
+        }
+    }
+}
+function closeModalDevolver(){
+    $("#modal_devolucion").modal("hide");
+}
+function devolucion_json(cod_articulo,id_asignacion,id_empleado,fecha,responsable,comentario){
+    $.ajax({
+        data:{cod_articulo:cod_articulo,id_asignacion:id_asignacion,id_empleado:id_empleado,fecha:fecha,responsable:responsable,comentario:comentario},
+        url: 'json_addDevolucion.php',
+        type: 'POST',
+        success:(function(res){
+            if(res[0].result == 'exito'){
+                console.log('¡La operacion de Devolución se realizó correctamente!');
+                alert('¡La operacion de Devolución se realizó correctamente!');
+            }else if(res[0].result == 'fallo'){
+                console.log('Ocurrio un error al guardar la información. Revise que el formulario sea llenado correctamente');
+                alert("Ocurrio un error al guardar la información. Revise que el formulario sea llenado correctamente.");
+            }else if(res[0].result == 'vacio'){
+                console.log("Ocurrio un error al guardar la información. Revise que el formulario sea llenado correctamente.");
+                alert("Ocurrio un error al guardar la información. Revise que el formulario sea llenado correctamente.");
+            }
+        }),
+        complete: (function () {
+            ajax_detailAsignacion(id_empleado);
+            closeModalDevolver();
+        })
+    });
+}
+function devolucion_detalle(id_asignacion){
+    $.ajax({
+        data:{id_asignacion:id_asignacion},
+        url: 'json_selectAsignacionDetail.php',
+        type: 'POST',
+        beforeSend: function (xhr) {
+            $("#a_responsable").html("");
+            $("#a_cargo").html("");
+            $("#a_fecha_recibe").html("");
+            $("#a_equipo").html("");
+            $("#a_no_inventario").html("");
+            $("#a_no_serie").html("");
+            $("#a_cod_articulo").html("");
+            $("#a_descripcion").html("");
+            $("#a_fecha").val("");
+        },
+        success:(function(res){
+            $("#a_responsable").html(res[0].nombre + " " + res[0].apellidos);
+            $("#a_responsable").data("idempleado",res[0].id_empleado);
+            $("#a_cargo").html(res[0].cargo);
+            $("#a_fecha_recibe").html(res[0].fecha_recibe);
+            $("#a_equipo").html(res[0].descripcion);
+            $("#a_no_inventario").html(res[0].no_inventario);
+            $("#a_no_serie").html(res[0].no_serie);
+            $("#a_cod_articulo").html(res[0].cod_articulo);
+            $("#a_descripcion").html(res[0].especificacion_tec);
         })
     });
 }

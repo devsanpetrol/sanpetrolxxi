@@ -18,9 +18,6 @@
                 <li class="nav-item">
                     <a href="inventario.php" class="nav-link inventario"><i class="icon-books"></i> Activo Fijo </a>
                 </li>
-                <li class="nav-item">
-                    <a href="inicio_grupos.php" class="nav-link inicio_grupos"><i class="icon-bookmark2"></i> Clasificación de Materiales </a>
-                </li>
                 <li class="nav-item-header">SURTIDO DE MATERIAL</li>
                 <li class="nav-item">
                     <a href="inicio_nuevo_rapido.php" class="nav-link inicio_nuevo_rapido"><i class="icon-power2"></i> Solicitud Rápida </a>
@@ -44,6 +41,19 @@
                 <li class="nav-item-header">CONTABILIDAD</li>
                 <li class="nav-item">
                     <a href="detalle_factura.php" class="nav-link detalle_factura"><i class="icon-certificate"></i> Facturas </a>
+                </li>
+                <li class="nav-item">
+                    <a href="factura_edita.php" class="nav-link edita-facturas"><i class="icon-pencil7"></i> Editar Facturas </a>
+                </li>
+                <li class="nav-item-header">REPORTES</li>
+                <li class="nav-item">
+                    <a href="reporte_entrada.php" class="nav-link reporte-entrada"><i class="icon-file-spreadsheet"></i> Entrada de Material </a>
+                </li>
+                <li class="nav-item">
+                    <a href="reporte_salida.php" class="nav-link reporte-salida"><i class="icon-file-spreadsheet"></i> Salida de Material </a>
+                </li>
+                <li class="nav-item">
+                    <a href="reporte_movimiento.php" class="nav-link reporte-movimiento"><i class="icon-file-spreadsheet"></i> Movimientos de Activos </a>
                 </li>
                 <!--
                 <li class="nav-item-header">LISTA DE COMPRA</li>

@@ -1,7 +1,7 @@
 $(document).ready( function () {
     var milisegundos = 120 *1000;
     setInterval(function(){
-        fetch("./session_ref.php");
+    fetch("./session_ref.php");
     },milisegundos);
     $(".fab-menu-bottom-right").hide();
     get_categoria();
@@ -87,7 +87,9 @@ $(document).ready( function () {
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         lengthMenu: [[5, 10], [5, 10]],//-1 = all
         ajax: {
+            type:'POST',
             url: "json_articulo_aplica.php",
+            data:{filter:"WHERE tipo_cat = 1 AND activo = 0"},
             dataSrc:function ( json ) {
                 return json;
             }
@@ -638,6 +640,7 @@ function exitDetailFactura(){
     var t = $('#table_DetailDocumento').DataTable();
     t.clear().draw();
 }
+
 function sumCoulumns(){
     var sum = 0;
     $(".sub-total-items").each(function(){

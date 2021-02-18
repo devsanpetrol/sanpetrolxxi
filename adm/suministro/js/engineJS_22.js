@@ -1,5 +1,5 @@
 $(document).ready( function () {
-    buscar_empleado();
+    grupos_clasificados();
     $("body").addClass("sidebar-xs");
     $(".inicio_grupos").addClass("active");
     $(".inicio_grupos i").addClass("text-orange-800");
@@ -21,10 +21,10 @@ $(document).ready( function () {
         }
     });
 } );
- function  fecha_actual(){
+function fecha_actual(){
     $.post('json_now.php',function(res){$('#num_folio_vale_salida').text(getFolio(res.fecha_actual));});
  }
- function mayus(e) {
+function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
 }
 function salir(){
@@ -256,21 +256,7 @@ function setArticle(){
         $("#article_new").modal("hide");
     });
 }
-function selectItems(e){
-    $(".list-group-item").removeClass("active");
-    var obj = e.target;
-    $(obj).addClass("active");
-}
-function buscar_empleado(){
-    $.post('json_selectListGrupos.php',{},function(res){
-            $.each(res, function (index, value) {//value.nombre
-                $(".list-group").append(value.menu);
-            });
-    }).done(function() {
-         
-    });
- }
- function get_group(grupo){
+function get_group(grupo){
      
      $('#almacen_tabla').DataTable({
         bDestroy: true,
@@ -306,3 +292,50 @@ function buscar_empleado(){
         }
     });
  }
+
+function selectItems(e){
+    $(".list-group-item").removeClass("active");
+    $(".icono-grupo").removeClass("icon-folder-open").addClass("icon-folder2");
+    
+    var obj = e.target;
+    var idicon = $(obj).data("idgrupo");
+    $(obj).addClass("active");
+    $("#"+idicon+"i").removeClass("icon-folder2").addClass("icon-folder-open");
+}
+function grupos_clasificados(){
+    $.ajax({
+        url: 'json_selectListGrupos.php',
+        beforeSend: function (xhr){
+            $(".list-group").empty();
+        },
+        success: function (res) {
+            $.each(res, function (index, value) {//value.nombre
+                $(".list-group").append(value.menu);
+            });
+        },
+        complete: (function () {
+            
+        })
+    });
+ }
+function abre_grupo(){
+    $("#modal_grupo").modal("show");
+}
+function nuevo_cancel(){
+    $("#modal_grupo").modal("hide");
+}
+function nuevo_guarda(){
+    var nuevo_grupo = $("#nuevo_grupo").val();
+    $.post('json_nuevo_grupo.php',{
+        nuevo_grupo:nuevo_grupo
+    },function(result){
+        if(result[0].type == "exito"){
+            grupos_clasificados();
+        }else{
+            alert("Ocurrio realizar la operación. "+result[0].type);
+        }
+        
+    }).done(function() {
+        $("#modal_grupo").modal("hide");
+    });
+}

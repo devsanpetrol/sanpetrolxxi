@@ -3,7 +3,7 @@
     
     $suministro = new suministro();
     $cod_articulo = $_POST["cod_articulo"];
-    $categorias = $suministro->get_movimiento("WHERE cod_articulo = '$cod_articulo'");
+    $categorias = $suministro->get_movimiento("WHERE cod_articulo = '$cod_articulo' order by fecha_registro desc");
     $data = array();
     
     foreach ($categorias as $valor) {

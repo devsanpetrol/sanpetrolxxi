@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                        <div class="form-group form-group-feedback form-group-feedback-left d-none">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="add_uuid" placeholder="U.U.I.D.">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-embed"></i>

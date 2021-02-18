@@ -12,13 +12,15 @@
         $data[] = array("articulo" => articulo($valor['descripcion'],$valor['cod_articulo']),
                         "fecha_recibe" => fecha($valor['fecha_recibe']),
                         "status" => status_asig($valor['fecha_entrega'], $valor['status']),
-                        "accion" => accion($valor['id_asignacion'])
+                        "accion" => accion($valor['id_asignacion'], $valor['status'])
                         );
         }
     }
     
-    function accion($id_asignacion){
-        return "<div class='list-icons'>
+    function accion($id_asignacion,$status){
+        
+        if($status == 1){
+            return "<div class='list-icons'>
                 <div class='dropdown'>
                         <a href='#' class='list-icons-item' data-toggle='dropdown'>
                             <i class='icon-menu7'></i>
@@ -29,12 +31,24 @@
                         </div>
                 </div>
         </div>";
+        }else if($status == 0){
+            return "<div class='list-icons'>
+                <div class='dropdown'>
+                        <a href='#' class='list-icons-item' data-toggle='dropdown'>
+                            <i class='icon-menu7'></i>
+                        </a>
+                        <div class='dropdown-menu dropdown-menu-right bg-primary-600'>
+                            <a class='dropdown-item' onclick='openModalDetail($id_asignacion)'><i class='icon-clippy'></i> Detalles</a>
+                        </div>
+                </div>
+        </div>";
+        }
     }
     function status_asig($fecha_entrega,$status){
         if($fecha_entrega == null && $status == 1){
-            return $status_r = "<span class='badge d-block badge-success'>Activo</span>";
+            return $status_r = "<span class='badge d-block badge-success'><i class='icon-checkmark4 mr-1'></i> Asignado</span>";
         }else if($status == 0){
-            return $status_r = "<span class='badge d-block badge-info'>Entregado</span>";
+            return $status_r = "<span class='badge d-block badge-info'><i class='icon-reply mr-1'></i> Entregado</span>";
         }
     }
     function articulo($articulo,$cod_articulo){

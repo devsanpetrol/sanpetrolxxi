@@ -1,6 +1,8 @@
 $(document).ready( function () {
     get_categoria();
+    grupos_clasificados();
     
+    $('#filtro').val("");
     $('.form-control-select2').select2();
     $("body").addClass("sidebar-xs");
     $(".inventario").addClass("active");
@@ -10,12 +12,14 @@ $(document).ready( function () {
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         ajax: {
             url: "json_selectInventario.php",
+            type:"POST",
+            data:{filtro:function(){return $('#filtro').val();}},
             dataSrc:function ( json ) {
                 return json;
             }
         },
         columnDefs: [
-            //{targets:5,className: "text-center"}
+            //{targets:6,className: "text-center"}
         ],
         columns: [
             {data : 'cod_articulo'},
@@ -24,7 +28,7 @@ $(document).ready( function () {
             {data : 'status'},
             {data : 'disponible'},
             {data : 'operable'},
-            {data : 'costo'},
+            {data : 'grupo'},
             {data : 'accion'}
         ],
         rowGroup: {
@@ -36,6 +40,10 @@ $(document).ready( function () {
             info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
         }
     });
+    $("#filtro").bind("change", function() { 
+        var table = $('#almacen_tabla').DataTable();
+        table.ajax.reload();
+    }); 
     $('#movimiento_tabla_aplica').DataTable({
         bDestroy: true,
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
@@ -245,6 +253,35 @@ function get_categoria(){
       alert('error');
     }
   });
+}
+function get_grupos_activo(e){
+    $.ajax({
+    url: 'json_selectGrupoActivo.php',
+    dataType: "json",
+    beforeSend: function (xhr){
+        $('#grupo_activo').empty();
+    },
+    success: function(data){
+        $.each(data,function(key, registro) {
+            if(registro.id_grupo_activo == 1){
+                $('#grupo_activo').append("<option value='"+registro.id_grupo_activo+"'>(Ninguno)</option>");
+            }else{
+                $('#grupo_activo').append("<option value='"+registro.id_grupo_activo+"'>"+registro.grupo_nombre+"</option>");
+            }
+        });
+        var id = e.target.id;
+        var id_grupo = $("#"+id).data("idgrupo");
+        var cod_articulo = $("#"+id).data("codarticulo");
+        $("#cod_articulo_move").html(cod_articulo);
+        if(id_grupo > 1 ){
+            $("#grupo_activo option[value='" + id_grupo + "']").attr("selected", "selected");
+        }
+    },
+    error: function(data){
+      alert('error');
+    }
+  });
+    
 }
 function close_alert2(){
     $('#msj_alert2').hide();
@@ -531,4 +568,138 @@ function get_proveedor(e){
     $("#rfc").val(rfc);
     $("#rfc").data("idproveedor",id);
     $("#nombreempresa").val(nombre);
+}
+
+function selectItems(e){
+    
+}
+function grupos_clasificados(){
+    $.ajax({
+        url: 'json_selectListGrupos.php',
+        beforeSend: function (xhr){
+            $(".misgrupos").empty();
+        },
+        success: function (res) {
+            $.each(res, function (index, value) {//value.nombre
+                $(".misgrupos").append(value.menu);
+            });
+        },
+        complete: (function () {
+            
+        })
+    });
+ }
+function abre_grupo(){
+    $("#modal_grupo").modal("show");
+}
+function nuevo_cancel(){
+    $("#modal_grupo").modal("hide");
+}
+function nuevo_guarda(){
+    var nuevo_grupo = $("#nuevo_grupo").val();
+    $.post('json_nuevo_grupo.php',{
+        nuevo_grupo:nuevo_grupo
+    },function(result){
+        if(result[0].type == "exito"){
+            grupos_clasificados();
+        }else{
+            alert("Ocurrio realizar la operación. "+result[0].type);
+        }
+        
+    }).done(function() {
+        $("#modal_grupo").modal("hide");
+    });
+}
+function load_main(){
+    $("#filtro").val("").trigger('change');
+    $(".subgrupos").removeClass("font-weight-bold active");
+    $(".icono-grupo").removeClass("icon-folder-open").addClass("icon-folder2");
+}
+function load_main_baja(){
+    $("#filtro").val("WHERE status = 0").trigger('change');
+    $(".subgrupos").removeClass("font-weight-bold active");
+    $(".icono-grupo").removeClass("icon-folder-open").addClass("icon-folder2");
+}
+function load_main_disponible(){
+    $("#filtro").val("WHERE status = 1 AND disponible = 1").trigger('change');
+    $(".subgrupos").removeClass("font-weight-bold active");
+    $(".icono-grupo").removeClass("icon-folder-open").addClass("icon-folder2");
+}
+function load_main_grupos(e){
+    $(".subgrupos").removeClass("font-weight-bold active");
+    $(".icono-grupo").removeClass("icon-folder-open").addClass("icon-folder2");
+    
+    var obj = e.target;
+    var idicon = $(obj).data("idgrupo");
+    $(obj).addClass("font-weight-bold active");
+    $("#"+idicon+"i").removeClass("icon-folder2").addClass("icon-folder-open");
+    
+    $("#filtro").val("WHERE id_grupo_activo = " + idicon ).trigger('change');
+}
+function mofificar_grupo(e){
+    get_grupos_activo(e);
+    $("#modal_asignar_grupo").modal("show");
+}
+function cerrar_modalMover(){
+    $("#modal_asignar_grupo").modal("hide");
+}
+function mover_a_grupo(){
+    var id_grupo_activo = $("#grupo_activo").val();
+    var cod_articulo = $("#cod_articulo_move").html();
+    $.post('json_grupo_mover.php',{
+        id_grupo_activo:id_grupo_activo,cod_articulo:cod_articulo
+    },function(result){
+        if(result[0].type == "exito"){
+            console.log("Movimiento exitoso!");
+        }else{
+            alert("Ocurrio realizar la operación. "+result[0].type);
+        }        
+    }).done(function() {
+        var table = $('#almacen_tabla').DataTable();
+        table.ajax.reload();
+        grupos_clasificados();
+        cerrar_modalMover();
+    });
+}
+function hola(e){
+    var obj = e.target;
+    var idgrupo = $(obj).data("idgrupo");
+    var grupo = $(obj).data("grupo");
+    
+    $("#modifica_grupo").data("idgrupo",idgrupo);
+    $("#modifica_grupo").data("grupo",grupo);
+    $("#modifica_grupo").val(grupo);
+    
+    $("#modal_modificar_grupo").modal("show");
+}
+function modal_grupo_edita_cierra(){
+    $("#modal_modificar_grupo").modal("hide");
+}
+function guardar_cambio_grupo(){
+    var id_grupo = $("#modifica_grupo").data("idgrupo");
+    var grupo = $("#modifica_grupo").val();
+    edita_grupo("upd",id_grupo,grupo);
+}
+function guardar_elimina_grupo(){
+    var id_grupo = $("#modifica_grupo").data("idgrupo");
+    var grupo = $("#modifica_grupo").val();
+    if (confirm('¿Está de seguro de eliminar el grupo?')) {
+        edita_grupo("del",id_grupo,grupo);
+    }
+}
+function edita_grupo(tipo,id_grupo,grupo){
+    $.post('json_edita_grupo.php',{
+        id_grupo:id_grupo,grupo:grupo,tipo:tipo
+    },function(result){
+        if(result[0].type == "exito"){
+            console.log("Operación exitosa!");
+        }else{
+            alert("Ocurrio realizar la operación. "+result[0].type);
+        }
+    }).done(function() {
+        var table = $('#almacen_tabla').DataTable();
+        table.ajax.reload();
+        grupos_clasificados();
+        modal_grupo_edita_cierra();
+    });
 }

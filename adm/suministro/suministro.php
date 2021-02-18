@@ -104,6 +104,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function get_grupo_activo(){
+        $sql = $this->_db->prepare("SELECT * FROM adm_grupo_activo ORDER BY grupo_nombre asc");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function get_destinoSuministro($filter = ""){
         $sql = $this->_db->prepare("SELECT * FROM ope_equipo_area $filter");
         $sql->execute();
@@ -287,7 +293,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_grupos(){
-        $sql = $this->_db->prepare("SELECT * FROM adm_grupo_activo");
+        $sql = $this->_db->prepare("SELECT *,(select count(*) from adm_view_almacen_activos_fijos where adm_view_almacen_activos_fijos.id_grupo_activo = adm_grupo_activo.id_grupo_activo) as contar FROM adm_grupo_activo where id_grupo_activo > 1 order by grupo_nombre asc");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -755,7 +761,7 @@ class suministro extends conect
         }
     }
     public function get_articulo_detail($filtro=""){
-        $sql = $this->_db->prepare("SELECT cod_articulo, descripcion, marca, nombre_categoria FROM adm_view_almacen_detail $filtro");
+        $sql = $this->_db->prepare("SELECT cod_articulo, descripcion, marca, nombre_categoria,tipo_cat FROM adm_view_almacen_detail $filtro");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -943,11 +949,17 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-     public function get_movimiento($filtro=""){
+    public function get_movimiento($filtro=""){
         $sql = $this->_db->prepare("SELECT * FROM adm_trazabilidad $filtro");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
+    }
+    public function get_nombre_personal($id_empleado){
+        $sql = $this->_db->prepare("SELECT CONCAT(nombre,' ', apellidos) AS nombres FROM adm_view_empleado WHERE id_empleado = $id_empleado LIMIT 1");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado[0]["nombres"];
     }
     public function set_new_trazabilidad($fecha_movimiento,$motivo,$responsable,$ubicacion,$condicion,$cod_articulo){
         $almacen = $this->_db->prepare("INSERT INTO adm_trazabilidad(fecha_registro,fecha_movimiento,motivo,responsable,ubicacion,condicion,cod_articulo) VALUES (NOW(),'$fecha_movimiento','$motivo','$responsable','$ubicacion','$condicion','$cod_articulo')");
@@ -999,9 +1011,94 @@ class suministro extends conect
     //=========================ASIGNACIONES=========================
     public function set_asignacion($cod_articulo,$id_empleado,$fecha){
         $asignacion = $this->_db->prepare("INSERT INTO adm_asignacion (cod_articulo,id_empleado, fecha_recibe) VALUES ('$cod_articulo',$id_empleado,'$fecha')");
-        $sql2 = $this->_db->prepare("UPDATE adm_activo SET asignado = $id_empleado WHERE cod_articulo = '$cod_articulo'");
+        $sql2 = $this->_db->prepare("UPDATE adm_activo SET asignado = $id_empleado,disponible = 0 WHERE cod_articulo = '$cod_articulo'");
         $resultado = $asignacion->execute();
         $resultado2 = $sql2->execute();
         return $resultado*$resultado2;
     }
+    public function upd_asignacion($cod_articulo,$id_asignacion,$id_empleado,$fecha,$responsable,$comentario){
+        $sql1 = $this->_db->prepare("UPDATE adm_asignacion SET fecha_entrega = $fecha, comentario = '$comentario', status = 0 WHERE id_asignacion = $id_asignacion");
+        $sql2 = $this->_db->prepare("UPDATE adm_activo SET asignado = 0, disponible = 1 WHERE cod_articulo = '$cod_articulo'");
+        $sql3 = $this->_db->prepare("INSERT INTO adm_trazabilidad (cod_articulo,fecha_registro,fecha_movimiento,motivo,responsable,ubicacion,condicion) VALUES ('$cod_articulo',NOW(),'$fecha','Devolución de Material/Equipo de trabajo','$responsable','Base Sanpetrol Villahermosa','Devolución')");
+        
+        $result = false;
+        
+        if($sql1->execute()){
+            if($sql2->execute()){
+                if($sql3->execute()){
+                    return $result = true;
+                }else{
+                    $sql11 = $this->_db->prepare("UPDATE adm_asignacion SET fecha_entrega = NULL, comentario = '', status = 1");
+                    $sql22 = $this->_db->prepare("UPDATE adm_activo SET asignado = $id_empleado, disponible = 0 WHERE cod_articulo = '$cod_articulo'");
+                }
+            }else{
+                $sql4 = $this->_db->prepare("UPDATE adm_asignacion SET fecha_entrega = NULL, comentario = '', status = 1");
+            }
+        }
+        return $result;
+    }
+    public function set_nuevo_grupo($nuevo_grupo){
+        $sql1 = $this->_db->prepare("INSERT INTO adm_grupo_activo(grupo_nombre) VALUES ('$nuevo_grupo')");
+        
+        try {
+            $this ->_db-> beginTransaction();
+            $sql1 -> execute();
+            $id_grupo = $this ->_db-> lastInsertId();
+            $this ->_db-> commit();
+            return $id_grupo;
+        } catch(PDOExecption $e){
+            $this ->_db-> rollback();
+            //return "Error!: " . $e -> getMessage();
+            return 0;
+        }
+    }
+    public function grupos_migrar_grupo($id_grupo_origen,$id_grupo_destino){
+        $sql1 = $this->_db->prepare("UPDATE adm_activo SET adm_activo.id_grupo_activo = $id_grupo_destino WHERE adm_activo.id_grupo_activo = $id_grupo_origen");
+        $resultado = $sql1->execute();
+        return $resultado;
+    }
+    public function grupos_mover_agrupo($cod_articulo, $id_grupo_destino){
+        $sql1 = $this->_db->prepare("UPDATE adm_activo SET adm_activo.id_grupo_activo = $id_grupo_destino WHERE adm_activo.cod_articulo = '$cod_articulo' LIMIT 1");
+        $resultado = $sql1->execute();
+        return $resultado;
+    }
+    public function grupos_eliminar_grupo($id_grupo){
+        $sql1 = $this->_db->prepare("UPDATE adm_activo SET adm_activo.id_grupo_activo = 1 WHERE adm_activo.id_grupo_activo = $id_grupo");
+        $sql2 = $this->_db->prepare("DELETE FROM adm_grupo_activo WHERE adm_grupo_activo.id_grupo_activo = $id_grupo");
+        $resultado1 = $sql1->execute();
+        $resultado2 = $sql2->execute();
+        return $resultado1*$resultado2;
+    }
+    public function grupos_modificar_grupo($id_grupo,$grupo){
+        $sql1 = $this->_db->prepare("UPDATE adm_grupo_activo SET adm_grupo_activo.grupo_nombre = '$grupo' WHERE adm_grupo_activo.id_grupo_activo = $id_grupo LIMIT 1");
+        $resultado = $sql1->execute();
+        return $resultado;
+    }
+    //------------------- R E P O R T E S -------------------------------
+    public function get_almacen_reporte_salida($fecha_inicio,$fecha_fin){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_salida WHERE fecha  BETWEEN '$fecha_inicio 00:00:00' AND '$fecha_fin 23:59:59' ORDER BY fecha DESC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_almacen_reporte_entrada($fecha_inicio,$fecha_fin){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE fecha_hora  BETWEEN '$fecha_inicio 00:00:00' AND '$fecha_fin 23:59:59' ORDER BY id_factura ASC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_almacen_reporte_movimientos($fecha_inicio,$fecha_fin){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_movimiento WHERE fecha_movimiento  BETWEEN '$fecha_inicio 00:00:00' AND '$fecha_fin 23:59:59' ORDER BY fecha_movimiento DESC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function set_update_costo_unitario($id_factura,$id_factura_detalle,$costo){
+        $sql2 = $this->_db->prepare("UPDATE adm_factura_detalle SET precio_unidad = $costo, total = (adm_factura_detalle.cantidad * $costo) WHERE id_factura_detalle = $id_factura_detalle LIMIT 1");
+        $sql3 = $this->_db->prepare("UPDATE adm_factura SET total = (SELECT sum(adm_factura_detalle.total) FROM adm_factura_detalle WHERE id_factura = $id_factura ) WHERE id_factura = $id_factura LIMIT 1");
+        $cxu = $sql2->execute();
+        $sql3->execute();
+        return $cxu;
+    }
+    //-------------------------------------------------------------------
 }

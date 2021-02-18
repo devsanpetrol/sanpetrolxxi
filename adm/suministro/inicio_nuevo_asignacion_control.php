@@ -339,6 +339,95 @@
                         </div>
                     </div>
                     <!-- /modal with invoice -->
+                    <!-- Modal new invoice -->
+                    <div id="modal_devolucion" class="modal fade" data-idasignacion="">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> DEVOLUCIÓN DE MATERIAL DE TRABAJO</legend>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <label class="font-weight-semibold">Asignado a:</label>
+                                                            <div class="form-control-plaintext font-weight-semibold text-indigo" id="a_responsable" data-idempleado="">Gerardo Hernández Hernández</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <label class="font-weight-semibold">Cargo</label>
+                                                            <div class="form-control-plaintext font-weight-semibold text-indigo" id="a_cargo">Tecnología de la Información</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <label class="font-weight-semibold">Fecha de Asignación</label>
+                                                            <div class="form-control-plaintext font-weight-semibold text-indigo" id="a_fecha_recibe">12 de Enero 2021</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <label class="font-weight-semibold">Material/Equipo:</label>
+                                                            <div class="form-control-plaintext font-weight-semibold text-indigo" id="a_equipo" >Gerardo Hernández Hernández</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <label class="font-weight-semibold">No. Inventario:</label>
+                                                            <div class="form-control-plaintext font-weight-semibold text-indigo"><mark id="a_no_inventario"></mark></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <label class="font-weight-semibold">S/N:</label>
+                                                            <div class="form-control-plaintext font-weight-semibold text-indigo" id="a_no_serie">DER546HTY7I900</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <label class="font-weight-semibold">Cod. Articulo:</label>
+                                                            <div class="form-control-plaintext font-weight-semibold text-indigo" id="a_cod_articulo">MAT00034</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <label class="font-weight-semibold">Descripción / Especificación Detallada</label>
+                                                            <div class="form-control-plaintext font-weight-semibold text-indigo" id="a_descripcion">Material altamente corrosivo con 34. H2S alta concentración</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <label class="font-weight-semibold">Fecha de devolución</label>
+                                                            <input type="date" class="form-control font-weight-semibold text-indigo" id="a_fecha" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                                            <label class="font-weight-semibold">Comentario u Observaciones</label>
+                                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-indigo" id="a_comentario" placeholder="Comentarios adicionales">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-transparent">
+                                    <button type="button" class="btn bg-blue-800 btn-sm " id="new_agregarusar" onclick="closeModalDevolver()">Salir</button>
+                                    <button type="button" class="btn bg-pink btn-sm" onclick="delvolver_material()"><i class="icon-rotate-ccw2 mr-2"></i> Devolver</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /modal with invoice -->
                     <!-- /content area -->
                     <!-- Footer -->
                     <?php include "../bar_nav/footer_navbar.php"; ?>

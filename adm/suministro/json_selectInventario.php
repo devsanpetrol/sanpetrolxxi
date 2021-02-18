@@ -2,7 +2,8 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_activofijo("");
+    $filtro = $_POST["filtro"];
+    $categorias = $suministro->get_activofijo($filtro);
     $data = array();
     
     foreach ($categorias as $valor) {
@@ -14,9 +15,9 @@
                         "disponible" => status_disponible("Disponible","Ocupado",$valor['disponible'],"primary","slate-300"),
                         "operable" => status_disponible("Operable","No Operable",$valor['operable'],"success","danger"),
                         "marca" => $valor['marca'],
-                        "costo" => costo($valor['costo']),
+                        "grupo" => grupo($valor['id_grupo_activo'],$valor['grupo_nombre']),
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
-                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario'],$valor['id_factura'])
+                        "accion" => accion($valor['cod_articulo'],$valor['no_inventario'],$valor['id_factura'],$valor['id_grupo_activo'])
                         );
         
     }
@@ -61,10 +62,11 @@
     function stock_min_max($cantidad){
         return "<h6 class='mb-0'>$cantidad</h6>";
     }
-    function accion($cod_articulo,$no_inventario,$id_factura){
+    function accion($cod_articulo,$no_inventario,$id_factura,$id_grupo){
         $inv  = "";
         $prop = "";
         $fact = "";
+        $grup ="";
         if(empty($no_inventario)){
             $inv = "<a class='dropdown-item' data-codarticulo='$cod_articulo' onclick='inventarear(event)' id='inv_$cod_articulo'><i class='icon-price-tag2'></i> Inventariar</a>";
         }
@@ -74,6 +76,7 @@
         if(!empty($id_factura)){
             $fact = "<a class='dropdown-item' id='Z$cod_articulo' data-codarticulo='$cod_articulo' data-idfactura='$id_factura' onclick='openModalFacturaDetail(event)'><i class='icon-certificate'></i> Ver Factura</a>";
         }
+        $grup = "<a class='dropdown-item' id='A$cod_articulo' data-codarticulo='$cod_articulo' data-idgrupo='$id_grupo' onclick='mofificar_grupo(event)'><i class='icon-folder2'></i> Mover...</a>";
     return "<div class='list-icons'>
                 <div class='dropdown'>
                     <a href='#' class='list-icons-item' data-toggle='dropdown'>
@@ -83,6 +86,7 @@
                         $prop
                         $inv
                         $fact
+                        $grup
                         <a class='dropdown-item' id='Y$cod_articulo' data-codarticulo='$cod_articulo' onclick='openTrazabilidad(event)'><i class='icon-search4'></i> Trazabilidad</a>
                     </div>
                 </div>
@@ -94,6 +98,11 @@
             return "<h6 class='font-weight-semibold text-primary-800 mb-0'>$ $moneda</h6>";
         }else{
             return "";
+        }
+    }
+    function grupo($id_grupo,$grupo){
+        if($id_grupo > 1){
+            return "<h6 class='text-primary-800 mb-0'>$grupo</h6>";
         }
     }
     function nombre_categoria($nombre_categoria){

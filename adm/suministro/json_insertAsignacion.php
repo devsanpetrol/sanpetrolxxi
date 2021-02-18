@@ -8,7 +8,9 @@
         $id_empleado = $_POST['id_empleado'];
         $fecha = $_POST['fecha'];
         
-        $asignacion  = $suministro->set_asignacion($cod_articulo, $id_empleado, $fecha);
+        $asignacion = $suministro -> set_asignacion($cod_articulo, $id_empleado, $fecha);
+        $responsable = $suministro ->get_nombre_personal($id_empleado);
+        $trazabilid = $suministro -> set_new_trazabilidad($fecha, "Asignación de Material/Equipo", $responsable, "Base Sanpetrol Villahermosa", "Asignación de Material", $cod_articulo);
         if ($asignacion == true){
             $data[] = array("result"=>'exito');
         }else{
