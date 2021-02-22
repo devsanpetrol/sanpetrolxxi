@@ -177,14 +177,16 @@ function exitDetailFactura(){
 function guardaCostoUnitario(){
     $( ".precioxunidad" ).each(function( index ) {
         sendValServer($(this).data("idfactura"),$( this ).data("iddetallefactura"),$( this ).val());
-    });
+    }).promise().done( function(){ 
+        alert("Completado con exito.");
+        exitDetailFactura();
+    } );
 }
 function sendValServer(id_factura,id_detalle_factura,costo){
     $.post('json_updateFacturaCostoUnidad.php',{id_factura:id_factura,id_detalle_factura:id_detalle_factura,costo:costo},function(res){
         console.log(res[0].id + ":" + res[0].result);
         if(res[0].result == "exito"){
-            alert("Completado con exito.");
-            exitDetailFactura();
+            console.log("Completado con exito.");
         }
         else if(res[0].result == "fallo"){
             alert("Ocurrió un error durando el proceso.");
