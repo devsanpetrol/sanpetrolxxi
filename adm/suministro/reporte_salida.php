@@ -63,13 +63,13 @@
     <!-- /theme JS files -->
     <script src="../../global_assets/js/plugins/ui/moment/moment.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
-    <script src="../../../../global_assets/js/plugins/pickers/daterangepicker.js"></script>
-    <script src="../../../../global_assets/js/plugins/pickers/anytime.min.js"></script>
-    <script src="../../../../global_assets/js/plugins/pickers/pickadate/picker.js"></script>
-    <script src="../../../../global_assets/js/plugins/pickers/pickadate/picker.date.js"></script>
-    <script src="../../../../global_assets/js/plugins/pickers/pickadate/picker.time.js"></script>
-    <script src="../../../../global_assets/js/plugins/pickers/pickadate/legacy.js"></script>
-    <script src="../../../../global_assets/js/plugins/notifications/jgrowl.min.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/anytime.min.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/picker.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/picker.time.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/pickadate/legacy.js"></script>
+    <script src="../../global_assets/js/plugins/notifications/jgrowl.min.js"></script>
 </head>
 
 <body class="sidebar-xs">
