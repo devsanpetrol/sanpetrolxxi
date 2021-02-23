@@ -535,6 +535,7 @@ function guardaPedido(cod_articulo, cantidad,precio_unidad,total,id_factura){
 }
 function resetNewDocument(){
     $('#rfc').data('idproveedor','');
+    $('#total').html('0').data('total','0');
     $('#form_proveedor')[0].reset();
     $('#form_documento')[0].reset();
     $('#table_inventarioitems').DataTable().clear().draw();

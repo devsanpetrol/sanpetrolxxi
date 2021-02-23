@@ -39,7 +39,7 @@
     <script src="../../global_assets/js/plugins/pickers/pickadate/picker.time.js"></script>
     <script src="../../global_assets/js/plugins/notifications/jgrowl.min.js"></script>
     <!-- Theme JS files -->
-    <script src="js/engineJS_1.3.js"></script>
+    <script src="js/engineJS_1.31.js"></script>
     <script src="js/sum().js"></script>
     <script src="../../assets/js/app.js"></script>
     <!-- /theme JS files -->
