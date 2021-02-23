@@ -144,10 +144,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                        <div class="form-group form-group-feedback form-group-feedback-right">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="nombreempresa" placeholder="Nombre de la empresa" readonly>
-                                            <div class="form-control-feedback form-control-feedback-sm">
-                                                <i class="icon-office"></i>
+                                            <div class="form-control-feedback form-control-feedback-lg">
+                                                <i class="icon-add text-pink-800" data-toggle="modal" data-target="#busca_proveedor" style="cursor: pointer" title="Buscar/Agregar proveedor" ></i>
                                             </div>
                                         </div>
                                     </div>

@@ -5,12 +5,10 @@
         <group>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/conexion/conect.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_26.js</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectFacturaEdita.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/factura_edita.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_updateFacturaCostoUnidad.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/conexion/URL_Repository_DB_MySQL_Sanpetrolxxi.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/json_selectFacturaDetailEdita.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/reporte_salida.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/global_assets/js/demo_pages/charts/echarts/lines.js</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/reporte_movimiento.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/reporte_entrada.php</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/conexion/config.php</file>
         </group>
     </open-files>
