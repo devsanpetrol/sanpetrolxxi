@@ -99,7 +99,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_categoria_articulo($tipo = 1){
-        $sql = $this->_db->prepare("SELECT id_categoria,categoria,resume_name FROM adm_categoria_consumibles WHERE tipo = $tipo");
+        $sql = $this->_db->prepare("SELECT id_categoria,categoria,resume_name FROM adm_categoria_consumibles WHERE tipo = $tipo ORDER BY categoria ASC");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
