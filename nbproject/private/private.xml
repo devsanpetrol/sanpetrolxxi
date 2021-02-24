@@ -4,12 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/suministro.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/conexion/conect.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/reporte_salida.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/global_assets/js/demo_pages/charts/echarts/lines.js</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/reporte_movimiento.php</file>
-            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/reporte_entrada.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/detalle_factura.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_8.js</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/js/engineJS_1.31.js</file>
             <file>file:/C:/xampp/htdocs/sanpetrolxxi/conexion/config.php</file>
+            <file>file:/C:/xampp/htdocs/sanpetrolxxi/adm/suministro/sidebar_almacen.php</file>
         </group>
     </open-files>
 </project-private>

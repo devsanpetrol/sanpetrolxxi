@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a href="inventario.php" class="nav-link inventario"><i class="icon-books"></i> Activo Fijo </a>
                 </li>
+                <li class="nav-item">
+                    <a href="proveedores.php" class="nav-link proveedores"><i class="icon-truck"></i> Proveedores </a>
+                </li>
                 <li class="nav-item-header">SURTIDO DE MATERIAL</li>
                 <li class="nav-item">
                     <a href="inicio_nuevo_rapido.php" class="nav-link inicio_nuevo_rapido"><i class="icon-power2"></i> Solicitud Rápida </a>
