@@ -562,8 +562,9 @@
                 </div>
                 
                 <div class="modal-footer bg-transparent">
-                    <button type="button" class="btn btn-sm alpha-success text-success-800 legitRipple" id="btnmouestranewpro" onclick="hide_showNewProveedor()"><i class="icon-plus3"></i></button>
-                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewProv()">salir</button>
+                    <button type="button" class="btn btn-sm btn-warning legitRipple" id="btnmouestranewpro" onclick="hide_showNewProveedor()" title="Agregar nuevo proveedor"><i class="icon-plus3"></i></button>
+                    <button type="button" class="btn btn-sm btn-success legitRipple" onclick="ref_proveedor_tabla_aplica()" title="Refrescar tabla"><i class="icon-rotate-cw3"></i></button>
+                    <button type="button" class="btn btn-sm btn-primary legitRipple" onclick="hide_showModalNewProv()">salir</button>
                 </div>
                 <div class="card-body" id="cardnewprov" style="display: none">
                     <form action="#" id="formnewprov">
@@ -680,7 +681,8 @@
                     </table>
                 </div>
                 <div class="modal-footer bg-transparent">
-                    <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewArt()">salir</button>
+                    <button type="button" class="btn btn-sm btn-success legitRipple" onclick="actualizarTablaItem()" title="Refrescar tabla"><i class="icon-rotate-cw3"></i></button>
+                    <button type="button" class="btn btn-sm btn-primary legitRipple" onclick="hide_showModalNewArt()">salir</button>
                 </div>
                 
             </div>

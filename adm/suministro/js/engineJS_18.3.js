@@ -470,6 +470,7 @@ function get_articulo(e){
     var obj = e.target;
     var i_codigoinventario = $(obj).data('nombre');
         $("#i_codigoinventario").val(i_codigoinventario);
+    hide_showModalNewArt();
 }
 function get_empleado(e){
     var obj = e.target;
@@ -479,6 +480,7 @@ function get_empleado(e){
 
     $("#solicitante").val(i_nombre).data('idempleado',i_idempleado);
     $("#puesto").val(i_puesto);
+    hide_showModalNewEmp();
 }
 function borrar_input_nuevoArticulo(){
     $(".input-newarticle").val("");

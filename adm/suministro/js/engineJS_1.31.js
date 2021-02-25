@@ -420,11 +420,14 @@ function get_proveedor(e){
     $("#rfc").val(rfc);
     $("#rfc").data("idproveedor",id);
     $("#nombreempresa").val(nombre);
+    hide_showModalNewProv();
 }
 function get_articulo(e){
     var obj = e.target;
     var i_codigoinventario = $(obj).data('nombre');
     $("#i_codigoinventario").val(i_codigoinventario);
+    hide_showModalNewArt();
+    
 }
 function guarda_new_prov(){
     if (confirm('¿Guardar los cambios realizado al Nuevo Proveedor?')) {
@@ -652,4 +655,12 @@ function sumCoulumns(){
 }
 function FormatCurrency (amount){
     return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+}
+function actualizarTablaItem(){//proveedor_tabla_aplica
+    var table = $("#articulo_tabla_aplica").DataTable();
+    table.ajax.reload();
+}
+function ref_proveedor_tabla_aplica(){//proveedor_tabla_aplica
+    var table = $("#proveedor_tabla_aplica").DataTable();
+    table.ajax.reload();
 }
