@@ -19,7 +19,7 @@
                     <a href="inventario.php" class="nav-link inventario"><i class="icon-books"></i> Activo Fijo </a>
                 </li>
                 <li class="nav-item">
-                    <a href="proveedores.php" class="nav-link proveedores"><i class="icon-truck"></i> Proveedores </a>
+                    <a href="proveedores.php" class="nav-link lnkproveedores"><i class="icon-truck"></i> Proveedores </a>
                 </li>
                 <li class="nav-item-header">SURTIDO DE MATERIAL</li>
                 <li class="nav-item">
