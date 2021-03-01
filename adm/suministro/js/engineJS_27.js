@@ -8,43 +8,30 @@ $(document).ready( function () {
     $('#almacen_tabla').DataTable({
         bDestroy: true,
         dom: 'Bfrtip',
+        ordering: false,
         buttons:['excelHtml5'],
         ajax: {
-            url: "json_selectAlmacen.php",
+            url: "json_selectProveedores.php",
             dataSrc:function ( json ) {
                 return json;
             }
         },
         columns: [
-            {data : 'cod_articulo'},
-            {data : 'descripcion'},
-            {data : 'stock'},
-            {data : 'tipo_unidad'},
-            {data : 'stock_min'},
-            {data : 'stock_max'},
-            {data : 'accion'}
+            {data : 'actividad'},
+            {data : 'nombre_rfc'},
+            {data : 'direccion'},
+            {data : 'telefono'},
+            {data : 'email'},
+            {data : 'contacto'},
+            {data : 'menu'}
         ],
-        rowGroup: {
-            dataSrc: 'nombre_categoria'
-        },
-        columnDefs: [
-            {targets: 6, className:'text-center text-primary-800'}
-        ],
-        language: {
+        language:{
             search: '<span>Filtro:</span> _INPUT_',
             searchPlaceholder: 'Busqueda...',
             info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
         }
     });
 } );
- function inventarear(e){
-    var cod_articulo = $("#"+e.target.id).data("codarticulo"),
-        descripcion  = $("#"+e.target.id).data("descripcion");
-    
-        $('#old_cod_articulo').val(cod_articulo);
-        $('#descripcion').val(descripcion);
-        $('#modal_inventario').modal('show');
- }
  
  function  fecha_actual(){
     $.post('json_now.php',function(res){$('#num_folio_vale_salida').text(getFolio(res.fecha_actual));});
@@ -52,13 +39,7 @@ $(document).ready( function () {
  function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
 }
-function salir(){
-    $("#row_table_inv").hide();
-    $('#select_categoria3').prop('selectedIndex',0).trigger('change');
-    $("#modal_inventario").modal("hide");
-    var table = $('#dt_for_inventario').DataTable();
-    table.clear().draw();
-}
+
 function propiedadArticle(e){
     var id = e.target.id;
     var cod_articulo = $("#"+id).data("codarticulo");
@@ -85,9 +66,6 @@ function propiedadArticle(e){
     }).done(function() {
         $("#article_new").modal("show");
     });
-}
-function cerrarArticle(){
-    $("#article_new").modal("hide");
 }
 function updArticle(){
     var cod_barra     = $("#new_codigobarra").val(),
@@ -133,48 +111,44 @@ function updArticle(){
     });
     
 }
-function article_new(){
-    $("#add_article").modal("show");
+function hide_showNewProveedor(){
+    $("#formnewprov")[0].reset();
+    close_alert2();
 }
-function addArticle(){
-    var cod_barra = $("#add_codigobarra").val();
-    var cod_articulo = $("#add_cod_inventario").val();
-    var descripcion = $("#add_descripcion").val();
-    var especificacion = $("#add_especificacion").val();
-    var tipo_unidad = $("#add_tipounidad").val();
-    var marca = $("#add_marca").val();
-    var id_categoria = $("#select_categoria_2").val();
-    
-    if(validar_newArticulo() === true){
+function hide_showModalNewProv(){
+    $("#busca_proveedor" ).modal("hide");
+    $("#formnewprov")[0].reset();
+    close_alert2();
+}
+function close_alert2(){
+    $('#msj_alert2').hide();
+}
+function guarda_new_prov(){
+    if (confirm('¿Guardar los cambios realizado al Nuevo Proveedor?')) {
+        var rfc = $("#new_rfc").val();
+        var nombre = $("#new_nombre").val();
+        var direccion = $("#new_direccion").val();
+        var num_telefono = $("#new_num_telefono").val();
+        var email = $("#new_email").val();
+        var pagina_web = $("#new_pagina_web").val();
+        var actividad_comercial = $("#new_actividad_comercial").val();
+
         $.ajax({
-            url: 'json_addArticle.php',
-            data:{ cod_articulo:cod_articulo, cod_barra:cod_barra, descripcion:descripcion, especificacion:especificacion, tipo_unidad:tipo_unidad, marca:marca, id_categoria:id_categoria },
-            type:'POST',
+            data:{rfc:rfc,nombre:nombre,direccion:direccion,num_telefono:num_telefono,email:email,pagina_web:pagina_web,actividad_comercial:actividad_comercial},
+            url: 'json_set_newprov.php',
+            type: 'POST',
             success:(function(res){
-                salir_sin_guardar();
+                if(res[0].result == "vacio"){
+                    $('#msj_alert2').show(200);
+                }else if(res[0].result == true){
+                    alert("Se guardo exitosamente");
+                    var table = $('#almacen_tabla').DataTable();
+                    table.ajax.reload();
+                    hide_showModalNewProv();
+                }else if(res[0].result == false){
+                    alert("Error al guardar");
+                }
             })
         });
     }
-}
-function limpiar_form(){
-    $('.select-new-article').val(null).trigger('change');
-    $(".add-new-art").val("");
-    $('#msj_alert3').hide();
-}
-function salir_sin_guardar(){
-    $('#add_article').modal('hide');
-    $('#msj_alert3').hide();
-    limpiar_form();
-}
-function validar_newArticulo(){
-    if($('#add_tipounidad').val() != null && $('#select_categoria_2').val() != null && $('#add_descripcion').val() != '' && $("#add_marca").val() != ''){
-        $('#msj_alert3').hide();
-        return true;
-    }else{
-        $('#msj_alert3').show(200);
-        return false;
-    }
-}
-function close_alert(){
-    $('#msj_alert3').hide();
 }
