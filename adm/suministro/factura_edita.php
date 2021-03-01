@@ -231,6 +231,7 @@
                                     </div>
                                 </div>
                             <div class="modal-footer bg-transparent">
+                                <button type="button" class="btn btn-sm btn-danger legitRipple" onclick="eliminarFactura()" id="id_factura_" data-idfactura="">Elimiar</button>
                                 <button type="button" class="btn btn-sm btn-primary legitRipple" onclick="guardaCostoUnitario()">Guardar</button>
                                 <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="exitDetailFactura()">salir</button>
                             </div>

@@ -3,8 +3,8 @@ $(document).ready( function () {
     $('#filtro_fecha_inicio').val("");
     $('#filtro_fecha_fin').val("");
     $("body").addClass("sidebar-xs");
-    $(".reporte-entrada").addClass("active");
-    $(".reporte-entrada i").addClass("text-orange-800");
+    $(".edita-facturas").addClass("active");
+    $(".edita-facturas i").addClass("text-orange-800");
     $('#almacen_tabla').DataTable({
         bDestroy: true,
         dom: 'Bfrtip',
@@ -111,6 +111,7 @@ function getFacturaDetail(id_factura){
         success: function (obj) {
             var data = obj[0];
             
+            $("#id_factura_").data("idfactura",id_factura);
             $("#view_date_insert").html(data.date_insert);
             $("#view_fecha_emision").html(data.fecha_emision);
             $("#view_lugar_emision").html(data.lugar_emision);
@@ -192,4 +193,28 @@ function sendValServer(id_factura,id_detalle_factura,costo){
             alert("Ocurrió un error durando el proceso.");
         }
     });
+}
+function eliminarFactura(){
+    var id_factura = $("#id_factura_").data("idfactura");
+    var r = confirm("¿Esta seguro que desea ELIMINAR esta factura?");
+    
+    if (r == true) {
+        $.post('del_factura_stat.php',{id_factura:id_factura},function(res){
+            var stat = res[0].status;
+
+            if(stat == "realizado"){
+                console.log("Completado con exito.");
+                alert("Eliminacion de factura completada.");
+            }
+            else if(stat == "error"){
+                alert("Ocurrió un error durando el proceso.");
+            }
+            else if(stat == "desaprobado"){
+                alert("Lo sentimos. Los items de esta factura ya fueron procesados, no es posible revertir y eliminar.");
+            }
+            else if(stat == "fail"){
+                alert("La factura que desea eliminar no existe.");
+            }
+        });
+    }
 }

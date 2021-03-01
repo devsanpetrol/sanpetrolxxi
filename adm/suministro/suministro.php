@@ -1082,7 +1082,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_almacen_reporte_entrada($fecha_inicio,$fecha_fin){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE fecha_hora  BETWEEN '$fecha_inicio 00:00:00' AND '$fecha_fin 23:59:59' ORDER BY id_factura ASC");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE fecha_hora  BETWEEN '$fecha_inicio 00:00:00' AND '$fecha_fin 23:59:59' ORDER BY id_factura DESC");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -1101,4 +1101,39 @@ class suministro extends conect
         return $cxu;
     }
     //-------------------------------------------------------------------
+    public function get_status_affects_factura($id_factura){
+        $sql = $this->_db->prepare("select sum(cantidad) as tc, sum(restante) as tr, count(cantidad) as ct from adm_factura_detalle where id_factura = $id_factura");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function delete_factura($id_factura){
+        $sql1 = $this->_db->prepare("DELETE FROM adm_factura_detalle WHERE id_factura = $id_factura");
+        $sql2 = $this->_db->prepare("DELETE FROM adm_factura WHERE id_factura = $id_factura");
+        $resultado = $sql1->execute();
+        if($resultado){
+            $resultado2 = $sql2->execute();
+        }else{
+            $resultado = 0;
+        }
+        return $resultado2;
+    }
+    public function update_item_factura($cod_articulo,$cantidad){
+        $sql2 = $this->_db->prepare("UPDATE adm_almacen SET stock = (stock - $cantidad) WHERE cod_articulo = '$cod_articulo' LIMIT 1");
+        $cxu = $sql2->execute();
+        return $cxu;
+    }
+    public function get_items_factura($id_factura){
+        $sql = $this->_db->prepare("SELECT cod_articulo, cantidad FROM adm_factura_detalle WHERE id_factura = $id_factura");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    //----------------------PROVEEDORES------------------------------------
+    public function get_proveedores($filtro = ""){
+        $sql = $this->_db->prepare("SELECT * FROM adm_proveedor $filtro ORDER BY actividad_comercial DESC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
 }
