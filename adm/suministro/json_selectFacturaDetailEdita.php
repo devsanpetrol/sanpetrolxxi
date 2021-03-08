@@ -11,12 +11,13 @@
                         "cantidad" => unidad($valor["cantidad"]),
                         "unidad" => unidad($valor["tipo_unidad"]),
                         "precio_unidad" => preciounidad($valor["precio_unidad"],$valor["id_factura"],$valor["id_factura_detalle"]),
-                        "total" => cantidad($valor["total"])
+                        "total" => cantidad($valor["total"]),
+                        "elimina" => elimina($valor["id_factura"],$valor["id_factura_detalle"],$valor["descripcion"],$valor["cantidad"])
                     );
     }
     function cantidad($cantidad){
         $cantidad = moneda($cantidad);
-        return "<h6 class='mb-0 font-size-sm font-weight-bold text-blue-800'>$ $cantidad</h6>";
+        return "<h6 class='mb-0 font-size-sm font-weight-bold text-blue-800 text-right'>$ $cantidad</h6>";
     }
     function preciounidad($cantidad,$id_factura,$id_factura_detalle){
         //$cantidad = moneda($cantidad);
@@ -33,6 +34,9 @@
     }
     function moneda ($valor){
         return $moneda = number_format($valor, 2, '.', ', ');
+    }
+    function elimina($id_factura, $id_factura_detalle,$descripcion,$cantidad){
+        return "<span class='badge bg-danger' style='cursor: pointer;' onclick='eliminaitemfactura(event)' data-idfacturadetalle='$id_factura_detalle' data-idfactura='$id_factura' data-descripcion='$descripcion' data-cantidad='$cantidad'>Eliminar</span>";
     }
     header('Content-Type: application/json');
     echo json_encode($data);

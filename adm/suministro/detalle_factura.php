@@ -310,7 +310,8 @@
                     <table class="table table-responsive-sm table-xs dt-responsive" id="datatable_invoice_detail" style="width: 100%">
                         <col width="5%">
                         <col width="15%">
-                        <col width="40%">
+                        <col width="30%">
+                        <col width="10%">
                         <col width="15%">
                         <col width="15%">
                         <col width="10%">
@@ -319,6 +320,7 @@
                                 <th>#</th>
                                 <th>Periodo</th>
                                 <th>Proveedor</th>
+                                <th>Serie-Folio</th>
                                 <th>Fecha emisión</th>
                                 <th>Total</th>
                                 <th class="text-center">Accion</th>

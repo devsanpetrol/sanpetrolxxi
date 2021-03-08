@@ -30,7 +30,12 @@ $(document).ready( function () {
         ordering: false,
         bDestroy: true,
         paging: false,
-        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'pdfHtml5'
+        ],
         lengthMenu: [[5, 10], [5, 10]],//-1 = all
         columnDefs: [
             //{targets: -1, className:'text-center text-primary-800'}

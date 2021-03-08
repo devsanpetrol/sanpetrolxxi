@@ -3,7 +3,8 @@ $(document).ready( function () {
     $(".inicio_nuevo_epp").addClass("active");
     $(".inicio_nuevo_epp i").addClass("text-orange-800");
     get_area_equipo();
-    fecha_actual();
+    //fecha_actual();
+    $('#fecha_actual').val(moment().format('YYYY-MM-DD'));
     $('.pickadate-accessibility').pickadate({
         format: 'dddd, dd mmmm, yyyy',
         formatSubmit: 'yyyy-mm-dd',
@@ -359,7 +360,7 @@ function guardaPedido(cod_articulo,cantidad,unidad,articulo,destino,justificacio
     });
 }
 function show_addpedido(){
-    fecha_actual();
+    $('#fecha_actual').val(moment().format('YYYY-MM-DD'));
     $("#card_addPedido").toggle("fast");
     $("#btn_send_pedido").toggle("fast");
     $("#fecha_actual").toggle("fast");

@@ -43,7 +43,7 @@
                 </li>
                 <li class="nav-item-header">CONTABILIDAD</li>
                 <li class="nav-item">
-                    <a href="detalle_factura.php" class="nav-link detalle_factura"><i class="icon-certificate"></i> Facturas </a>
+                    <a href="detalle_factura.php" class="nav-link detalle_factura"><i class="icon-box-add"></i> Entrada de Material </a>
                 </li>
                 <li class="nav-item">
                     <a href="factura_edita.php" class="nav-link edita-facturas"><i class="icon-pencil7"></i> Editar Facturas </a>

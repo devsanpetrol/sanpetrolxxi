@@ -315,6 +315,7 @@
                                     </table>
                                 </div>
                                 <div class="modal-footer bg-transparent">
+                                    <button type="button" class="btn btn-sm btn-success legitRipple" onclick="actualizarTabla()" title="Refrescar tabla"><i class="icon-rotate-cw3"></i></button>
                                     <button type="button" class="btn btn-sm alpha-primary text-primary-800 legitRipple" onclick="hide_showModalNewArt()">salir</button>
                                 </div>
                             </div>

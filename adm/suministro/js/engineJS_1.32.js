@@ -127,6 +127,7 @@ $(document).ready( function () {
             {data : 'id_factura'},
             {data : 'periodo'},
             {data : 'proveedor'},
+            {data : 'seriefolio'},
             {data : 'fecha_emision'},
             {data : 'total'},
             {data : 'accion'}
@@ -138,8 +139,9 @@ $(document).ready( function () {
             //{targets:0, visible:false}
         ],
         createdRow: function ( row, data, index ) {
-            $('td', row).eq(5).addClass('text-center');
             $('td', row).eq(0).addClass('text-danger');
+            $('td', row).eq(3).addClass('text-danger text-center');
+            $('td', row).eq(6).addClass('text-center');
         },
         language: {
             search: '<span>Filtro:</span> _INPUT_',

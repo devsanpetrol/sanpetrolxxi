@@ -19,11 +19,16 @@
                         "fecha_emision" => $valor['fecha_emision'],//ok
                         "nombre" => $valor['nombre'],//ok
                         "fecha_emision" => $valor['fecha_emision'],//ok
-                        "proveedor" => proveedor(accion($valor['id_factura']),$valor['id_factura'],$valor['nombre'])//ok
+                        "proveedor" => proveedor(accion($valor['id_factura']),$valor['id_factura'],$valor['nombre'],$valor['serie_folio'])//ok
                         );        
     }
-    function proveedor($editar,$factura,$proveedor){
-        return "<h6 class='text-primary-800 mb-0'># $factura - $proveedor  $editar</h6>";
+    function proveedor($editar,$factura,$proveedor,$serie_folio){
+        $sf = trim($serie_folio);
+        if($sf != ""){
+            return "<h6 class='text-primary-800 mb-0'># $factura - $proveedor  $editar (Serie - Folio: $sf)</h6>";
+        }else{
+            return "<h6 class='text-primary-800 mb-0'># $factura - $proveedor  $editar</h6>";
+        }
     }
     function accion($id_factura){
         

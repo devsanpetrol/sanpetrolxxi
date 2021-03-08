@@ -8,6 +8,7 @@
     foreach ($categorias as $valor) {
         $data[] = array("id_factura" => idfactura($valor['id_factura']),
                         "periodo" => periodo($valor['fecha_emision']),
+                        "seriefolio" => foliofactura($valor['serie_folio']),
                         "proveedor" => nombre($valor['nombre'],$valor['direccion']),
                         "fecha_emision" => fecha_emision($valor['fecha_emision']),
                         "total" => total($valor['total']),
@@ -37,7 +38,15 @@
         
     }
     function idfactura($id_factura){
-        return "<h6 class='mb-0 font-size-md'>$id_factura</h6>";
+        return "<h6 class='mb-0 font-size-sm'>$id_factura</h6>";
+    }
+    function foliofactura($serie_folio){
+        $sf = trim($serie_folio);
+        if ($sf != ""){
+            return "<h6 class='mb-0 font-size-sm'>$sf</h6>";
+        }else{
+            return "<h6 class='mb-0 font-size-sm'>- -</h6>";
+        }
     }
     function periodo($periodo){
         $cadena = $periodo;

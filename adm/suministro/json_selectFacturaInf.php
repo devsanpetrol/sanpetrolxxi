@@ -9,7 +9,8 @@
     $data[] = array("serie_folio" => ucwords(mb_strtolower($factura[0]['serie_folio'])),
                     "fecha_emision" => $factura[0]['fecha_emision'],
                     "lugar_emision" => $factura[0]['lugar_emision'],
-                    "uuid" => ucwords(mb_strtolower($factura[0]['uuid'])),
+                    "tipo" => $factura[0]['tipo'],
+                    "observacion" => $factura[0]['observacion'],
                     "total" => "$ " . moneda($factura[0]['total']),
                     "date_insert" => $factura[0]['date_insert'],
                     // DATOS DE PROVEEDOR

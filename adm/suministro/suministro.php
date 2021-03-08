@@ -1120,14 +1120,34 @@ class suministro extends conect
     }
     public function update_item_factura($cod_articulo,$cantidad){
         $sql2 = $this->_db->prepare("UPDATE adm_almacen SET stock = (stock - $cantidad) WHERE cod_articulo = '$cod_articulo' LIMIT 1");
-        $cxu = $sql2->execute();
-        return $cxu;
+        return $sql2->execute();
+    }
+    public function update_factura_detail($id_factura,$serie_folio,$tipo,$observacion){
+        $sql = $this->_db->prepare("UPDATE adm_factura SET serie_folio = '$serie_folio', tipo = '$tipo', observacion = '$observacion' WHERE id_factura = $id_factura LIMIT 1");
+        return $sql->execute();
     }
     public function get_items_factura($id_factura){
         $sql = $this->_db->prepare("SELECT cod_articulo, cantidad FROM adm_factura_detalle WHERE id_factura = $id_factura");
         $sql->execute();
-        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    //---------------------------------------------------------------------
+    public function get_status_affects_factura_item($id_factura_detalle){
+        $sql = $this->_db->prepare("SELECT restante, cantidad, count(cantidad) as ct FROM adm_factura_detalle WHERE id_factura_detalle = $id_factura_detalle");
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function delete_factura_item($id_factura, $id_factura_detalle){
+        $sql1 = $this->_db->prepare("DELETE FROM adm_factura_detalle WHERE id_factura_detalle = $id_factura_detalle");
+        $sql2 = $this->_db->prepare("UPDATE adm_factura SET total = (SELECT sum(adm_factura_detalle.total) FROM adm_factura_detalle WHERE id_factura = $id_factura ) WHERE id_factura = $id_factura LIMIT 1");
+        $resultado = $sql1->execute();
+        $sql2->execute();
         return $resultado;
+    }
+    public function update_factura_total($id_factura){
+        $sql2 = $this->_db->prepare("UPDATE adm_factura SET total = (SELECT sum(adm_factura_detalle.total) FROM adm_factura_detalle WHERE id_factura = $id_factura ) WHERE id_factura = $id_factura LIMIT 1");
+        $cxu = $sql2->execute();
+        return $cxu;
     }
     //----------------------PROVEEDORES------------------------------------
     public function get_proveedores($filtro = ""){

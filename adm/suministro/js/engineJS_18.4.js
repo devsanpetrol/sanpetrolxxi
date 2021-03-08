@@ -550,3 +550,7 @@ function agregar_pedido(){
 function hide_showModalNewEmp(){
     $("#busca_empleado" ).modal("hide");
 }
+function actualizarTabla(){//proveedor_tabla_aplica
+    var table = $("#articulo_tabla_aplica").DataTable();
+    table.ajax.reload();
+}
