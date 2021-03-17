@@ -6,13 +6,14 @@
     $data = array();
     
     foreach ($categorias as $valor) {
-        $data[] = array("nombre" => nombre($valor['nombre'],$valor['actividad_comercial']),
+        $data[] = array("nombre" => nombre($valor['nombre'],$valor['razon_social']),
+                        "actividad_comercial" => rfc($valor['actividad_comercial']),
                         "rfc" => rfc($valor['rfc']),
-                        "accion" => accion2($valor['id_proveedor'], $valor['nombre'], $valor['rfc'])
+                        "accion" => accion2($valor['id_proveedor'], $valor['nombre'], $valor['rfc'],$valor['razon_social'])
                         );
     }
-    function accion2($id, $nombre, $rfc){
-        return "<button type='button' class='btn btn-outline btn-sm bg-pink-400 text-pink-800 btn-icon rounded-round legitRipple' title='Aplicar' data-id='$id' data-nombre='$nombre' data-rfc='$rfc' onclick='get_proveedor(event)' data-toggle='modal' data-target='#'><i class='icon-square-down-right' data-id='$id' data-nombre='$nombre' data-rfc='$rfc' onclick='get_proveedor(event)'></i></button>";
+    function accion2($id, $nombre, $rfc,$razon_social){
+        return "<button type='button' class='btn btn-outline btn-sm bg-pink-400 text-pink-800 btn-icon rounded-round legitRipple' title='Aplicar' data-id='$id' data-nombre='$nombre' data-rfc='$rfc' data-razonsocial='$razon_social' onclick='get_proveedor(event)' data-toggle='modal' data-target='#'><i class='icon-square-down-right' data-id='$id' data-nombre='$nombre' data-rfc='$rfc' data-razonsocial='$razon_social' onclick='get_proveedor(event)'></i></button>";
     }
     function nombre($nombre,$ac){
         $act = trim($ac);

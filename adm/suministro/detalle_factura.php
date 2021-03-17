@@ -132,11 +132,19 @@
                                 <legend class="font-weight-semibold text-danger-800"><i class="icon-truck mr-2"></i> DATOS DE PROVEEDOR </legend>
                                 <form action="" id="form_proveedor">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="rfc" placeholder="R.F.C." data-idproveedor="0" readonly>
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-shield-check"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group form-group-feedback form-group-feedback-right">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="nombreempresa" placeholder="Nombre de la empresa" readonly>
+                                            <div class="form-control-feedback form-control-feedback-lg">
+                                                <i class="icon-add text-pink-800" data-toggle="modal" data-target="#busca_proveedor" style="cursor: pointer" title="Buscar/Agregar proveedor" ></i>
                                             </div>
                                         </div>
                                     </div>
@@ -145,10 +153,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-right">
-                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="nombreempresa" placeholder="Nombre de la empresa" readonly>
-                                            <div class="form-control-feedback form-control-feedback-lg">
-                                                <i class="icon-add text-pink-800" data-toggle="modal" data-target="#busca_proveedor" style="cursor: pointer" title="Buscar/Agregar proveedor" ></i>
-                                            </div>
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="razonsocial" placeholder="Razón Social" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -160,7 +165,7 @@
                                 <legend class="font-weight-semibold text-danger-800"><i class="icon-reading mr-2"></i> DATOS DEL DOCUMENTO </legend>
                             <form action="" id="form_documento">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 pickadate-accessibility" data-value="2015/04/20" id="add_fecha_emision" placeholder="Fecha de Emisión">
                                             <div class="form-control-feedback form-control-feedback-sm">
@@ -168,7 +173,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <select data-placeholder="Select your country" class="form-control form-control-sm select-fixed-single" id="add_tipo_documento" data-fouc>
+                                                <option value="factura">FACTURA</option>
+                                                <option value="ticket">NOTA SENCILLA</option>
+                                                <option value="cotizacion">COTIZACIÓN</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="add_serie_folio" placeholder="Serie - Folio">
                                             <div class="form-control-feedback form-control-feedback-sm">
@@ -188,20 +202,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group form-group-feedback form-group-feedback-left">
-                                        <label class="font-weight-semibold">Tipo Documento:</label>
-                                            <select data-placeholder="Select your country" class="form-control select-fixed-single" id="add_tipo_documento" data-fouc>
-                                                <option value="factura">FACTURA</option>
-                                                <option value="ticket">NOTA SENCILLA</option>
-                                                <option value="cotizacion">COTIZACIÓN</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left">
                                             <label class="font-weight-semibold">Observaciones:</label>
-                                            <textarea id="add_observacion" rows="3" cols="5" class="form-control text-blue-800" placeholder="Escriba aqui las observaciones..."></textarea>
+                                            <textarea id="add_observacion" rows="2" cols="5" class="form-control text-blue-800" placeholder="Escriba aqui las observaciones..."></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -566,13 +570,15 @@
             <div class="modal-content">
                 <div class="table-responsive">
                     <table class="table table-xs table-border-dashed datatable-basic text-nowrap" id="proveedor_tabla_aplica" style="width:100%">
-                        <col width="70%">
+                        <col width="40%">
+                        <col width="25%">
                         <col width="30%">
-                        <col width="10%">
+                        <col width="5%">
                         <thead>
                             <tr>
                                 <th>Proveedor</th>
                                 <th>R.F.C.</th>
+                                <th>Actividad Comercial</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
@@ -606,6 +612,16 @@
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_rfc" placeholder="R.F.C.">
                                             <div class="form-control-feedback form-control-feedback-sm">
                                                 <i class="icon-shield-check"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="new_razonsocial" placeholder="Razón Social">
+                                            <div class="form-control-feedback form-control-feedback-sm">
+                                                <i class="icon-office"></i>
                                             </div>
                                         </div>
                                     </div>

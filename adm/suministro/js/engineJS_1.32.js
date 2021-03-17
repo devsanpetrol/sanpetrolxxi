@@ -71,6 +71,7 @@ $(document).ready( function () {
         columns: [
             {data : 'nombre'},
             {data : 'rfc'},
+            {data : 'actividad_comercial'},
             {data : 'accion'}
         ],
         rowGroup: {
@@ -422,9 +423,11 @@ function get_proveedor(e){
     var id = $(obj).data('id');
     var nombre = $(obj).data('nombre');
     var rfc = $(obj).data('rfc');
+    var razon_social = $(obj).data('razonsocial');
     $("#rfc").val(rfc);
     $("#rfc").data("idproveedor",id);
     $("#nombreempresa").val(nombre);
+    $("#razonsocial").val(razon_social);
     hide_showModalNewProv();
 }
 function get_articulo(e){
@@ -438,6 +441,7 @@ function guarda_new_prov(){
     if (confirm('¿Guardar los cambios realizado al Nuevo Proveedor?')) {
         var rfc = $("#new_rfc").val();
         var nombre = $("#new_nombre").val();
+        var razon_social = $("#new_razonsocial").val();
         var direccion = $("#new_direccion").val();
         var num_telefono = $("#new_num_telefono").val();
         var email = $("#new_email").val();
@@ -445,7 +449,7 @@ function guarda_new_prov(){
         var actividad_comercial = $("#new_actividad_comercial").val();
 
         $.ajax({
-            data:{rfc:rfc,nombre:nombre,direccion:direccion,num_telefono:num_telefono,email:email,pagina_web:pagina_web,actividad_comercial:actividad_comercial},
+            data:{rfc:rfc,nombre:nombre,direccion:direccion,num_telefono:num_telefono,email:email,pagina_web:pagina_web,actividad_comercial:actividad_comercial,razon_social:razon_social},
             url: 'json_set_newprov.php',
             type: 'POST',
             success:(function(res){

@@ -10,7 +10,7 @@
         $direccion  = $_POST['direccion'];
         $num_telefono  = $_POST['num_telefono'];
         $email  = $_POST['email'];
-        $pagina_web  = $_POST['pagina_web'];
+        $pagina_web  = $_POST['pagina_web'];//razon_social
         $actividad_comercial  = $_POST['actividad_comercial'];
         
         $result = $suministro->set_new_proveedor($rfc,$nombre,$razon_social,$direccion,$num_telefono,$email,$pagina_web,$actividad_comercial);
