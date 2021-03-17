@@ -177,7 +177,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" readonly required>
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" required>
                                                         <div class="form-control-feedback form-control-feedback-sm">
                                                             <i class="icon-calendar22"></i>
                                                         </div>
@@ -216,7 +216,7 @@
                                         <div class="col-md-12 text-right">
                                             <div class="list-icons">
                                                 <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" style="display: none;" id="btn_del_row_sel" title="Remover item seleccionado"><i class="icon-trash"></i></button>
-                                                <button type="button" class="btn btn-sm alpha-success text-success-800 legitRipple" id="btn_send_pedido" onclick="get_folio()" title="Enviar solicitud">Enviar <i class="icon-paperplane ml-2"></i></button>
+                                                <button type="button" class="btn btn-sm btn-success" id="btn_send_pedido" onclick="get_folio()" title="Enviar solicitud">Guardar <i class="icon-floppy-disk ml-2"></i></button>
                                                 <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
                                             </div>
                                         </div>

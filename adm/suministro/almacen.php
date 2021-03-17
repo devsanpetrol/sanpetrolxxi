@@ -61,6 +61,7 @@
     <script src="../../global_assets/js/plugins/forms/styling/switch.min.js"></script>
     <script src="../../global_assets/js/plugins/forms/inputs/touchspin.min.js"></script>
     <script src="../../global_assets/js/demo_pages/form_actions.js"></script>
+    <script src="../../global_assets/js/demo_pages/datatables_basic.js"></script>
     
     <!-- /theme JS files -->
 </head>
@@ -97,7 +98,7 @@
                     <div class="page-header page-header-light">
                         <div class="page-header-content header-elements-md-inline">
                             <div class="page-title d-flex">
-                                <h4><i class="icon-drawer3 mr-2"></i> <span class="font-weight-semibold">Almacén</span></h4>
+                                <h4><i class="icon-drawer3 mr-2"></i><span class="font-weight-semibold">Almacén</span></h4>
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
                         </div>

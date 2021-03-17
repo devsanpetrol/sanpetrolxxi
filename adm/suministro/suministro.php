@@ -725,18 +725,22 @@ class suministro extends conect
         return $resultado;
     }
     //====================
-    public function set_new_proveedor($rfc,$nombre,$direccion,$num_telefono,$email,$pagina_web,$actividad_comercial){
-        $almacen = $this->_db->prepare("INSERT INTO adm_proveedor(rfc, nombre, direccion, num_telefono, email, pagina_web, actividad_comercial) VALUES ('$rfc', '$nombre', '$direccion', '$num_telefono', '$email', '$pagina_web', '$actividad_comercial')");
+    public function set_new_proveedor($rfc,$nombre,$razon_social,$direccion,$num_telefono,$email,$pagina_web,$actividad_comercial){
+        $almacen = $this->_db->prepare("INSERT INTO adm_proveedor(rfc, nombre, razon_social, direccion, num_telefono, email, pagina_web, actividad_comercial) VALUES ('$rfc', '$nombre', '$razon_social', '$direccion', '$num_telefono', '$email', '$pagina_web', '$actividad_comercial')");
         $resultado = $almacen->execute();
         return $resultado;
+    }
+    public function set_upd_proveedor($id_proveedor,$rfc,$nombre,$razon_social,$direccion,$num_telefono,$email,$pagina_web,$actividad_comercial){
+        $almacen = $this->_db->prepare("UPDATE adm_proveedor SET rfc = '$rfc', nombre = '$nombre', razon_social='$razon_social', direccion = '$direccion', num_telefono = '$num_telefono', email = '$email', pagina_web = '$pagina_web', actividad_comercial = '$actividad_comercial' WHERE id_proveedor = $id_proveedor LIMIT 1");
+        return $almacen->execute();
     }
     public function set_ajusteAuditoria($cod_articulo,$cantidad,$comentario){
         $almacen = $this->_db->prepare("INSERT INTO adm_ajusteauditoria(cod_articulo, cantidad, comentario) VALUES ('$cod_articulo', '$cantidad', '$comentario')");
         $resultado = $almacen->execute();
         return $resultado;
     }
-    public function set_add_documento($serie_folio, $fecha_emision, $lugar_emision, $uuid, $total, $id_proveedor){
-        $articulo = $this->_db->prepare("INSERT INTO adm_factura(serie_folio, fecha_emision, lugar_emision, uuid, total, date_insert, id_proveedor) VALUES ('$serie_folio', '$fecha_emision', '$lugar_emision', '$uuid', $total, NOW(),'$id_proveedor')");
+    public function set_add_documento($serie_folio, $fecha_emision, $lugar_emision, $uuid, $total, $id_proveedor,$tipo,$observacion){
+        $articulo = $this->_db->prepare("INSERT INTO adm_factura(serie_folio, fecha_emision, lugar_emision, uuid, total, date_insert, id_proveedor,tipo, observacion) VALUES ('$serie_folio', '$fecha_emision', '$lugar_emision', '$uuid', $total, NOW(),'$id_proveedor','$tipo','$observacion')");
         
         try {
             $this ->_db-> beginTransaction();
@@ -1155,5 +1159,27 @@ class suministro extends conect
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
+    }
+    public function get_proveedores_not($id_proveedor_exption){
+        $sql = $this->_db->prepare("SELECT * FROM adm_proveedor WHERE id_proveedor NOT IN ($id_proveedor_exption) ORDER BY id_proveedor ASC");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_prov_no_factura_relacionada($id_proveedor){
+        $sql = $this->_db->prepare("SELECT count(*) AS total FROM adm_factura WHERE id_proveedor = $id_proveedor");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado[0]["total"];
+    }
+    public function update_factura_proveedor_homologar($id_proveedor,$id_proveedor_nuevo){
+        $sql2 = $this->_db->prepare("UPDATE adm_factura SET id_proveedor = $id_proveedor_nuevo WHERE id_proveedor = $id_proveedor");
+        $cxu = $sql2->execute();
+        return $cxu;
+    }
+    public function delete_factura_proveedor($id_proveedor){
+        $sql2 = $this->_db->prepare("DELETE FROM adm_proveedor WHERE id_proveedor = $id_proveedor");
+        $cxu = $sql2->execute();
+        return $cxu;
     }
 }

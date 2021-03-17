@@ -8,8 +8,10 @@ $(document).ready( function () {
     $(".reporte-movimiento i").addClass("text-orange-800");
     $('#almacen_tabla').DataTable({
         bDestroy: true,
-        dom: 'Bfrtip',
+        dom: 'Blfrtip',
         ordering: false,
+        pageLength : 30,
+        lengthMenu: [[30, 40, 50, -1], [30, 40, 50, 'Todos']],
         buttons: [
             'copyHtml5',
             'excelHtml5',

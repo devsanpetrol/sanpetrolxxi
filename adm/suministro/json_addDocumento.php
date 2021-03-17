@@ -8,12 +8,14 @@ $lugar_emision = $_POST["lugar_emision"];
 $uuid = strtoupper($_POST["uuid"]);
 $total = str_replace("$ ","",$_POST["total"]);
 $id_proveedor = $_POST["id_proveedor"];
+$tipo = $_POST["tipo"];
+$observacion = $_POST["observacion"];
 
 $cadena = $fecha_emision;
 $timestamp = strtotime($cadena);
 $fecha =  date('Y-m-d', $timestamp);
 
-$id_docto = $suministro -> set_add_documento($serie_folio, $fecha, $lugar_emision, $uuid, $total, $id_proveedor);
+$id_docto = $suministro -> set_add_documento($serie_folio, $fecha, $lugar_emision, $uuid, $total, $id_proveedor,$tipo,$observacion);
 
 if( $id_docto > 0 ){
     $datos = array(

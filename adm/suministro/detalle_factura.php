@@ -188,6 +188,24 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                        <label class="font-weight-semibold">Tipo Documento:</label>
+                                            <select data-placeholder="Select your country" class="form-control select-fixed-single" id="add_tipo_documento" data-fouc>
+                                                <option value="factura">FACTURA</option>
+                                                <option value="ticket">NOTA SENCILLA</option>
+                                                <option value="cotizacion">COTIZACIÓN</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group form-group-feedback form-group-feedback-left">
+                                            <label class="font-weight-semibold">Observaciones:</label>
+                                            <textarea id="add_observacion" rows="3" cols="5" class="form-control text-blue-800" placeholder="Escriba aqui las observaciones..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-group-feedback form-group-feedback-left d-none">
                                             <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 text-uppercase" id="add_uuid" placeholder="U.U.I.D.">

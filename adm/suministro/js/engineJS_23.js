@@ -8,7 +8,9 @@ $(document).ready( function () {
     $(".reporte-salida i").addClass("text-orange-800");
     $('#almacen_tabla').DataTable({
         bDestroy: true,
-        dom: 'Bfrtip',
+        dom: 'Blfrtip',
+        pageLength : 30,
+        lengthMenu: [[30, 40, 50, -1], [30, 40, 50, 'Todos']],
         buttons: [
             'copyHtml5',
             'excelHtml5',

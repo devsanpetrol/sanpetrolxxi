@@ -29,6 +29,9 @@ $(document).ready( function () {
             })
         });
     });
+    $('.select-fixed-single').select2({
+        minimumResultsForSearch: Infinity
+    });
     $('#table_inventarioitems').DataTable({
         paging: false,
         searching: false,
@@ -469,9 +472,11 @@ function add_documento(){
         var uuid = $("#add_uuid").val();
         var total = $("#total").data("total");
         var id_proveedor = $("#rfc").data("idproveedor");
+        var tipo = $("#add_tipo_documento").val();
+        var observacion = $("#add_observacion").val();
         
         $.ajax({
-            data:{serie_folio:serie_folio,fecha_emision:fecha_emision,lugar_emision:lugar_emision,uuid:uuid,total:total,id_proveedor:id_proveedor},
+            data:{serie_folio:serie_folio,fecha_emision:fecha_emision,lugar_emision:lugar_emision,uuid:uuid,total:total,id_proveedor:id_proveedor,tipo:tipo,observacion:observacion},
             url: 'json_addDocumento.php',
             type: 'POST',
             success:(function(res){

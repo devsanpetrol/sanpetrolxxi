@@ -9,7 +9,14 @@ $(document).ready( function () {
     $(".inventario i").addClass("text-orange-800");
     $('#almacen_tabla').DataTable({
         bDestroy: true,
-        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        dom: 'Blfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'pdfHtml5'
+        ],
+        pageLength : 30,
+        lengthMenu: [[30, 40, 50, -1], [30, 40, 50, 'Todos']],
         ajax: {
             url: "json_selectInventario.php",
             type:"POST",

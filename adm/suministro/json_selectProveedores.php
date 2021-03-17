@@ -7,17 +7,27 @@
     
     foreach ($categorias as $valor) {
         $data[] = array("actividad" => nombre_categoria($valor['actividad_comercial']),
-                        "nombre_rfc" => articulo_marca($valor['nombre'],$valor['rfc']),
+                        "rfc" => txtsmall($valor['rfc']),
+                        "id_proveedor" => $valor['id_proveedor'],
+                        "nombre_rfc" => articulo_marca($valor['nombre'],$valor['razon_social']),
                         "direccion" => articulo_marca($valor['direccion'],$valor['codigo_postal']),
                         "telefono" => txtsmall($valor['num_telefono']),
-                        "email" => txtsmall($valor['email']),
+                        "email" => articulo_marca($valor['email'],"Tel: ".$valor['num_telefono']),
                         "contacto" => txtsmall($valor['detalle_contacto']),
+                        "select_proveedor"=> selectProv($valor['rfc'],$valor['nombre'],$valor['razon_social']),
                         "menu" => accion($valor['id_proveedor'],$valor['nombre'])
                         );
         
     }
     function cantidad_unidad($cantidad,$unidad){
         return "<h6 class='mb-0'>$cantidad</h6>";
+    }
+    function selectProv($rfc,$nombre,$razon_social){
+        if($rfc != ""){
+        $rfc = $rfc." - ";}else{$rfc = "";}
+        if($razon_social != ""){
+        $razon_social = " (".$razon_social.")";}else{$razon_social = "";}
+        return $rfc.$nombre.$razon_social;
     }
     function articulo_marca($articulo,$marca){
         $articulo_ = mb_strtoupper($articulo);
@@ -64,8 +74,8 @@
                             <i class='icon-menu7'></i>
                         </a>
                         <div class='dropdown-menu dropdown-menu-right bg-slate-600'>
-                            <a class='dropdown-item' data-idproveedor='$id_proveedor' data-nombre='$nombre' id='pro_$id_proveedor'><i class='icon-pencil3'></i>Editar</a>
-                            
+                            <a class='dropdown-item' data-idproveedor='$id_proveedor' data-nombre='$nombre' id='pro_$id_proveedor' onclick='openEditProveedor(event)'><i class='icon-pencil3'></i>Editar</a>
+                            <a class='dropdown-item' data-idproveedor='$id_proveedor' data-nombre='$nombre' id='del_$id_proveedor' onclick='openDeleProveedor(event)'><i class='icon-cross2'></i>Eliminar</a>
                         </div>
                 </div>
         </div>";
