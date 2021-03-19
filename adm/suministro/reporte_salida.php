@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title><?php include '../../bar_nav/title.php'; ?> - Reporte de Salida de Materiales de Almacén</title>
+    <title><?php include '../../bar_nav/title.php'; ?> - Reporte de Salida de Materiales</title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -49,7 +49,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <script src="js/engineJS_23.js"></script>
+    <script src="js/engineJS_23.1.js"></script>
     <!--<script src="js/ini_menu_almacen.js"></script>-->
 
     <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
@@ -122,14 +122,16 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table datatable-basic text-nowrap" id="almacen_tabla" style="width:100%">
+                                        <col width="10%">
                                         <col width="20%">
                                         <col width="10%">
-                                        <col width="40%">
+                                        <col width="25%">
                                         <col width="5%">
                                         <col width="5%">
-                                        <col width="40%">
+                                        <col width="25%">
                                         <thead>
                                             <tr>
+                                                <th>Fecha</th>
                                                 <th>Categoria</th>
                                                 <th>Codigo</th>
                                                 <th>Articulo</th>

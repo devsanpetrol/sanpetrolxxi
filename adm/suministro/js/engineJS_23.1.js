@@ -11,10 +11,22 @@ $(document).ready( function () {
         dom: 'Blfrtip',
         pageLength : 30,
         lengthMenu: [[30, 40, 50, -1], [30, 40, 50, 'Todos']],
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'pdfHtml5'
+         buttons: [
+            {
+                extend: 'pdfHtml5',
+                pageSize: 'A4',
+                orientation: 'landscape',
+                customize: function (doc) {
+                    doc.content[1].table.widths = ['10%','20%','10%','25%','5%','5%','25%'];
+                    doc.defaultStyle.fontSize = 8;
+                }
+            },
+            {
+                extend: 'excelHtml5'
+            },
+            {
+                extend: 'copyHtml5'
+            }
         ],
         ajax: {
             url: "json_selectReporteSalida.php",
@@ -28,6 +40,7 @@ $(document).ready( function () {
             //{targets:6,className: "text-center"}
         ],
         columns: [
+            {data : 'fecha'},
             {data : 'nombre_categoria'},
             {data : 'cod_articulo'},
             {data : 'descripcion'},

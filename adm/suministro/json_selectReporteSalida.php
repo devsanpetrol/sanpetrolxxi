@@ -13,6 +13,7 @@
                         "cantidad" => $valor['cantidad_surtida'],//ok
                         "tipo_unidad" => $valor['tipo_unidad'],//ok
                         "recibe" => grupo($valor['recibe']),//ok
+                        "fecha" => grupo(substr($valor['fecha'], 0, 10)),//ok
                         "nombre_categoria" => nombre_categoria($valor['nombre_categoria'])//ok
                         );        
     }
