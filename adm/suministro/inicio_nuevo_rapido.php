@@ -177,7 +177,8 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" required>
+                                                        <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800 pickadate-accessibility" data-value="2015/04/20" id="fecha_actual" placeholder="Fecha de Emisión">
+                                                        
                                                         <div class="form-control-feedback form-control-feedback-sm">
                                                             <i class="icon-calendar22"></i>
                                                         </div>

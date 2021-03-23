@@ -12,8 +12,12 @@
         $id_equipo        = $_POST['id_equipo'];
         $id_solicita        = $_POST['id_solicita'];
         
+        $cadena = $fecha_solicitud;
+        $timestamp = strtotime($cadena);
+        $fecha =  date('Y-m-d', $timestamp)." ".date('h:i:s');
+        
         $suministro = new suministro();
-        $articulos  = $suministro->set_solicitud_rapido($fecha_solicitud,$clave_solicita,$nombre_solicita,$puesto_solicita,$sitio_operacion,$id_equipo,$id_solicita);
+        $articulos  = $suministro->set_solicitud_rapido($fecha,$clave_solicita,$nombre_solicita,$puesto_solicita,$sitio_operacion,$id_equipo,$id_solicita);
         foreach ($articulos as $valor) {
             $data[] = array("folio"=>$valor['folio']);
         }

@@ -14,11 +14,13 @@ $(document).ready( function () {
          buttons: [
             {
                 extend: 'pdfHtml5',
-                pageSize: 'A4',
+                pageSize: 'LETTER',
                 orientation: 'landscape',
                 customize: function (doc) {
                     doc.content[1].table.widths = ['10%','20%','10%','25%','5%','5%','25%'];
+                    doc.pageMargins = [5,5,5,5];
                     doc.defaultStyle.fontSize = 8;
+                    doc.styles.tableHeader.fontSize = 8;
                 }
             },
             {

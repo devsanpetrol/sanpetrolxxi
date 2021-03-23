@@ -1,5 +1,7 @@
 $(document).ready( function () {
     var milisegundos = 120 *1000;
+    var user_session_id = $('#user_session_id').data("employeid");
+    
     setInterval(function(){
         fetch("./session_ref.php");
     },milisegundos);
@@ -8,26 +10,15 @@ $(document).ready( function () {
     $(".inicio_nuevo_rapido").addClass("active");
     $(".inicio_nuevo_rapido i").addClass("text-orange-800");
     get_area_equipo();
-    fecha_actual();
+    
     $('.pickadate-accessibility').pickadate({
-        format: 'dddd, dd mmmm, yyyy',
-        formatSubmit: 'yyyy-mm-dd',
-        hiddenPrefix: 'prefix__',
-        hiddenSuffix: '__suffix',
-        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-        labelMonthNext: 'Ir al siguiente mes',
-        labelMonthPrev: 'Ir al mes anterior',
+        labelMonthNext: 'Go to the next month',
+        labelMonthPrev: 'Go to the previous month',
         labelMonthSelect: 'Pick a month from the dropdown',
         labelYearSelect: 'Pick a year from the dropdown',
         selectMonths: true,
         selectYears: true
-        /*onStart: function() {
-            var date = new Date();
-            this.set('select', date.getFullYear(), date.getMonth(), date.getDate() );
-        }*/
     });
-    var user_session_id = $('#user_session_id').data("employeid");
     
     $('#tabla_pedidos').DataTable({
         paging: false,
@@ -354,7 +345,7 @@ function guardaPedido(cod_articulo,cantidad,unidad,articulo,destino,justificacio
     });
 }
 function show_addpedido(){
-    fecha_actual();
+    //fecha_actual();
     $("#card_addPedido").toggle("fast");
     $("#btn_send_pedido").toggle("fast");
     $("#fecha_actual").toggle("fast");

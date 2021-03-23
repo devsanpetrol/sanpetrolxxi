@@ -5,7 +5,7 @@ $suministro = new suministro();
     //DATOS DEL NUEVO VALE DE SALIDA
     if(!empty($_POST["folio"])){
         $dp = $suministro -> get_create_vale_salida($_POST["folio"]);
-        $folio_salida = $suministro -> set_new_valesalida_rapido($dp[0]["folio"],$dp[0]["nombre_solicitante"]);
+        $folio_salida = $suministro -> set_new_valesalida_rapido($dp[0]["folio"],$dp[0]["nombre_solicitante"],$dp[0]["fecha"]);
         foreach ($dp as $valor){
             update_temAlmacen($folio_salida,$valor["id_pedido"],$valor["cod_articulo"],$valor["cantidad"]);
         }

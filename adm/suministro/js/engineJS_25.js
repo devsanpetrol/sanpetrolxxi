@@ -13,9 +13,23 @@ $(document).ready( function () {
         pageLength : 30,
         lengthMenu: [[30, 40, 50, -1], [30, 40, 50, 'Todos']],
         buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'pdfHtml5'
+            {
+                extend: 'pdfHtml5',
+                pageSize: 'LETTER',
+                orientation: 'landscape',
+                customize: function (doc) {
+                    doc.content[1].table.widths = ['8%','7%','15%','10%','15%','15%','15%','15%'];
+                    doc.pageMargins = [5,5,5,5];
+                    doc.defaultStyle.fontSize = 8;
+                    doc.styles.tableHeader.fontSize = 8;
+                }
+            },
+            {
+                extend: 'excelHtml5'
+            },
+            {
+                extend: 'copyHtml5'
+            }
         ],
         ajax: {
             url: "json_selectReporteMovimiento.php",

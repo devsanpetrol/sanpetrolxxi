@@ -133,7 +133,6 @@ class suministro extends conect
     public function set_solicitud_rapido($fecha_solicitud,$clave_solicita,$nombre_solicita,$puesto_solicita,$sitio_operacion,$id_equipo,$id_solicita){
         $sql1 = $this->_db->prepare("INSERT INTO adm_solicitud_material (fecha,clave_solicita,nombre_solicitante,puesto_solicitante,sitio_operacion,id_equipo,solicitud_rapida,id_solicita) VALUES ('$fecha_solicitud',$clave_solicita,'$nombre_solicita','$puesto_solicita','$sitio_operacion',$id_equipo,1,'$id_solicita')");
         $sql2 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
-        $sql3 = $this->_db->prepare("SELECT folio FROM adm_solicitud_material WHERE fecha = '$fecha_solicitud' AND clave_solicita = $clave_solicita LIMIT 1");
         $sql1->execute();
         $sql2->execute();
         $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
@@ -642,8 +641,8 @@ class suministro extends conect
             return "Error!: " . $e -> getMessage();
         }
     }
-    public function set_new_valesalida_rapido($folio,$recibe){
-        $articulo = $this->_db->prepare("INSERT INTO adm_almacen_valesalida (solicitud_material_folio,fecha,recibe,status_valesalida) VALUES ($folio, NOW(), '$recibe',1)");
+    public function set_new_valesalida_rapido($folio,$recibe,$fecha){
+        $articulo = $this->_db->prepare("INSERT INTO adm_almacen_valesalida (solicitud_material_folio,fecha,recibe,status_valesalida) VALUES ($folio, '$fecha', '$recibe',1)");
         
         try {
             $this ->_db-> beginTransaction();
@@ -804,7 +803,7 @@ class suministro extends conect
         return $sql2->execute();
     }
     public function get_create_vale_salida($folio_valesalida){
-        $sql = $this->_db->prepare("SELECT id_pedido,cantidad, fecha_requerimiento,cod_articulo,folio,nombre_solicitante FROM adm_view_solicitud WHERE folio = $folio_valesalida");
+        $sql = $this->_db->prepare("SELECT id_pedido,cantidad, fecha_requerimiento,cod_articulo,folio,nombre_solicitante,fecha FROM adm_view_solicitud WHERE folio = $folio_valesalida");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
