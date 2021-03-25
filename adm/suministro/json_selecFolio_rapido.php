@@ -10,7 +10,7 @@
         $puesto_solicita  = $_POST['puesto_solicita'];
         $sitio_operacion  = $_POST['sitio_operacion'];
         $id_equipo        = $_POST['id_equipo'];
-        $id_solicita        = $_POST['id_solicita'];
+        $id_solicita      = $_POST['id_solicita'];
         
         $cadena = $fecha_solicitud;
         $timestamp = strtotime($cadena);

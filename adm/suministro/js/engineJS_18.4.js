@@ -10,6 +10,7 @@ $(document).ready( function () {
     $(".inicio_nuevo_rapido").addClass("active");
     $(".inicio_nuevo_rapido i").addClass("text-orange-800");
     get_area_equipo();
+    //fecha_actual();
     
     $('.pickadate-accessibility').pickadate({
         labelMonthNext: 'Go to the next month',
@@ -345,7 +346,7 @@ function guardaPedido(cod_articulo,cantidad,unidad,articulo,destino,justificacio
     });
 }
 function show_addpedido(){
-    //fecha_actual();
+    fecha_actual();
     $("#card_addPedido").toggle("fast");
     $("#btn_send_pedido").toggle("fast");
     $("#fecha_actual").toggle("fast");

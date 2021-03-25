@@ -153,7 +153,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-7">
                                             <div class="form-group form-group-feedback form-group-feedback-left">
                                                 <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="puesto" placeholder="Puesto" readonly onkeyup="mayus(this);" required>
                                                 <div class="form-control-feedback form-control-feedback-sm">
@@ -161,7 +161,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <div class="form-group form-group-feedback form-group-feedback-left">
                                                 <input type="date" class="form-control font-weight-semibold text-blue-800" id="fecha_actual" required>
                                             </div>
