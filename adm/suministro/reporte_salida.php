@@ -122,22 +122,26 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table datatable-basic text-nowrap" id="almacen_tabla" style="width:100%">
-                                        <col width="10%">
+                                        <col width="6%">
+                                        <col width="12%">
+                                        <col width="6%">
                                         <col width="20%">
-                                        <col width="10%">
-                                        <col width="25%">
-                                        <col width="5%">
-                                        <col width="5%">
-                                        <col width="25%">
+                                        <col width="4%">
+                                        <col width="4%">
+                                        <col width="20%">
+                                        <col width="14%">
+                                        <col width="14%">
                                         <thead>
                                             <tr>
                                                 <th>Fecha</th>
                                                 <th>Categoria</th>
                                                 <th>Codigo</th>
                                                 <th>Articulo</th>
-                                                <th>Cantidad</th>
-                                                <th>Unidad</th>
+                                                <th>Cant.</th>
+                                                <th>Ud.</th>
                                                 <th>Solicitante</th>
+                                                <th>Motivo/Sitio</th>
+                                                <th>Area/Sub-Area</th>
                                             </tr>
                                         </thead>
                                         <tbody>

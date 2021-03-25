@@ -14,7 +14,9 @@
                         "tipo_unidad" => $valor['tipo_unidad'],//ok
                         "recibe" => grupo($valor['recibe']),//ok
                         "fecha" => grupo(substr($valor['fecha'], 0, 10)),//ok
-                        "nombre_categoria" => nombre_categoria($valor['nombre_categoria'])//ok
+                        "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),//ok
+                        "destino" => articulo_marca($valor['justificacion'],$valor['sitio_operacion']),//ok
+                        "area" => articulo_marca($valor['nombre_generico'],"(".$valor['nombre_sub_area'].")"),//ok
                         );        
     }
     function articulo_marca($articulo,$marca){

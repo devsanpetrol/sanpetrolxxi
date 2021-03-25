@@ -44,7 +44,7 @@ $(document).ready( function () {
         ajax: {
             url: "json_articulo_aplica.php",
             type:"post",
-            data:({filter:'WHERE config = 1 AND salida_rapida = 1'}),
+            data:({filter:'WHERE config = 1 AND salida_rapida = 1 AND activo = 0'}),
             dataSrc:function ( json ) {
                 return json;
             }

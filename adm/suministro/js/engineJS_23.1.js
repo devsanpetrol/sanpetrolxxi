@@ -17,7 +17,7 @@ $(document).ready( function () {
                 pageSize: 'LETTER',
                 orientation: 'landscape',
                 customize: function (doc) {
-                    doc.content[1].table.widths = ['10%','20%','10%','25%','5%','5%','25%'];
+                    doc.content[1].table.widths = ['6%','12%','6%','20%','4%','4%','20%','14%','14%'];
                     doc.pageMargins = [5,5,5,5];
                     doc.defaultStyle.fontSize = 8;
                     doc.styles.tableHeader.fontSize = 8;
@@ -48,7 +48,9 @@ $(document).ready( function () {
             {data : 'descripcion'},
             {data : 'cantidad'},
             {data : 'tipo_unidad'},
-            {data : 'recibe'}
+            {data : 'recibe'},
+            {data : 'destino'},
+            {data : 'area'}
         ],
         language: {
             search: '<span>Filtro:</span> _INPUT_',
