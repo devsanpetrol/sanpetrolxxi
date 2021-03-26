@@ -16,7 +16,7 @@ $(document).ready( function () {
         selectMonths: true,
         selectYears: true
     });
-    
+    fecha_actual();
     $('.form-control-select2').select2();
     $('#select_categoria').change(function(){
         var id_categoria = $(this).val();
@@ -553,7 +553,6 @@ function resetNewDocument(){
     $('#form_proveedor')[0].reset();
     $('#form_documento')[0].reset();
     $('#table_inventarioitems').DataTable().clear().draw();
-    
 }
 function resetNotNewDocument(){
     hide_showNewInvoice();
@@ -568,6 +567,7 @@ function finishDocument(){
         resetNotNewDocument();
         table.ajax.reload();
     }
+    fecha_actual();
 }
 function finishDocument2(){
     if (confirm('Se creará un nuevo documento y se borrará el regisro actual.\n¿Desea continuar con el Nuevo Documento?')) {
@@ -674,4 +674,9 @@ function actualizarTablaItem(){//proveedor_tabla_aplica
 function ref_proveedor_tabla_aplica(){//proveedor_tabla_aplica
     var table = $("#proveedor_tabla_aplica").DataTable();
     table.ajax.reload();
+}
+function fecha_actual(){
+    $.post('json_now.php',function(res){
+        $('#add_fecha_emision').val(res.fecha_corta);
+    });
 }

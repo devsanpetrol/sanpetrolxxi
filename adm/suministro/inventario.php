@@ -152,6 +152,28 @@
                     </div>
                 </div>
                 <!-- /sub navigation -->
+                <!-- Share -->
+                <div class="card d-none">
+                    <div class="card-header bg-transparent header-elements-inline">
+                        <span class="text-uppercase font-size-sm font-weight-semibold"><i class="icon-hammer-wrench mr-2"></i> Operaciones</span>
+                        <div class="header-elements">
+                            <div class="list-icons">
+                                <a class="list-icons-item" data-action="collapse"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pb-0">
+                        <ul class="list-inline list-inline-condensed text-center mb-0">
+                            <li class="list-inline-item">
+                                <a class="btn bg-indigo btn-icon btn-lg rounded-round mb-3" style="cursor: pointer;" title="Crear nueva trazabilidad">
+                                    <i class="icon-search4"></i>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <!-- /share -->
             </div>
             <!-- /sidebar content -->
 	</div>

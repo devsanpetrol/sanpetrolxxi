@@ -10,7 +10,7 @@ $(document).ready( function () {
     $(".inicio_nuevo_rapido").addClass("active");
     $(".inicio_nuevo_rapido i").addClass("text-orange-800");
     get_area_equipo();
-    //fecha_actual();
+    fecha_actual();
     
     $('.pickadate-accessibility').pickadate({
         labelMonthNext: 'Go to the next month',
@@ -264,7 +264,7 @@ function mayus(e) {
 }
 function fecha_actual(){
     $.post('json_now.php',function(res){
-        $('#fecha_actual').val(res.fecha_actual);
+        $('#fecha_actual').val(res.fecha_corta);
         $('#folioxx').slideDown();
     });
 }
