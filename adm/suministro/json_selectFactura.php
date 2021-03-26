@@ -2,7 +2,7 @@
     require_once './suministro.php'; 
     
     $suministro = new suministro();
-    $categorias = $suministro->get_doctoFactura("date_insert BETWEEN DATE_ADD(@theDate, INTERVAL(-WEEKDAY(@theDate)) DAY) AND DATE_ADD(@theDate, INTERVAL (6 -WEEKDAY(@theDate) ) DAY)");
+    $categorias = $suministro->get_doctoFactura("WHERE date_insert BETWEEN DATE_ADD(date(now()), INTERVAL(-WEEKDAY(date(now()))) DAY) AND DATE_ADD(date(now()), INTERVAL (6 -WEEKDAY(date(now())) ) DAY)");
     $data = array();
     
     foreach ($categorias as $valor) {
