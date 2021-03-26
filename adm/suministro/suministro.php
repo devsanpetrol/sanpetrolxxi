@@ -1084,7 +1084,7 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    public function get_almacen_reporte_entrada($fecha_inicio,$fecha_fin,$folio){
+    public function get_almacen_reporte_entrada($fecha_inicio,$fecha_fin,$folio=0){
         if($folio == 0){
             $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE fecha_hora  BETWEEN '$fecha_inicio 00:00:00' AND '$fecha_fin 23:59:59' ORDER BY id_factura DESC");
         }else{
