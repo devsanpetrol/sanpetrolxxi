@@ -4,7 +4,10 @@
     $suministro = new suministro();
     $fecha_inicio = $_POST["fecha_inicio"];
     $fecha_fin = $_POST["fecha_fin"];
-    $categorias = $suministro->get_almacen_reporte_entrada($fecha_inicio,$fecha_fin);
+    $folio = $_POST["folio"];
+    
+    $categorias = $suministro->get_almacen_reporte_entrada($fecha_inicio,$fecha_fin,$folio);
+    
     $data = array();
     
     foreach ($categorias as $valor) {

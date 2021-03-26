@@ -1084,8 +1084,18 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-    public function get_almacen_reporte_entrada($fecha_inicio,$fecha_fin){
-        $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE fecha_hora  BETWEEN '$fecha_inicio 00:00:00' AND '$fecha_fin 23:59:59' ORDER BY id_factura DESC");
+    public function get_almacen_reporte_entrada($fecha_inicio,$fecha_fin,$folio){
+        if($folio == 0){
+            $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE fecha_hora  BETWEEN '$fecha_inicio 00:00:00' AND '$fecha_fin 23:59:59' ORDER BY id_factura DESC");
+        }else{
+            $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE id_factura = $folio");
+        }
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_almacen_reporte_entrada_folio($folio){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE id_factura = $folio LIMIT 1");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -1125,8 +1135,8 @@ class suministro extends conect
         $sql2 = $this->_db->prepare("UPDATE adm_almacen SET stock = (stock - $cantidad) WHERE cod_articulo = '$cod_articulo' LIMIT 1");
         return $sql2->execute();
     }
-    public function update_factura_detail($id_factura,$serie_folio,$tipo,$observacion){
-        $sql = $this->_db->prepare("UPDATE adm_factura SET serie_folio = '$serie_folio', tipo = '$tipo', observacion = '$observacion' WHERE id_factura = $id_factura LIMIT 1");
+    public function update_factura_detail($id_factura,$serie_folio,$tipo,$observacion,$fecha){
+        $sql = $this->_db->prepare("UPDATE adm_factura SET serie_folio = '$serie_folio', tipo = '$tipo', observacion = '$observacion', fecha_emision = '$fecha' WHERE id_factura = $id_factura LIMIT 1");
         return $sql->execute();
     }
     public function get_items_factura($id_factura){

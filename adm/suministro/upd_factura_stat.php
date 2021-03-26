@@ -6,7 +6,7 @@
     
     if(isset($_POST['id_factura'])){
         
-        $stat_fact = $suministro->update_factura_detail($_POST['id_factura'], mb_strtoupper($_POST['serie_folio']), $_POST['tipo'], $_POST['observacion']);
+        $stat_fact = $suministro->update_factura_detail($_POST['id_factura'], mb_strtoupper($_POST['serie_folio']), $_POST['tipo'], $_POST['observacion'], $_POST['fecha']);
         
         if($stat_fact){
             $data[] = array(

@@ -2,6 +2,7 @@ $(document).ready( function () {
     hoy();
     $('#filtro_fecha_inicio').val("");
     $('#filtro_fecha_fin').val("");
+    $('#filtro_folio').val("0");
     $("body").addClass("sidebar-xs");
     $(".edita-facturas").addClass("active");
     $(".edita-facturas i").addClass("text-orange-800");
@@ -16,7 +17,7 @@ $(document).ready( function () {
         ajax: {
             url: "json_selectFacturaEdita.php",
             type:"POST",
-            data:{fecha_inicio:function(){return $('#filtro_fecha_inicio').val();},fecha_fin:function(){return $('#filtro_fecha_fin').val();}},
+            data:{fecha_inicio:function(){return $('#filtro_fecha_inicio').val();},fecha_fin:function(){return $('#filtro_fecha_fin').val();},folio:function(){return $('#filtro_folio').val();}},
             dataSrc:function ( json ) {
                 return json;
             }
@@ -71,12 +72,21 @@ $(document).ready( function () {
             $('.daterange-ranges span').html(start.format('DD MMM YYYY') + ' &nbsp; / &nbsp; ' + end.format('DD MMM YYYY'));
             $('#filtro_fecha_inicio').val(start.format('YYYY-MM-DD'));
             $('#filtro_fecha_fin').val(end.format('YYYY-MM-DD'));
+            $('#filtro_folio').val("0");
             updateDataTable();
         }
     );
-    $(".fecha-rango").appendTo(".dt-buttons");
+    $(".fecha-rango").appendTo(".dt-buttons");//label_id
+    $("#label_id").appendTo("#almacen_tabla_filter");//label_id
     // Display date format
     $('.daterange-ranges span').html(moment().format('DD MMM YYYY') + ' &nbsp; / &nbsp; ' + moment().format('DD MMM YYYY'));
+    $("#busca_id").on('keyup', function (e){
+        var folio = $('#busca_id').val().replace( /^\D+/g, '');
+        if (e.keyCode === 13){
+           $('#filtro_folio').val(folio);
+           updateDataTable();
+        }
+    });
 } );
  function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
@@ -86,7 +96,7 @@ function  hoy(){
     $.post('json_now.php',function(res){
         $('#filtro_fecha_inicio').val(res.fecha_corta);
         $('#filtro_fecha_fin').val(res.fecha_corta);
-        
+        $('#filtro_folio').val("0");
         updateDataTable();
     });
  }
@@ -113,7 +123,7 @@ function getFacturaDetail(id_factura){
             
             $("#id_factura_").data("idfactura",id_factura);
             $("#view_date_insert").html(data.date_insert);
-            $("#view_fecha_emision").html(data.fecha_emision);
+            $("#view_fecha_emision").val(data.fecha_emision);
             $("#view_lugar_emision").html(data.lugar_emision);
             $("#view_nombre").html(data.nombre);
             $("#view_observacion").val(data.observacion);
@@ -162,7 +172,7 @@ function getFacturaDetail_list(id_factura){
 function exitDetailFactura(){
     $('#invoice').modal('hide');
     $("#view_date_insert").html("");
-    $("#view_fecha_emision").html("");
+    //$("#view_fecha_emision").html("");
     $("#view_lugar_emision").html("");
     $("#view_nombre").html("");
     $("#view_rfc").html("");
@@ -256,8 +266,9 @@ function guardaDatosDocumento(id_factura){
     var serie_folio = $("#view_serie_folio").val();
     var tipo = $("#view_tipo_documento").val();
     var observacion = $("#view_observacion").val();
+    var fecha = $("#view_fecha_emision").val();
     $.ajax({
-        data:{id_factura:id_factura,serie_folio:serie_folio,tipo:tipo,observacion:observacion},
+        data:{id_factura:id_factura,serie_folio:serie_folio,tipo:tipo,observacion:observacion,fecha:fecha},
         url: 'upd_factura_stat.php',
         type: 'POST',
         success: function (obj) {

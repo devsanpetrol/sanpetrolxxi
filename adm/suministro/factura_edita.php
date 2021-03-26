@@ -146,7 +146,7 @@
                                                     <h4 class="text-primary mb-2 mt-md-2">DETALLE DEL DOCUMENTO</h4>
                                                     <span class="text-muted">Archivado: </span><span class="text-muted" id="view_date_insert"></span>
                                                     <ul class="list list-unstyled mb-0">
-                                                        <li>Fecha Emision: <span class="font-weight-semibold" id="view_fecha_emision"></span></li>
+                                                        <li>Fecha Emision: <input type="date" id="view_fecha_emision"></li>
                                                         <li>Lugar Emision: <span class="font-weight-semibold" id="view_lugar_emision"></span></li>
                                                     </ul>
                                                 </div>
@@ -247,6 +247,8 @@
                 <!-- /modal with invoice -->
                 <input type="hidden" id="filtro_fecha_inicio">
                 <input type="hidden" id="filtro_fecha_fin">
+                <input type="hidden" id="filtro_folio">
+                <label id="label_id" class="ml-3"><span>ID Factura:</span> <input type="search" class="form-control form-control-sm text-blue" placeholder="Buscar Id factura..." id="busca_id"></label>
                 <!-- /modal with invoice -->
                 <!-- Footer -->
                 <?php include "../bar_nav/footer_navbar.php"; ?>
