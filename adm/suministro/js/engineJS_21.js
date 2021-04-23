@@ -291,8 +291,8 @@ function lastInsertNoDup(cod_articulo){
                 arr.push(table.rows( index ).data().toArray());
                 cell = arr[index][0]; // cod.Art cell[1]
 
-                console.log("NewVal: "+cod_articulo+"; CheckVal:" + cell[1] );
-                if (cod_articulo == cell[1]){
+                console.log("NewVal: "+cod_articulo+"; CheckVal:" + cell[2] );
+                if (cod_articulo == cell[2]){
                     itsOk = false;
                     return false;
                 }
