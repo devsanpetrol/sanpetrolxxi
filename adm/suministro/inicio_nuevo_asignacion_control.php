@@ -114,31 +114,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <!-- Search field -->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-center mb-3 py-2">
-                                    <h4 class="font-weight-semibold mb-1">Control de Asignación de Herramienta y Material de Trabajo 
-                                        <a href="#" class="btn bg-transparent text-violet btn-icon mr-3 legitRipple">
-                                            <i class="icon-design icon-2x"></i>
-					</a>
-                                    </h4>
-                                </div>
-                                <div class="input-group mb-sm-2">
-                                    <div class="form-group-feedback form-group-feedback-left">
-                                        <input type="text" class="form-control form-control-lg" placeholder="Buscar nombre del empleado" onClick="this.select();"   id="search_personal">
-                                        <div class="form-control-feedback form-control-feedback-lg">
-                                            <i class="icon-search4 text-muted"></i>
-                                        </div>
-                                    </div>
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-primary btn-lg" onclick="buscar_empleado()">Buscar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /bottom right menu -->
-                    <div class="card border-y-3 border-top-success border-bottom-success rounded-0" id="card_addAsignacion">
+                        <div class="card border-y-3 border-top-success border-bottom-success rounded-0" id="card_addAsignacion">
                         <div class="card-body" id="mod_pedido">
                             <div class="row">
                                 <div class="col-md-6">
@@ -175,7 +151,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="i_noserie" readonly placeholder="S.N.">
+                                                    <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form new-material-as" id="i_noserie" readonly placeholder="S.N.">
                                                     <div class="form-control-feedback form-control-feedback-sm">
                                                         <i class="icon-barcode2"></i>
                                                     </div>
@@ -183,7 +159,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group form-group-feedback form-group-feedback-right">
-                                                    <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="i_codigoinventario" readonly placeholder="Codigo de Inventario">
+                                                    <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form new-material-as" id="i_codigoinventario" readonly placeholder="Codigo de Inventario">
                                                     <div class="form-control-feedback form-control-feedback-lg">
                                                         <i class="icon-plus-circle2 text-pink-800" data-toggle="modal" data-target="#busca_articulo" style="cursor: pointer"></i>
                                                     </div>
@@ -191,7 +167,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="i_descripcion" readonly placeholder="Descripción">
+                                                    <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form new-material-as" id="i_descripcion" readonly placeholder="Descripción">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -209,10 +185,12 @@
                                         <table id="tabla_pedidos" class="table datatable-selection-single" cellspacing="0" width="100%">
                                             <col width="10%">
                                             <col width="10%">
+                                            <col width="10%">
                                             <col width="20%">
-                                            <col width="60%">
+                                            <col width="50%">
                                             <thead>
                                               <tr>
+                                                <th>#</th> <!-- 0 -->
                                                 <th>S.N.</th> <!-- 0 -->
                                                 <th>S.K.U</th> <!-- 3 -->
                                                 <th>Fecha Entrega</th> <!-- 3 -->
@@ -227,13 +205,38 @@
                         </div>
                         <div class="card-footer bg-white text-right">
                             <div class="list-icons">
-                                <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" style="display: none;" id="btn_del_row_sel" title="Remover item seleccionado"><i class="icon-trash"></i></button>
+                                <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" id="btn_del_row_sel" title="Remover item seleccionado"><i class="icon-trash"></i></button>
                                 <button type="button" class="btn btn-sm alpha-danger text-danger-800 legitRipple" id="btn_send_pedido" onclick="cerrarNewAsignacion()" title="Enviar solicitud">Cerrar <i class="icon-cross2 ml-2"></i></button>
                                 <button type="button" class="btn btn-sm alpha-success text-success-800 legitRipple" id="btn_send_pedido" onclick="recorreDataTable()" title="Enviar solicitud">Enviar <i class="icon-paperplane ml-2"></i></button>
                                 <button type="button" class="btn btn-sm text-danger-800 btn btn-link legitRipple d-none" id="folioxx" data-folioz="0"></button>
                             </div>
                         </div>
                     </div>
+                    <!-- Search field -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-center mb-3 py-2">
+                                    <h4 class="font-weight-semibold mb-1">Control de Asignación de Herramienta y Material de Trabajo 
+                                        <a href="#" class="btn bg-transparent text-violet btn-icon mr-3 legitRipple">
+                                            <i class="icon-design icon-2x"></i>
+					</a>
+                                    </h4>
+                                </div>
+                                <div class="input-group mb-sm-2">
+                                    <div class="form-group-feedback form-group-feedback-left">
+                                        <input type="text" class="form-control form-control-lg" placeholder="Buscar nombre del empleado" onClick="this.select();"   id="search_personal">
+                                        <div class="form-control-feedback form-control-feedback-lg">
+                                            <i class="icon-search4 text-muted"></i>
+                                        </div>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-primary btn-lg" onclick="buscar_empleado()">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /bottom right menu -->
+                    
                     <!-- /dashboard content -->
                         <!-- /search field -->
                         <div class="card-group mb-sm-2">
@@ -312,7 +315,7 @@
                     <!-- /modal with invoice -->
                     <!-- Modal with invoice -->
                     <div id="busca_articulo" class="modal fade" data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-lg">
+                        <div class="modal-dialog modal-full">
                             <div class="modal-content">
                                 <div class="table-responsive">
                                     <table class="table table-xs table-border-dashed datatable-basic text-nowrap" id="articulo_tabla_aplica" style="width:100%">

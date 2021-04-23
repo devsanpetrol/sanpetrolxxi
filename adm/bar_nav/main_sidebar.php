@@ -41,6 +41,16 @@
         <div class="card card-sidebar-mobile">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 <!-- Main -->
+                <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">ALMACÉN</div> <i class="icon-menu" title="Inicio"></i></li>
+                <li class="nav-item">
+                    <a href="almacen.php" class="nav-link">
+                    <i class="icon-home4"></i>
+                    <span>Principal</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar" data-nav-type="accordion">
+                <!-- Main -->
                 <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Inicio</div> <i class="icon-menu" title="Inicio"></i></li>
                 <li class="nav-item">
                     <a href="inicio.php" class="nav-link">

@@ -105,7 +105,7 @@ class suministro extends conect
         return $resultado;
     }
     public function get_grupo_activo(){
-        $sql = $this->_db->prepare("SELECT * FROM adm_grupo_activo ORDER BY grupo_nombre asc");
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_grupo_main ORDER BY grupo_nombre ASC");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -292,7 +292,19 @@ class suministro extends conect
         return $resultado;
     }
     public function get_grupos(){
-        $sql = $this->_db->prepare("SELECT *,(select count(*) from adm_view_almacen_activos_fijos where adm_view_almacen_activos_fijos.id_grupo_activo = adm_grupo_activo.id_grupo_activo) as contar FROM adm_grupo_activo where id_grupo_activo > 1 order by grupo_nombre asc");
+        $sql = $this->_db->prepare("SELECT *,(select count(*) from adm_view_almacen_activos_fijos where adm_view_almacen_activos_fijos.id_grupo_activo = adm_view_grupo_main.id_grupo_activo) as contar FROM adm_view_grupo_main where id_grupo_activo > 1 order by grupo_nombre asc");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_main(){
+        $sql = $this->_db->prepare("SELECT * FROM adm_grupo_main order by index_order desc");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    public function get_grupo_main(){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_grupo_main order by main_name asc");
         $sql->execute();
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
@@ -1040,8 +1052,8 @@ class suministro extends conect
         }
         return $result;
     }
-    public function set_nuevo_grupo($nuevo_grupo){
-        $sql1 = $this->_db->prepare("INSERT INTO adm_grupo_activo(grupo_nombre) VALUES ('$nuevo_grupo')");
+    public function set_nuevo_grupo($nuevo_grupo,$id_main){
+        $sql1 = $this->_db->prepare("INSERT INTO adm_grupo_activo(grupo_nombre,id_main) VALUES ('$nuevo_grupo',$id_main)");
         
         try {
             $this ->_db-> beginTransaction();
@@ -1072,8 +1084,8 @@ class suministro extends conect
         $resultado2 = $sql2->execute();
         return $resultado1*$resultado2;
     }
-    public function grupos_modificar_grupo($id_grupo,$grupo){
-        $sql1 = $this->_db->prepare("UPDATE adm_grupo_activo SET adm_grupo_activo.grupo_nombre = '$grupo' WHERE adm_grupo_activo.id_grupo_activo = $id_grupo LIMIT 1");
+    public function grupos_modificar_grupo($id_grupo,$grupo, $id_main){
+        $sql1 = $this->_db->prepare("UPDATE adm_grupo_activo SET adm_grupo_activo.grupo_nombre = '$grupo', id_main = $id_main WHERE adm_grupo_activo.id_grupo_activo = $id_grupo LIMIT 1");
         $resultado = $sql1->execute();
         return $resultado;
     }
@@ -1086,7 +1098,7 @@ class suministro extends conect
     }
     public function get_almacen_reporte_entrada($fecha_inicio,$fecha_fin,$folio=0){
         if($folio == 0){
-            $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE fecha_hora  BETWEEN '$fecha_inicio 00:00:00' AND '$fecha_fin 23:59:59' ORDER BY id_factura DESC");
+            $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE fecha_emision  BETWEEN '$fecha_inicio 00:00:00' AND '$fecha_fin 23:59:59' ORDER BY id_factura DESC");
         }else{
             $sql = $this->_db->prepare("SELECT * FROM adm_view_reporte_entrada WHERE id_factura = $folio");
         }

@@ -6,15 +6,19 @@
     $data = array();
     
     foreach ($grupos as $valor) {
-        $data[] = array("menu" => css_grupos($valor['grupo_nombre'],$valor['id_grupo_activo'],$valor['contar'])
+        $data[] = array("menu" => css_grupos($valor['grupo_nombre'],$valor['id_grupo_activo'],$valor['contar'],$valor['id_main']),
+                        "grupo_nombre" => $valor['grupo_nombre'],
+                        "id_grupo_activo" => $valor['id_grupo_activo'],
+                        "contar" => $valor['contar'],
+                        "id_main" => $valor['id_main']
                         );
     }
     
-    function css_grupos($grupos,$id_grupo,$cont){
+    function css_grupos($grupos,$id_grupo,$cont,$id_main){
         $cantidad = contador($cont);
         return "<li class='nav-item subgrupos' style='cursor:pointer'>
                     <a  class='nav-link subgrupos' data-idgrupo='$id_grupo' onclick='load_main_grupos(event)'>
-                        <i class='icon-folder2 icono-grupo text-orange-300' id='".$id_grupo."i' data-grupo='$grupos' data-idgrupo='$id_grupo' onclick='hola(event)'></i> $grupos
+                        <i class='icon-folder2 icono-grupo text-orange-300' id='".$id_grupo."i' data-grupo='$grupos' data-idgrupo='$id_grupo' data-idmain='$id_main' onclick='hola(event)'></i> $grupos
                         $cantidad
                     </a>
                 </li>";

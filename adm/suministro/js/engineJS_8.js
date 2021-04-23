@@ -1,19 +1,38 @@
 $(document).ready( function () {
     get_categoria();
-    grupos_clasificados();
-    
+    main_clasificados();
+    fecha_actual();
+    empleado_list();
     $('#filtro').val("");
     $('.form-control-select2').select2();
     $("body").addClass("sidebar-xs");
     $(".inventario").addClass("active");
     $(".inventario i").addClass("text-orange-800");
+    $('#mov_fecha_movimiento_multi').val(moment().format('YYYY-MM-DD'));
     $('#almacen_tabla').DataTable({
         bDestroy: true,
         dom: 'Blfrtip',
         buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'pdfHtml5'
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                },
+                pageSize: 'LETTER',
+                orientation: 'landscape',
+                customize: function (doc) {
+                    doc.content[1].table.widths = ['13%','13%','36%','10%','4%','4%','4%','16%'];
+                    doc.pageMargins = [5,5,5,5];
+                    doc.defaultStyle.fontSize = 8;
+                    doc.styles.tableHeader.fontSize = 8;
+                }
+            },
+            {
+                extend: 'excelHtml5'
+            },
+            {
+                extend: 'copyHtml5'
+            }
         ],
         pageLength : 30,
         lengthMenu: [[30, 40, 50, -1], [30, 40, 50, 'Todos']],
@@ -26,12 +45,20 @@ $(document).ready( function () {
             }
         },
         columnDefs: [
-            //{targets:6,className: "text-center"}
+           {targets:0,className: "font-size-xs font-weight-semibold"},
+           {targets:1,className: "font-size-xs font-weight-semibold"},
+           {targets:2,className: "font-size-xs font-weight-semibold"},
+           {targets:3,className: "font-size-xs font-weight-semibold"},
+           {targets:4,className: "text-white"},
+           {targets:5,className: "text-white"},
+           {targets:6,className: "text-white"},
+           {targets:7,className: "font-size-xs font-weight-semibold"}
         ],
         columns: [
-            {data : 'cod_articulo'},
             {data : 'no_inventario'},
+            {data : 'no_serie'},
             {data : 'descripcion'},
+            {data : 'marca'},
             {data : 'status'},
             {data : 'disponible'},
             {data : 'operable'},
@@ -48,8 +75,7 @@ $(document).ready( function () {
         }
     });
     $("#filtro").bind("change", function() { 
-        var table = $('#almacen_tabla').DataTable();
-        table.ajax.reload();
+        refrescarTablaInventario();
     }); 
     $('#movimiento_tabla_aplica').DataTable({
         bDestroy: true,
@@ -60,6 +86,22 @@ $(document).ready( function () {
         },
         columnDefs: [
             {targets:0, visible:false}
+        ],
+        language: {
+            search: '<span>Filtro:</span> _INPUT_',
+            searchPlaceholder: 'Buscar proveedor...',
+            info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
+        }
+    });
+    $('#movimiento_tabla_aplica_multi').DataTable({
+        bDestroy: true,
+        dom: '<"datatable-header"><"datatable-scroll"t><"datatable-footer"ip>',
+        lengthMenu: [[-1], ['Todo']],//-1 = all
+        rowGroup: {
+            //dataSrc: 'grupo'
+        },
+        columnDefs: [
+            //{targets:0, visible:false}
         ],
         language: {
             search: '<span>Filtro:</span> _INPUT_',
@@ -127,7 +169,7 @@ $(document).ready( function () {
     });
 } );
  function  fecha_actual(){
-    $.post('json_now.php',function(res){$('#num_folio_vale_salida').text(getFolio(res.fecha_actual));});
+    $.post('json_now.php',function(res){$('#fecha_asignacion').val(res.fecha_corta);});
  }
  function mayus(e) {
     e.value = e.value.charAt(0).toUpperCase() + e.value.slice(1);
@@ -225,8 +267,7 @@ function updArticle(){
         salida_rapida:salida_rapida
     },function(result){
         if(result[0].result == "exito"){
-            var table = $("#almacen_tabla").DataTable();
-            table.ajax.reload();
+            refrescarTablaInventario();
             alert("Se guardo correctamente!");
         }else{
             alert("Ocurrio un problema al guardar la información");
@@ -263,18 +304,39 @@ function get_categoria(){
 }
 function get_grupos_activo(e){
     $.ajax({
-    url: 'json_selectGrupoActivo.php',
+    url: 'json_selectListMain.php',
     dataType: "json",
     beforeSend: function (xhr){
         $('#grupo_activo').empty();
     },
     success: function(data){
         $.each(data,function(key, registro) {
+            $('#grupo_activo').append("<optgroup label='"+registro.main_name+"' id='optg"+registro.id_main+"' class='myoptgroup'></optgroup>");
+        });
+    },
+    error: function(data){
+      alert('error');
+    },
+    complete: (function () {
+        get_grupos_activo_XYXY(e);
+    })
+  });
+}
+function get_grupos_activo_XYXY(e){
+    $.ajax({
+    url: 'json_selectGrupoActivo.php',
+    dataType: "json",
+    beforeSend: function (xhr){
+        $('.myoptgroup').empty();
+    },
+    success: function(data){
+        $.each(data,function(key, registro) {
             if(registro.id_grupo_activo == 1){
-                $('#grupo_activo').append("<option value='"+registro.id_grupo_activo+"'>(Ninguno)</option>");
+                $('#optg'+registro.id_main).append("<option value='"+registro.id_grupo_activo+"'>(Ningun Grupo)</option>");
             }else{
-                $('#grupo_activo').append("<option value='"+registro.id_grupo_activo+"'>"+registro.grupo_nombre+"</option>");
+                $('#optg'+registro.id_main).append("<option value='"+registro.id_grupo_activo+"'>"+registro.grupo_nombre+"</option>");
             }
+            
         });
         var id = e.target.id;
         var id_grupo = $("#"+id).data("idgrupo");
@@ -428,8 +490,7 @@ function setArticle(){
         salida_rapida:salida_rapida
     },function(result){
         if(result[0].result == "exito"){
-            var table = $("#almacen_tabla").DataTable();
-            table.ajax.reload();
+            refrescarTablaInventario();
             alert("Se guardo correctamente!");
         }else{
             alert("Ocurrio un problema al guardar la información");
@@ -580,6 +641,24 @@ function get_proveedor(e){
 function selectItems(e){
     
 }
+function main_clasificados(){
+    $.ajax({
+        url: 'json_selectListMain.php',
+        beforeSend: function (xhr){
+            $(".all-main").remove();
+        },
+        success: function (res) {
+            $.each(res, function (index, value) {//value.nombre
+                $("#card_filtro").after(value.main);
+                $("#grupo_main").append("<option value='"+value.id_main+"'>"+value.main_name+"</option>");
+                $("#grupo_main_edit").append("<option value='"+value.id_main+"'>"+value.main_name+"</option>");
+            });
+        },
+        complete: (function () {
+            grupos_clasificados();
+        })
+    });
+ }
 function grupos_clasificados(){
     $.ajax({
         url: 'json_selectListGrupos.php',
@@ -588,13 +667,33 @@ function grupos_clasificados(){
         },
         success: function (res) {
             $.each(res, function (index, value) {//value.nombre
-                $(".misgrupos").append(value.menu);
+                $(".main-"+value.id_main).append(value.menu);
             });
         },
         complete: (function () {
             
         })
     });
+ }
+ function main_group(){
+    $.ajax({
+        url: 'json_selectListMain.php',
+        beforeSend: function (xhr){
+            $(".all-main").remove();
+        },
+        success: function (res) {
+            $.each(res, function (index, value) {//value.nombre
+                $("#card_filtro").before(value.main);
+                $("#grupo_main").append("<option value='"+value.id_main+"'>"+value.main_name+"</option>");
+            });
+        },
+        complete: (function () {
+            grupos_clasificados();
+        })
+    });
+ }
+ function colapsed(id){
+     $(".card-id"+id).slideToggle('fast');
  }
 function abre_grupo(){
     $("#modal_grupo").modal("show");
@@ -604,8 +703,9 @@ function nuevo_cancel(){
 }
 function nuevo_guarda(){
     var nuevo_grupo = $("#nuevo_grupo").val();
+    var id_main = $("#grupo_main").val();
     $.post('json_nuevo_grupo.php',{
-        nuevo_grupo:nuevo_grupo
+        nuevo_grupo:nuevo_grupo,id_main:id_main
     },function(result){
         if(result[0].type == "exito"){
             grupos_clasificados();
@@ -662,8 +762,7 @@ function mover_a_grupo(){
             alert("Ocurrio realizar la operación. "+result[0].type);
         }        
     }).done(function() {
-        var table = $('#almacen_tabla').DataTable();
-        table.ajax.reload();
+        refrescarTablaInventario();
         grupos_clasificados();
         cerrar_modalMover();
     });
@@ -671,32 +770,36 @@ function mover_a_grupo(){
 function hola(e){
     var obj = e.target;
     var idgrupo = $(obj).data("idgrupo");
+    var idmain = $(obj).data("idmain");
     var grupo = $(obj).data("grupo");
     
     $("#modifica_grupo").data("idgrupo",idgrupo);
+    $("#modifica_grupo").data("idmain",idmain);
     $("#modifica_grupo").data("grupo",grupo);
     $("#modifica_grupo").val(grupo);
-    
+    $("#grupo_main_edit").val(idmain).trigger('change');
     $("#modal_modificar_grupo").modal("show");
 }
 function modal_grupo_edita_cierra(){
+    $("#grupo_main_edit").val(null).trigger('change');
     $("#modal_modificar_grupo").modal("hide");
 }
 function guardar_cambio_grupo(){
     var id_grupo = $("#modifica_grupo").data("idgrupo");
+    var id_main  = $("#grupo_main_edit").val();
     var grupo = $("#modifica_grupo").val();
-    edita_grupo("upd",id_grupo,grupo);
+    edita_grupo("upd",id_grupo,id_main,grupo);
 }
 function guardar_elimina_grupo(){
     var id_grupo = $("#modifica_grupo").data("idgrupo");
     var grupo = $("#modifica_grupo").val();
     if (confirm('¿Está de seguro de eliminar el grupo?')) {
-        edita_grupo("del",id_grupo,grupo);
+        edita_grupo("del",id_grupo,0,grupo);
     }
 }
-function edita_grupo(tipo,id_grupo,grupo){
+function edita_grupo(tipo,id_grupo,id_main,grupo){
     $.post('json_edita_grupo.php',{
-        id_grupo:id_grupo,grupo:grupo,tipo:tipo
+        id_grupo:id_grupo,grupo:grupo,tipo:tipo,id_main:id_main
     },function(result){
         if(result[0].type == "exito"){
             console.log("Operación exitosa!");
@@ -704,9 +807,81 @@ function edita_grupo(tipo,id_grupo,grupo){
             alert("Ocurrio realizar la operación. "+result[0].type);
         }
     }).done(function() {
-        var table = $('#almacen_tabla').DataTable();
-        table.ajax.reload();
+        refrescarTablaInventario();
         grupos_clasificados();
         modal_grupo_edita_cierra();
     });
 }
+function abre_traza_multi(){
+    $("#modal_trazabilidad_multi").modal("show");
+}
+function cierra_traza_multi(){
+    $("#modal_trazabilidad_multi").modal("hide");
+}
+function abre_modal_asigna(e){
+    var id = e.target.id;
+    var cod_articulo = $("#"+id).data("codarticulo");
+    var equipo = $("#"+id).data("descripcion");
+    
+    $("#cod_articulo_asignar").val(cod_articulo);
+    $("#cod_articulo_asignar").data("equipo",equipo);
+    $("#modal_asignacion").modal("show");
+}
+function cierra_modal_asigna(){
+    $("#modal_asignacion").modal("hide");
+}
+function asignar_operacion(){
+    var cod_articulo = $("#cod_articulo_asignar").val();
+    var equipo_asigna = $("#cod_articulo_asignar").data("equipo");
+    var id_empleado  = $("#asigna_empleado").val();
+    var fecha = $('#fecha_asignacion').val();
+        
+    var data = $('#asigna_empleado').select2('data');
+    //alert(data[0].text);
+    //alert(data[0].id);
+    
+    if(id_empleado > 0){
+        if (confirm('Asignar : "' + equipo_asigna + '" a ' + data[0].text + ',\n\n¿Continuar con la operación?')) {
+            guardaAsignacion(cod_articulo,fecha,id_empleado);
+        }
+    }
+}
+function guardaAsignacion(cod_articulo,fecha,id_empleado){
+    $.ajax({
+        data:{cod_articulo:cod_articulo,fecha:fecha,id_empleado:id_empleado},
+        url: 'json_insertAsignacion.php',
+        type: 'POST',
+        success:(function(res){
+            if(res[0].result == "exito"){
+                console.log("exito:" + res[0].result);
+                alert("La asignación se generó correctamente!");
+                refrescarTablaInventario();
+                cierra_modal_asigna();
+            }else if(res[0].result == "no guardo"){
+                console.log("no guardo");
+                alert("Ocurrio un error al guardar la información. Revise que el formulario sea llenado correctamente.");
+            }
+        })
+    });
+}
+ function empleado_list(){
+    $.ajax({
+        url: 'json_selectListEmpleado.php',
+        beforeSend: function (xhr){
+            $(".empleados").empty();
+            $("#asigna_empleado").append("<option value='0'>&nbsp;</option>");
+        },
+        success: function (res) {
+            $.each(res, function (index, value) {//value.nombre
+                $("#asigna_empleado").append("<option value='"+value.id_empleado+"'>"+value.nombre+"</option>");
+            });
+        },
+        complete: (function () {
+            
+        })
+    });
+ }
+ function refrescarTablaInventario(){
+    var table = $('#almacen_tabla').DataTable();
+    table.ajax.reload();
+ }

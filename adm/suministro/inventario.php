@@ -50,7 +50,9 @@
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
     <script src="js/engineJS_8.js"></script>
     <!--<script src="js/ini_menu_almacen.js"></script>-->
-
+    <script src="../../global_assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="../../global_assets/js/plugins/pickers/anytime.min.js"></script>
+    
     <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
     <script src="../../global_assets/js/plugins/notifications/pnotify.min.js"></script>
     <script src="../../global_assets/js/demo_pages/extra_fab.js"></script>
@@ -100,61 +102,7 @@
                             <!-- Actions -->
                             <div class="card">
                                 <div class="card-header bg-transparent header-elements-inline">
-                                    <span class="text-uppercase font-size-sm font-weight-semibold"><i class="icon-filter3 mr-2"></i> Filtro</span>
-                                    <div class="header-elements">
-                                        <div class="list-icons">
-                                            <a class="list-icons-item" data-action="collapse"></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="row row-tile no-gutters shadow-0 border">
-                                        <div class="col-6">
-                                            <button type="button" class="btn btn-light btn-block btn-float m-0" onclick="load_main()">
-                                                <i class="icon-archive text-success-800 icon-2x"></i>
-                                                <span>Todos</span>
-                                            </button>
-                                            <button type="button" class="btn btn-light btn-block btn-float m-0" onclick="load_main_baja()">
-                                                <i class="icon-trash text-danger icon-2x"></i>
-                                                <span>Bajas</span>
-                                            </button>
-
-                                        </div>
-                                        <div class="col-6">
-                                            <button type="button" class="btn btn-light btn-block btn-float m-0" onclick="load_main_disponible()">
-                                                <i class="icon-clipboard2 text-primary icon-2x"></i>
-                                                <span>Disponibles</span>
-                                            </button>
-                                            <button type="button" class="btn btn-light btn-block btn-float m-0" onclick="abre_grupo()">
-                                                <i class="icon-folder-plus text-orange-300 icon-2x"></i>
-                                                <span>Nuevo</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /actions -->
-                            <!-- Sub navigation -->
-                            <div class="card">
-                                <div class="card-header bg-transparent header-elements-inline">
-                                    <span class="text-uppercase font-size-sm font-weight-semibold"><i class="icon-menu7 mr-2"></i> Grupos</span>
-                                    <div class="header-elements">
-                                        <div class="list-icons">
-                                            <a class="list-icons-item" data-action="collapse"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body p-0">
-                                    <ul class="nav nav-sidebar misgrupos" data-nav-type="accordion">
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- /sub navigation -->
-                            <!-- Share -->
-                            <div class="card d-none">
-                                <div class="card-header bg-transparent header-elements-inline">
-                                    <span class="text-uppercase font-size-sm font-weight-semibold"><i class="icon-hammer-wrench mr-2"></i> Operaciones</span>
+                                    <span class="text-uppercase font-size-sm font-weight-semibold"><i class="icon-filter3 mr-2"></i>Filtro</span>
                                     <div class="header-elements">
                                         <div class="list-icons">
                                             <a class="list-icons-item" data-action="collapse"></a>
@@ -164,11 +112,54 @@
                                 <div class="card-body pb-0">
                                     <ul class="list-inline list-inline-condensed text-center mb-0">
                                         <li class="list-inline-item">
-                                            <a class="btn bg-indigo btn-icon btn-lg rounded-round mb-3" style="cursor: pointer;" title="Crear nueva trazabilidad">
-                                                <i class="icon-search4"></i>
+                                            <a class="btn bg-success btn-icon btn-lg rounded-round mb-3" onclick="load_main()" style="cursor: pointer;" title="Ver todos">
+                                                <i class="icon-archive"></i>
                                             </a>
                                         </li>
-
+                                        <li class="list-inline-item">
+                                            <a class="btn bg-danger btn-icon btn-lg rounded-round mb-3" onclick="load_main_baja()" style="cursor: pointer;" title="Equipos dados de baja">
+                                                <i class="icon-arrow-down52"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a class="btn bg-primary btn-icon btn-lg rounded-round mb-3" onclick="load_main_disponible()" style="cursor: pointer;" title="Equipos disponibles">
+                                                <i class="icon-clipboard2"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /actions -->
+                            <!-- Sub navigation -->
+                            
+                            <!-- /sub navigation -->
+                            <!-- Share -->
+                            <div class="card" id="card_filtro">
+                                <div class="card-header bg-transparent header-elements-inline">
+                                    <span class="text-uppercase font-size-sm font-weight-semibold"><i class="icon-hammer-wrench mr-2"></i>Operaciones</span>
+                                    <div class="header-elements">
+                                        <div class="list-icons">
+                                            <a class="list-icons-item" data-action="collapse"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <ul class="list-inline list-inline-condensed text-center mb-0">
+                                        <li class="list-inline-item d-none">
+                                            <a class="btn bg-indigo btn-icon btn-lg rounded-round mb-3" onclick="abre_traza_multi()" style="cursor: pointer;" title="Registrar trazabilidad">
+                                                <i class="icon-flag7"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item d-none">
+                                            <a class="btn bg-dark btn-icon btn-lg rounded-round mb-3" onclick="" style="cursor: pointer;" title="Crear nueva sección">
+                                                <i class="icon-menu3"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a class="btn bg-orange-300 btn-icon btn-lg rounded-round mb-3" onclick="abre_grupo()" style="cursor: pointer;" title="Nuevo grupo">
+                                                <i class="icon-folder-plus"></i>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -176,10 +167,9 @@
                         </div>
                         <!-- /sidebar content -->
                     </div>
-                    <!-- /left sidebar component -->
                     <!-- Right content -->
                     <div class="w-100">
-                    <!-- /COL-MD-10 TABLA CONTENIDO -->
+                        <!-- /COL-MD-10 TABLA CONTENIDO -->
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
@@ -187,22 +177,24 @@
                                         <table class="table datatable-basic text-nowrap" id="almacen_tabla" style="width:100%">
                                             <col width="10%">
                                             <col width="10%">
-                                            <col width="55%">
-                                            <col width="5%">
-                                            <col width="5%">
-                                            <col width="5%">
-                                            <col width="5%">
-                                            <col width="5%">
+                                            <col width="39%">
+                                            <col width="10%">
+                                            <col width="3%">
+                                            <col width="3%">
+                                            <col width="3%">
+                                            <col width="20%">
+                                            <col width="2%">
                                             <thead>
                                                 <tr>
-                                                    <th>Codigo</th>
                                                     <th>No. Inventario</th>
+                                                    <th>No. Serie</th>
                                                     <th>Articulo</th>
-                                                    <th>Activo</th>
-                                                    <th>Disponible</th>
-                                                    <th>Operable</th>
+                                                    <th>Marca</th>
+                                                    <th class="text-black-50">Act.</th>
+                                                    <th class="text-black-50">Dis.</th>
+                                                    <th class="text-black-50">Ope.</th>
                                                     <th>Grupo</th>
-                                                    <th>Acción</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -211,7 +203,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>    
+                        </div>
                         <!-- /COL-MD-10 TABLA CONTENIDO -->
                     </div>
                 </div>
@@ -403,7 +395,6 @@
                     </div>
                 </div>
             </div>
-            <!-- /modal with invoice -->
             <!-- Modal new invoice -->
             <div id="article_upd" class="modal fade">
                 <div class="modal-dialog modal-lg">
@@ -576,7 +567,6 @@
                     </div>
                 </div>
             </div>
-            <!-- /modal with invoice -->
             <!-- Modal with invoice -->
             <div id="modal_trazabilidad" class="modal fade" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog modal-lg">
@@ -608,7 +598,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <fieldset>
-                                        <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> Agregar Movimiento del Activo</legend>
+                                        <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> Registrar trazabilidad o movimientos del equipo</legend>
                                         <input id="mov_codarticulo" value="" type="hidden">
                                         <div class="row">
                                             <div class="col-md-3">
@@ -626,7 +616,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_motivo" placeholder="Motivo o justificación del movimiento">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_motivo" placeholder="Motivo o justificación">
                                                     <div class="form-control-feedback form-control-feedback-sm">
                                                         <i class="icon-question4"></i>
                                                     </div>
@@ -636,7 +626,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_ubicacion" placeholder="Dirección *" onkeyup="mayus(this);">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_ubicacion" placeholder="Lugar de destino" onkeyup="mayus(this);">
                                                     <div class="form-control-feedback form-control-feedback-sm">
                                                         <i class="icon-location4"></i>
                                                     </div>
@@ -644,7 +634,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_condicion" placeholder="Estado o condición del movimiento">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_condicion" placeholder="Estado/condición actual del equipo">
                                                     <div class="form-control-feedback form-control-feedback-sm">
                                                         <i class="icon-file-check"></i>
                                                     </div>
@@ -673,7 +663,6 @@
                     </div>
                 </div>
             </div>
-            <!-- /modal with invoice -->
             <!-- Modal with invoice -->
             <div id="invoice" class="modal fade">
                 <div class="modal-dialog modal-lg">
@@ -767,7 +756,6 @@
                     </div>
                 </div>
             </div>
-            <!-- /modal with invoice -->
             <!-- Modal with invoice -->
             <div id="busca_proveedor" class="modal fade" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog modal-lg">
@@ -795,7 +783,6 @@
                     </div>
                 </div>
             </div>
-            <!-- /modal with invoice -->
             <!-- Modal new invoice -->
             <div id="modal_grupo" class="modal fade">
                 <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -806,6 +793,11 @@
                                     <div class="form-group form-group-feedback form-group-feedback-left">
                                         <input type="text" class="form-control form-control-lg" id="nuevo_grupo" placeholder="Nombre del grupo..." maxlength="30">
                                         <div class="form-control-feedback form-control-feedback-lg"><i class="icon-folder2 text-orange-300"></i></div>
+                                    </div>
+                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                    <label>Categoría:</label>
+                                        <select data-placeholder="Categoría" class="form-control form-control-select2 border-danger text-right" name='grupo_main' id="grupo_main" data-fouc>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -819,7 +811,7 @@
             </div>
             <!-- Modal new invoice -->
             <div id="modal_asignar_grupo" class="modal fade">
-                <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="card-body">
                             <div class="row">
@@ -842,7 +834,6 @@
                 </div>
             </div>
             <input type="hidden" id="filtro">
-            <!-- /modal with invoice -->
             <!-- Modal new invoice -->
             <div id="modal_modificar_grupo" class="modal fade">
                 <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -851,8 +842,13 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                        <input type="text" class="form-control form-control-lg" id="modifica_grupo" data-idgrupo="" data-idgrupo="" placeholder="Nombre del grupo..." maxlength="30">
+                                        <input type="text" class="form-control form-control-lg" id="modifica_grupo" data-idgrupo="" data-idgrupo="" data-idmain="" placeholder="Nombre del grupo..." maxlength="30">
                                         <div class="form-control-feedback form-control-feedback-lg"><i class="icon-folder2 text-orange-300"></i></div>
+                                    </div>
+                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                    <label>Categoría:</label>
+                                        <select data-placeholder="Categoría" class="form-control form-control-select2 text-right" name='grupo_main_edit' id="grupo_main_edit" data-fouc>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -865,8 +861,153 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="filtro">
-            <!-- /modal with invoice -->
+            <!-- Modal with invoice -->
+            <div id="modal_trazabilidad_multi" class="modal fade" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="card-body" id="cardnewtraza_multi">
+                            <form action="#" id="formnewtraza_multi">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> Registrar trazabilidad o movimientos de equipos</legend>
+                                        <input id="mov_codarticulo_multi" value="" type="hidden">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_responsable_multi" title="Nombre del responsable" placeholder="Nombre del responsable">
+                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                        <i class="icon-user"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="date" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_fecha_movimiento_multi" title="Fecha de registro" placeholder="Fecha de registro">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_motivo_multi" placeholder="Motivo o justificación">
+                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                        <i class="icon-question4"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_ubicacion_multi" placeholder="Lugar de destino" onkeyup="mayus(this);">
+                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                        <i class="icon-location4"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_condicion_multi" placeholder="Estado/condición actual del equipo">
+                                                    <div class="form-control-feedback form-control-feedback-sm">
+                                                        <i class="icon-file-check"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-right">
+                                                
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            </form>
+                            <div class="table-responsive">
+                                <table class="table datatable-basic text-nowrap" id="movimiento_tabla_aplica_multi" style="width:100%">
+                                    <col width="10%">
+                                    <col width="10%">
+                                    <col width="35%">
+                                    <col width="25%">
+                                    <col width="20%">
+                                    <thead>
+                                        <tr>
+                                            <th>Codigo</th>
+                                            <th>N° Inventario/Serie</th>
+                                            <th>Equipo</th>
+                                            <th>Modelo</th>
+                                            <th>Marca</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <div class="text-muted"></div>
+                            <span>
+                                <button type="button" class="btn btn-sm legitRipple text-danger" onclick="cierra_traza_multi()" title="Cerrar"><i class="icon-cross2"></i></button>
+                                <button type="button" class="btn btn-sm legitRipple btn-primary" onclick="" title="Guardar">Guardar</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal new invoice -->
+            <div id="modal_asignacion" class="modal fade">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="card-header bg-white">
+                            <h6 class="card-title">
+                                <i class="icon-hammer-wrench mr-2"></i>
+                                <b>Asignación de Material</b>
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                    <label>Buscar empleado:</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                        <label>Fecha:</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-feedback">
+                                        <label>&nbsp;</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                    <select data-placeholder="Empleado..." class="form-control form-control-select2 text-right empleados" name='asigna_empleado' id="asigna_empleado" data-fouc>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                        <input type="date" class="form-control font-weight-semibold text-blue-800 text-center" id="fecha_asignacion" title="Fecha de registro" placeholder="Fecha de registro">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-feedback text-right">
+                                        <button type="button" class="btn bg-blue-800 btn-sm " id="new_agregarusar" onclick="asignar_operacion()">Asignar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-transparent">
+                            <input type="hidden" id="cod_articulo_asignar" data-equipo="" value="">
+                            <button type="button" class="btn bg-grey-300 btn-sm" onclick="cierra_modal_asigna()">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal new invoice -->
             <!-- Footer -->
             <?php include "../bar_nav/footer_navbar.php"; ?>
             <!-- /footer -->

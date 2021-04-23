@@ -5,8 +5,9 @@
     
     if(!empty ($_POST['nuevo_grupo'])){
         $nuevo_grupo = $_POST['nuevo_grupo'];
+        $id_main = $_POST['id_main'];
         
-        $id_nuevo_grupo = $suministro->set_nuevo_grupo($nuevo_grupo);
+        $id_nuevo_grupo = $suministro->set_nuevo_grupo($nuevo_grupo,$id_main);
         
         if($id_nuevo_grupo >= 1){
             $data[] = array('result' => $id_nuevo_grupo, 'type' => 'exito');

@@ -7,7 +7,10 @@
     $data = array();
     
     foreach ($categorias as $valor) {
-        $data[] = array("id_grupo_activo"=>$valor['id_grupo_activo'], "grupo_nombre"=>$valor['grupo_nombre']);
+        $data[] = array("id_grupo_activo"=>$valor['id_grupo_activo'],
+                        "id_main"=>$valor['id_main'],
+                        "main_name"=>$valor['main_name'],
+                        "grupo_nombre"=>$valor['grupo_nombre']);
     }
     
     header('Content-Type: application/json');

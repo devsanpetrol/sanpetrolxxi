@@ -5,13 +5,14 @@
     
     if(!empty ($_POST['id_grupo'])){
         $id_grupo = $_POST['id_grupo'];
+        $id_main = $_POST['id_main'];
         $grupo = $_POST['grupo'];
         $tipo = $_POST['tipo'];
         
         if($tipo == "del"){
             $result = $suministro->grupos_eliminar_grupo($id_grupo);
         }else if($tipo == "upd"){
-            $result = $suministro->grupos_modificar_grupo($id_grupo, $grupo);
+            $result = $suministro->grupos_modificar_grupo($id_grupo, $grupo, $id_main);
         }
         if($result >= 1){
             $data[] = array('result' => $result, 'type' => 'exito');

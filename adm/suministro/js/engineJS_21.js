@@ -1,6 +1,8 @@
 $(document).ready( function () {
     var user_session_id = $('#user_session_id').data("employeid");
-    
+    $(".icon-square-down-right").click( function () {
+        $(this).removeClass("text-primary-800").addClass("text-pink-800");
+    } );
     $(".inicio_nuevo_asignacion_control").addClass("active");
     $(".inicio_nuevo_asignacion_control i").addClass("text-orange-800");
     $("#card_addAsignacion").hide();
@@ -58,8 +60,8 @@ $(document).ready( function () {
     });
     $('#articulo_tabla_aplica').DataTable({
         bDestroy: true,
-        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
-        lengthMenu: [[5, 10], [5, 10]],//-1 = all
+        dom: '<"datatable-header"fp><"datatable-scroll"t><"datatable-footer"il>',
+        lengthMenu: [[10, 15], [10, 15]],//-1 = all
         ajax: {
             url: "json_activo_aplica.php",
             type:"post",
@@ -74,9 +76,7 @@ $(document).ready( function () {
             {data : 'especificacion'},
             {data : 'accion'}
         ],
-        rowGroup: {
-            //dataSrc: 'grupo'
-        },
+        
         columnDefs: [
             //{targets:0, visible:false}
         ],
@@ -103,17 +103,36 @@ $(document).ready( function () {
     $('#tabla_pedidos').DataTable({
         paging: false,
         searching: false,
-        ordering: false,
+        ordering: true,
         bDestroy: true,
+        order: [[ 1, 'desc' ]],
+        select: {
+            style: 'multi'
+        },
         createdRow: function ( row, data, index ) {
-            $('td', row).eq(0).addClass('font-weight-semibold text-blue-800');
-            $('td', row).eq(1).addClass('font-weight-semibold text-blue-800');
+            $('td', row).eq(0).addClass('font-weight-semibold');
+            $('td', row).eq(1).addClass('font-weight-semibold');
             $('td', row).eq(2).addClass('font-weight-semibold');
         },
         language: {
             zeroRecords: "Ningun elemento agregado"
         }
     });
+    //$('#tabla_pedidos').on( 'draw.dt', function () {
+        //$('#tabla_pedidos').column(0, {draw:'applied'}).nodes().each( function (cell, i) {
+            //cell.innerHTML = i+1;
+        //} );
+    //} ).draw();
+    $('#btn_del_row_sel').click( function () {
+        var table = $('#tabla_pedidos').DataTable();
+        if(confirm("Se eliminara los elementos seleccionados.")){
+            table.rows('.selected').remove().draw( false );
+            table.column(0).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+        table.draw( false );
+        }
+    } );
 } );
 
 function get_articulo(e){
@@ -124,6 +143,8 @@ function get_articulo(e){
         $("#i_codigoinventario").val(i_codigoinventario);
         $("#i_descripcion").val(i_descripcion);//
         $("#i_noserie").val(i_noserie);
+    $(obj).removeClass("text-primary-800").addClass("text-pink-800");
+    $("#busca_articulo").modal("hide");
 }
 function buscar_empleado(){
      var nombre = $("#search_personal").val();
@@ -196,23 +217,37 @@ function get_empleado(e){
     $("#puesto").val(i_puesto);
 }
 function cerrarNewAsignacion(){
+    $("i.icon-square-down-right").addClass("text-primary-800").removeClass("text-pink-800");
     $("#card_addAsignacion").toggle("fast");
 }
 function addElementToTable(){
-    if($('#i_noserie').val() != "" && $('#i_codigoinventario').val() != "" && $('#i_descripcion').val() != ""){
+    if($('#i_codigoinventario').val() != "" && $('#i_descripcion').val() != ""){
         var sn = $('#i_noserie').val();
         var cod_inv = $('#i_codigoinventario').val();
         var desc = $('#i_descripcion').val();
         var fecha = $('#fecha_actual').val();
         var t = $('#tabla_pedidos').DataTable();
         
-        t.row.add( [
+        if (lastInsertNoDup(cod_inv)){
+            t.row.add( [
+            "",
             sn, //0
             cod_inv,//1
             fecha,
             desc
         ] ).draw( false );
-        $(".input-newarticle").val("");
+        $(".new-material-as").val("");
+        t.column(0).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+        t.draw( false );
+        }else{
+            alert("("+ cod_inv + ") " + desc + " ya está agregado a la lista.");
+            $(". new-material-as").val("");
+            $("#busca_articulo" ).modal("show");
+        }
+        
+        
     }    
 }
 function recorreDataTable(){
@@ -240,6 +275,30 @@ function recorreDataTable(){
                 console.log(total + " Procesando");
             }
         });
+}
+function lastInsertNoDup(cod_articulo){
+    var table = $('#tabla_pedidos').DataTable();
+    var cont = table.rows().count();
+    var arr = [];
+    var cell;
+    var itsOk = true;
+    
+    if(cont>0){
+        table
+            .column( 0 )
+            .data()
+            .each( function ( value, index ) {
+                arr.push(table.rows( index ).data().toArray());
+                cell = arr[index][0]; // cod.Art cell[1]
+
+                console.log("NewVal: "+cod_articulo+"; CheckVal:" + cell[1] );
+                if (cod_articulo == cell[1]){
+                    itsOk = false;
+                    return false;
+                }
+            });
+    }
+    return itsOk;
 }
 function finishDocument(){
     console.log("Finalizó la nueva asignación.");
