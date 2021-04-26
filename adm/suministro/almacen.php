@@ -48,7 +48,7 @@
     <!-- Theme JS files -->
     <script src="../../global_assets/js/plugins/buttons/spin.min.js"></script>
     <script src="../../global_assets/js/plugins/buttons/ladda.min.js"></script>
-    <script src="js/engineJS_7.4.js"></script>
+    <script src="js/engineJS_7.4.1.js"></script>
     <script src="js/ini_menu_almacen.js"></script>
 
     <script src="../../global_assets/js/plugins/extensions/rowlink.js"></script>
@@ -129,7 +129,9 @@
                                         <thead>
                                             <tr>
                                                 <th>Codigo</th>
+                                                <th>Categoría</th>
                                                 <th>Articulo</th>
+                                                <th>Marca</th>
                                                 <th>Stock</th>
                                                 <th>unidad</th>
                                                 <th>Min</th>

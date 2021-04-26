@@ -11,7 +11,28 @@ $(document).ready( function () {
         dom: 'Blfrtip',
         pageLength : 30,
         lengthMenu: [[30, 40, 50], [30, 40, 50]],
-        buttons:['excelHtml5'],
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5]
+                },
+                pageSize: 'LETTER',
+                orientation: 'landscape',
+                customize: function (doc) {
+                    doc.content[1].table.widths = ['10%','20%','45%','15%','5%','5%'];
+                    doc.pageMargins = [5,5,5,5];
+                    doc.defaultStyle.fontSize = 8;
+                    doc.styles.tableHeader.fontSize = 8;
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                }
+            }
+        ],
         ajax: {
             url: "json_selectAlmacen.php",
             dataSrc:function ( json ) {
@@ -20,18 +41,26 @@ $(document).ready( function () {
         },
         columns: [
             {data : 'cod_articulo'},
+            {data : 'nombre_categoria'},
             {data : 'descripcion'},
+            {data : 'marca'},
             {data : 'stock'},
             {data : 'tipo_unidad'},
             {data : 'stock_min'},
             {data : 'stock_max'},
             {data : 'accion'}
         ],
-        rowGroup: {
-            dataSrc: 'nombre_categoria'
-        },
+        
         columnDefs: [
-            {targets: 6, className:'text-center text-primary-800'}
+            {targets:0,className: 'font-size-xs font-weight-semibold text-center text-primary-800'},
+            {targets:1,className: 'font-size-xs font-weight-semibold'},
+            {targets:2,className: 'font-size-xs font-weight-semibold'},
+            {targets:3,className: 'font-size-xs'},
+            {targets:4,className: 'font-size-xs font-weight-semibold text-center'},
+            {targets:5,className: 'font-size-xs text-center'},
+            {targets:6,className: 'font-size-xs font-weight-semibold text-center',visible: false, searchable: false},
+            {targets:7,className: 'font-size-xs font-weight-semibold text-center',visible: false, searchable: false},
+            {targets:8,className: 'font-weight-semibold text-center text-primary-800'}
         ],
         language: {
             search: '<span>Filtro:</span> _INPUT_',

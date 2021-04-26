@@ -7,13 +7,14 @@
     
     foreach ($categorias as $valor) {
         $data[] = array("cod_articulo" => $valor['cod_articulo'],
-                        "descripcion" => articulo_marca($valor['descripcion'],$valor['marca']),
-                        "tipo_unidad" => $valor['tipo_unidad'],
-                        "stock" => cantidad_unidad($valor['stock'],$valor['tipo_unidad']),
-                        "stock_min" => stock_min_max($valor['stock_min']),
-                        "stock_max" => stock_min_max($valor['stock_max']),
                         "marca" => $valor['marca'],
-                        "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
+                        "descripcion" => $valor['descripcion'],
+                        "tipo_unidad" => $valor['tipo_unidad'],
+                        "stock" => $valor['stock'],
+                        "stock_min" => $valor['stock_min'],
+                        "stock_max" => $valor['stock_max'],
+                        "marca" => $valor['marca'],
+                        "nombre_categoria" => $valor['nombre_categoria'],
                         "accion" => accion($valor['cod_articulo'],$valor['tipo_unidad'],$valor['descripcion'])
                         );
         
