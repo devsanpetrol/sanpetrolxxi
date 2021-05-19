@@ -982,6 +982,12 @@ class suministro extends conect
         $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado[0]["nombres"];
     }
+    public function get_idAsignacion($cod_articulo){
+        $sql = $this->_db->prepare("SELECT * FROM adm_view_asignacion_detail WHERE cod_articulo = '$cod_articulo' AND status = 1 AND tipo_asignacion = 1 LIMIT 1");
+        $sql->execute();
+        $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
     public function set_new_trazabilidad($fecha_movimiento,$motivo,$responsable,$ubicacion,$condicion,$cod_articulo){
         $almacen = $this->_db->prepare("INSERT INTO adm_trazabilidad(fecha_registro,fecha_movimiento,motivo,responsable,ubicacion,condicion,cod_articulo) VALUES (NOW(),'$fecha_movimiento','$motivo','$responsable','$ubicacion','$condicion','$cod_articulo')");
         $resultado = $almacen->execute();
@@ -1040,7 +1046,7 @@ class suministro extends conect
     public function upd_asignacion($cod_articulo,$id_asignacion,$id_empleado,$fecha,$responsable,$comentario){
         $sql1 = $this->_db->prepare("UPDATE adm_asignacion SET fecha_entrega = '$fecha', comentario = '$comentario', status = 0 WHERE id_asignacion = $id_asignacion");
         $sql2 = $this->_db->prepare("UPDATE adm_activo SET asignado = 0, disponible = 1 WHERE cod_articulo = '$cod_articulo'");
-        $sql3 = $this->_db->prepare("INSERT INTO adm_trazabilidad (cod_articulo,fecha_registro,fecha_movimiento,motivo,responsable,ubicacion,condicion) VALUES ('$cod_articulo',NOW(),'$fecha','Devolución de Material/Equipo de trabajo','$responsable','Base Sanpetrol Villahermosa','Devolución')");
+        $sql3 = $this->_db->prepare("INSERT INTO adm_trazabilidad (cod_articulo,fecha_registro,fecha_movimiento,motivo,responsable,ubicacion,condicion) VALUES ('$cod_articulo',NOW(),'$fecha','Devolución de Material/Equipo de trabajo','$responsable','Base Sanpetrol Villahermosa','Devolución de Material/Equipo')");
         
         $result = false;
         
