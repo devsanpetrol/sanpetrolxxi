@@ -8,6 +8,7 @@
     
     foreach ($categorias as $valor) {
         $data[] = array("cod_articulo" => $valor['cod_articulo'],
+                        "none" => '',
                         "no_inventario" => $valor['no_inventario'],
                         "no_serie" => $valor['no_serie'],
                         "descripcion" => $valor['descripcion'],
@@ -17,7 +18,7 @@
                         "operable" => status_disponible("checkmark-circle","cancel-circle2",$valor['operable'],"success","danger"),
                         "marca" => $valor['marca'],
                         "grupo" => grupo($valor['id_grupo_activo'],$valor['grupo_nombre']),
-                        "nombre_categoria" => nombre_categoria($valor['nombre_categoria']),
+                        "nombre_categoria" => $valor['nombre_categoria'],
                         "accion" => accion($valor['cod_articulo'],$valor['no_inventario'],$valor['id_factura'],$valor['id_grupo_activo'],$valor['disponible'],$valor['descripcion'])
                         );
         
@@ -49,24 +50,16 @@
                     <a href='#' class='list-icons-item' data-toggle='dropdown'>
                         <i class='icon-menu7'></i>
                     </a>
-                    <div class='dropdown-menu dropdown-menu-right bg-slate-600'>
+                    <div class='dropdown-menu dropdown-menu-right bg-teal'>
                         $prop
                         $inve
                         $fact
                         $grup
                         $disp
-                        <a class='dropdown-item' id='Y$cod_articulo' data-codarticulo='$cod_articulo' onclick='openTrazabilidad(event)'><i class='icon-search4'></i> Trazabilidad</a>
+                        <a class='dropdown-item' id='Y$cod_articulo' data-codarticulo='$cod_articulo' onclick='openTrazabilidad(event)'><i class='icon-versions'></i> Trazabilidad</a>
                     </div>
                 </div>
             </div>";
-    }
-    function costo($costo){
-        if(!empty($costo)){
-            $moneda = number_format($costo, 2, ',', ' ');
-            return "<h6 class='font-weight-semibold text-primary-800 mb-0'>$ $moneda</h6>";
-        }else{
-            return "";
-        }
     }
     function grupo($id_grupo,$grupo){
         if($id_grupo > 1){

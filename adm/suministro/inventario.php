@@ -92,78 +92,65 @@
         <!-- Main content -->
         <div class="content-wrapper">
             <!-- Page header -->
+            <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+                <div class="d-flex">
+                    <div class="breadcrumb-elements-item dropdown p-0 text-slate-600">
+                        <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-folder2 mr-2"></i>
+                            Inicio
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left bg-teal">
+                            <a href="#" class="dropdown-item" onclick="abre_grupo()"><i class="icon-folder-plus"></i>Nuevo grupo</a>
+                            
+                            <!--SUB MENU-->
+                        </div>
+                    </div>
+                    <div class="breadcrumb-elements-item dropdown p-0 text-slate-600">
+                        <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-filter3 mr-2"></i>
+                            Filtrar
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left bg-teal">
+                            <a href="#" class="dropdown-item" onclick="load_main()"><i class="icon-archive"></i>TODO</a>
+                            <a href="#" class="dropdown-item" onclick="load_main_baja()"><i class="icon-arrow-down52"></i>BAJAS</a>
+                            <a href="#" class="dropdown-item" onclick="load_main_disponible()"><i class="icon-clipboard2"></i>DISPONIBLES</a>
+                            <div class="dropdown-divider" id="main_menu"></div>
+                            <div class="dropdown-divider" id="categoria_activo"></div>
+                            
+                        </div>
+                    </div>
+                    <div class="breadcrumb-elements-item dropdown p-0 text-slate-600">
+                        <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-checkbox-checked2 mr-2"></i>
+                            Seleccción
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left bg-teal">
+                            <a href="#" class="dropdown-item" onclick="menu_mover_activo()"><i class="icon-folder-upload2"></i> Mover a...</a>
+                            <a href="#" class="dropdown-item" onclick="menu_traza_activo()"><i class="icon-versions"></i>Registrar Trazabilidad</a>
+                            <a href="#" class="dropdown-item" onclick="menu_baja_activo()"><i class="icon-blocked"></i>Registrar Baja</a>
+                            <a href="#" class="dropdown-item" onclick="menu_asigna_activo()"><i class="icon-user-check"></i>Asignar Material/Equipo...</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" onclick="selec_selecion_filter()"><i class="icon-filter4"></i>Seleccionar Resultado de Busqueda</a>
+                            <a href="#" class="dropdown-item" onclick="selec_deselecion_todo()"><i class="icon-checkbox-unchecked2"></i>Deseleccionar Todo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-elements d-none">
+                    <div class="breadcrumb justify-content-center">
+                        <div class="breadcrumb">
+                        <a href="#" class="breadcrumb-item font-weight-semibold"><i class="icon-home2 mr-2"></i> Control de Inventario Base Sanpetrol</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
             <!-- Content area -->
-            <div class="content">
+            <div class="content pl-1 pr-1 pt-1">
                 <div class="d-md-flex align-items-md-start">
                     <!-- Left sidebar component -->
-                    <div class="sidebar sidebar-light sidebar-component bg-transparent border-0 shadow-0 sidebar-expand-md">
+                    <div class="sidebar sidebar-light sidebar-component bg-transparent border-0 shadow-0 sidebar-expand-md d-none">
                         <!-- Sidebar content -->
-                        <div class="sidebar-content">
-                            <!-- Actions -->
-                            <div class="card">
-                                <div class="card-header bg-transparent header-elements-inline">
-                                    <span class="text-uppercase font-size-sm font-weight-semibold"><i class="icon-filter3 mr-2"></i>Filtro</span>
-                                    <div class="header-elements">
-                                        <div class="list-icons">
-                                            <a class="list-icons-item" data-action="collapse"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body pb-0">
-                                    <ul class="list-inline list-inline-condensed text-center mb-0">
-                                        <li class="list-inline-item">
-                                            <a class="btn bg-success btn-icon btn-lg rounded-round mb-3" onclick="load_main()" style="cursor: pointer;" title="Ver todos">
-                                                <i class="icon-archive"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="btn bg-danger btn-icon btn-lg rounded-round mb-3" onclick="load_main_baja()" style="cursor: pointer;" title="Equipos dados de baja">
-                                                <i class="icon-arrow-down52"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="btn bg-primary btn-icon btn-lg rounded-round mb-3" onclick="load_main_disponible()" style="cursor: pointer;" title="Equipos disponibles">
-                                                <i class="icon-clipboard2"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- /actions -->
-                            <!-- Sub navigation -->
+                        <div class="sidebar-content" id="sidebar_content_x">
                             
-                            <!-- /sub navigation -->
-                            <!-- Share -->
-                            <div class="card" id="card_filtro">
-                                <div class="card-header bg-transparent header-elements-inline">
-                                    <span class="text-uppercase font-size-sm font-weight-semibold"><i class="icon-hammer-wrench mr-2"></i>Operaciones</span>
-                                    <div class="header-elements">
-                                        <div class="list-icons">
-                                            <a class="list-icons-item" data-action="collapse"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body pb-0">
-                                    <ul class="list-inline list-inline-condensed text-center mb-0">
-                                        <li class="list-inline-item d-none">
-                                            <a class="btn bg-indigo btn-icon btn-lg rounded-round mb-3" onclick="abre_traza_multi()" style="cursor: pointer;" title="Registrar trazabilidad">
-                                                <i class="icon-flag7"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item d-none">
-                                            <a class="btn bg-dark btn-icon btn-lg rounded-round mb-3" onclick="" style="cursor: pointer;" title="Crear nueva sección">
-                                                <i class="icon-menu3"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="btn bg-orange-300 btn-icon btn-lg rounded-round mb-3" onclick="abre_grupo()" style="cursor: pointer;" title="Nuevo grupo">
-                                                <i class="icon-folder-plus"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- /share -->
                         </div>
                         <!-- /sidebar content -->
                     </div>
@@ -174,18 +161,21 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table datatable-basic text-nowrap" id="almacen_tabla" style="width:100%">
+                                        <table class="table table-xs table-responsive table-border-dashed tabla-reslta-row-hover" id="almacen_tabla" style="width:100%;" summary="Descripción de la tabla y su contenido">
+                                            <col>
                                             <col width="10%">
                                             <col width="10%">
-                                            <col width="39%">
+                                            <col width="44%">
                                             <col width="10%">
                                             <col width="3%">
                                             <col width="3%">
                                             <col width="3%">
-                                            <col width="20%">
+                                            <col width="15%">
                                             <col width="2%">
                                             <thead>
                                                 <tr>
+                                                    <th></th>
+                                                    <th></th>
                                                     <th>No. Inventario</th>
                                                     <th>No. Serie</th>
                                                     <th>Articulo</th>
@@ -833,6 +823,7 @@
                     </div>
                 </div>
             </div>
+            
             <input type="hidden" id="filtro">
             <!-- Modal new invoice -->
             <div id="modal_modificar_grupo" class="modal fade">
@@ -857,98 +848,6 @@
                             <button type="button" class="btn bg-grey-300 btn-sm" onclick="modal_grupo_edita_cierra()">Cancelar</button>
                             <button type="button" class="btn bg-danger btn-sm" onclick="guardar_elimina_grupo()">Eliminar</button>
                             <button type="button" class="btn bg-blue-800 btn-sm " id="new_agregarusar" onclick="guardar_cambio_grupo()">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal with invoice -->
-            <div id="modal_trazabilidad_multi" class="modal fade" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="card-body" id="cardnewtraza_multi">
-                            <form action="#" id="formnewtraza_multi">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <fieldset>
-                                        <legend class="font-weight-semibold text-danger-800"><i class="icon-pencil5 mr-2"></i> Registrar trazabilidad o movimientos de equipos</legend>
-                                        <input id="mov_codarticulo_multi" value="" type="hidden">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_responsable_multi" title="Nombre del responsable" placeholder="Nombre del responsable">
-                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                        <i class="icon-user"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="date" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_fecha_movimiento_multi" title="Fecha de registro" placeholder="Fecha de registro">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_motivo_multi" placeholder="Motivo o justificación">
-                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                        <i class="icon-question4"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_ubicacion_multi" placeholder="Lugar de destino" onkeyup="mayus(this);">
-                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                        <i class="icon-location4"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                                    <input type="text" class="form-control form-control-sm font-weight-semibold text-blue-800" id="mov_condicion_multi" placeholder="Estado/condición actual del equipo">
-                                                    <div class="form-control-feedback form-control-feedback-sm">
-                                                        <i class="icon-file-check"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 text-right">
-                                                
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            </form>
-                            <div class="table-responsive">
-                                <table class="table datatable-basic text-nowrap" id="movimiento_tabla_aplica_multi" style="width:100%">
-                                    <col width="10%">
-                                    <col width="10%">
-                                    <col width="35%">
-                                    <col width="25%">
-                                    <col width="20%">
-                                    <thead>
-                                        <tr>
-                                            <th>Codigo</th>
-                                            <th>N° Inventario/Serie</th>
-                                            <th>Equipo</th>
-                                            <th>Modelo</th>
-                                            <th>Marca</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
-                            <div class="text-muted"></div>
-                            <span>
-                                <button type="button" class="btn btn-sm legitRipple text-danger" onclick="cierra_traza_multi()" title="Cerrar"><i class="icon-cross2"></i></button>
-                                <button type="button" class="btn btn-sm legitRipple btn-primary" onclick="" title="Guardar">Guardar</button>
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -1007,7 +906,176 @@
                     </div>
                 </div>
             </div>
+            <div id="modal_mover_activo" class="modal fade modalmultiple-select">
+                <div class="modal-dialog  modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Mover elementos a...</h5>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group form-group-feedback form-group-feedback-left">
+                                        <label class="text-slate">Elija el grupo donde deséa mover los elementos seleccionados:</label>
+                                        <select data-placeholder="Asignar ó Mover a Grupo..." class="form-control form-control-sm form-control-select2 border-danger text-right" name='grupo_activo_multiple' id="grupo_activo_multiple" data-fouc>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-feedback form-group-feedback-right text-right">
+                                        <label class="font-weight-semibold">&nbsp;</label>
+                                        </br>
+                                        <button type="button" class="btn bg-blue-800 btn-sm " onclick="select_function_exe(event,'mover')" id="btn_mover_grupo">Mover</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"><div class="col-md-12"><pre id="console_log_area_mover" style="width: 100%;vertical-align: top;text-align: left;" class="border-warning-300"></pre></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Modal new invoice -->
+            <div id="modal_baja_activo" class="modal fade modalmultiple-select">
+                <div class="modal-dialog  modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Los elementos seleccionados seran dados de baja</h5>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label class="text-slate">Responsables quien realiza y Autoriza:</label>
+                                        <input type="text" class="form-control form-control-sm" id="input_responsable_baja" placeholder="Escriba los nombres aquí...">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="text-slate">Fecha:</label>
+                                        <input type="date" class="form-control form-control-sm font-weight-semibold text-indigo-700 text-center mr-3" id="input_fecha_baja" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-feedback form-group-feedback-right text-right">
+                                        <label class="font-weight-semibold">&nbsp;</label>
+                                        </br>
+                                        <button type="button" class="btn bg-danger btn-sm " onclick="select_function_exe(event,'baja')" id="btn_baja_activo">Baja</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label class="text-slate">Describa el motivo o la justificación:</label>
+                                        <textarea rows="1" cols="5" class="form-control form-control-sm" id="comentario_baja" placeholder="Escriba aquí..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row"><div class="col-md-12"><pre id="console_baja_activo" style="width: 100%;vertical-align: top;text-align: left;" class="border-warning-300"></pre></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal new invoice -->
+            <div id="modal_traza_activo" class="modal fade modalmultiple-select">
+                <div class="modal-dialog  modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Registrar información de trazabilidad de los elementos seleccioneados</h5>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label class="text-slate">Responsables quien realiza y Autoriza:</label>
+                                        <input type="text" class="form-control form-control-sm" id="input_responsable_traza">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="text-slate">Fecha:</label>
+                                        <input type="date" class="form-control form-control-sm font-weight-semibold text-indigo-700 text-center mr-3" id="input_fecha_traza" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-feedback form-group-feedback-right text-right">
+                                        <label class="font-weight-semibold">&nbsp;</label>
+                                        </br>
+                                        <button type="button" class="btn bg-primary btn-sm " onclick="select_function_exe(event,'traza')" id="btn_traza_activo">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="text-slate">Lugar de destino:</label>
+                                        <input type="text" class="form-control form-control-sm" id="input_lugar_traza" >
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="text-slate">Estado o condición actual de los equipos:</label>
+                                        <input type="text" class="form-control form-control-sm" id="input_condicion_traza">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label class="text-slate">Describa el motivo o la justificación del movimiento:</label>
+                                        <input type="text" class="form-control form-control-sm" id="input_motivo_traza" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"><div class="col-md-12"><pre id="console_traza_activo" style="width: 100%;vertical-align: top;text-align: left;" class="border-warning-300"></pre></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal new invoice -->
+            <input type="hidden" id="is_save" value="0">
+            <div id="modal_asigna_activo" class="modal fade modalmultiple-select">
+                <div class="modal-dialog  modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Asignacion de Material y Herramientas de Trabajo</h5>
+                            <div class="header-elements">
+                                <div class="list-icons">
+                                    <a class="list-icons-item" data-dismiss="modal" title="Cerrar"><i class="icon-cross2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label class="text-slate">Seleccione el personal responsable:</label>
+                                        <select data-placeholder="Empleado..." class="form-control form-control-select2 text-right empleados" name='input_responsable_asigna' id="input_responsable_asigna" data-fouc></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="text-slate">Fecha:</label>
+                                        <input type="date" class="form-control form-control-sm font-weight-semibold text-indigo-700 text-center mr-3" id="input_fecha_asigna" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-feedback form-group-feedback-right text-right">
+                                        <label class="font-weight-semibold">&nbsp;</label>
+                                        </br>
+                                        <button type="button" class="btn bg-primary btn-sm " onclick="select_function_exe(event,'asigna')" id="btn_asigna_activo">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"><div class="col-md-12"><pre id="console_asigna_activo" style="width: 100%;vertical-align: top;text-align: left;" class="border-warning-300"></pre></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Footer -->
             <?php include "../bar_nav/footer_navbar.php"; ?>
             <!-- /footer -->

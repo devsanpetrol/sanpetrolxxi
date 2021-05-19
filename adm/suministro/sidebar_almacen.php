@@ -16,7 +16,7 @@
                     <a href="almacen.php" class="nav-link almacen"><i class="icon-home"></i> Almacen </a>
                 </li>
                 <li class="nav-item">
-                    <a href="inventario.php" class="nav-link inventario"><i class="icon-books"></i> Activo Fijo </a>
+                    <a href="inventario.php" class="nav-link inventario"><i class="icon-books"></i> Activos</a>
                 </li>
                 <li class="nav-item">
                     <a href="proveedores.php" class="nav-link lnkproveedores"><i class="icon-truck"></i> Proveedores </a>

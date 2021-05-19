@@ -8,9 +8,10 @@ $(document).ready( function () {
     $(".almacen i").addClass("text-orange-800");
     $('#almacen_tabla').DataTable({
         bDestroy: true,
-        dom: 'Blfrtip',
-        pageLength : 30,
-        lengthMenu: [[30, 40, 50], [30, 40, 50]],
+        dom: 'Bpfrti',
+        ordering: false,
+        pageLength : 20,
+        lengthMenu: [[20, 40, 50], [20, 40, 50]],
         buttons: [
             {
                 extend: 'pdfHtml5',
@@ -31,7 +32,7 @@ $(document).ready( function () {
                 exportOptions: {
                     columns: [ 0, 1, 2, 3, 4, 5 ]
                 }
-            }
+            }            
         ],
         ajax: {
             url: "json_selectAlmacen.php",
@@ -46,25 +47,28 @@ $(document).ready( function () {
             {data : 'marca'},
             {data : 'stock'},
             {data : 'tipo_unidad'},
-            {data : 'stock_min'},
-            {data : 'stock_max'},
             {data : 'accion'}
         ],
         
         columnDefs: [
-            {targets:0,className: 'font-size-xs font-weight-semibold text-center text-primary-800'},
-            {targets:1,className: 'font-size-xs font-weight-semibold'},
-            {targets:2,className: 'font-size-xs font-weight-semibold'},
+            {targets:0,className: 'font-size-xs text-primary-800'},
+            {targets:1,className: 'font-size-xs'},
+            {targets:2,className: 'font-size-xs'},
             {targets:3,className: 'font-size-xs'},
-            {targets:4,className: 'font-size-xs font-weight-semibold text-center'},
+            {targets:4,className: 'font-size-xs text-center'},
             {targets:5,className: 'font-size-xs text-center'},
-            {targets:6,className: 'font-size-xs font-weight-semibold text-center',visible: false, searchable: false},
-            {targets:7,className: 'font-size-xs font-weight-semibold text-center',visible: false, searchable: false},
-            {targets:8,className: 'font-weight-semibold text-center text-primary-800'}
+            {targets:6,className: 'text-center text-primary-800'},
+            {
+                targets: '_all',
+                createdCell: function (td, cellData, rowData, row, col) {
+                    $(td).css({'padding-right':'10px','padding-left':'10px','padding-bottom':'4px','padding-top':'4px'});
+                }
+            }
         ],
         language: {
-            search: '<span>Filtro:</span> _INPUT_',
+            search: '<span></span> _INPUT_',
             searchPlaceholder: 'Busqueda...',
+            lengthMenu: "_MENU_",
             info: "Mostrando _START_ hasta _END_ de _TOTAL_ registros"
         }
     });

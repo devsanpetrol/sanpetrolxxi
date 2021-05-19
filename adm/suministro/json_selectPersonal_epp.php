@@ -13,11 +13,13 @@
     foreach ($categorias as $valor) {
         $data[] = array("nombre" => text_nombre($valor['nombre']." ".$valor['apellidos'],$valor['status']),
                         "apellidos" => text_nombre($valor['apellidos'],$valor['status']),
-                        "cargo" => cargo_email($valor['cargo'],$valor['email']),
+                        "cargo" => $valor['cargo'],
+                        "id_empleado" => $valor['id_empleado'],
+                        "nombre_simple" => $valor['nombre']." ".$valor['apellidos'],
                         "departamento" => cargo_email($valor['departamento'],$valor['especialista']),
                         "ambito" => departamento($valor['ambito']),
                         "status" => status($valor['status'],$valor['fecha_baja']),
-                        "accion" => accion($valor['id_empleado'],$valor['status'],$valor['nombre']." ".$valor['apellidos'])
+                        "accion" => "<i class='icon-vcard'></i>"
                         );
         
     }
@@ -33,9 +35,13 @@
     }
     function text_nombre($text,$status){
         if($status == 1){
-            return "<h6 class='mb-0 font-size-sm font-weight-bold'>$text</h6>";
+            return "<div>
+                    <a class='letter-icon-title'>$text</a>
+                </div>";
         }else{
-            return "<h6 class='mb-0 font-size-sm font-weight-bold text-danger'>$text</h6>";
+            return "<div>
+                    <a class='text-danger letter-icon-title'>$text</a>
+                </div>";
         }
         
     }
@@ -61,9 +67,6 @@
         }else{
             return "<span class='badge d-block badge-danger' title='Fecha de baja: $fecha_baja'>Baja</span>";
         }
-    }
-    function accion($id_empleado,$status,$nombre){
-        return "<i class='icon-books' id='Y$id_empleado' data-idempleado='$id_empleado' data-nombre='$nombre' onclick='buscar_historico(event)' style='cursor: pointer'></i>";
     }
     function costo($costo){
         if(!empty($costo)){

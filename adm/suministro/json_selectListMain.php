@@ -8,6 +8,7 @@
     foreach ($grupos as $valor) {
         $data[] = array("index_order" => $valor["index_order"],
                         "main" => css_main($valor['main_name'],$valor['id_main']),
+                        "main_menu" => css_main_menu($valor['main_name'],$valor['id_main']),
                         "id_main" => $valor['id_main'],
                         "main_name" => $valor['main_name']
                         );
@@ -26,6 +27,14 @@
                     <div class='card-body p-0 card-id$id_main'>
                         <ul class='nav nav-sidebar misgrupos main-$id_main' data-nav-type='accordion'>
                         </ul>
+                    </div>
+                </div>";
+    }
+    function css_main_menu($main_name,$id_main){
+        return "<div class='dropdown-submenu'>
+                    <a href='#' class='dropdown-item'><i class='icon-folder2'></i>$main_name</a>
+                    <div class='dropdown-menu bg-teal main_sub_$id_main'>
+                        
                     </div>
                 </div>";
     }

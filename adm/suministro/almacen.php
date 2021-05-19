@@ -95,37 +95,41 @@
 		<!-- Main content -->
 		<div class="content-wrapper">
                     <!-- Page header -->
-                    <div class="page-header page-header-light">
-                        <div class="page-header-content header-elements-md-inline">
-                            <div class="page-title d-flex">
-                                <h4><i class="icon-drawer3 mr-2"></i><span class="font-weight-semibold">Almacén</span></h4>
-                                <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+                    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+                        <div class="d-flex">
+                            
+                            <div class="breadcrumb-elements-item dropdown p-0 text-slate-600">
+                                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-more2 mr-2"></i>
+                                    Menú
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="#" class="dropdown-item" onclick="article_new()"><i class="icon-user-lock"></i> Nuevo Articulo</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-elements d-none">
+                            <div class="breadcrumb justify-content-center">
+                                <div class="breadcrumb">
+                                <a href="#" class="breadcrumb-item font-weight-semibold"><i class="icon-home2 mr-2"></i> Almacén</a>
+                            </div>
                             </div>
                         </div>
                     </div>
                     <!-- Content area -->
                     <div class="content">
-                        <!-- Bottom right menu -->
-                        <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="click">
-                            <li>
-                                <a class="fab-menu-btn btn bg-success-400 btn-float rounded-round btn-icon">
-                                    <i class="fab-icon-open icon-paragraph-justify3"></i>
-                                    <i class="fab-icon-close icon-cross2"></i>
-                                </a>
-                                <ul class="fab-menu-inner">
-                                    <li>
-                                        <div data-fab-label="Nuevo Articulo o Material">
-                                            <button type="button" class="btn btn-outline bg-primary rounded-round btn-icon btn-sm btn-float" onclick="article_new()"><i class="icon-pencil"></i></button>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
                         <!-- /bottom right menu -->
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table datatable-basic text-nowrap" id="almacen_tabla" style="width:100%">
+                                    <table class="table table-xs table-responsive table-border-dashed tabla-reslta-row-hover" id="almacen_tabla" style="width:100%">
+                                        <col width="5%">
+                                        <col width="25%">
+                                        <col width="40%">
+                                        <col width="15%">
+                                        <col width="5%">
+                                        <col width="5%">
+                                        <col width="5%">
                                         <thead>
                                             <tr>
                                                 <th>Codigo</th>
@@ -134,8 +138,6 @@
                                                 <th>Marca</th>
                                                 <th>Stock</th>
                                                 <th>unidad</th>
-                                                <th>Min</th>
-                                                <th>Max</th>
                                                 <th></th>
                                             </tr>
                                         </thead>

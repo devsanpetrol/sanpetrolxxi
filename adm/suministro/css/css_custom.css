@@ -20,11 +20,12 @@
 .tabla-reslta-row-hover tbody tr:hover{
     background-color: #CADBFF;
     -webkit-transition: background 1s; /* For Safari 3.1 to 6.0 */
-    transition: background 0.5s;
+    transition: background 0.2s;
     cursor: pointer;
 }
-table.DataTable {
-  border-collapse: collapse;
-}
 
+tbody tr.selected {
+  color: white !important;
+  background-color: black !important;  /* Not working */
+}
 th.dt-center, td.dt-center { text-align: center; }

@@ -10,30 +10,33 @@
     $data = array();
     
     foreach ($categorias as $valor) {
-        $data[] = array("descripcion" => nombre($valor['descripcion'],$valor['no_serie']),
-                        "cod_articulo" => rfc($valor['cod_articulo']),
-                        "especificacion" => rfc($valor['especificacion_tec']),
+        $data[] = array("descripcion" => nombre($valor['descripcion'],$valor['no_inventario'],$valor['no_serie']),
+                        "cod_articulo" => $valor['cod_articulo'],
                         "accion" => accion2($valor['cod_articulo'],$valor['descripcion'],$valor['no_serie'],$valor['asignado'])
                         );
     }
     function accion2($nombre,$descripcion,$no_serie,$asignacion){
         if($asignacion == 0){
-            return "<i class='icon-square-down-right text-primary-800' style='cursor: pointer' title='Aplicar' data-nombre='$nombre' data-noserie='$no_serie' data-descripcion='$descripcion' onclick='get_articulo(event)'></i>";
+            return "<i class='icon-square-down-right text-primary-800' style='cursor: pointer' title='Aplicar' data-nombre='$nombre' data-noserie='$no_serie' data-descripcion='$descripcion' onclick='get_articulo(event)'></i>&nbsp;&nbsp;&nbsp;&nbsp;";
         }else{
-            return "<span class='badge badge-danger' title='Privado. (El material ya esta asignado a un empleado activo)' >P</span>";
+            return "<span class='badge badge-danger' title='Privado. (El material ya esta asignado a un empleado activo)' >P</span>&nbsp;&nbsp;&nbsp;&nbsp;";
         }
     }
-    function nombre($nombre,$ac){
+    function nombre($nombre,$ac,$ns){
         $act = trim($ac);
-        if(!empty($act)){
-            return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>$nombre</h6>
-                    <div class='text-grey-300 font-size-sm font-weight-semibold'>SN: <span class='text-danger-800 font-size-sm font-weight-semibold'>$act</span></div>";
-        }else{
-            return "<h6 class='mb-0 font-size-sm font-weight-bold text-primary-800'>$nombre</h6>";
+        $sn = trim($ns);
+        if(!empty($act) && !empty($sn)){
+            return "$nombre
+                    <div class='text-grey-300 font-size-sm font-weight-semibold'>$act&nbsp;&nbsp;&nbsp;SN: $sn</div>";
+        }else if(!empty($act)){
+            return "$nombre
+                    <div class='text-grey-300 font-size-sm font-weight-semibold'>$act</div>";
+        } else{
+            return $nombre;
         }
     }
     function rfc($rfc){
-        return "<h6 class='mb-0 font-size-sm font-weight-bold'>$rfc</h6>";
+        return "$rfc";
     }
     function costo($costo){
         if(!empty($costo)){

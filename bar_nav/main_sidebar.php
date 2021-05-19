@@ -43,7 +43,7 @@
                 <!-- Main -->
                 <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">ALMACÉN</div> <i class="icon-menu" title="Inicio"></i></li>
                 <li class="nav-item">
-                    <a href="adm/suministro/almacen.php" class="nav-link active">
+                    <a href="adm/suministro/almacen.php" class="nav-link">
                     <i class="icon-home4"></i>
                     <span>Principal</span>
                     </a>
@@ -53,7 +53,7 @@
                 <!-- Main -->
                 <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Inicio</div> <i class="icon-menu" title="Inicio"></i></li>
                 <li class="nav-item">
-                    <a href="index.php" class="nav-link active">
+                    <a href="index.php" class="nav-link">
                     <i class="icon-home4"></i>
                     <span>Inicio</span>
                     </a>

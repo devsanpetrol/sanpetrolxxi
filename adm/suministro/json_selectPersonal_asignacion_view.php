@@ -6,12 +6,14 @@
     
     if(!empty($_POST["id_empleado"])){
         $search = $_POST["id_empleado"];
-        $solicitud = $catalogo -> get_asignacion_("WHERE id_empleado = $search");
+        $solicitud = $catalogo -> get_asignacion_("WHERE id_empleado = $search AND tipo_asignacion = 1");
         
         foreach ($solicitud as $valor) {
-        $data[] = array("articulo" => articulo($valor['descripcion'],$valor['cod_articulo']),
+        $data[] = array("articulo" => articulo($valor['descripcion'],$valor['no_inventario']),
                         "fecha_recibe" => fecha($valor['fecha_recibe']),
+                        "fecha_devolucion" => fecha($valor['fecha_entrega']),
                         "status" => status_asig($valor['fecha_entrega'], $valor['status']),
+                        "grupo" => grupo($valor['status']),
                         "accion" => accion($valor['id_asignacion'], $valor['status'])
                         );
         }
@@ -52,20 +54,18 @@
         }
     }
     function articulo($articulo,$cod_articulo){
-        return "<div class='d-flex align-items-center'>
-                    <div>
-                        <a class='text-default font-weight-semibold letter-icon-title'>$articulo</a>
-                        <div class='text-muted font-size-sm'><span class='badge badge-mark border-blue mr-1'></span> $cod_articulo</div>
-                    </div>
+        return "<div>
+                    <a class='text-default letter-icon-title'>$articulo</a>
+                    <div class='text-muted font-size-sm'><span class='badge badge-mark border-danger mr-1'></span> $cod_articulo</div>
                 </div>";
     }
     function fecha($text){
-        $cadena = $text;
-        $timestamp = strtotime($cadena);
-        $fecha =  date('d F', $timestamp);
-        
-        //printf('%d años, %d meses, %d días', $fecha3->y, $fecha3->m, $fecha3->d);
-        return "<h6 class='mb-0 font-size-sm font-weight-semibold'>$fecha</h6>".antiguedad($text);
+        if(!empty($text)){
+            $fecha =  date('d/m/Y', strtotime($text));
+            return "<h6 class='mb-0 font-size-sm font-weight-semibold'>$fecha</h6>";
+        }else {
+            return "<h6 class='mb-0 font-size-sm font-weight-semibold text-muted'> - - / - - / - - </h6>";
+        }
     }
     function antiguedad($text){//return "<span>Ant.: $fecha3->y años, $fecha3->m meses, $fecha3->d días</span>";
         $fecha1 = new DateTime($text);
@@ -98,6 +98,13 @@
     }
     function text($text){
         return "<h6 class='mb-0 font-size-sm font-weight-semibold'>$text</h6>";
+    }
+    function grupo($status){
+        if($status == 1){
+            return "Actual";
+        }else{
+            return "Histórico";
+        }
     }
     function cantidad_unidad($cantidad,$unidad){
         return "<h6 class='mb-0'>$cantidad</h6>
