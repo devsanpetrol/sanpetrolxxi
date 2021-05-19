@@ -185,7 +185,7 @@
                                                 </div>
                                                 <div class="col-md-7">
                                                     <div class="form-group form-group-feedback form-group-feedback-left">
-                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="sitio" placeholder="Sitio de operación" onkeyup="mayus(this);">
+                                                        <input type="text" class="form-control font-weight-semibold text-blue-800 new-solicitud-form" id="sitio" placeholder="Sitio de operación" onkeyup="mayus(this);" value="Base Sanpetrol Vhsa.">
                                                         <div class="form-control-feedback form-control-feedback-sm">
                                                             <i class="icon-pin-alt"></i>
                                                         </div>
